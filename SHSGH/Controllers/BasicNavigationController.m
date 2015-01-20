@@ -15,7 +15,6 @@
     [super pushViewController:viewController animated:animated];
    
         viewController.navigationItem.leftBarButtonItem = [self costomLeftBackButton];
-
 }
 
 -(UIBarButtonItem *)costomLeftBackButton

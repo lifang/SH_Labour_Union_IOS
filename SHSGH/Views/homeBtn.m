@@ -31,9 +31,7 @@
     btnLabel.text = @"haha";
     [self addSubview:btnLabel];
     self.btnLabel = btnLabel;
-    
 }
-
 
 //-(void)initWithtarget:(id)target action:(SEL)action
 //{

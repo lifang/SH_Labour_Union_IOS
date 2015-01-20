@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>BD16BA9B-1403-45A5-9B1E-8563923C3419</string>
+=======
+	<string>34D01FFE-0587-44EE-95C7-17B7071E17FE</string>
+>>>>>>> c2eec9148a10cf093c61d7aeabaedc865e5f0d03
 	<key>IDESourceControlProjectName</key>
 	<string>SHSGH</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -34,7 +38,11 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>0FC4D3E2AA1C492C1FB29DE573836710822064E2</string>
 			<key>IDESourceControlWCCName</key>
+<<<<<<< HEAD
 			<string>SH_Labour_Union_IOS</string>
+=======
+			<string>SHSGH</string>
+>>>>>>> c2eec9148a10cf093c61d7aeabaedc865e5f0d03
 		</dict>
 	</array>
 </dict>
