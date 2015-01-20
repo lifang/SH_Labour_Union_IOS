@@ -10,6 +10,7 @@
 		0EC4AB361A6DFAB100886040 /* JobSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB351A6DFAB100886040 /* JobSearchViewController.m */; };
 		0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */; };
 		0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */; };
+		9310CD2D1A6E4B9100211907 /* dynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310CD2C1A6E4B9100211907 /* dynamicViewController.m */; };
 		93C6F0231A6CE747002C8E4A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0221A6CE747002C8E4A /* main.m */; };
 		93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0251A6CE747002C8E4A /* AppDelegate.m */; };
 		93C6F02E1A6CE747002C8E4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93C6F02D1A6CE747002C8E4A /* Images.xcassets */; };
@@ -68,6 +69,8 @@
 		0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRestulViewController.m; sourceTree = "<group>"; };
 		0EC4AB3D1A6DFC0600886040 /* SearchRestulTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulTableViewCell.h; sourceTree = "<group>"; };
 		0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRestulTableViewCell.m; sourceTree = "<group>"; };
+		9310CD2B1A6E4B9100211907 /* dynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicViewController.h; sourceTree = "<group>"; };
+		9310CD2C1A6E4B9100211907 /* dynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dynamicViewController.m; sourceTree = "<group>"; };
 		93C6F01D1A6CE747002C8E4A /* SHSGH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHSGH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93C6F0211A6CE747002C8E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C6F0221A6CE747002C8E4A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				93C6F0591A6CEF7F002C8E4A /* RootViewController.m */,
 				93C6F1121A6CF4D2002C8E4A /* loginViewController.h */,
 				93C6F1131A6CF4D2002C8E4A /* loginViewController.m */,
+				9310CD2B1A6E4B9100211907 /* dynamicViewController.h */,
+				9310CD2C1A6E4B9100211907 /* dynamicViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -521,6 +526,7 @@
 				93C6F10D1A6CF0B5002C8E4A /* SUNSlideSwitchDemoViewController.m in Sources */,
 				93C6F0E81A6CF030002C8E4A /* UIViewController+MMDrawerController.m in Sources */,
 				93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */,
+				9310CD2D1A6E4B9100211907 /* dynamicViewController.m in Sources */,
 				93C6F06A1A6CEF7F002C8E4A /* findCodeViewController.m in Sources */,
 				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
 				93C6F1091A6CF0B5002C8E4A /* SUNLeftMenuViewController.m in Sources */,

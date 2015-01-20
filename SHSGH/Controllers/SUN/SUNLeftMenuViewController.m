@@ -13,6 +13,7 @@
 #import "SUNSlideSwitchDemoViewController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
+#import "dynamicViewController.h"
 
 @interface SUNLeftMenuViewController ()
 
@@ -37,6 +38,7 @@
 
 - (void)setupUI
 {
+    self.tableViewLeft.separatorStyle = UITableViewCellSeparatorStyleNone;
 
 }
 
@@ -81,30 +83,39 @@
     if (section == 0) {
         if (row == 0) {
             cell.textLabel.text = @"首页";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn1"];
         }
         else if (row == 1) {
             cell.textLabel.text = @"最新动态";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn2"];
         }
         else if (row == 2) {
             cell.textLabel.text = @"维权查询";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn3"];
         }
         else if (row == 3) {
             cell.textLabel.text = @"机构查询";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn4"];
         }
         else if (row == 4) {
             cell.textLabel.text = @"岗位查询";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn5"];
         }
         else if (row == 5) {
             cell.textLabel.text = @"商户查询";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn6"];
         }
         else if (row == 6) {
             cell.textLabel.text = @"健康服务";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn7"];
         }
         else if (row == 7) {
             cell.textLabel.text = @"相关查询";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn8"];
         }
         else if (row == 7) {
             cell.textLabel.text = @"相关下载";
+            cell.imageView.image = [UIImage resizedImage:@"left_btn9"];
         }
         
     }
@@ -130,9 +141,8 @@
             
             if (!self.navCommonComponentVC) {
                 NSLog(@"点击最新动态");
-                SUNTextFieldDemoViewController *textFieldDemoVC = [[SUNTextFieldDemoViewController alloc] init];
-                
-                self.navCommonComponentVC = [[UINavigationController alloc] initWithRootViewController:textFieldDemoVC];
+                dynamicViewController *dynamicVC = [[dynamicViewController alloc] init];
+                self.navCommonComponentVC = [[UINavigationController alloc] initWithRootViewController:dynamicVC];
             }
             
             [self.mm_drawerController setCenterViewController:self.navCommonComponentVC
