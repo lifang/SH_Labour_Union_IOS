@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EC4AB361A6DFAB100886040 /* JobSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB351A6DFAB100886040 /* JobSearchViewController.m */; };
+		0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */; };
+		0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */; };
 		93C6F0231A6CE747002C8E4A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0221A6CE747002C8E4A /* main.m */; };
 		93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0251A6CE747002C8E4A /* AppDelegate.m */; };
 		93C6F02E1A6CE747002C8E4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93C6F02D1A6CE747002C8E4A /* Images.xcassets */; };
@@ -59,6 +62,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0EC4AB341A6DFAB100886040 /* JobSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSearchViewController.h; sourceTree = "<group>"; };
+		0EC4AB351A6DFAB100886040 /* JobSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSearchViewController.m; sourceTree = "<group>"; };
+		0EC4AB3A1A6DFB6500886040 /* SearchRestulViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulViewController.h; sourceTree = "<group>"; };
+		0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRestulViewController.m; sourceTree = "<group>"; };
+		0EC4AB3D1A6DFC0600886040 /* SearchRestulTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulTableViewCell.h; sourceTree = "<group>"; };
+		0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRestulTableViewCell.m; sourceTree = "<group>"; };
 		93C6F01D1A6CE747002C8E4A /* SHSGH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHSGH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93C6F0211A6CE747002C8E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C6F0221A6CE747002C8E4A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -153,6 +162,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EC4AB301A6DF76B00886040 /* JobSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0EC4AB341A6DFAB100886040 /* JobSearchViewController.h */,
+				0EC4AB351A6DFAB100886040 /* JobSearchViewController.m */,
+				0EC4AB3D1A6DFC0600886040 /* SearchRestulTableViewCell.h */,
+				0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */,
+				0EC4AB3A1A6DFB6500886040 /* SearchRestulViewController.h */,
+				0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */,
+			);
+			name = JobSearch;
+			sourceTree = "<group>";
+		};
 		93C6F0141A6CE747002C8E4A = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +256,7 @@
 		93C6F04D1A6CEF7F002C8E4A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0EC4AB301A6DF76B00886040 /* JobSearch */,
 				93C6F0FA1A6CF0B5002C8E4A /* SUN */,
 				93C6F04E1A6CEF7F002C8E4A /* BasicNavigationController.h */,
 				93C6F04F1A6CEF7F002C8E4A /* BasicNavigationController.m */,
@@ -479,6 +502,7 @@
 				93C6F0F61A6CF049002C8E4A /* homeBtn.m in Sources */,
 				93C6F0F91A6CF049002C8E4A /* SUNTextField.m in Sources */,
 				93C6F0691A6CEF7F002C8E4A /* BasicNavigationController.m in Sources */,
+				0EC4AB361A6DFAB100886040 /* JobSearchViewController.m in Sources */,
 				93C6F1111A6CF0B5002C8E4A /* SUNViewController.m in Sources */,
 				93C6F0E21A6CF030002C8E4A /* EGOImageLoadConnection.m in Sources */,
 				93C6F06C1A6CEF7F002C8E4A /* MainViewController.m in Sources */,
@@ -488,6 +512,7 @@
 				93C6F0E31A6CF030002C8E4A /* EGOImageLoader.m in Sources */,
 				93C6F0E71A6CF030002C8E4A /* MMDrawerVisualState.m in Sources */,
 				93C6F0E61A6CF030002C8E4A /* MMDrawerController.m in Sources */,
+				0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */,
 				93C6F0F71A6CF049002C8E4A /* navbarView.m in Sources */,
 				93C6F10B1A6CF0B5002C8E4A /* SUNListViewController.m in Sources */,
 				93C6F0E11A6CF030002C8E4A /* EGOImageButton.m in Sources */,
@@ -497,6 +522,7 @@
 				93C6F0E81A6CF030002C8E4A /* UIViewController+MMDrawerController.m in Sources */,
 				93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */,
 				93C6F06A1A6CEF7F002C8E4A /* findCodeViewController.m in Sources */,
+				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
 				93C6F1091A6CF0B5002C8E4A /* SUNLeftMenuViewController.m in Sources */,
 				93C6F0EC1A6CF030002C8E4A /* SUNSlideSwitchView.m in Sources */,
 				93C6F0231A6CE747002C8E4A /* main.m in Sources */,
@@ -619,7 +645,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -636,7 +662,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -700,6 +726,7 @@
 				93C6F0421A6CE747002C8E4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93C6F0431A6CE747002C8E4A /* Build configuration list for PBXNativeTarget "SHSGHTests" */ = {
 			isa = XCConfigurationList;
@@ -708,6 +735,7 @@
 				93C6F0451A6CE747002C8E4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
