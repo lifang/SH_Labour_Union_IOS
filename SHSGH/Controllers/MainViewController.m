@@ -152,7 +152,10 @@
             NSLog(@"点击了第一个按钮!");
             [self setHomeController];
             break;
-            
+        case 3:
+            NSLog(@"点击了第一个按钮!");
+            [self setHomeController];
+            break;
         default:
             break;
     }
@@ -160,6 +163,7 @@
 
 -(void)setHomeController
 {
+    
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     SUNLeftMenuViewController *leftVC = [[SUNLeftMenuViewController alloc]initWithNibName:@"SUNLeftMenuViewController" bundle:nil];
     SUNViewController *drawerController = [[SUNViewController alloc]initWithCenterViewController:leftVC.navSlideSwitchVC leftDrawerViewController:leftVC rightDrawerViewController:nil];
