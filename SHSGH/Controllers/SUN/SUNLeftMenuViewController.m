@@ -13,7 +13,11 @@
 #import "SUNSlideSwitchDemoViewController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
+
+#import "SearchJobViewController.h"
+
 #import "dynamicViewController.h"
+
 
 @interface SUNLeftMenuViewController ()
 
@@ -167,11 +171,11 @@
         }
         else if (row == 4) { //维权记录
             NSLog(@"点击了岗位查询");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
+            SearchJobViewController *slideSwitchWVC = [[SearchJobViewController alloc]init];
             self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
             [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
                                            withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
+//            slideSwitchWVC.sign = row;
             
         }
         else if (row == 5) { //维权记录
