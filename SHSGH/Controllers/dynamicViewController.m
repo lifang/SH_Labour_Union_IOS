@@ -31,6 +31,8 @@
                                 NSForegroundColorAttributeName,[UIFont systemFontOfSize:25],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"head_bg01"] forBarMetrics:UIBarMetricsDefault];
+    
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     [buttonL.navButton setImage:[UIImage imageNamed:@"详细01"] forState:UIControlStateNormal];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
