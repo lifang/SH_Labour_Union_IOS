@@ -10,6 +10,7 @@
 #import "SearchRestulTableViewCell.h"
 #import "SearchRestulViewController.h"
 #import "ConditionsViewController.h"
+#import "SearchRecordViewController.h"
 @interface SearchJobViewController ()
 
 @end
@@ -17,7 +18,21 @@
 @implementation SearchJobViewController
 
 - (void)viewDidLoad {
+    self.title=@"岗位查询";
+    [self setnavBar];
+    
     [super viewDidLoad];
+    if(iOS7)
+    {
+        self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
+        
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
+        
+        
+    }
     // Do any additional setup after loading the view.
     namearry=[[NSArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        职位推荐", nil];
     
@@ -35,6 +50,10 @@
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
+}
+-(void)setnavBar
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -143,20 +162,62 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row==1)
-    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+    {
+        ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"行业类别";
         
-[self.navigationController pushViewController:searchviewcontroller animated:YES];
+     [self.navigationController pushViewController:searchviewcontroller animated:YES];
     }
     
+    if(indexPath.row==2)
+    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"首选工作区域";
+        
+        [self.navigationController pushViewController:searchviewcontroller animated:YES];
+    }
+    if(indexPath.row==3)
+    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"次选工作区域";
+        
+        [self.navigationController pushViewController:searchviewcontroller animated:YES];
+    }
+    if(indexPath.row==5)
+    {
+        
+        SearchRecordViewController*seach=[[SearchRecordViewController alloc]init];
+        
+       
+        
+        
+        [self.navigationController pushViewController:seach animated:YES];
+        
+    }
+
+    if(indexPath.row==6)
+    {
+        
+        SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+        
+        seach.conditionsname=@"职位推荐";
+        
+        
+        [self.navigationController pushViewController:seach animated:YES];
+
+    }
     
-    
-    
+
     
 }
 
 -(void)searchButtonclick
 {
+    SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
     
+    seach.conditionsname=@"搜索结果";
+    
+    
+    [self.navigationController pushViewController:seach animated:YES];
+     
     
     
 }

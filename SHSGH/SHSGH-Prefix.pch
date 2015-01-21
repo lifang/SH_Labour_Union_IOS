@@ -18,6 +18,10 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #endif
+#import "MBProgressHUD.h"
+#define NavTitle_FONTSIZE  36
+#define SubHead_FONT(s) [UIFont fontWithName:@"[STHeitiSC](light)" size:s]
+#define NavTitle_FONT(s) [UIFont fontWithName:@"[STHeitiSC](Medium)" size:s]
 #define iOS7 ([UIDevice currentDevice].systemVersion.floatValue >= 7.0)
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width

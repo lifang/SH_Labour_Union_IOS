@@ -16,6 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=self.conditionsname;
+    [self createui];
     
     namearry=[[NSArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"搜索记录",@"职位推荐", nil];
     imagearry=[[NSMutableArray alloc]initWithCapacity:0];
@@ -41,6 +43,51 @@
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
+}
+-(void)setnavBar
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+}
+-(void)createui
+{
+    
+    
+    
+    
+    if(iOS7)
+    {
+       self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
+        
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
+        
+        
+    }
+
+    [self setnavBar];
+    
+    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
+    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    
+    
+       gobackbut.bounds = CGRectMake(0, 0, 20, 25);
+        [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+    
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
+    
+        self.navigationItem.leftBarButtonItem = leftItem;
+
+
+}
+-(void)gobackclick
+{
+
+
+    [self.navigationController popViewControllerAnimated:YES];
+    
+
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

@@ -13,7 +13,7 @@
 #import "SUNSlideSwitchDemoViewController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
-
+#import "RelatedViewController.h"
 #import "SearchJobViewController.h"
 
 #import "dynamicViewController.h"
@@ -198,11 +198,11 @@
         }
         else if (row == 7) { //维权记录
             NSLog(@"点击了相关查询");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
+            RelatedViewController *slideSwitchWVC = [[RelatedViewController alloc]init];
             self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
             [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
                                            withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
+//            slideSwitchWVC.sign = row;
             
         }
         else if (row == 8) { //维权记录

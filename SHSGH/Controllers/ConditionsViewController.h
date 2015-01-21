@@ -18,6 +18,6 @@
        NSArray*namearry;
     
 }
-
+@property(nonatomic,strong)NSString*conditionsname;
 
 @end

@@ -9,6 +9,7 @@
 #import "registerViewController.h"
 #import "navbarView.h"
 #import "SearchJobViewController.h"
+
 @interface registerViewController ()
 
 @end
