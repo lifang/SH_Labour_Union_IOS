@@ -18,32 +18,29 @@
 -(void)initUI
 {
     UIButton *clickBtn = [[UIButton alloc]init];
-    clickBtn.backgroundColor = [UIColor clearColor];
     [clickBtn addTarget:_target action:_action forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:clickBtn];
     self.clickBtn = clickBtn;
     
     UILabel *btnLabel = [[UILabel alloc]init];
-    btnLabel.backgroundColor = [UIColor clearColor];
     btnLabel.textAlignment = NSTextAlignmentCenter;
-    btnLabel.font = [UIFont systemFontOfSize:18];
+    btnLabel.font = [UIFont systemFontOfSize:17];
     btnLabel.textColor = [UIColor whiteColor];
-    btnLabel.text = @"haha";
     [self addSubview:btnLabel];
     self.btnLabel = btnLabel;
+    
+    UIImageView *imageV = [[UIImageView alloc]init];
+    imageV.backgroundColor = [UIColor clearColor];
+    [self addSubview:imageV];
+    self.imageV = imageV;
 }
 
-//-(void)initWithtarget:(id)target action:(SEL)action
-//{
-//    _target = target;
-//    _action = action;
-//    [self initUI];
-//}
 
-- (id)initWithtarget:(id)target action:(SEL)action {
+- (id)initWithtarget:(id)target action:(SEL)action BtnType:(homeBtnType)btnType {
     if (self = [super init]) {
         _target = target;
         _action = action;
+        _btnType = btnType;
         [self initUI];
     }
     return self;
@@ -64,13 +61,48 @@
     
     self.clickBtn.frame = self.bounds;
     
-    CGFloat btnLabelX = 0;
-    CGFloat btnLabelY = 0;
-    CGFloat btnLabelW = self.frame.size.width;
-    CGFloat btnLabelH = self.frame.size.height;
+    switch (self.btnType) {
+        case homeBtnTypeLittle:
+            [self setLittleBtn];
+            break;
+        case homeBtnTypeBig:
+            [self setBigBtn];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)setLittleBtn
+{
+    CGFloat imageVW = mainViewW / 2.2;
+    CGFloat imageVH = mainViewH / 2.6;
+    CGFloat imageVX = mainViewW / 4;
+    CGFloat imageVY = mainViewH / 4;
+    self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);
+    
+    CGFloat btnLabelX = imageVX - imageVW / 2;
+    CGFloat btnLabelY = imageVY + imageVH + 2 * CostumViewMargin;
+    CGFloat btnLabelW = imageVW * 2;
+    CGFloat btnLabelH = 20;
     
     self.btnLabel.frame = CGRectMake(btnLabelX, btnLabelY, btnLabelW, btnLabelH);
+}
+
+-(void)setBigBtn
+{
+    CGFloat imageVW = mainViewW / 3;
+    CGFloat imageVH = mainViewH / 2.6;
+    CGFloat imageVX = mainViewW / 3;
+    CGFloat imageVY = mainViewH / 4;
+    self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);
     
+    CGFloat btnLabelX = imageVX - imageVW / 2;
+    CGFloat btnLabelY = imageVY + imageVH + 2 * CostumViewMargin;
+    CGFloat btnLabelW = imageVW * 2;
+    CGFloat btnLabelH = 20;
+    
+    self.btnLabel.frame = CGRectMake(btnLabelX, btnLabelY, btnLabelW, btnLabelH);
 }
 
 @end

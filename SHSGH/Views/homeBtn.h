@@ -8,20 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    homeBtnTypeLittle = 1,
+    homeBtnTypeBig = 2,
+}homeBtnType;
+
 @interface homeBtn : UIView
 
 @property (nonatomic,weak) UILabel *btnLabel;
 
 @property (nonatomic,weak) UIButton *clickBtn;
 
-@property(nonatomic,weak)UIView *checkView;
+@property (nonatomic,weak) UIImageView *imageV;
 
 @property (nonatomic, weak) id target;
 
 @property (nonatomic) SEL action;
 
-//- (void)initWithtarget:(id)target action:(SEL)action;
+@property(nonatomic,assign)homeBtnType btnType;
 
-- (id)initWithtarget:(id)target action:(SEL)action;
+- (id)initWithtarget:(id)target action:(SEL)action BtnType:(homeBtnType)btnType;
 
 @end

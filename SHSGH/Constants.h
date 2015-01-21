@@ -31,6 +31,12 @@
 //屏幕的高度
 #define mainScreenH [UIScreen mainScreen].bounds.size.height
 
+//view的宽度
+#define mainViewW self.bounds.size.width
+
+//view的高度
+#define mainViewH self.bounds.size.height
+
 //状态栏的高度
 #define statusBarH 20
 

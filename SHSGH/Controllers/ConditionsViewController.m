@@ -73,7 +73,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//   UIImageView*clickimageview=(UIImageView*)[self.view viewWithTag:indexPath.row];
+//   UIImageVieConditionsTableViewCellw*clickimageview=(UIImageView*)[self.view viewWithTag:indexPath.row];
   
 //        clickimageview.image=[UIImage imageNamed:@"dui"];
 //    [imagearry removeAllObjects];
