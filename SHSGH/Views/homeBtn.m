@@ -76,7 +76,7 @@
 -(void)setLittleBtn
 {
     CGFloat imageVW = mainViewW / 2.2;
-    CGFloat imageVH = mainViewH / 2.6;
+    CGFloat imageVH = imageVW * 2 / 3;
     CGFloat imageVX = mainViewW / 4;
     CGFloat imageVY = mainViewH / 4;
     self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);
@@ -92,7 +92,7 @@
 -(void)setBigBtn
 {
     CGFloat imageVW = mainViewW / 3;
-    CGFloat imageVH = mainViewH / 2.6;
+    CGFloat imageVH = imageVW * 2 / 3;
     CGFloat imageVX = mainViewW / 3;
     CGFloat imageVY = mainViewH / 4;
     self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);

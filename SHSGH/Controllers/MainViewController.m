@@ -44,6 +44,7 @@
     CGFloat topViewY = statusBarH;
     CGFloat topViewW = self.view.frame.size.width;
     CGFloat topViewH = 60;
+    //适配4s
     if (mainScreenH <= 480) {
         topViewH = 40;
     }

@@ -8,6 +8,7 @@
 
 #import "dynamicViewController.h"
 #import "ReuseView.h"
+#import "navbarView.h"
 
 @interface dynamicViewController ()<ReuseViewDelegate>
 
@@ -24,6 +25,24 @@
 -(void)setNavBar
 {
      self.title = @"最新动态";
+    
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIColor whiteColor],
+                                NSForegroundColorAttributeName,[UIFont systemFontOfSize:25],NSFontAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"详细01"] forState:UIControlStateNormal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    navbarView *buttonR = [[navbarView alloc]initWithNavType:navbarViewTypeRight];
+    [buttonR.navButton setTitle:@"注册" forState:UIControlStateNormal];
+    [buttonR.navButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [buttonR.navButton addTarget:self action:@selector(signUp:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buttonR];
+    self.navigationItem.rightBarButtonItem = rightItem;
+
 }
 
 -(void)setScrollView
