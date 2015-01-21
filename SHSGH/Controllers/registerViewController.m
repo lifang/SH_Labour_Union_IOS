@@ -8,7 +8,7 @@
 
 #import "registerViewController.h"
 #import "navbarView.h"
-
+#import "SearchJobViewController.h"
 @interface registerViewController ()
 
 @end
@@ -18,10 +18,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"注册";
+        self.title = @"注册";
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     [self setNavBar];
+}
+-(void)searchButtonclick
+{
+
+    SearchJobViewController*v=[[SearchJobViewController alloc]init];
+    [self.navigationController pushViewController:v animated:YES];
+    
+
 }
 
 -(void)setNavBar

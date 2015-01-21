@@ -15,7 +15,7 @@
 #import "MMDrawerVisualState.h"
 #import "SUNViewController.h"
 #import "AppDelegate.h"
-
+#import "SearchJobViewController.h"
 @interface MainViewController ()<ReuseViewDelegate>
 
 @end
@@ -146,7 +146,7 @@
 
 -(void)btnClick:(homeBtn *)centerView
 {
-    NSLog(@"%ld",centerView.tag);
+//    NSLog(@"%ld",centerView.tag);
     switch (centerView.tag) {
         case 0:
             NSLog(@"点击了第一个按钮!");
@@ -154,11 +154,19 @@
             break;
         case 3:
             NSLog(@"点击了第一个按钮!");
-            [self setHomeController];
+//            [self job];
             break;
         default:
             break;
     }
+}
+-(void)job
+{
+    SearchJobViewController*job=[[SearchJobViewController alloc]init];
+    
+UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window setRootViewController:job];
+
 }
 
 -(void)setHomeController
