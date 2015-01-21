@@ -13,11 +13,10 @@
 #import "SUNLeftMenuViewController.h"
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
-#import "SUNViewController.h"
 #import "AppDelegate.h"
 #import "SearchJobViewController.h"
-
 #import "dynamicViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface MainViewController ()<ReuseViewDelegate>
 
@@ -187,8 +186,7 @@
 //    NSLog(@"%ld",centerView.tag);
     switch (centerView.tag) {
         case 0:
-            NSLog(@"点击了第一个按钮!");
-            [self setHomeController];
+            [self setDynamicController];
             break;
         case 3:
             NSLog(@"点击了第一个按钮!");
@@ -201,36 +199,24 @@
 -(void)job
 {
     SearchJobViewController*job=[[SearchJobViewController alloc]init];
-    
-UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window setRootViewController:job];
 
 }
 
--(void)setHomeController
+-(void)setDynamicController
 {
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    SUNLeftMenuViewController *leftVC = [[SUNLeftMenuViewController alloc]initWithNibName:@"SUNLeftMenuViewController" bundle:nil];
-    dynamicViewController *dynamicVC = [[dynamicViewController alloc]init];
-    UINavigationController *dynamicNav = [[UINavigationController alloc]initWithRootViewController:dynamicVC];
-    SUNViewController *drawerController = [[SUNViewController alloc]initWithCenterViewController:dynamicNav leftDrawerViewController:leftVC rightDrawerViewController:nil];
-    [drawerController setMaximumLeftDrawerWidth:kPublicLeftMenuWidth];
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-        MMDrawerControllerDrawerVisualStateBlock block;
-        block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
-        block(drawerController,drawerSide,percentVisible);
-    }];
     
-    [window setRootViewController:drawerController];
-    [window makeKeyAndVisible];
+    UINavigationController *dynamicNav = [AppDelegate shareDynamicController];
+    
+    [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
+    SLog(@"setDynamicController");
 }
 
 #pragma mark - ScrollView didSelect
 -(void)handleTop:(UITapGestureRecognizer *)imageView
 {
-    NSLog(@"点击了%@",imageView);
+    SLog(@"点击了%@",imageView);
 }
 
 @end

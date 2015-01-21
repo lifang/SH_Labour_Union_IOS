@@ -7,7 +7,12 @@
 //
 
 #import "AppDelegate.h"
-#import "RootViewController.h"
+
+static MainViewController  *mainController = nil;
+static UINavigationController *mainNavController = nil;
+
+static dynamicViewController  *dynamicController = nil;
+static UINavigationController *dynamicNavController = nil;
 
 @interface AppDelegate ()
 
@@ -21,12 +26,48 @@
     
 }
 
+-(SUNLeftMenuViewController *)leftVC
+{
+    return _leftVC;
+}
+
+//首页
++(UINavigationController *)shareMainController{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mainController = [[MainViewController alloc] init];
+        mainNavController = [[UINavigationController alloc] initWithRootViewController:mainController];
+    });
+    return mainNavController;
+}
+
+//动态
++(UINavigationController *)shareDynamicController{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dynamicController = [[dynamicViewController alloc] init];
+        dynamicNavController = [[UINavigationController alloc] initWithRootViewController:dynamicController];
+    });
+    return dynamicNavController;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //1.创建窗口
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
-    _rootViewController = [[RootViewController alloc] init];
-    self.window.rootViewController = _rootViewController;
+    SUNLeftMenuViewController *leftVC = [[SUNLeftMenuViewController alloc]initWithNibName:@"SUNLeftMenuViewController" bundle:nil];
+    UINavigationController *mainViewController = [[self class] shareMainController];
+    SUNViewController *drawerController = [[SUNViewController alloc]initWithCenterViewController:mainViewController leftDrawerViewController:leftVC rightDrawerViewController:nil];
+    [drawerController setMaximumLeftDrawerWidth:kPublicLeftMenuWidth];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [drawerController setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+        MMDrawerControllerDrawerVisualStateBlock block;
+        block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
+        block(drawerController,drawerSide,percentVisible);
+    }];
+    self.window.rootViewController = drawerController;
+    self.DrawerController = drawerController;
     [self.window makeKeyAndVisible];
     NSLog(@"%@",NSHomeDirectory());
     return YES;
