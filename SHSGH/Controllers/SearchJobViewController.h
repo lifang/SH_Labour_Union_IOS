@@ -15,6 +15,7 @@
     NSArray*namearry;
     
     UITextField*_searchfield;
+    NSMutableArray*recordarry;
     
     NSMutableArray*_conditarry;
     NSString*str1;

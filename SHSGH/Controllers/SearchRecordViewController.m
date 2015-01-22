@@ -13,7 +13,15 @@
 @end
 
 @implementation SearchRecordViewController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"%@",self.recortarry);
+    
+   
+    
+    
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -102,6 +110,7 @@
     
     cell.textLabel.text=@"网页设计师";
     //    seariamgeview.tag=indexPath.row;
+       cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     return cell;
     

@@ -137,7 +137,7 @@
     
     UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
     [searchrootview addSubview: seariamgeview];
-    seariamgeview.image=[UIImage imageNamed:@"搜索"];
+    seariamgeview.image=[UIImage imageNamed:@"search"];
     
     
     UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, 15, 40, 30)];
