@@ -12,6 +12,7 @@
 #import "MainViewController.h"
 #import "AppDelegate.h"
 #import "MMDrawerController.h"
+#import "PersonalViewController.h"
 
 
 @interface dynamicViewController ()<ReuseViewDelegate>
@@ -47,7 +48,7 @@
     [buttonL.navButton setImage:[UIImage imageNamed:@"left_barbutton"] forState:UIControlStateNormal];
     [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
     self.leftViewBtn = buttonL.navButton;
-    self.leftViewBtn.tag = 1000;
+//    self.leftViewBtn.tag = 1000;
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
     
@@ -61,22 +62,24 @@
 
 -(void)leftMenu
 {
-    self.leftViewBtn.tag++;
-    SLog(@"%ld",self.leftViewBtn.tag);
+//    self.leftViewBtn.tag++;
+//    SLog(@"%ld",self.leftViewBtn.tag);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
 //    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
-    if (self.leftViewBtn.tag % 2 == 0) {
-        [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
-    }
+//    if (self.leftViewBtn.tag % 2 == 0) {
+//        [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
+//    }
     [delegate.DrawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
-
 -(void)toUser
 {
-    
+    PersonalViewController *personVC = [[PersonalViewController alloc]init];
+    self.dynamicNav = [AppDelegate shareDynamicController];
+    [self.dynamicNav pushViewController:personVC animated:YES];
     SLog(@"toUser");
 }
+
 
 -(void)setScrollView
 {

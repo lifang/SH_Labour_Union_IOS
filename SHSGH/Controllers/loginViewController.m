@@ -43,7 +43,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
-    [buttonL.navButton setImage:[UIImage imageNamed:@"详细01"] forState:UIControlStateNormal];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
     

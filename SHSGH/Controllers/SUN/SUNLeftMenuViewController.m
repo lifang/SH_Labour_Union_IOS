@@ -11,9 +11,8 @@
 #import "UIViewController+MMDrawerController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
-
+#import "AppDelegate.h"
 #import "SearchJobViewController.h"
-
 #import "dynamicViewController.h"
 
 
@@ -130,8 +129,7 @@
         if (row == 0) { //滑动切换视图
               NSLog(@"点击返回首页");
             if (!self.navMainViewVC) {
-                MainViewController *mainVC = [[MainViewController alloc] init];
-                self.navMainViewVC = [[UINavigationController alloc] initWithRootViewController:mainVC];
+                self.navMainViewVC = [AppDelegate shareMainController];
             }
             [self.mm_drawerController setCenterViewController:self.navMainViewVC
                                            withCloseAnimation:YES completion:nil];
@@ -139,10 +137,8 @@
             
             if (!self.navCommonComponentVC) {
                 NSLog(@"点击最新动态");
-                dynamicViewController *dynamicVC = [[dynamicViewController alloc] init];
-                self.navCommonComponentVC = [[UINavigationController alloc] initWithRootViewController:dynamicVC];
+                self.navCommonComponentVC = [AppDelegate shareDynamicController];
             }
-            
             [self.mm_drawerController setCenterViewController:self.navCommonComponentVC
                                            withCloseAnimation:YES completion:nil];
         }else if (row == 2) { //维权记录
