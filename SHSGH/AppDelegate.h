@@ -12,8 +12,8 @@
 #import "MMDrawerVisualState.h"
 #import "MainViewController.h"
 #import "dynamicViewController.h"
-
-
+#import "SearchJobViewController.h"
+#import "RelatedViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -29,6 +29,7 @@
 + (UINavigationController *)shareMainController;
 
 + (UINavigationController *)shareDynamicController;
-
++ (UINavigationController *)shareDynamicController3;
++ (UINavigationController *)shareDynamicController6;
 @end
 

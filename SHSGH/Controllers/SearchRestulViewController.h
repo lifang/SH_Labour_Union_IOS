@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchRestulViewController : UIViewController
+@interface SearchRestulViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+{
+    
+    UITableView*_getresulttable;
+ 
+   }
 
+@property(nonatomic,strong)NSString*conditionsname;
 @end

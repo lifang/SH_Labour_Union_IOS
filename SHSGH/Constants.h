@@ -20,7 +20,9 @@
 #define sColor(r,g,b,a) [UIColor colorWithRed:r / 255.0f green:g / 255.0f blue:b / 255.0f alpha:a]
 
 //颜色
-#define HHZColor( r, g ,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define HHZColor(r, g ,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#define mainScreenColor sColor(236,236,236,1.0)
 
 //随机色
 #define RandomColor sColor(arc4random_uniform(256),arc4random_uniform(256),arc4random_uniform(256),1.0)

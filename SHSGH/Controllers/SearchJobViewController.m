@@ -10,19 +10,38 @@
 #import "SearchRestulTableViewCell.h"
 #import "SearchRestulViewController.h"
 #import "ConditionsViewController.h"
+#import "SearchRecordViewController.h"
 @interface SearchJobViewController ()
 
 @end
 
 @implementation SearchJobViewController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+     NSLog(@"%@%@%@",str1,str3,str2);
+}
 - (void)viewDidLoad {
+    self.title=@"岗位查询";
+    [self setnavBar];
+    
     [super viewDidLoad];
+    if(iOS7)
+    {
+        self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
+        
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
+        
+        
+    }
     // Do any additional setup after loading the view.
     namearry=[[NSArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        职位推荐", nil];
     
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
+    _conditarry=[[NSMutableArray alloc]init];
     
     
     
@@ -36,6 +55,10 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+-(void)setnavBar
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 7;
@@ -45,12 +68,12 @@
 {
     static NSString *cellIdentifier = @"Cell";
     
-    SearchRestulTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (!cell)
-    {
-        cell = [[SearchRestulTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
-    }
+//    SearchRestulTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    
+//    if (!cell)
+//    {
+        SearchRestulTableViewCell*cell = [[SearchRestulTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+//    }
     
     cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
     
@@ -143,20 +166,120 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row==1)
-    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+    {
+        ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"行业类别";
         
-[self.navigationController pushViewController:searchviewcontroller animated:YES];
+     [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str1=hangyestring;
+            
+            
+        };
+
     }
     
+    if(indexPath.row==2)
+    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"首选工作区域";
+        
+        [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str2=hangyestring;
+            
+            
+        };
+
+    }
+    if(indexPath.row==3)
+    {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
+        searchviewcontroller.conditionsname=@"次选工作区域";
+        
+        [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str3=hangyestring;
+            
+           
+            
+        };
+
+    }
+    if(indexPath.row==5)
+    {
+        
+        SearchRecordViewController*seach=[[SearchRecordViewController alloc]init];
+        
+       
+        
+        
+        [self.navigationController pushViewController:seach animated:YES];
+        
+    }
+
+    if(indexPath.row==6)
+    {
+        
+        SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+        
+        seach.conditionsname=@"职位推荐";
+        
+        
+        [self.navigationController pushViewController:seach animated:YES];
+
+    }
     
-    
-    
+
     
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
 
 -(void)searchButtonclick
 {
+
+    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES)
+    {
+        [self showMessage:@"请选择行业，区域等" viewHeight:SCREEN_HEIGHT/2-80];
+        return;
+        
     
+    }
+    
+    SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+    
+    seach.conditionsname=@"搜索结果";
+    
+    
+    [self.navigationController pushViewController:seach animated:YES];
+     
     
     
 }

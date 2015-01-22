@@ -11,7 +11,11 @@
 #import "UIViewController+MMDrawerController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
+
+#import "RelatedViewController.h"
+
 #import "AppDelegate.h"
+
 #import "SearchJobViewController.h"
 #import "dynamicViewController.h"
 
@@ -127,7 +131,7 @@
     int row = indexPath.row;
     if (section == 0) {
         if (row == 0) { //滑动切换视图
-              NSLog(@"点击返回首页");
+              NSLog(@"点击返回首页");;
             if (!self.navMainViewVC) {
                 self.navMainViewVC = [AppDelegate shareMainController];
             }
@@ -169,6 +173,13 @@
         }
         else if (row == 7) { //维权记录
             NSLog(@"点击了相关查询");
+
+            RelatedViewController *slideSwitchWVC = [[RelatedViewController alloc]init];
+            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
+            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
+                                           withCloseAnimation:YES completion:nil];
+//            slideSwitchWVC.sign = row;
+
             
         }
         else if (row == 8) { //维权记录

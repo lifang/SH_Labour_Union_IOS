@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void (^aBlock)(NSString *hangyestring);
 @interface ConditionsViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -18,6 +18,6 @@
        NSArray*namearry;
     
 }
-
-
+@property(nonatomic,strong)NSString*conditionsname;
+@property (nonatomic, copy)aBlock block;
 @end

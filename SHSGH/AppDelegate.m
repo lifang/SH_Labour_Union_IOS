@@ -14,6 +14,12 @@ static UINavigationController *mainNavController = nil;
 static dynamicViewController  *dynamicController = nil;
 static UINavigationController *dynamicNavController = nil;
 
+static SearchJobViewController  *searchController = nil;
+static UINavigationController *searchNavController = nil;
+
+static RelatedViewController  *relatedController = nil;
+static UINavigationController *relatedNavController = nil;
+
 @interface AppDelegate ()
 
 @end
@@ -39,6 +45,26 @@ static UINavigationController *dynamicNavController = nil;
         mainNavController = [[UINavigationController alloc] initWithRootViewController:mainController];
     });
     return mainNavController;
+}
+
+
++(UINavigationController *)shareDynamicController6{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        relatedController = [[RelatedViewController alloc] init];
+        relatedNavController = [[UINavigationController alloc] initWithRootViewController:relatedController];
+    });
+    return relatedNavController;
+}
+
+
++(UINavigationController *)shareDynamicController3{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        searchController = [[SearchJobViewController alloc] init];
+        searchNavController = [[UINavigationController alloc] initWithRootViewController:searchController];
+    });
+    return searchNavController;
 }
 
 //动态

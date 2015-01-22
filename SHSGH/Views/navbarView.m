@@ -15,6 +15,7 @@
     
     UIButton *navButton = [[UIButton alloc]init];
     navButton.backgroundColor = [UIColor clearColor];
+    navButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:navButton];
     self.navButton = navButton;
     

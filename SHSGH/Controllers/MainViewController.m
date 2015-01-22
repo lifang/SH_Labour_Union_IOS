@@ -24,13 +24,27 @@
 
 @implementation MainViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //隐藏导航栏
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     //创建自定义布局
     [self setupCustomView];
 }
@@ -183,30 +197,55 @@
 
 -(void)btnClick:(homeBtn *)centerView
 {
-//    NSLog(@"%ld",centerView.tag);
+    
     switch (centerView.tag) {
         case 0:
             [self setDynamicController];
             break;
         case 3:
             NSLog(@"点击了第一个按钮!");
-//            [self job];
+            [self job];
+            break;
+        case 6:
+            NSLog(@"点击了第一个按钮!");
+            [self related];
             break;
         default:
             break;
     }
 }
+-(void)related
+{
+    
+    
+    UINavigationController *dynamicNav = [AppDelegate shareDynamicController6];
+    
+    [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
+    
+    
+    //    SearchJobViewController*job=[[SearchJobViewController alloc]init];
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    [window setRootViewController:job];
+    
+}
+
 -(void)job
 {
-    SearchJobViewController*job=[[SearchJobViewController alloc]init];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window setRootViewController:job];
+    
+    
+    UINavigationController *dynamicNav = [AppDelegate shareDynamicController3];
+    
+    [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
+    
+    
+//    SearchJobViewController*job=[[SearchJobViewController alloc]init];
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    [window setRootViewController:job];
 
 }
 
 -(void)setDynamicController
 {
-    
     UINavigationController *dynamicNav = [AppDelegate shareDynamicController];
     
     [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
