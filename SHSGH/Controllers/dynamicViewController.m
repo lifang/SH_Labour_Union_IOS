@@ -64,7 +64,7 @@
     self.leftViewBtn.tag++;
     SLog(@"%ld",self.leftViewBtn.tag);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+//    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
     if (self.leftViewBtn.tag % 2 == 0) {
         [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
     }
