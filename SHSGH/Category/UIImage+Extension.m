@@ -10,18 +10,6 @@
 
 @implementation UIImage (Extension)
 #pragma mark IOS7图片适配的方法
-//+(UIImage *)imageWithName:(NSString *)name{
-//    UIImage *image = nil;
-//    if (IOS7) {
-//        NSString *newName = [name stringByAppendingString:@"_os7"];
-//        image = [UIImage imageNamed:newName];
-//    }
-//    if (image == nil) {
-//        image = [UIImage imageNamed:name];
-//    }
-//    
-//    return image;
-//}
 
 +(UIImage *)resizedImage:(NSString *)name
 {
