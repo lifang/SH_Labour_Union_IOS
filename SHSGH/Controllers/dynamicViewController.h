@@ -10,4 +10,6 @@
 
 @interface dynamicViewController : UITableViewController
 
+@property(nonatomic,strong)UIButton *leftViewBtn;
+
 @end

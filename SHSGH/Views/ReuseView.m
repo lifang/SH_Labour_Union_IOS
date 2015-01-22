@@ -48,9 +48,9 @@
         _pageControl.tag = 110;
         _pageControl.currentPage = 0;
         _pageControl.numberOfPages = array.count - 2;
-        _pageControl.pageIndicatorTintColor = [UIColor redColor];
+        _pageControl.pageIndicatorTintColor = [UIColor grayColor];
         //设置表示的当前页点的颜色
-        _pageControl.currentPageIndicatorTintColor = [UIColor blueColor];
+        _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
         [_pageControl addTarget:self action:@selector(handlePageControl:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:_pageControl];
     }

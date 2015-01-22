@@ -19,7 +19,7 @@
     self.navButton = navButton;
     
     UIImageView *lineView = [[UIImageView alloc]init];
-    lineView.image = [UIImage imageNamed:@"红色-顶部分割线"];
+    lineView.image = [UIImage imageNamed:@"red_division"];
     [self addSubview:lineView];
     self.lineView = lineView;
     
@@ -55,12 +55,10 @@
     
     switch (self.navType) {
             case navbarViewTypeLeft:
-            SLog(@"左上按钮");
             self.navButton.frame = CGRectMake(-4, 7, 40, 40);
             self.lineView.frame = CGRectMake(47, -12, 2, 64);
             break;
             case navbarViewTypeRight:
-            SLog(@"右上按钮");
             self.navButton.frame = CGRectMake(28, 7, 40, 40);
             self.lineView.frame = CGRectMake(15, -12, 2, 64);
             break;

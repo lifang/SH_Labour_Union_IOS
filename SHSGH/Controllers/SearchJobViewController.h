@@ -16,7 +16,10 @@
     
     UITextField*_searchfield;
     
-    
+    NSMutableArray*_conditarry;
+    NSString*str1;
+      NSString*str2;
+      NSString*str3;
 }
 
 @end

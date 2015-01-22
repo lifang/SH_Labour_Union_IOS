@@ -155,6 +155,9 @@
     
     
     }
+    
+//    职位推荐详情
+    
     else
     {
         JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];

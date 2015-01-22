@@ -13,7 +13,7 @@
 @end
 
 @implementation ConditionsViewController
-
+@synthesize block;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=self.conditionsname;
@@ -125,6 +125,7 @@
 //        clickimageview.image=[UIImage imageNamed:@"dui"];
 //    [imagearry removeAllObjects];
     
+  
     imagearry=[[NSMutableArray alloc]initWithCapacity:0];
     for(NSInteger i=0;i<7;i++)
     {
@@ -134,7 +135,9 @@
     }
 
     [imagearry replaceObjectAtIndex:indexPath.row withObject:@"dui"];
-    
+    if (self.block) {
+        block([NSString stringWithFormat:@"%d",indexPath.row]);
+    }
 
    [_Conditionstable reloadData];
     

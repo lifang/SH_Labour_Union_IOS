@@ -50,7 +50,7 @@
     [segmentedControl addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
 
 
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 110, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 110, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
     
     
     
@@ -58,17 +58,23 @@
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
-    _Seatchtable.rowHeight=60;
+    _Seatchtable.rowHeight=40;
     
     
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+
+         return 7;
+  
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -85,75 +91,81 @@
     
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    if(indexPath.row==0)
-    {
-        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-80, 40)];
-        [cell addSubview:searchrootview];
-        if(iOS7)
-        {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-120, 38)];
-        }
-        else
-        {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 10, SCREEN_WIDTH-120, 38)];
-            
-        }
-        searchrootview.layer.cornerRadius=20;
-        
-        _searchfield.placeholder=@"请输入关键字 ";
-        _searchfield.delegate=self;
-        CALayer *layer=[searchrootview layer];
-        //是否设置边框以及是否可见
-        [layer setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layer setBorderWidth:1];
-        //设置边框线的颜色
-        [layer setBorderColor:[[UIColor grayColor] CGColor]];
-        [searchrootview addSubview:_searchfield];
-        
-        UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
-        [searchrootview addSubview: seariamgeview];
-        seariamgeview.image=[UIImage imageNamed:@"搜索"];
-        
-        
-        UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, 15, 40, 30)];
-        
-        [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
-        [searchButton setTitleColor:HHZColor(99, 27, 28) forState:UIControlStateNormal];
-               searchButton.layer.cornerRadius=5;
-          searchButton.layer.cornerRadius=10;
-        
-        [cell addSubview:searchButton];
-        
-        CALayer *layers=[searchButton layer];
-        //是否设置边框以及是否可见
-        [layers setMasksToBounds:YES];
-        //设置边框圆角的弧度
-        
-        //设置边框线的宽
-        //
-        [layers setBorderWidth:1];
-        //设置边框线的颜色
-        [layers setBorderColor:[[UIColor grayColor] CGColor]];
-        searchButton.userInteractionEnabled=YES;
-        
-        [searchButton addTarget:self action:@selector(searchButtonclick) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-       else
-    {
+
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text=@"社会保障法";
 
-    }
+ 
     
     
     return cell;
     
     
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    
+    UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-80, 40)];
+    [rootimageview addSubview:searchrootview];
+    
+    if(iOS7)
+    {
+        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-120, 38)];
+    }
+    else
+    {
+        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 10, SCREEN_WIDTH-120, 38)];
+        
+    }
+    searchrootview.layer.cornerRadius=20;
+    
+    _searchfield.placeholder=@"请输入关键字 ";
+    _searchfield.delegate=self;
+    CALayer *layer=[searchrootview layer];
+    //是否设置边框以及是否可见
+    [layer setMasksToBounds:YES];
+    //设置边框圆角的弧度
+    
+    //设置边框线的宽
+    //
+    [layer setBorderWidth:1];
+    //设置边框线的颜色
+    [layer setBorderColor:[[UIColor grayColor] CGColor]];
+    [searchrootview addSubview:_searchfield];
+    
+    UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
+    [searchrootview addSubview: seariamgeview];
+    seariamgeview.image=[UIImage imageNamed:@"搜索"];
+    
+    
+    UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, 15, 40, 30)];
+    
+    [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
+    [searchButton setTitleColor:HHZColor(99, 27, 28) forState:UIControlStateNormal];
+    searchButton.layer.cornerRadius=5;
+    searchButton.layer.cornerRadius=5;
+    
+    [rootimageview addSubview:searchButton];
+    
+    CALayer *layers=[searchButton layer];
+    //是否设置边框以及是否可见
+    [layers setMasksToBounds:YES];
+    //设置边框圆角的弧度
+    
+    //设置边框线的宽
+    //
+    [layers setBorderWidth:1];
+    //设置边框线的颜色
+    [layers setBorderColor:[[UIColor grayColor] CGColor]];
+    searchButton.userInteractionEnabled=YES;
+    
+    [searchButton addTarget:self action:@selector(searchButtonclick) forControlEvents:UIControlEventTouchUpInside];
+    return rootimageview;
+    
+
+
 }
 -(void)searchButtonclick
 {
@@ -164,9 +176,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
     DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
     [self.navigationController pushViewController:detal animated:YES];
-    
+ 
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -202,6 +215,13 @@ else if(segmentedControl.selectedSegmentIndex==1)
     }
 
 
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+   
+        return 60;
+        
+  
 }
 - (void)showMessage:(NSString*)message viewHeight:(float)height;
 {

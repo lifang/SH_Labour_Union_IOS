@@ -7,15 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RootViewController.h"
-
+#import "SUNLeftMenuViewController.h"
+#import "SUNViewController.h"
+#import "MMDrawerVisualState.h"
+#import "MainViewController.h"
+#import "dynamicViewController.h"
+#import "SearchJobViewController.h"
+#import "RelatedViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property(nonatomic,strong)RootViewController *rootViewController;
+@property(nonatomic,strong)SUNLeftMenuViewController *leftVC;
+
+@property(nonatomic,strong)SUNViewController *DrawerController;
 
 + (AppDelegate *)shareAppDelegate;
 
+- (SUNLeftMenuViewController *)leftVC;
+
++ (UINavigationController *)shareMainController;
+
++ (UINavigationController *)shareDynamicController;
++ (UINavigationController *)shareDynamicController3;
++ (UINavigationController *)shareDynamicController6;
 @end
 

@@ -16,7 +16,10 @@
 @end
 
 @implementation SearchJobViewController
-
+- (void)viewWillAppear:(BOOL)animated
+{
+     NSLog(@"%@%@%@",str1,str3,str2);
+}
 - (void)viewDidLoad {
     self.title=@"岗位查询";
     [self setnavBar];
@@ -38,6 +41,7 @@
     
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
+    _conditarry=[[NSMutableArray alloc]init];
     
     
     
@@ -64,12 +68,12 @@
 {
     static NSString *cellIdentifier = @"Cell";
     
-    SearchRestulTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (!cell)
-    {
-        cell = [[SearchRestulTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
-    }
+//    SearchRestulTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    
+//    if (!cell)
+//    {
+        SearchRestulTableViewCell*cell = [[SearchRestulTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+//    }
     
     cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
     
@@ -167,6 +171,13 @@
         searchviewcontroller.conditionsname=@"行业类别";
         
      [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str1=hangyestring;
+            
+            
+        };
+
     }
     
     if(indexPath.row==2)
@@ -174,12 +185,27 @@
         searchviewcontroller.conditionsname=@"首选工作区域";
         
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str2=hangyestring;
+            
+            
+        };
+
     }
     if(indexPath.row==3)
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"次选工作区域";
         
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        searchviewcontroller.block=^(NSString*hangyestring){
+            
+            str3=hangyestring;
+            
+           
+            
+        };
+
     }
     if(indexPath.row==5)
     {
@@ -208,9 +234,45 @@
 
     
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
 
 -(void)searchButtonclick
 {
+
+    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES)
+    {
+        [self showMessage:@"请选择行业，区域等" viewHeight:SCREEN_HEIGHT/2-80];
+        return;
+        
+    
+    }
+    
     SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
     
     seach.conditionsname=@"搜索结果";

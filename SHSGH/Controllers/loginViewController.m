@@ -338,7 +338,7 @@
 {
     NSLog(@"登录!");
     
-    [[[AppDelegate shareAppDelegate] rootViewController] showMainViewController];
+//    [[[AppDelegate shareAppDelegate] rootViewController] showMainViewController];
     
 }
 

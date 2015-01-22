@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SUNViewController.h"
+#import "dynamicViewController.h"
 
 @interface MainViewController : UIViewController
 
+@property(nonatomic,strong)SUNViewController *drawerController;
 
 @end

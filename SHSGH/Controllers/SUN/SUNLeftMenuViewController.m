@@ -7,10 +7,8 @@
 //
 
 #import "SUNLeftMenuViewController.h"
-#import "SUNSlideSwitchDemoViewController.h"
 #import "SUNTextFieldDemoViewController.h"
 #import "UIViewController+MMDrawerController.h"
-#import "SUNSlideSwitchDemoViewController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
 #import "RelatedViewController.h"
@@ -31,10 +29,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
-        SUNSlideSwitchDemoViewController *slideSwitchVC = [[SUNSlideSwitchDemoViewController alloc] init];
-        
-        self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchVC];
         
     }
     return self;
@@ -153,20 +147,11 @@
                                            withCloseAnimation:YES completion:nil];
         }else if (row == 2) { //维权记录
             NSLog(@"点击了维权登记");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
-            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
-            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
-                                           withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
+            
             
         }
         else if (row == 3) { //维权记录
             NSLog(@"点击了机构查询");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
-            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
-            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
-                                           withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
             
         }
         else if (row == 4) { //维权记录
@@ -180,38 +165,25 @@
         }
         else if (row == 5) { //维权记录
             NSLog(@"点击了商户查询");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
-            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
-            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
-                                           withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
             
         }
         else if (row == 6) { //维权记录
             NSLog(@"点击了健康服务");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
-            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
-            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
-                                           withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
             
         }
         else if (row == 7) { //维权记录
             NSLog(@"点击了相关查询");
+
             RelatedViewController *slideSwitchWVC = [[RelatedViewController alloc]init];
             self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
             [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
                                            withCloseAnimation:YES completion:nil];
 //            slideSwitchWVC.sign = row;
+
             
         }
         else if (row == 8) { //维权记录
             NSLog(@"点击了相关下载");
-            SUNSlideSwitchDemoViewController *slideSwitchWVC = [[SUNSlideSwitchDemoViewController alloc]init];
-            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
-            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
-                                           withCloseAnimation:YES completion:nil];
-            slideSwitchWVC.sign = row;
             
         }
     }
