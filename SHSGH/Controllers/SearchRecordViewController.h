@@ -16,5 +16,5 @@
     
 }
 
-
+@property(nonatomic,strong)NSArray*recortarry;
 @end

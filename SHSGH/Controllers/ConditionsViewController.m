@@ -72,12 +72,21 @@
     [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
     
     
-       gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-        [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+     gobackbut.bounds = CGRectMake(0, 0, 20, 25);
+    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
     
-        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
+    UIView*lineview=[[UIView alloc]init];
+    lineview.bounds = CGRectMake(0, 0, 1, 45);
+    lineview.backgroundColor=[UIColor colorWithWhite:0.2 alpha:1];
     
-        self.navigationItem.leftBarButtonItem = leftItem;
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
+    
+    UIBarButtonItem *leftItem2= [[UIBarButtonItem alloc] initWithCustomView:lineview];
+    
+ NSArray *array = [[NSArray alloc] initWithObjects:leftItem,leftItem2, nil];
+    
+        self.navigationItem.leftBarButtonItems = array;
 
 
 }

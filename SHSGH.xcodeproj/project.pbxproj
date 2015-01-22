@@ -12,7 +12,6 @@
 		0EC4AB421A6E3FAC00886040 /* SearchJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB411A6E3FAC00886040 /* SearchJobViewController.m */; };
 		0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB441A6E4CA100886040 /* ConditionsViewController.m */; };
 		0ECFF2261A6F38F1007F882E /* ConditionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */; };
-
 		0ECFF2291A6F4865007F882E /* GetresultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2281A6F4865007F882E /* GetresultTableViewCell.m */; };
 		0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22B1A6F5134007F882E /* JobDetalViewController.m */; };
 		0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22E1A6F7DA6007F882E /* OtherjobViewController.m */; };
@@ -24,7 +23,6 @@
 		0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2411A6F9AE0007F882E /* KRHttpUtil.m */; };
 		0ECFF2481A6F9AE0007F882E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2431A6F9AE0007F882E /* Reachability.m */; };
 		0ECFF24B1A6F9BCA007F882E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF24A1A6F9BCA007F882E /* MBProgressHUD.m */; };
-
 		9310CD2D1A6E4B9100211907 /* dynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9310CD2C1A6E4B9100211907 /* dynamicViewController.m */; };
 		93C592D81A708D9700CDF8F7 /* HHZCommonArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592CF1A708D9700CDF8F7 /* HHZCommonArrowItem.m */; };
 		93C592D91A708D9700CDF8F7 /* HHZCommonGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592D11A708D9700CDF8F7 /* HHZCommonGroup.m */; };
@@ -91,7 +89,6 @@
 		0EC4AB441A6E4CA100886040 /* ConditionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsViewController.m; sourceTree = "<group>"; };
 		0ECFF2241A6F38F1007F882E /* ConditionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsTableViewCell.h; sourceTree = "<group>"; };
 		0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsTableViewCell.m; sourceTree = "<group>"; };
-
 		0ECFF2271A6F4865007F882E /* GetresultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetresultTableViewCell.h; sourceTree = "<group>"; };
 		0ECFF2281A6F4865007F882E /* GetresultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetresultTableViewCell.m; sourceTree = "<group>"; };
 		0ECFF22A1A6F5133007F882E /* JobDetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobDetalViewController.h; sourceTree = "<group>"; };
@@ -116,7 +113,6 @@
 		0ECFF2441A6F9AE0007F882E /* KRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRConstants.h; sourceTree = "<group>"; };
 		0ECFF2491A6F9BCA007F882E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0ECFF24A1A6F9BCA007F882E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-
 		9310CD2B1A6E4B9100211907 /* dynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicViewController.h; sourceTree = "<group>"; };
 		9310CD2C1A6E4B9100211907 /* dynamicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dynamicViewController.m; sourceTree = "<group>"; };
 		93C592CE1A708D9700CDF8F7 /* HHZCommonArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZCommonArrowItem.h; sourceTree = "<group>"; };
@@ -246,7 +242,6 @@
 			name = JobSearch;
 			sourceTree = "<group>";
 		};
-
 		0ECFF2331A6F86CB007F882E /* RelatedSearch */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,9 +270,8 @@
 				0ECFF2441A6F9AE0007F882E /* KRConstants.h */,
 			);
 			name = http;
-            sourceTree = "<group>";
-        };
-
+			sourceTree = "<group>";
+		};
 		93C592CD1A708D9700CDF8F7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,7 +287,6 @@
 				93C592D71A708D9700CDF8F7 /* HHZCommonSwitchItem.m */,
 			);
 			path = Common;
-
 			sourceTree = "<group>";
 		};
 		93C6F0141A6CE747002C8E4A = {
@@ -566,9 +559,11 @@
 				TargetAttributes = {
 					93C6F01C1A6CE747002C8E4A = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 63FVWL9TD6;
 					};
 					93C6F0351A6CE747002C8E4A = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 63FVWL9TD6;
 						TestTargetID = 93C6F01C1A6CE747002C8E4A;
 					};
 				};
@@ -652,11 +647,8 @@
 				0ECFF2451A6F9AE0007F882E /* JSONKit.m in Sources */,
 				93C6F06A1A6CEF7F002C8E4A /* findCodeViewController.m in Sources */,
 				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
-
 				0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */,
-
 				93C592D81A708D9700CDF8F7 /* HHZCommonArrowItem.m in Sources */,
-
 				93C6F1091A6CF0B5002C8E4A /* SUNLeftMenuViewController.m in Sources */,
 				0ECFF23A1A6F9871007F882E /* DetalsocialViewController.m in Sources */,
 				0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */,
@@ -664,13 +656,10 @@
 				93C6F0EC1A6CF030002C8E4A /* SUNSlideSwitchView.m in Sources */,
 				93C6F0231A6CE747002C8E4A /* main.m in Sources */,
 				93C6F0E01A6CF030002C8E4A /* EGOCache.m in Sources */,
-
 				0ECFF2461A6F9AE0007F882E /* RPBase64.m in Sources */,
 				0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */,
-
 				93C592DB1A708D9700CDF8F7 /* HHZCommonLabelItem.m in Sources */,
 				93C592DA1A708D9700CDF8F7 /* HHZCommonItem.m in Sources */,
-
 				93C6F10F1A6CF0B5002C8E4A /* SUNTextFieldDemoViewController.m in Sources */,
 				93C6F06D1A6CEF7F002C8E4A /* registerViewController.m in Sources */,
 				93C6F0E51A6CF030002C8E4A /* MMDrawerBarButtonItem.m in Sources */,
@@ -728,7 +717,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -748,6 +738,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "2a7d33f6-234b-4b67-b207-aa76a756d337";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -769,7 +760,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -782,6 +774,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "2a7d33f6-234b-4b67-b207-aa76a756d337";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -791,6 +784,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -801,6 +796,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphonesimulator",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2a7d33f6-234b-4b67-b207-aa76a756d337";
 			};
 			name = Debug;
 		};
@@ -808,6 +804,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sen Ye (FE46ZS29LM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sen Ye (FE46ZS29LM)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -818,6 +816,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library/BaiduMap_IOSSDK_v2.6.0_Lib/Release-iphonesimulator",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2a7d33f6-234b-4b67-b207-aa76a756d337";
 			};
 			name = Release;
 		};
@@ -825,6 +824,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -836,6 +837,7 @@
 				INFOPLIST_FILE = SHSGHTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHSGH.app/SHSGH";
 			};
 			name = Debug;
@@ -844,6 +846,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -851,6 +855,7 @@
 				INFOPLIST_FILE = SHSGHTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHSGH.app/SHSGH";
 			};
 			name = Release;

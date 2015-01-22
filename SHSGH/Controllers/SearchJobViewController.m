@@ -19,6 +19,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
      NSLog(@"%@%@%@",str1,str3,str2);
+    
+    recordarry=[NSMutableArray  arrayWithCapacity:0];
+   
+  
+
 }
 - (void)viewDidLoad {
     self.title=@"岗位查询";
@@ -109,7 +114,7 @@
         
         UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
         [searchrootview addSubview: seariamgeview];
-        seariamgeview.image=[UIImage imageNamed:@"搜索"];
+        seariamgeview.image=[UIImage imageNamed:@"search"];
         
         
     }
@@ -136,7 +141,7 @@
     
         UIImageView*recordiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
         [cell addSubview: recordiamgeview];
-        recordiamgeview.image=[UIImage imageNamed:@"搜索记录"];
+        recordiamgeview.image=[UIImage imageNamed:@"searchs"];
     
     }
     if(indexPath.row==6)
@@ -144,7 +149,7 @@
         
         UIImageView*adviceiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
         [cell addSubview: adviceiamgeview];
-        adviceiamgeview.image=[UIImage imageNamed:@"职位推荐"];
+        adviceiamgeview.image=[UIImage imageNamed:@"position"];
         
     }
     if(indexPath.row==0||indexPath.row==4)
@@ -211,9 +216,21 @@
     {
         
         SearchRecordViewController*seach=[[SearchRecordViewController alloc]init];
+     
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
-       
-        
+
+        recordarry=[userDefaults objectForKey:@"record"];
+        NSMutableArray*recordsarry=[NSMutableArray arrayWithCapacity:0];
+        for(int i=0;i<recordarry.count;i++)
+        {
+            [recordsarry addObject:[recordarry objectAtIndex:i]];
+            
+            
+            
+        }
+
+           seach.recortarry=recordsarry;
         
         [self.navigationController pushViewController:seach animated:YES];
         
@@ -272,15 +289,37 @@
         
     
     }
-    
+   
+
     SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    recordarry=[userDefaults objectForKey:@"record"];
+    NSMutableArray*recordsarry=[NSMutableArray arrayWithCapacity:0];
+    for(int i=0;i<recordarry.count;i++)
+    {
+        [recordsarry addObject:[recordarry objectAtIndex:i]];
+        
+    
+    
+    }
     seach.conditionsname=@"搜索结果";
+    NSMutableDictionary*dict=[[NSMutableDictionary alloc]init];
+    [dict setValue:str1 forKey:@"12"];
+    [dict setValue:str2 forKey:@"13"];
     
+    [recordsarry addObject:dict];
     
+    [userDefaults setObject:recordsarry forKey:@"record"];
+    [userDefaults synchronize];
+    
+
     [self.navigationController pushViewController:seach animated:YES];
-     
+     str1=@"";
     
+    str2=@"";
+    
+
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
