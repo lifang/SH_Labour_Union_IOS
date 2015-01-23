@@ -550,6 +550,7 @@
 -(void)makeSure
 {
     SLog(@"makeSure");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)sendMes

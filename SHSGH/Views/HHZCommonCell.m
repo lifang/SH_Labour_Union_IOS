@@ -11,6 +11,7 @@
 #import "HHZCommonSwitchItem.h"
 #import "HHZCommonLabelItem.h"
 #import "HHZCommonArrowItem.h"
+#import "HHZNoArrowItem.h"
 
 @implementation HHZCommonCell
 
@@ -78,6 +79,7 @@
 {
     [super layoutSubviews];
     
+   
     //调整子标题的x
     self.detailTextLabel.x = CGRectGetMinX(self.rightArrow.frame) - self.detailTextLabel.frame.size.width - 10;
     
@@ -86,6 +88,13 @@
     
     self.textLabel.x = CGRectGetMaxX(self.imageView.frame) + 10;
     
+    
+    if (!self.item.icon) {
+        self.textLabel.x  = 20;
+        self.detailTextLabel.font = [UIFont systemFontOfSize:14];
+        self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
+        self.detailTextLabel.frame = CGRectMake(110, self.textLabel.y, mainScreenW * 2 / 3, self.textLabel.height);
+    }
 }
 
 #pragma mark - 调整tableView头部间距
@@ -115,6 +124,8 @@
     
     //2.设置右边的内容
     if (item.badgeValue) {//如果右边有数字提示
+    }else if ([item isKindOfClass:[HHZNoArrowItem class]]){
+        self.accessoryView = nil;
     }else if ([item isKindOfClass:[HHZCommonArrowItem class]]){
         self.accessoryView = self.rightArrow;
     }else if ([item isKindOfClass:[HHZCommonSwitchItem class]]){

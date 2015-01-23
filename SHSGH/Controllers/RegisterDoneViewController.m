@@ -8,6 +8,7 @@
 
 #import "RegisterDoneViewController.h"
 #import "navbarView.h"
+#import "PersonalDoneViewController.h"
 
 @interface RegisterDoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *usermwssageField;
@@ -50,7 +51,8 @@
 
 -(void)skip
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    PersonalDoneViewController *PersonDoneVC = [[PersonalDoneViewController alloc]init];
+    [self.navigationController pushViewController:PersonDoneVC animated:YES];
 }
 
 
@@ -62,7 +64,28 @@
     CGFloat signBtnOriginX = 16.f; //登录按钮左侧
     
     UIView *topView = [[UIView alloc]init];
-    topView.backgroundColor = [UIColor redColor];
+    
+    UIImageView *imageV = [[UIImageView alloc]init];
+    imageV.image =[UIImage imageNamed:@"right"];
+    imageV.frame = CGRectMake(50, 30, 30, 24);
+    [topView addSubview:imageV];
+    
+    UILabel *topLabel = [[UILabel alloc]init];
+    topLabel.font = [UIFont systemFontOfSize:15];
+    topLabel.text = @"恭喜您,注册成功。";
+    topLabel.textColor = sColor(75, 75, 75, 1.0);
+    topLabel.frame = CGRectMake(CGRectGetMaxX(imageV.frame) + 2 *CostumViewMargin, CGRectGetMinY(imageV.frame) - 4 * CostumViewMargin, 130, 30);
+    [topView addSubview:topLabel];
+    
+    UILabel *bottomLabel = [[UILabel alloc]init];
+    bottomLabel.font = [UIFont systemFontOfSize:12];
+    bottomLabel.text = @"完善以下信息将获得更多权益与信息!";
+    bottomLabel.textColor = sColor(179, 179, 179, 1.0);
+    bottomLabel.frame = CGRectMake(topLabel.frame.origin.x, CGRectGetMaxY(topLabel.frame) -CostumViewMargin, 200, 26);
+    [topView addSubview:bottomLabel];
+    
+    
+    topView.backgroundColor = [UIColor clearColor];
     topView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:topView];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:topView
@@ -92,7 +115,7 @@
                                                              toItem:nil
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
-                                                           constant:100.f]];
+                                                           constant:80.f]];
     
     
     //first line
@@ -331,7 +354,9 @@
 
 -(void)done
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    PersonalDoneViewController *personalDoneVC = [[PersonalDoneViewController alloc]init];
+    
+    [self.navigationController pushViewController:personalDoneVC animated:YES];
 }
 
 
