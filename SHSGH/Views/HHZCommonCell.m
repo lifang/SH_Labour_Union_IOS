@@ -19,7 +19,7 @@
 - (UIImageView *)rightArrow
 {
     if (_rightArrow == nil) {
-        self.rightArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"particular_Gray-1"]];
+        self.rightArrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"particular_Gray"]];
     }
     return _rightArrow;
 }
@@ -48,7 +48,7 @@
 {
     static NSString *ID = @"common";
     HHZCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    cell.height = 70;
+    cell.height = 80;
     if (cell == nil) {
         cell = [[HHZCommonCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     }
@@ -63,8 +63,8 @@
         self.textLabel.font = [UIFont systemFontOfSize:15];
         self.detailTextLabel.font = [UIFont systemFontOfSize:11];
         
-//        //取出cell默认的背景颜色
-//        self.backgroundColor = [UIColor clearColor];
+        //取出cell默认的背景颜色
+        self.backgroundColor = [UIColor clearColor];
         
 //        //设置背景view
 //        self.backgroundView = [[UIImageView alloc]init];
@@ -79,10 +79,13 @@
     [super layoutSubviews];
     
     //调整子标题的x
-    self.detailTextLabel.x = CGRectGetMaxX(self.textLabel.frame) + 5;
+    self.detailTextLabel.x = CGRectGetMinX(self.rightArrow.frame) - self.detailTextLabel.frame.size.width - 10;
     
-//    self.imageView.frame = CGRectMake(0, 0, 20, 20);
+    self.imageView.frame = CGRectMake(20, 10, 26, 26);
 //    self.imageView.backgroundColor = [UIColor redColor];
+    
+    self.textLabel.x = CGRectGetMaxX(self.imageView.frame) + 10;
+    
 }
 
 #pragma mark - 调整tableView头部间距
@@ -128,5 +131,4 @@
     }
     
 }
-
 @end

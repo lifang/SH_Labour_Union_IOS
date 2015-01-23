@@ -32,6 +32,7 @@
 		93C592DF1A708DF400CDF8F7 /* HHZCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592DE1A708DF400CDF8F7 /* HHZCommonViewController.m */; };
 		93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592E11A708E8800CDF8F7 /* HHZCommonCell.m */; };
 		93C592E81A70920400CDF8F7 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592E71A70920400CDF8F7 /* PersonalViewController.m */; };
+		93C592EB1A70E84500CDF8F7 /* RegisterDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592EA1A70E84500CDF8F7 /* RegisterDoneViewController.m */; };
 		93C6F0231A6CE747002C8E4A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0221A6CE747002C8E4A /* main.m */; };
 		93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0251A6CE747002C8E4A /* AppDelegate.m */; };
 		93C6F02E1A6CE747002C8E4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93C6F02D1A6CE747002C8E4A /* Images.xcassets */; };
@@ -131,6 +132,8 @@
 		93C592E11A708E8800CDF8F7 /* HHZCommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZCommonCell.m; sourceTree = "<group>"; };
 		93C592E61A70920400CDF8F7 /* PersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalViewController.h; sourceTree = "<group>"; };
 		93C592E71A70920400CDF8F7 /* PersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalViewController.m; sourceTree = "<group>"; };
+		93C592E91A70E84500CDF8F7 /* RegisterDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterDoneViewController.h; sourceTree = "<group>"; };
+		93C592EA1A70E84500CDF8F7 /* RegisterDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDoneViewController.m; sourceTree = "<group>"; };
 		93C6F01D1A6CE747002C8E4A /* SHSGH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHSGH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93C6F0211A6CE747002C8E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C6F0221A6CE747002C8E4A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				93C592DE1A708DF400CDF8F7 /* HHZCommonViewController.m */,
 				93C592E61A70920400CDF8F7 /* PersonalViewController.h */,
 				93C592E71A70920400CDF8F7 /* PersonalViewController.m */,
+				93C592E91A70E84500CDF8F7 /* RegisterDoneViewController.h */,
+				93C592EA1A70E84500CDF8F7 /* RegisterDoneViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -625,6 +630,7 @@
 				93C592D91A708D9700CDF8F7 /* HHZCommonGroup.m in Sources */,
 				93C6F0E21A6CF030002C8E4A /* EGOImageLoadConnection.m in Sources */,
 				93C6F06C1A6CEF7F002C8E4A /* MainViewController.m in Sources */,
+				93C592EB1A70E84500CDF8F7 /* RegisterDoneViewController.m in Sources */,
 				0ECFF2321A6F8117007F882E /* SearchRecordViewController.m in Sources */,
 				0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */,
 				93C6F1141A6CF4D2002C8E4A /* loginViewController.m in Sources */,

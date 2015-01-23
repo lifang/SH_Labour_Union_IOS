@@ -12,12 +12,14 @@ static MainViewController  *mainController = nil;
 static UINavigationController *mainNavController = nil;
 
 static dynamicViewController  *dynamicController = nil;
+static UINavigationController *dynamicNavController = nil;
+
 static SearchJobViewController  *searchController = nil;
+static UINavigationController *searchNavController = nil;
 
 static RelatedViewController  *relatedController = nil;
-static UINavigationController *dynamicNavController = nil;
-static UINavigationController *searchNavController = nil;
 static UINavigationController *relatedNavController = nil;
+
 @interface AppDelegate ()
 
 @end
@@ -45,7 +47,6 @@ static UINavigationController *relatedNavController = nil;
     return mainNavController;
 }
 
-//动态
 
 +(UINavigationController *)shareDynamicController6{
     static dispatch_once_t onceToken;
@@ -65,6 +66,8 @@ static UINavigationController *relatedNavController = nil;
     });
     return searchNavController;
 }
+
+//动态
 +(UINavigationController *)shareDynamicController{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

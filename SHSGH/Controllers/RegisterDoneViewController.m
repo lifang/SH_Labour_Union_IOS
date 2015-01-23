@@ -1,72 +1,99 @@
 //
-//  loginViewController.m
+//  RegisterDoneViewController.m
 //  SHSGH
 //
-//  Created by lihongliang on 15/1/19.
+//  Created by lihongliang on 15/1/22.
 //  Copyright (c) 2015年 comdo. All rights reserved.
 //
 
-#import "LoginViewController.h"
-#import "AppDelegate.h"
+#import "RegisterDoneViewController.h"
 #import "navbarView.h"
-#import "registerViewController.h"
-#import "findCodeViewController.h"
-#import "UIViewController+MMDrawerController.h"
 
-@interface loginViewController ()<UITextFieldDelegate>
-
-@property (nonatomic, strong) UITextField *usernameField;
-@property (nonatomic, strong) UITextField *passwordField;
-
+@interface RegisterDoneViewController ()<UITextFieldDelegate>
+@property (nonatomic, strong) UITextField *usermwssageField;
+@property (nonatomic, strong) UITextField *emailField;
 @end
 
-@implementation loginViewController
+@implementation RegisterDoneViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = mainScreenColor;
     
     [self setNavBar];
     [self initAndLayoutUI];
-    
+   
 }
 
 -(void)setNavBar
 {
-    self.title = @"登录";
-    
-    
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [UIColor whiteColor],
-                                NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
-    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+    self.view.backgroundColor = mainScreenColor;
+    self.title = @"其他信息填写";
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
-    [buttonL.navButton addTarget:self action:@selector(backtoPerson) forControlEvents:UIControlEventTouchUpInside];
+    [buttonL.navButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
     
     navbarView *buttonR = [[navbarView alloc]initWithNavType:navbarViewTypeRight];
-    [buttonR.navButton setTitle:@"注册" forState:UIControlStateNormal];
+    [buttonR.navButton setTitle:@"跳过" forState:UIControlStateNormal];
     [buttonR.navButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    [buttonR.navButton addTarget:self action:@selector(signUp:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonR.navButton addTarget:self action:@selector(skip) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buttonR];
     self.navigationItem.rightBarButtonItem = rightItem;
 }
 
--(void)backtoPerson
+-(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)skip
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
 -(void)initAndLayoutUI
 {
-    CGFloat topSpace = 14.0f;  //距顶部
+    CGFloat topSpace = 0.0f;  //距顶部
     CGFloat textFieldHeight = 44.0f; //输入框高度
     CGFloat imageSize = 20.0f; //输入框图片大小
-    CGFloat btnOriginX = 160.0f; //忘记密码左侧
     CGFloat signBtnOriginX = 16.f; //登录按钮左侧
+    
+    UIView *topView = [[UIView alloc]init];
+    topView.backgroundColor = [UIColor redColor];
+    topView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview:topView];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:topView
+                                                          attribute:NSLayoutAttributeTop
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeTop
+                                                         multiplier:1.0
+                                                           constant:topSpace]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:topView
+                                                          attribute:NSLayoutAttributeLeft
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeLeft
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:topView
+                                                          attribute:NSLayoutAttributeRight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeRight
+                                                         multiplier:1.0
+                                                           constant:0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:topView
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:nil
+                                                          attribute:NSLayoutAttributeHeight
+                                                         multiplier:0.0
+                                                           constant:100.f]];
+    
     
     //first line
     UIView *firstLine = [[UIView alloc] init];
@@ -76,10 +103,10 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeTop
+                                                             toItem:topView
+                                                          attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
-                                                           constant:topSpace]];
+                                                           constant:0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:firstLine
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
@@ -101,45 +128,45 @@
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
                                                            constant:0.5f]];
-    //用户名
-    _usernameField = [[UITextField alloc] init];
-    _usernameField.translatesAutoresizingMaskIntoConstraints = NO;
-    _usernameField.borderStyle = UITextBorderStyleNone;
-    _usernameField.backgroundColor = [UIColor whiteColor];
-    _usernameField.delegate = self;
-    _usernameField.placeholder = @"请输入用户名";
-    _usernameField.font = [UIFont systemFontOfSize:15.f];
+    //身份证
+    _usermwssageField = [[UITextField alloc] init];
+    _usermwssageField.translatesAutoresizingMaskIntoConstraints = NO;
+    _usermwssageField.borderStyle = UITextBorderStyleNone;
+    _usermwssageField.backgroundColor = [UIColor whiteColor];
+    _usermwssageField.delegate = self;
+    _usermwssageField.placeholder = @"请输入身份证";
+    _usermwssageField.font = [UIFont systemFontOfSize:15.f];
     UIView *nameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
-    nameImageView.image = [UIImage imageNamed:@"accounts"];
+    nameImageView.image = [UIImage imageNamed:@"identity_card"];
     [nameView addSubview:nameImageView];
-    _usernameField.leftView = nameView;
-    _usernameField.leftViewMode = UITextFieldViewModeAlways;
-    _usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _usernameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.view addSubview:_usernameField];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usernameField
+    _usermwssageField.leftView = nameView;
+    _usermwssageField.leftViewMode = UITextFieldViewModeAlways;
+    _usermwssageField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _usermwssageField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.view addSubview:_usermwssageField];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usernameField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usernameField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:firstLine
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usernameField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
@@ -155,7 +182,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_usernameField
+                                                             toItem:_usermwssageField
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
@@ -180,46 +207,46 @@
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
                                                            constant:0.5f]];
-    //密码
-    _passwordField = [[UITextField alloc] init];
-    _passwordField.translatesAutoresizingMaskIntoConstraints = NO;
-    _passwordField.borderStyle = UITextBorderStyleNone;
-    _passwordField.backgroundColor = [UIColor whiteColor];
-    _passwordField.delegate = self;
-    _passwordField.placeholder = @"请输入密码";
-    _passwordField.font = [UIFont systemFontOfSize:15.f];
-    _passwordField.secureTextEntry = YES;
+    //email
+    _emailField = [[UITextField alloc] init];
+    _emailField.translatesAutoresizingMaskIntoConstraints = NO;
+    _emailField.borderStyle = UITextBorderStyleNone;
+    _emailField.backgroundColor = [UIColor whiteColor];
+    _emailField.delegate = self;
+    _emailField.placeholder = @"请输入邮件";
+    _emailField.font = [UIFont systemFontOfSize:15.f];
+    _emailField.secureTextEntry = YES;
     UIView *passwordView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *passwordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
-    passwordImageView.image = [UIImage imageNamed:@"password"];
+    passwordImageView.image = [UIImage imageNamed:@"email_Gray"];
     [passwordView addSubview:passwordImageView];
-    _passwordField.leftView = passwordView;
-    _passwordField.leftViewMode = UITextFieldViewModeAlways;
-    _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _passwordField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.view addSubview:_passwordField];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField
+    _emailField.leftView = passwordView;
+    _emailField.leftViewMode = UITextFieldViewModeAlways;
+    _emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.view addSubview:_emailField];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:secondLine
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
@@ -234,7 +261,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:thirdLine
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_passwordField
+                                                             toItem:_emailField
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
@@ -260,58 +287,21 @@
                                                          multiplier:0.0
                                                            constant:0.5f]];
     
-    //忘记密码
-    UIButton *forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    forgetBtn.translatesAutoresizingMaskIntoConstraints = NO;
-    forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12.f];
-    [forgetBtn setTitleColor:HHZColor(64, 64, 64) forState:UIControlStateNormal];
-    [forgetBtn setTitle:@"忘记密码?找回密码" forState:UIControlStateNormal];
-    [forgetBtn setBackgroundImage:[UIImage imageNamed:@"selected"] forState:UIControlStateHighlighted];
-    [forgetBtn addTarget:self action:@selector(forgetPassword) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:forgetBtn];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:forgetBtn
-                                                          attribute:NSLayoutAttributeTop
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:thirdLine
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1.0
-                                                           constant:10]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:forgetBtn
-                                                          attribute:NSLayoutAttributeLeft
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:self.view
-                                                          attribute:NSLayoutAttributeLeft
-                                                         multiplier:1.0
-                                                           constant:btnOriginX]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:forgetBtn
-                                                          attribute:NSLayoutAttributeWidth
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeNotAnAttribute
-                                                         multiplier:0.0
-                                                           constant:180]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:forgetBtn
-                                                          attribute:NSLayoutAttributeHeight
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:nil
-                                                          attribute:NSLayoutAttributeHeight
-                                                         multiplier:0.0
-                                                           constant:18]];
-    //登录
+    //完成
     UIButton *signInBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     signInBtn.translatesAutoresizingMaskIntoConstraints = NO;
     signInBtn.layer.cornerRadius = 4;
     signInBtn.layer.masksToBounds = YES;
     signInBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
-    [signInBtn setTitle:@"登录" forState:UIControlStateNormal];
+    [signInBtn setTitle:@"完成" forState:UIControlStateNormal];
     [signInBtn setBackgroundImage:[UIImage imageNamed:@"btn-h"] forState:UIControlStateNormal];
     [signInBtn setBackgroundImage:[UIImage imageNamed:@"btn-r"] forState:UIControlStateHighlighted];
-    [signInBtn addTarget:self action:@selector(signIn:) forControlEvents:UIControlEventTouchUpInside];
+    [signInBtn addTarget:self action:@selector(done) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:signInBtn
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:forgetBtn
+                                                             toItem:thirdLine
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:20]];
@@ -336,33 +326,15 @@
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
                                                            constant:40]];
-    
+
 }
 
--(void)signIn:(id)sender
+-(void)done
 {
-    NSLog(@"登录!");
-    
-    [self.mm_drawerController setCenterViewController:[AppDelegate shareMainController]
-                                   withCloseAnimation:YES completion:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
--(void)signUp:(id)sender
-{
-    NSLog(@"注册!");
-    
-    registerViewController *registerVC = [[registerViewController alloc]init];
-    [self.navigationController pushViewController:registerVC animated:YES];
-}
 
--(void)forgetPassword
-{
-    findCodeViewController *findVC = [[findCodeViewController alloc]init];
-    [self.navigationController pushViewController:findVC animated:YES];
-    
-    NSLog(@"忘记密码!");
-    
-}
+
 
 @end

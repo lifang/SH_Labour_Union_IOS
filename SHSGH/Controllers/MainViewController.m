@@ -24,13 +24,27 @@
 
 @implementation MainViewController
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     //隐藏导航栏
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
     self.view.backgroundColor = [UIColor whiteColor];
-    
     //创建自定义布局
     [self setupCustomView];
 }
@@ -183,7 +197,7 @@
 
 -(void)btnClick:(homeBtn *)centerView
 {
-//    NSLog(@"%ld",centerView.tag);
+    
     switch (centerView.tag) {
         case 0:
             [self setDynamicController];
@@ -232,7 +246,6 @@
 
 -(void)setDynamicController
 {
-    
     UINavigationController *dynamicNav = [AppDelegate shareDynamicController];
     
     [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];

@@ -131,7 +131,7 @@
     int row = indexPath.row;
     if (section == 0) {
         if (row == 0) { //滑动切换视图
-              NSLog(@"点击返回首页");
+              NSLog(@"点击返回首页");;
             if (!self.navMainViewVC) {
                 self.navMainViewVC = [AppDelegate shareMainController];
             }

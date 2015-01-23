@@ -15,6 +15,7 @@
 #import "HHZCommonLabelItem.h"
 #import "navbarView.h"
 #import "loginViewController.h"
+#import "registerViewController.h"
 
 @interface PersonalViewController ()
 
@@ -32,40 +33,61 @@
 -(void)setHeadView
 {
     UIView *headerV = [[UIView alloc]init];
-    headerV.backgroundColor = sColor(236, 236, 236, 1.0);
+    headerV.backgroundColor = mainScreenColor;
     headerV.frame = CGRectMake(0, 0, mainScreenW, 100);
     
     UIButton *loadBtn = [[UIButton alloc]init];
-    [loadBtn addTarget:self action:@selector(loadVC) forControlEvents:UIControlEventTouchUpInside];
+    [loadBtn addTarget:self action:@selector(loginVC) forControlEvents:UIControlEventTouchUpInside];
     [loadBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [loadBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [loadBtn setTitleColor:sColor(224, 84, 0, 1.0) forState:UIControlStateNormal];
     loadBtn.backgroundColor = [UIColor clearColor];
     loadBtn.frame = CGRectMake(0, 4, mainScreenW / 2, 100);
     
     UILabel *loadLabel = [[UILabel alloc]init];
     loadLabel.backgroundColor = [UIColor clearColor];
     loadLabel.textAlignment =  NSTextAlignmentCenter;
-    loadLabel.textColor = [UIColor lightGrayColor];
-    loadLabel.font = [UIFont systemFontOfSize:15];
+    loadLabel.textColor = sColor(166, 166, 166, 1.0);
+    loadLabel.font = [UIFont systemFontOfSize:14];
     loadLabel.text = @"可管理个人信息等";
-    loadLabel.frame = CGRectMake(0, 68, mainScreenW / 2, 26);
+    loadLabel.frame = CGRectMake(0, (loadBtn.frame.size.height / 2) + (CostumViewMargin * 3), mainScreenW / 2, 26);
     [headerV addSubview:loadLabel];
     [headerV addSubview:loadBtn];
     
     UIButton *registerBtn = [[UIButton alloc]init];
+    [registerBtn addTarget:self action:@selector(registerVC) forControlEvents:UIControlEventTouchUpInside];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
-    [registerBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [registerBtn setTitleColor:sColor(224, 84, 0, 1.0) forState:UIControlStateNormal];
     registerBtn.backgroundColor = [UIColor clearColor];
-    registerBtn.frame = CGRectMake(mainScreenW / 2, 8, mainScreenW / 2, 100);
+    registerBtn.frame = CGRectMake(mainScreenW / 2, 4, mainScreenW / 2, 100);
+    
+    UILabel *registerLabel = [[UILabel alloc]init];
+    registerLabel.backgroundColor = [UIColor clearColor];
+    registerLabel.textAlignment =  NSTextAlignmentCenter;
+    registerLabel.textColor = sColor(166, 166, 166, 1.0);
+    registerLabel.font = [UIFont systemFontOfSize:14];
+    registerLabel.text = @"可享受会员信息等";
+    registerLabel.frame = CGRectMake(mainScreenW / 2, (loadBtn.frame.size.height / 2) + (CostumViewMargin * 3), mainScreenW / 2, 26);
+    [headerV addSubview:registerLabel];
     [headerV addSubview:registerBtn];
+    
+    UIView *divisionLine = [[UIView alloc]init];
+    divisionLine.backgroundColor = sColor(219, 219, 219, 1.0);
+    divisionLine.frame = CGRectMake(mainScreenW / 2, 40, 1, 40);
+    [headerV addSubview:divisionLine];
     
     self.tableView.tableHeaderView = headerV;
 }
 
--(void)loadVC
+-(void)loginVC
 {
     loginViewController *loginVC = [[loginViewController alloc]init];
     [self.navigationController pushViewController:loginVC animated:YES];
+}
+
+-(void)registerVC
+{
+    registerViewController *registerVC = [[registerViewController alloc]init];
+    [self.navigationController pushViewController:registerVC animated:YES];
 }
 
 -(void)setNavBar
@@ -74,14 +96,15 @@
     self.tableView.backgroundColor = sColor(236, 236, 236, 1.0);
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
-    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(backtoDynamic) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)backtoDynamic
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)setupGroups
