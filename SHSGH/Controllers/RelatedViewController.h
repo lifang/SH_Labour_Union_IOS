@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PPiFlatSegmentedControl.h"
 @interface RelatedViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     
@@ -16,6 +16,7 @@
     
     UITextField*_searchfield;
     
+    PPiFlatSegmentedControl *segmentedControl;
     
 }
 

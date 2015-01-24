@@ -60,12 +60,12 @@
 {
     if(iOS7)
     {
-        self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
+        self.navigationController.navigationBar.barTintColor=HHZColor(110, 0, 0);
         
     }
     else
     {
-        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
+        self.navigationController.navigationBar.tintColor = HHZColor(110, 0, 0);
         
         
     }

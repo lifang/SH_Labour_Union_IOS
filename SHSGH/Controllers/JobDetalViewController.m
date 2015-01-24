@@ -43,17 +43,18 @@
 }
 
 -(void)createui
-{ if(iOS7)
 {
-    self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
-    
-}
-else
-{
-    self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
-    
-    
-}
+    if(iOS7)
+    {
+        self.navigationController.navigationBar.barTintColor=HHZColor(110, 0, 0);
+        
+    }
+    else
+    {
+        self.navigationController.navigationBar.tintColor = HHZColor(110, 0, 0);
+        
+        
+    }
     [self setnavBar];
     UIScrollView*bigscrollow=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:bigscrollow];
