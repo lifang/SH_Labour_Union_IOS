@@ -10,8 +10,6 @@
 
 @interface dynamicViewController : UITableViewController
 
-@property(nonatomic,strong)UIButton *leftViewBtn;
-
 @property(nonatomic,strong)UINavigationController *dynamicNav;
 
 @end

@@ -10,7 +10,7 @@
 #import "navbarView.h"
 #import "EGOImageView.h"
 
-@interface DynamicChildViewController ()
+@interface DynamicChildViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *contentView;
 
@@ -74,17 +74,28 @@
     textLabel.numberOfLines = 0;
     textLabel.frame = CGRectMake(leftMargin, CGRectGetMaxY(imageView.frame) + CostumViewMargin * 3, mainScreenW * 0.9, textLabelSize.height);
     [contentView addSubview:textLabel];
-
     [self.view addSubview:contentView];
     contentView.contentSize = CGSizeMake(mainScreenW, CGRectGetMaxY(textLabel.frame) + 70);
-    
+    self.contentView = contentView;
+    //创建回到顶部
     UIImageView *backTopView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"back_top"]];
+    backTopView.userInteractionEnabled = YES;
     backTopView.frame = CGRectMake(mainScreenW - 60, mainScreenH - 140, 40, 40);
+    UIButton *backTopBtn = [[UIButton alloc]init];
+    backTopBtn.backgroundColor = [UIColor clearColor];
+    backTopBtn.frame = backTopView.bounds;
+    [backTopBtn addTarget:self action:@selector(backTop) forControlEvents:UIControlEventTouchUpInside];
+    [backTopView addSubview:backTopBtn];
     [self.view addSubview:backTopView];
-    
 }
 
-
+-(void)backTop
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.contentView.contentOffset = CGPointMake(0, 0);
+    }];
+    SLog(@"back");
+}
 
 -(void)setNavBar
 {

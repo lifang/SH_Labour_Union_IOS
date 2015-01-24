@@ -19,5 +19,6 @@
 @property (nonatomic, strong) IBOutlet UINavigationController *navSlideSwitchVC;
 @property (nonatomic, strong) IBOutlet UINavigationController *navCommonComponentVC;
 @property (nonatomic, strong) IBOutlet UINavigationController *navMainViewVC;
+@property (nonatomic, strong) IBOutlet UINavigationController *navMaintainViewVC;
 
 @end
