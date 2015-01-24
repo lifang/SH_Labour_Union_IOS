@@ -10,7 +10,9 @@
 #import "DetalsocialViewController.h"
 #import "navbarView.h"
 #import "AppDelegate.h"
-#import "MCSegmentedControl.h"
+#import "NSString+FontAwesome.h"
+
+#import "PersonalViewController.h"
 @interface RelatedViewController ()
 
 @end
@@ -31,48 +33,68 @@
 }
 -(void)createui
 {
-    if(iOS7)
-    {
-        self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
-        
-    }
-    else
-    {
-        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
-        
-        
-    }
+     //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
     
-    self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"法规查询",@"互助保障",@"问卷调查",nil];
-    //初始化UISegmentedControl
-   MCSegmentedControl *segmentedControl = [[MCSegmentedControl alloc] initWithItems:segmentedArray];
+       [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"head_bg01"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 0, 21, 0)] forBarMetrics:UIBarMetricsDefault];
+         segmentedControl=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20,5,SCREEN_WIDTH-40,30) items:@[               @{@"text":@"法规查询",@"":@""},
+                                                                                                                                                             @{@"text":@"互助保障",@"":@""},
+                                                                                                                                                             @{@"text":@"问卷调查",@"":@""}
+                                                                                                                                                             ]
+                                                                                    iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex)
+                                                   
+                                                   {
+                                                     
+                                                       if(segmentIndex==0)
+                                                       {
+                                                           _Seatchtable.hidden=NO;
+                                                           
+                                                       }
+                                                       else if(segmentIndex==1)
+                                                       {
+                                                           _Seatchtable.hidden=NO;
+                                                           
+                                                       }
+                                                       else
+                                                       {
+                                                           
+                                                           _Seatchtable.hidden=YES;
+                                                           
+                                                           [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
+                                                           
+                                                       }
+                                                       
+
+                                                   }];
+        
+        _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+        
+        
+    
+    self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
+    
     
 
+   
+    segmentedControl.color=[UIColor whiteColor];
+    segmentedControl.borderWidth=0.5;
+    segmentedControl.borderColor=[UIColor grayColor];
+    segmentedControl.selectedColor=[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
+    segmentedControl.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
+                                NSForegroundColorAttributeName:[UIColor blackColor]};
+    segmentedControl.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
+                                        NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:segmentedControl];
-//    segmentedControl.segmentedControlStyle= UISegmentedControlStyleBar;//设置
     
   
     
-if(iOS7)
-{
-    segmentedControl.frame =CGRectMake(20,70,SCREEN_WIDTH-40,30);
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 105, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
 
-}
-else
-{
-    segmentedControl.frame =CGRectMake(20,5,SCREEN_WIDTH-40,30);
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
-
-
-}
     
     
-    segmentedControl.tintColor= [UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
-    [segmentedControl addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
-    [segmentedControl setSelectedSegmentIndex:0];
+//    segmentedControl.tintColor= [UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
+//    [segmentedControl addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
+//    [segmentedControl setSelectedSegmentIndex:0];
 //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
-    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
+//    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
     
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
@@ -197,7 +219,21 @@ else
     [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
+    navbarView *buttonR = [[navbarView alloc]initWithNavType:navbarViewTypeRight];
+    [buttonR.navButton setImage:[UIImage imageNamed:@"user_white"]forState:UIControlStateNormal];
+    [buttonR.navButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [buttonR.navButton addTarget:self action:@selector(toUser) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buttonR];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
+-(void)toUser
+{
+    PersonalViewController *personVC = [[PersonalViewController alloc]init];
+    
+    [self.navigationController pushViewController:personVC animated:YES];
+    SLog(@"toUser");
+}
+
 -(void)leftMenu
 {
     //    self.leftViewBtn.tag++;
@@ -318,29 +354,29 @@ else
 }
 
 
--(void)change:(MCSegmentedControl*)segmentedControl
-{
- if(segmentedControl.selectedSegmentIndex==0)
-      {
-_Seatchtable.hidden=NO;
-
-      }
-else if(segmentedControl.selectedSegmentIndex==1)
-      {
-        _Seatchtable.hidden=NO;
-        
-      }
-    else
-    {
-        
-        _Seatchtable.hidden=YES;
-        
-        [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
-    
-    }
-
-
-}
+//-(void)change:(MCSegmentedControl*)segmentedControl
+//{
+// if(segmentedControl.selectedSegmentIndex==0)
+//      {
+//_Seatchtable.hidden=NO;
+//
+//      }
+//else if(segmentedControl.selectedSegmentIndex==1)
+//      {
+//        _Seatchtable.hidden=NO;
+//        
+//      }
+//    else
+//    {
+//        
+//        _Seatchtable.hidden=YES;
+//        
+//        [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
+//    
+//    }
+//
+//
+//}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
    

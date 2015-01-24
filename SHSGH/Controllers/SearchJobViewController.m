@@ -14,6 +14,8 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 #import "JobDetalViewController.h"
+
+#import "PersonalViewController.h"
 @interface SearchJobViewController ()
 
 @end
@@ -70,13 +72,12 @@
     [self setnavBar];
     if(iOS7)
     {
-        self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
+          [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"head_bg01"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 0, 21, 0)] forBarMetrics:UIBarMetricsDefault];
         
     }
     else
     {
-        self.navigationController.navigationBar.tintColor = HHZColor(99, 27, 28);
-        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"head_bg01"]forBarMetrics:UIBarMetricsDefault];
         
     }
     // Do any additional setup after loading the view.
@@ -129,18 +130,18 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     if(indexPath.row==0)
     {
-        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-40, 40)];
+        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 33)];
         [cell addSubview:searchrootview];
         if(iOS7)
         {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-80, 38)];
+            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-80, 31)];
         }
         else
         {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 10, SCREEN_WIDTH-80, 38)];
+            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 5, SCREEN_WIDTH-80, 31)];
             
         }
-        searchrootview.layer.cornerRadius=20;
+        searchrootview.layer.cornerRadius=15;
         
         _searchfield.placeholder=@"请输入关键字/职位/公司/地点 ";
         _searchfield.delegate=self;
@@ -156,7 +157,7 @@
         [layer setBorderColor:[[UIColor grayColor] CGColor]];
         [searchrootview addSubview:_searchfield];
         
-        UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
+        UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 25, 25)];
         [searchrootview addSubview: seariamgeview];
         seariamgeview.image=[UIImage imageNamed:@"search"];
         
@@ -168,7 +169,7 @@
         
         [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
         [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [searchButton setBackgroundColor:[UIColor colorWithRed:214.0/255 green:180.0/255 blue:92.0/255 alpha:1]];
+        [searchButton setBackgroundColor:[UIColor colorWithRed:234.0/255 green:171.0/255 blue:26.0/255 alpha:1]];
         
         searchButton.layer.cornerRadius=5;
         
@@ -224,7 +225,22 @@
     [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
+    
+    navbarView *buttonR = [[navbarView alloc]initWithNavType:navbarViewTypeRight];
+    [buttonR.navButton setImage:[UIImage imageNamed:@"user_white"]forState:UIControlStateNormal];
+    [buttonR.navButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    [buttonR.navButton addTarget:self action:@selector(toUser) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:buttonR];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
+-(void)toUser
+{
+    PersonalViewController *personVC = [[PersonalViewController alloc]init];
+   
+    [self.navigationController pushViewController:personVC animated:YES];
+    SLog(@"toUser");
+}
+
 -(void)leftMenu
 {
     //    self.leftViewBtn.tag++;
