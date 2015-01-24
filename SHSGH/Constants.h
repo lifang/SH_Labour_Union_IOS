@@ -13,6 +13,7 @@
 #define SLog(...)
 #endif
 
+#define mainFont [UIFont systemFontOfSize:15]
 //机器的版本号
 #define sDeviceVersion [[[UIDevice currentDevice] systemVersion] floatValue]
 

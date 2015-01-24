@@ -13,9 +13,15 @@
 #import "AppDelegate.h"
 #import "MMDrawerController.h"
 #import "PersonalViewController.h"
+#import "HHZLoadMoreFooter.h"
+#import "DynamicChildViewController.h"
 
 
 @interface dynamicViewController ()<ReuseViewDelegate>
+
+@property (nonatomic,weak)UIRefreshControl *refreshControl;
+
+@property (nonatomic,weak)HHZLoadMoreFooter *footer;
 
 @end
 
@@ -25,7 +31,52 @@
     [super viewDidLoad];
     [self setNavBar];
     [self setScrollView];
+    [self setupRefresh];
 }
+
+-(void)setupRefresh
+{
+    //1。添加下拉刷新控件
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:refreshControl];
+    self.refreshControl = refreshControl;
+    
+    //2.监听状态
+    [refreshControl addTarget:self action:@selector(refreshControlStateChange:) forControlEvents:UIControlEventValueChanged];
+    
+    //3.让刷新控件自动进入刷新状态
+    [refreshControl beginRefreshing];
+    
+    //4.加载数据
+    [self refreshControlStateChange:refreshControl];
+    
+    //5.添加上拉刷新更多控件
+    HHZLoadMoreFooter *footer = [HHZLoadMoreFooter footer];
+    self.tableView.tableFooterView = footer;
+    self.footer = footer;
+
+}
+
+//当下拉刷新控件进入刷新状态时候自动调用
+-(void)refreshControlStateChange:(UIRefreshControl *)refreshControl
+{
+    [self loadNewStatuses:refreshControl];
+}
+//下拉刷新加载更多微博数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [refreshControl endRefreshing];
+    });
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.footer endRefreshing];
+    });}
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -96,10 +147,6 @@
     self.tableView.tableHeaderView = scrollView;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -112,6 +159,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     int row = indexPath.row;
     NSString *ListViewCellId = @"ListViewCellId";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ListViewCellId];
@@ -127,13 +175,34 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
+    [self.navigationController pushViewController:dynamicVC animated:YES];
     SLog(@"点击了第%ld行",indexPath.row);
-    
 }
  #pragma mark - ScrollView didSelect
  -(void)handleTop:(UITapGestureRecognizer *)imageView
  {
       SLog(@"点击了%@",imageView);
  }
+
+//上拉刷新的代理方法
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+//    if (self.statusFrames.count <= 0 || self.footer.isRefreshing) return;
+    if (self.footer.isRefreshing) return;
+    //1.差距
+    CGFloat delta = scrollView.contentSize.height - scrollView.contentOffset.y;
+    //刚好能完整看到footer的高度
+    CGFloat sawFooterH = self.view.height - self.tabBarController.tabBar.height;
+    
+    //2.如果能看见整个footer
+    if (delta <= (sawFooterH - 0)) {
+        //进入上拉刷新状态
+        [self.footer beginRefreshing];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadMoreStatuses];
+        });
+    }
+}
 
 @end

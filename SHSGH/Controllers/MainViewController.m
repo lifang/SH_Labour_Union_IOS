@@ -62,6 +62,8 @@
     //适配4s
     if (mainScreenH <= 480) {
         topViewH = 40;
+    }else  if(mainScreenW >= 667){
+        topViewH = 80;
     }
     topView.frame = CGRectMake(topViewX, topViewY, topViewW, topViewH);
     [self.view addSubview:topView];
