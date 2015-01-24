@@ -7,7 +7,7 @@
 //
 
 #import "DetalsocialViewController.h"
-
+#import "navbarView.h"
 @interface DetalsocialViewController ()
 
 @end
@@ -31,25 +31,46 @@
         
     }
 
-    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
-    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
     
-    
-    gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
-    
-    self.navigationItem.leftBarButtonItem = leftItem;
 
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
-    UILabel*conlable=[[UILabel alloc]initWithFrame:CGRectMake(10, 60, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    [self.view addSubview:conlable];
+    UILabel*requirecontent=[[UILabel alloc]init];
+    
+    
+    if(iOS7)
+    {
+        requirecontent.frame=CGRectMake(10, 70, SCREEN_WIDTH-20, 30);
+        
+    }
+    else
+    {
+        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, 30);
+        
+
+    
+    }
+    requirecontent.font=[UIFont systemFontOfSize:15];
+//    requirecontent.textColor=[UIColor grayColor];
+    requirecontent.numberOfLines=0;
+    [self.view addSubview:requirecontent];
+    requirecontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+    
+    [requirecontent sizeToFit];
+    
+    
     [ self setnavBar];
-    
-    
+    [ self setNavBar];
 }
+ -(void)setNavBar
+    {
+        
+        navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+        [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+        [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }
 -(void)setnavBar
 {
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];

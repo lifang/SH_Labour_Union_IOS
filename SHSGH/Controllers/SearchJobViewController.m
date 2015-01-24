@@ -11,6 +11,9 @@
 #import "SearchRestulViewController.h"
 #import "ConditionsViewController.h"
 #import "SearchRecordViewController.h"
+#import "navbarView.h"
+#import "AppDelegate.h"
+#import "JobDetalViewController.h"
 @interface SearchJobViewController ()
 
 @end
@@ -19,17 +22,52 @@
 - (void)viewWillAppear:(BOOL)animated
 {
      NSLog(@"%@%@%@",str1,str3,str2);
+    namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        职位推荐", nil];
     
+
     recordarry=[NSMutableArray  arrayWithCapacity:0];
    
-  
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    recordarry=[userDefaults objectForKey:@"record"];
+    if(recordarry.count<3)
+    {
+    
+    for(NSInteger i=0;i<recordarry.count;i++)
+    {
+        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+        
+        [namearry insertObject:addstring atIndex:6];
+        
+        [_Seatchtable reloadData];
 
+    
+    }
+    }
+    else
+    {
+        for(NSInteger i=0;i<3;i++)
+    {
+        
+        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex: recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+        [namearry insertObject:addstring atIndex:6];
+        
+        [_Seatchtable reloadData];
+        
+        
+    }
+
+    
+    }
 }
 - (void)viewDidLoad {
-    self.title=@"岗位查询";
-    [self setnavBar];
+    
     
     [super viewDidLoad];
+    
+    self.title=@"岗位查询";
+    [self setnavBar];
     if(iOS7)
     {
         self.navigationController.navigationBar.barTintColor=HHZColor(99, 27, 28);
@@ -42,9 +80,7 @@
         
     }
     // Do any additional setup after loading the view.
-    namearry=[[NSArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        职位推荐", nil];
-    
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+      _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
     _conditarry=[[NSMutableArray alloc]init];
     
@@ -53,7 +89,8 @@
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
-    _Seatchtable.rowHeight=60;
+    _Seatchtable.rowHeight=50;
+    [self left];
     
     
     
@@ -66,7 +103,10 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    
+        return namearry.count;
+
+  
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,13 +119,17 @@
 //    {
         SearchRestulTableViewCell*cell = [[SearchRestulTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
 //    }
+  
     
-    cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
+    
+        cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
+
+ 
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     if(indexPath.row==0)
     {
-        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 40)];
+        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-40, 40)];
         [cell addSubview:searchrootview];
         if(iOS7)
         {
@@ -120,7 +164,7 @@
     }
     if(indexPath.row==4)
     {
-        UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-40, 40)];
+        UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-40, 40)];
         
         [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
         [searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -139,15 +183,16 @@
     if(indexPath.row==5)
     {
     
-        UIImageView*recordiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
+        UIImageView*recordiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 25, 25)];
         [cell addSubview: recordiamgeview];
         recordiamgeview.image=[UIImage imageNamed:@"searchs"];
     
     }
-    if(indexPath.row==6)
+    if(indexPath.row==namearry.count-1)
     {
         
-        UIImageView*adviceiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 15, 25, 25)];
+        
+        UIImageView*adviceiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 25, 25)];
         [cell addSubview: adviceiamgeview];
         adviceiamgeview.image=[UIImage imageNamed:@"position"];
         
@@ -168,8 +213,37 @@
     
     
 }
+
+
+-(void)left
+{
+    
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"left_barbutton"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+-(void)leftMenu
+{
+    //    self.leftViewBtn.tag++;
+    //    SLog(@"%ld",self.leftViewBtn.tag);
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    //    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    //    if (self.leftViewBtn.tag % 2 == 0) {
+    //        [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
+    //    }
+    [delegate.DrawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+   //  行业类别
+    
+    
+    
+    
     if(indexPath.row==1)
     {
         ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
@@ -185,6 +259,9 @@
 
     }
     
+     //  首选工作区域
+    
+    
     if(indexPath.row==2)
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"首选工作区域";
@@ -198,6 +275,10 @@
         };
 
     }
+    
+//   次选工作区域
+    
+    
     if(indexPath.row==3)
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"次选工作区域";
@@ -212,6 +293,11 @@
         };
 
     }
+    
+//  搜索记录
+    
+    
+    
     if(indexPath.row==5)
     {
         
@@ -235,8 +321,9 @@
         [self.navigationController pushViewController:seach animated:YES];
         
     }
+    //  职位推荐
 
-    if(indexPath.row==6)
+    if(indexPath.row==namearry.count-1)
     {
         
         SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
@@ -248,9 +335,126 @@
 
     }
     
+    //  搜索记录1
+    
+    
+    if(namearry.count==8)
+    {
+        if(indexPath.row==6)
+        {
+        JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+        
+        
+        [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        
+    }
+    
+    
+    //  搜索记录2
+    if(namearry.count==9)
+    {
+        if(indexPath.row==6)
+        {
+            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            
+            
+            [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        if(indexPath.row==7)
+        {
+            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            
+            
+            [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        
+    }
+    //  搜索记录3
+    if(namearry.count==10)
+    {
+        if(indexPath.row==6)
+        {
+            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            
+            
+            [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        if(indexPath.row==7)
+        {
+            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            
+            
+            [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        if(indexPath.row==8)
+        {
+            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            
+            
+            [self.navigationController pushViewController:jobdetal animated:YES];
+        }
+        
+    }
+ 
+    
 
     
 }
+#pragma mark - 获取网络数据
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"5" forKey:@"limit"];
+        
+        NSString *urls =@"/collect/list";
+        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"success"] boolValue])
+            {
+                [HUD removeFromSuperview];
+                
+                
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"reason"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                    [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                }
+                if([reason isEqualToString:@"认证失败"])
+                {
+                    [self showMessage:reason viewHeight:0.0];
+                    
+                    
+                    
+                }
+                
+                
+            }
+        });
+    });
+}
+
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
         return YES;
@@ -278,7 +482,7 @@
     }
 }
 
-
+#pragma mark - 搜索点击事件
 -(void)searchButtonclick
 {
 

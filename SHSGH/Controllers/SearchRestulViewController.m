@@ -9,6 +9,7 @@
 #import "SearchRestulViewController.h"
 #import "GetresultTableViewCell.h"
 #import "JobDetalViewController.h"
+#import "navbarView.h"
 @interface SearchRestulViewController ()
 
 @end
@@ -19,6 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
       self.title=self.conditionsname;
+    
+    [self setNavBar];
+    
     [self createui];
     
        
@@ -37,6 +41,16 @@
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
+}
+-(void)setNavBar
+{
+  
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 -(void)setnavBar
 {
@@ -58,16 +72,16 @@
     
     [self setnavBar];
     
-    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
-    
-    
-    gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
-    
-    self.navigationItem.leftBarButtonItem = leftItem;
+//    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+//    
+//    
+//    gobackbut.bounds = CGRectMake(0, 0, 20, 25);
+//    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
+//    
+//    self.navigationItem.leftBarButtonItem = leftItem;
     
     
 }

@@ -8,6 +8,9 @@
 
 #import "RelatedViewController.h"
 #import "DetalsocialViewController.h"
+#import "navbarView.h"
+#import "AppDelegate.h"
+#import "MCSegmentedControl.h"
 @interface RelatedViewController ()
 
 @end
@@ -21,6 +24,8 @@
     self.title=@"相关查询";
     [self setnavBar];
     [self createui];
+    [self left];
+    
     
     
 }
@@ -38,22 +43,36 @@
         
     }
     
-    self.view.backgroundColor=[UIColor whiteColor];
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"法规查询",@"互助保障",@"问卷调查",nil];
+    self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"法规查询",@"互助保障",@"问卷调查",nil];
     //初始化UISegmentedControl
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc]initWithItems:segmentedArray];
+   MCSegmentedControl *segmentedControl = [[MCSegmentedControl alloc] initWithItems:segmentedArray];
     
-    segmentedControl.frame =CGRectMake(20,70,SCREEN_WIDTH-40,40);
+
     [self.view addSubview:segmentedControl];
-    segmentedControl.segmentedControlStyle= UISegmentedControlStyleBar;//设置
+//    segmentedControl.segmentedControlStyle= UISegmentedControlStyleBar;//设置
+    
+  
+    
+if(iOS7)
+{
+    segmentedControl.frame =CGRectMake(20,70,SCREEN_WIDTH-40,30);
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 105, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+
+}
+else
+{
+    segmentedControl.frame =CGRectMake(20,5,SCREEN_WIDTH-40,30);
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+
+
+}
+    
+    
     segmentedControl.tintColor= [UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
     [segmentedControl addTarget:self action:@selector(change:) forControlEvents:UIControlEventValueChanged];
-
-
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 110, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
-    
-    
-    
+    [segmentedControl setSelectedSegmentIndex:0];
+//    segmentedControl.selectedItemColor   = [UIColor whiteColor];
+    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
     
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
@@ -105,21 +124,21 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
     
-    UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 10, SCREEN_WIDTH-80, 40)];
+    UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-80, 35)];
     [rootimageview addSubview:searchrootview];
     
     if(iOS7)
     {
-        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-120, 38)];
+        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-120, 33)];
     }
     else
     {
-        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 10, SCREEN_WIDTH-120, 38)];
+        _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 5, SCREEN_WIDTH-120, 33)];
         
     }
-    searchrootview.layer.cornerRadius=20;
+    searchrootview.layer.cornerRadius=18;
     
     _searchfield.placeholder=@"请输入关键字 ";
     _searchfield.delegate=self;
@@ -140,9 +159,11 @@
     seariamgeview.image=[UIImage imageNamed:@"search"];
     
     
-    UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, 15, 40, 30)];
+    UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-50, 8, 40, 30)];
     
     [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
+    searchButton.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    
     [searchButton setTitleColor:HHZColor(99, 27, 28) forState:UIControlStateNormal];
     searchButton.layer.cornerRadius=5;
     searchButton.layer.cornerRadius=5;
@@ -167,6 +188,28 @@
 
 
 }
+-(void)left
+{
+    
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"left_barbutton"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+-(void)leftMenu
+{
+    //    self.leftViewBtn.tag++;
+    //    SLog(@"%ld",self.leftViewBtn.tag);
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    //    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    //    if (self.leftViewBtn.tag % 2 == 0) {
+    //        [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
+    //    }
+    [delegate.DrawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
 -(void)searchButtonclick
 {
 
@@ -174,6 +217,88 @@
 
 
 }
+#pragma mark - 获取网络数据
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"5" forKey:@"limit"];
+        
+        NSString *urls =@"/collect/list";
+        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"success"] boolValue])
+            {
+                [HUD removeFromSuperview];
+                
+                
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"reason"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                    [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                }
+                if([reason isEqualToString:@"认证失败"])
+                {
+                    [self showMessage:reason viewHeight:0.0];
+                    
+                    
+                    
+                }
+                
+                
+            }
+        });
+    });
+}
+
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
@@ -193,7 +318,7 @@
 }
 
 
--(void)change:(UISegmentedControl*)segmentedControl
+-(void)change:(MCSegmentedControl*)segmentedControl
 {
  if(segmentedControl.selectedSegmentIndex==0)
       {
@@ -219,23 +344,9 @@ else if(segmentedControl.selectedSegmentIndex==1)
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
    
-        return 60;
+        return 50;
         
   
-}
-- (void)showMessage:(NSString*)message viewHeight:(float)height;
-{
-    if(self)
-    {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        //        hud.dimBackground = YES;
-        hud.labelText = message;
-        hud.margin = 10.f;
-        hud.yOffset = height;
-        hud.removeFromSuperViewOnHide = YES;
-        [hud hide:YES afterDelay:2];
-    }
 }
 
 -(void)setnavBar

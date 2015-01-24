@@ -8,6 +8,7 @@
 
 #import "ConditionsViewController.h"
 #import "ConditionsTableViewCell.h"
+#import "navbarView.h"
 @interface ConditionsViewController ()
 
 @end
@@ -16,6 +17,8 @@
 @synthesize block;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNavBar];
+    
     self.title=self.conditionsname;
     [self createui];
     
@@ -37,7 +40,7 @@
     [self.view addSubview:_Conditionstable];
     _Conditionstable.delegate=self;
     _Conditionstable.dataSource=self;
-    _Conditionstable.rowHeight=60;
+    _Conditionstable.rowHeight=40;
     
     
     
@@ -47,6 +50,18 @@
 -(void)setnavBar
 {
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
+}
+
+-(void)setNavBar
+{
+//    self.title = @"个人中心";
+//    self.tableView.backgroundColor = sColor(236, 236, 236, 1.0);
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 -(void)createui
 {
@@ -68,25 +83,25 @@
 
     [self setnavBar];
     
-    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
-    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
-    
-    
-     gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView*lineview=[[UIView alloc]init];
-    lineview.bounds = CGRectMake(0, 0, 1, 45);
-    lineview.backgroundColor=[UIColor colorWithWhite:0.2 alpha:1];
-    
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
-    
-    UIBarButtonItem *leftItem2= [[UIBarButtonItem alloc] initWithCustomView:lineview];
-    
- NSArray *array = [[NSArray alloc] initWithObjects:leftItem,leftItem2, nil];
-    
-        self.navigationItem.leftBarButtonItems = array;
+//    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+//    
+//    
+//     gobackbut.bounds = CGRectMake(0, 0, 20, 25);
+//    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIView*lineview=[[UIView alloc]init];
+//    lineview.bounds = CGRectMake(0, 0, 1, 45);
+//    lineview.backgroundColor=[UIColor colorWithWhite:0.2 alpha:1];
+//    
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
+//    
+//    UIBarButtonItem *leftItem2= [[UIBarButtonItem alloc] initWithCustomView:lineview];
+//    
+// NSArray *array = [[NSArray alloc] initWithObjects:leftItem,leftItem2, nil];
+//    
+//        self.navigationItem.leftBarButtonItems = array;
 
 
 }
@@ -145,7 +160,7 @@
 
     [imagearry replaceObjectAtIndex:indexPath.row withObject:@"dui"];
     if (self.block) {
-        block([NSString stringWithFormat:@"%d",indexPath.row]);
+        block([NSString stringWithFormat:@"%ld",(long)indexPath.row]);
     }
 
    [_Conditionstable reloadData];

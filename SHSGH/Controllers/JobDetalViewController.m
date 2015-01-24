@@ -8,6 +8,7 @@
 
 #import "JobDetalViewController.h"
 #import "OtherjobViewController.h"
+#import "navbarView.h"
 @interface JobDetalViewController ()
 
 @end
@@ -16,23 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
-    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
-    
-    
-    gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
-    
-    self.navigationItem.leftBarButtonItem = leftItem;
-    self.title=@"详情";
+        self.title=@"详情";
     
     // Do any additional setup after loading the view.
     
     [self createui];
     self.view.backgroundColor=[UIColor whiteColor];
+    [self  setNavBar];
     
+ 
+}
+-(void)setNavBar
+{
+    
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 -(void)setnavBar
 {
@@ -141,7 +144,6 @@ else
     
     [othersbut setTitleColor:HHZColor(238, 110, 0) forState:UIControlStateNormal];
     
-//      [othersbut setImage:[UIImage imageNamed:@"particular_Gray"] forState:UIControlStateNormal];
     othersbut.frame=CGRectMake(20, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+20, SCREEN_WIDTH-60, 30);
     
     othersbut.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -154,8 +156,8 @@ else
     
     UIButton *othersbuts = [[UIButton alloc]init];
     
-         [othersbuts setImage:[UIImage imageNamed:@"particular_Gray"] forState:UIControlStateNormal];
-    othersbuts.frame=CGRectMake(SCREEN_WIDTH-40, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+30, 20, 20);
+    [othersbuts setImage:[UIImage imageNamed:@"particular_Gray"] forState:UIControlStateNormal];
+    othersbuts.frame=CGRectMake(SCREEN_WIDTH-40, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+20, 30, 30);
     
     
     [othersbuts addTarget:self action:@selector(otherclick) forControlEvents:UIControlEventTouchUpInside];
