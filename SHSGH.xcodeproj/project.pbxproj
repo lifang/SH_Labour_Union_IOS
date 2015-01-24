@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E46AF351A724426005DE1A0 /* MCSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E46AF341A724426005DE1A0 /* MCSegmentedControl.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */; };
 		0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3E1A6DFC0600886040 /* SearchRestulTableViewCell.m */; };
 		0EC4AB421A6E3FAC00886040 /* SearchJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB411A6E3FAC00886040 /* SearchJobViewController.m */; };
 		0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB441A6E4CA100886040 /* ConditionsViewController.m */; };
 		0ECFF2261A6F38F1007F882E /* ConditionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */; };
 		0ECFF2291A6F4865007F882E /* GetresultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2281A6F4865007F882E /* GetresultTableViewCell.m */; };
-		0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22B1A6F5134007F882E /* JobDetalViewController.m */; };
+		0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22B1A6F5134007F882E /* JobDetalViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22E1A6F7DA6007F882E /* OtherjobViewController.m */; };
 		0ECFF2321A6F8117007F882E /* SearchRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2311A6F8117007F882E /* SearchRecordViewController.m */; };
 		0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2351A6F8776007F882E /* RelatedViewController.m */; };
@@ -89,6 +90,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E46AF331A724426005DE1A0 /* MCSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSegmentedControl.h; sourceTree = "<group>"; };
+		0E46AF341A724426005DE1A0 /* MCSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSegmentedControl.m; sourceTree = "<group>"; };
 		0EC4AB3A1A6DFB6500886040 /* SearchRestulViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulViewController.h; sourceTree = "<group>"; };
 		0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchRestulViewController.m; sourceTree = "<group>"; };
 		0EC4AB3D1A6DFC0600886040 /* SearchRestulTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulTableViewCell.h; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 		0ECFF2331A6F86CB007F882E /* RelatedSearch */ = {
 			isa = PBXGroup;
 			children = (
+				0E46AF331A724426005DE1A0 /* MCSegmentedControl.h */,
+				0E46AF341A724426005DE1A0 /* MCSegmentedControl.m */,
 				0ECFF2341A6F8776007F882E /* RelatedViewController.h */,
 				0ECFF2351A6F8776007F882E /* RelatedViewController.m */,
 				0ECFF2381A6F9871007F882E /* DetalsocialViewController.h */,
@@ -681,6 +686,7 @@
 				0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */,
 				93C6F1141A6CF4D2002C8E4A /* loginViewController.m in Sources */,
 				93C6F0F81A6CF049002C8E4A /* ReuseView.m in Sources */,
+				0E46AF351A724426005DE1A0 /* MCSegmentedControl.m in Sources */,
 				93C6F11A1A6CF7A8002C8E4A /* UIView+Extension.m in Sources */,
 				93C6F0E31A6CF030002C8E4A /* EGOImageLoader.m in Sources */,
 				93C6F0E71A6CF030002C8E4A /* MMDrawerVisualState.m in Sources */,

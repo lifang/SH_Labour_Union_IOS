@@ -12,7 +12,7 @@
 {
     
     UITableView*_Seatchtable;
-    NSArray*namearry;
+    NSMutableArray*namearry;
     
     UITextField*_searchfield;
     NSMutableArray*recordarry;

@@ -8,6 +8,7 @@
 
 #import "OtherjobViewController.h"
 #import "JobDetalViewController.h"
+#import "navbarView.h"
 @interface OtherjobViewController ()
 
 @end
@@ -16,16 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIButton *gobackbut = [UIButton buttonWithType:UIButtonTypeCustom];
-    [gobackbut setBackgroundImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
     
-    
-    gobackbut.bounds = CGRectMake(0, 0, 20, 25);
-    [gobackbut addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:gobackbut];
-    
-    self.navigationItem.leftBarButtonItem = leftItem;
     
     self.title=@"其他岗位招聘";
     
@@ -38,13 +30,27 @@
     [self.view addSubview:_Conditionstable];
     _Conditionstable.delegate=self;
     _Conditionstable.dataSource=self;
-    _Conditionstable.rowHeight=60;
+    _Conditionstable.rowHeight=40;
     
     
     
-    //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
+//       _Conditionstable.separatorStyle=UITableViewCellSeparatorStyleNone;
+    
+    [self  setNavBar];
+    
     
 }
+-(void)setNavBar
+{
+    
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+
 -(void)setnavBar
 {
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
@@ -98,7 +104,7 @@
     }
     
      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
+     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     cell.textLabel.text=@"网页设计师";
     //    seariamgeview.tag=indexPath.row;
     

@@ -17,7 +17,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-40, 15, 30, 30)];
+        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-40, 5, 30, 30)];
         
         
         
