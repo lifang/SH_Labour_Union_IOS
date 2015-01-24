@@ -13,15 +13,11 @@
 #import "AppDelegate.h"
 #import "MMDrawerController.h"
 #import "PersonalViewController.h"
-#import "HHZLoadMoreFooter.h"
 #import "DynamicChildViewController.h"
+#import "MJRefresh.h"
 
 
 @interface dynamicViewController ()<ReuseViewDelegate>
-
-@property (nonatomic,weak)UIRefreshControl *refreshControl;
-
-@property (nonatomic,weak)HHZLoadMoreFooter *footer;
 
 @end
 
@@ -36,37 +32,28 @@
 
 -(void)setupRefresh
 {
-    //1。添加下拉刷新控件
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc]init];
-    [self.tableView addSubview:refreshControl];
-    self.refreshControl = refreshControl;
+    //下拉
+    [self.tableView addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [self.tableView headerBeginRefreshing];
+    //上拉
+    [self.tableView addFooterWithTarget:self action:@selector(loadMoreStatuses)];
     
-    //2.监听状态
-    [refreshControl addTarget:self action:@selector(refreshControlStateChange:) forControlEvents:UIControlEventValueChanged];
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    self.tableView.headerPullToRefreshText = @"下拉可以刷新了";
+    self.tableView.headerReleaseToRefreshText = @"松开马上刷新了";
+    self.tableView.headerRefreshingText = @">.< 正在努力加载中!";
     
-    //3.让刷新控件自动进入刷新状态
-    [refreshControl beginRefreshing];
-    
-    //4.加载数据
-    [self refreshControlStateChange:refreshControl];
-    
-    //5.添加上拉刷新更多控件
-    HHZLoadMoreFooter *footer = [HHZLoadMoreFooter footer];
-    self.tableView.tableFooterView = footer;
-    self.footer = footer;
+    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.tableView.footerRefreshingText = @">.< 正在努力加载中!";
 
 }
 
-//当下拉刷新控件进入刷新状态时候自动调用
--(void)refreshControlStateChange:(UIRefreshControl *)refreshControl
-{
-    [self loadNewStatuses:refreshControl];
-}
 //下拉刷新加载更多微博数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [refreshControl endRefreshing];
+        [self.tableView headerEndRefreshing];
     });
 }
 
@@ -74,15 +61,10 @@
 -(void)loadMoreStatuses
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.footer endRefreshing];
+        [self.tableView footerEndRefreshing];
+        
     });}
 
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:YES];
-    self.leftViewBtn.tag = 1000;
-}
 
 -(void)setNavBar
 {
@@ -98,8 +80,6 @@
  
     [buttonL.navButton setImage:[UIImage imageNamed:@"left_barbutton"] forState:UIControlStateNormal];
     [buttonL.navButton addTarget:self action:@selector(leftMenu) forControlEvents:UIControlEventTouchUpInside];
-    self.leftViewBtn = buttonL.navButton;
-//    self.leftViewBtn.tag = 1000;
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
     
@@ -113,13 +93,7 @@
 
 -(void)leftMenu
 {
-//    self.leftViewBtn.tag++;
-//    SLog(@"%ld",self.leftViewBtn.tag);
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-//    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
-//    if (self.leftViewBtn.tag % 2 == 0) {
-//        [delegate.DrawerController closeDrawerAnimated:YES completion:nil];
-//    }
     [delegate.DrawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
@@ -184,25 +158,5 @@
  {
       SLog(@"点击了%@",imageView);
  }
-
-//上拉刷新的代理方法
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    if (self.statusFrames.count <= 0 || self.footer.isRefreshing) return;
-    if (self.footer.isRefreshing) return;
-    //1.差距
-    CGFloat delta = scrollView.contentSize.height - scrollView.contentOffset.y;
-    //刚好能完整看到footer的高度
-    CGFloat sawFooterH = self.view.height - self.tabBarController.tabBar.height;
-    
-    //2.如果能看见整个footer
-    if (delta <= (sawFooterH - 0)) {
-        //进入上拉刷新状态
-        [self.footer beginRefreshing];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadMoreStatuses];
-        });
-    }
-}
 
 @end

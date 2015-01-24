@@ -204,12 +204,13 @@
         case 0:
             [self setDynamicController];
             break;
+        case 1:
+            [self setmiantainController];
+            break;
         case 3:
-            NSLog(@"点击了第一个按钮!");
             [self job];
             break;
         case 6:
-            NSLog(@"点击了第一个按钮!");
             [self related];
             break;
         default:
@@ -218,8 +219,6 @@
 }
 -(void)related
 {
-    
-    
     UINavigationController *dynamicNav = [AppDelegate shareDynamicController6];
     
     [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
@@ -252,6 +251,14 @@
     
     [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
     SLog(@"setDynamicController");
+}
+
+-(void)setmiantainController
+{
+    UINavigationController *miantainNav = [AppDelegate shareMaintainController];
+    
+    [self.mm_drawerController setCenterViewController:miantainNav withCloseAnimation:YES completion:nil];
+
 }
 
 #pragma mark - ScrollView didSelect

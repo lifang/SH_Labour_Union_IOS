@@ -11,14 +11,11 @@
 #import "UIViewController+MMDrawerController.h"
 #import "SUNSlideSwitchView.h"
 #import "MainViewController.h"
-
 #import "RelatedViewController.h"
-
 #import "AppDelegate.h"
-
 #import "SearchJobViewController.h"
 #import "dynamicViewController.h"
-
+#import "MaintainViewController.h"
 
 @interface SUNLeftMenuViewController ()
 
@@ -91,7 +88,7 @@
             cell.imageView.image = [UIImage resizedImage:@"left_btn2"];
         }
         else if (row == 2) {
-            cell.textLabel.text = @"维权查询";
+            cell.textLabel.text = @"维权登记";
             cell.imageView.image = [UIImage resizedImage:@"left_btn3"];
         }
         else if (row == 3) {
@@ -146,9 +143,12 @@
             [self.mm_drawerController setCenterViewController:self.navCommonComponentVC
                                            withCloseAnimation:YES completion:nil];
         }else if (row == 2) { //维权记录
+            if (!self.navMaintainViewVC) {
             NSLog(@"点击了维权登记");
-            
-            
+            self.navMaintainViewVC = [AppDelegate shareMaintainController];
+            }
+            [self.mm_drawerController setCenterViewController:self.navMaintainViewVC
+                                           withCloseAnimation:YES completion:nil];
         }
         else if (row == 3) { //维权记录
             NSLog(@"点击了机构查询");

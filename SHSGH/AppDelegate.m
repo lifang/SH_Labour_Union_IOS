@@ -20,11 +20,42 @@ static UINavigationController *searchNavController = nil;
 static RelatedViewController  *relatedController = nil;
 static UINavigationController *relatedNavController = nil;
 
+static MaintainViewController  *maintainController = nil;
+static UINavigationController *maintainNavController = nil;
+
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+
+-(void)dealloc
+{
+    if (mainNavController) {
+        mainNavController = nil;
+        mainController = nil;
+    }
+    
+    if (dynamicNavController) {
+        dynamicNavController = nil;
+        dynamicController = nil;
+    }
+    
+    if (searchNavController) {
+        searchNavController = nil;
+        searchController = nil;
+    }
+    
+    if (relatedNavController) {
+        relatedNavController = nil;
+        relatedController = nil;
+    }
+    
+    if (maintainNavController) {
+        maintainNavController = nil;
+        maintainController = nil;
+    }
+}
 
 + (AppDelegate *)shareAppDelegate;
 {
@@ -75,6 +106,16 @@ static UINavigationController *relatedNavController = nil;
         dynamicNavController = [[UINavigationController alloc] initWithRootViewController:dynamicController];
     });
     return dynamicNavController;
+}
+
++(UINavigationController *)shareMaintainController
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        maintainController = [[MaintainViewController alloc] init];
+        maintainNavController = [[UINavigationController alloc] initWithRootViewController:maintainController];
+    });
+    return maintainNavController;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
