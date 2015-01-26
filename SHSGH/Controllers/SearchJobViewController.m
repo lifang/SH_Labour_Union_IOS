@@ -52,7 +52,9 @@
         for(NSInteger i=0;i<3;i++)
     {
         
-        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex: recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex: recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]];
+        
+        
         [namearry insertObject:addstring atIndex:6];
         
         [_Seatchtable reloadData];
