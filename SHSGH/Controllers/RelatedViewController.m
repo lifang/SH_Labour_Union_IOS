@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self date];
+    
     // Do any additional setup after loading the view.
     
     self.title=@"相关查询";
@@ -260,41 +262,34 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"5" forKey:@"limit"];
+//        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//        [params setObject:@"5" forKey:@"limit"];
         
-        NSString *urls =@"/collect/list";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
-        NSLog(@"ppppppppp地对地导弹%@",result);
+        NSString *urls =@"/api/job/findAllRI";
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+      
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
+              NSLog(@"ppppppppp地对地导弹%@",result);
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"success"] boolValue])
+            if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                [HUD removeFromSuperview];
+             
                 
-                
+                 [self showMessage:@"请求成功" viewHeight:SCREEN_HEIGHT/2-80];
                 
                 
             }
             
             else
             {
-                NSString *reason = [result objectForKey:@"reason"];
-                if (![KRHttpUtil checkString:reason])
-                {
+                NSString *reason = [result objectForKey:@"message"];
+               
                     reason = @"请求超时或者网络环境较差!";
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                }
-                if([reason isEqualToString:@"认证失败"])
-                {
-                    [self showMessage:reason viewHeight:0.0];
-                    
-                    
-                    
-                }
+               
                 
                 
             }
