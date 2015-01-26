@@ -53,6 +53,8 @@
 		935DDF901A75D80500021146 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF841A75D80500021146 /* PersonalViewController.m */; };
 		935DDF911A75D80500021146 /* RegisterDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF861A75D80500021146 /* RegisterDoneViewController.m */; };
 		935DDF921A75D80500021146 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF881A75D80500021146 /* registerViewController.m */; };
+		935DDFC71A7606CD00021146 /* HHZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFC61A7606CD00021146 /* HHZTextView.m */; };
+		935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFCF1A7626BF00021146 /* QuestionViewController.m */; };
 		93C592D81A708D9700CDF8F7 /* HHZCommonArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592CF1A708D9700CDF8F7 /* HHZCommonArrowItem.m */; };
 		93C592D91A708D9700CDF8F7 /* HHZCommonGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592D11A708D9700CDF8F7 /* HHZCommonGroup.m */; };
 		93C592DA1A708D9700CDF8F7 /* HHZCommonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592D31A708D9700CDF8F7 /* HHZCommonItem.m */; };
@@ -194,6 +196,10 @@
 		935DDF861A75D80500021146 /* RegisterDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterDoneViewController.m; sourceTree = "<group>"; };
 		935DDF871A75D80500021146 /* registerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registerViewController.h; sourceTree = "<group>"; };
 		935DDF881A75D80500021146 /* registerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = registerViewController.m; sourceTree = "<group>"; };
+		935DDFC51A7606CD00021146 /* HHZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZTextView.h; sourceTree = "<group>"; };
+		935DDFC61A7606CD00021146 /* HHZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZTextView.m; sourceTree = "<group>"; };
+		935DDFCE1A7626BF00021146 /* QuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionViewController.h; sourceTree = "<group>"; };
+		935DDFCF1A7626BF00021146 /* QuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionViewController.m; sourceTree = "<group>"; };
 		93C592CE1A708D9700CDF8F7 /* HHZCommonArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZCommonArrowItem.h; sourceTree = "<group>"; };
 		93C592CF1A708D9700CDF8F7 /* HHZCommonArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZCommonArrowItem.m; sourceTree = "<group>"; };
 		93C592D01A708D9700CDF8F7 /* HHZCommonGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZCommonGroup.h; sourceTree = "<group>"; };
@@ -591,6 +597,8 @@
 		93C6F0ED1A6CF049002C8E4A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				935DDFC51A7606CD00021146 /* HHZTextView.h */,
+				935DDFC61A7606CD00021146 /* HHZTextView.m */,
 				93C592E01A708E8800CDF8F7 /* HHZCommonCell.h */,
 				93C592E11A708E8800CDF8F7 /* HHZCommonCell.m */,
 				93C6F0EE1A6CF049002C8E4A /* homeBtn.h */,
@@ -663,6 +671,8 @@
 			children = (
 				93E6AF831A737A940068898D /* MaintainViewController.h */,
 				93E6AF841A737A940068898D /* MaintainViewController.m */,
+				935DDFCE1A7626BF00021146 /* QuestionViewController.h */,
+				935DDFCF1A7626BF00021146 /* QuestionViewController.m */,
 			);
 			path = Maintain;
 			sourceTree = "<group>";
@@ -799,6 +809,7 @@
 				0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */,
 				935DDF8D1A75D80500021146 /* PersonalDoneViewController.m in Sources */,
 				0ECE9F681A734B98001C448D /* FAImageView.m in Sources */,
+				935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */,
 				93C6F0F71A6CF049002C8E4A /* navbarView.m in Sources */,
 				93C592DC1A708D9700CDF8F7 /* HHZCommonSwitchItem.m in Sources */,
 				9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */,
@@ -844,6 +855,7 @@
 				93C6F10F1A6CF0B5002C8E4A /* SUNTextFieldDemoViewController.m in Sources */,
 				0ECE9F691A734B98001C448D /* NSString+FontAwesome.m in Sources */,
 				93C6F0E51A6CF030002C8E4A /* MMDrawerBarButtonItem.m in Sources */,
+				935DDFC71A7606CD00021146 /* HHZTextView.m in Sources */,
 				0EC4AB421A6E3FAC00886040 /* SearchJobViewController.m in Sources */,
 				9335480C1A733C68009F38D4 /* MJRefreshConst.m in Sources */,
 				93C592DF1A708DF400CDF8F7 /* HHZCommonViewController.m in Sources */,
