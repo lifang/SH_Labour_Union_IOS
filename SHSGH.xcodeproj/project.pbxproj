@@ -32,6 +32,10 @@
 		0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2411A6F9AE0007F882E /* KRHttpUtil.m */; };
 		0ECFF2481A6F9AE0007F882E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2431A6F9AE0007F882E /* Reachability.m */; };
 		0ECFF24B1A6F9BCA007F882E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF24A1A6F9BCA007F882E /* MBProgressHUD.m */; };
+		0ED0FDE91A75E30300486C2E /* OrganizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDE81A75E30300486C2E /* OrganizationViewController.m */; };
+		0ED0FDED1A75E82C00486C2E /* TradeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDEC1A75E82C00486C2E /* TradeViewController.m */; };
+		0ED0FDF01A75FAEC00486C2E /* OrganizationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */; };
+		0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */; };
 		9335480A1A733C68009F38D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 933547FA1A733C68009F38D4 /* MJRefresh.bundle */; };
 		9335480B1A733C68009F38D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FD1A733C68009F38D4 /* MJRefreshBaseView.m */; };
 		9335480C1A733C68009F38D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FF1A733C68009F38D4 /* MJRefreshConst.m */; };
@@ -152,6 +156,14 @@
 		0ECFF2441A6F9AE0007F882E /* KRConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRConstants.h; sourceTree = "<group>"; };
 		0ECFF2491A6F9BCA007F882E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		0ECFF24A1A6F9BCA007F882E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		0ED0FDE71A75E30300486C2E /* OrganizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationViewController.h; sourceTree = "<group>"; };
+		0ED0FDE81A75E30300486C2E /* OrganizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationViewController.m; sourceTree = "<group>"; };
+		0ED0FDEB1A75E82C00486C2E /* TradeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeViewController.h; sourceTree = "<group>"; };
+		0ED0FDEC1A75E82C00486C2E /* TradeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeViewController.m; sourceTree = "<group>"; };
+		0ED0FDEE1A75FAEC00486C2E /* OrganizationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationTableViewCell.h; sourceTree = "<group>"; };
+		0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationTableViewCell.m; sourceTree = "<group>"; };
+		0ED0FDF11A76015F00486C2E /* OrganizationdetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationdetalViewController.h; sourceTree = "<group>"; };
+		0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationdetalViewController.m; sourceTree = "<group>"; };
 		933547FA1A733C68009F38D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		933547FB1A733C68009F38D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		933547FC1A733C68009F38D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -365,6 +377,28 @@
 			name = http;
 			sourceTree = "<group>";
 		};
+		0ED0FDE61A75E2B300486C2E /* OrganizationSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0ED0FDE71A75E30300486C2E /* OrganizationViewController.h */,
+				0ED0FDE81A75E30300486C2E /* OrganizationViewController.m */,
+				0ED0FDF11A76015F00486C2E /* OrganizationdetalViewController.h */,
+				0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */,
+				0ED0FDEE1A75FAEC00486C2E /* OrganizationTableViewCell.h */,
+				0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */,
+			);
+			name = OrganizationSearch;
+			sourceTree = "<group>";
+		};
+		0ED0FDEA1A75E7C900486C2E /* TradeSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0ED0FDEB1A75E82C00486C2E /* TradeViewController.h */,
+				0ED0FDEC1A75E82C00486C2E /* TradeViewController.m */,
+			);
+			name = TradeSearch;
+			sourceTree = "<group>";
+		};
 		933547F91A733C68009F38D4 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -488,6 +522,8 @@
 		93C6F04D1A6CEF7F002C8E4A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0ED0FDEA1A75E7C900486C2E /* TradeSearch */,
+				0ED0FDE61A75E2B300486C2E /* OrganizationSearch */,
 				93E6AF821A737A7C0068898D /* Maintain */,
 				93E6AF7D1A73792E0068898D /* Dynamic */,
 				93E6AF7C1A7378E60068898D /* Personal */,
@@ -779,6 +815,7 @@
 			files = (
 				93C6F0E41A6CF030002C8E4A /* EGOImageView.m in Sources */,
 				93C6F0F61A6CF049002C8E4A /* homeBtn.m in Sources */,
+				0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */,
 				0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */,
 				93C6F0F91A6CF049002C8E4A /* SUNTextField.m in Sources */,
 				935DDF8C1A75D80500021146 /* loginViewController.m in Sources */,
@@ -819,6 +856,7 @@
 				93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */,
 				0ECFF2451A6F9AE0007F882E /* JSONKit.m in Sources */,
 				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
+				0ED0FDF01A75FAEC00486C2E /* OrganizationTableViewCell.m in Sources */,
 				0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */,
 				93C592D81A708D9700CDF8F7 /* HHZCommonArrowItem.m in Sources */,
 				933548111A733C68009F38D4 /* UIView+MJExtension.m in Sources */,
@@ -832,10 +870,12 @@
 				93C6F0231A6CE747002C8E4A /* main.m in Sources */,
 				93C6F0E01A6CF030002C8E4A /* EGOCache.m in Sources */,
 				93E6AF851A737A940068898D /* MaintainViewController.m in Sources */,
+				0ED0FDED1A75E82C00486C2E /* TradeViewController.m in Sources */,
 				0ECFF2461A6F9AE0007F882E /* RPBase64.m in Sources */,
 				935DDF911A75D80500021146 /* RegisterDoneViewController.m in Sources */,
 				0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */,
 				93C592DB1A708D9700CDF8F7 /* HHZCommonLabelItem.m in Sources */,
+				0ED0FDE91A75E30300486C2E /* OrganizationViewController.m in Sources */,
 				93C592DA1A708D9700CDF8F7 /* HHZCommonItem.m in Sources */,
 				935DDF8A1A75D80500021146 /* ChangePhoneViewController.m in Sources */,
 				0ECE9F6A1A734B98001C448D /* README.md in Sources */,

@@ -20,6 +20,14 @@ static UINavigationController *searchNavController = nil;
 static RelatedViewController  *relatedController = nil;
 static UINavigationController *relatedNavController = nil;
 
+
+static  OrganizationViewController *OrganizationController = nil;
+static UINavigationController *OrganizationNavController = nil;
+
+static  TradeViewController *TradeController = nil;
+static UINavigationController *TradeNavController = nil;
+
+
 static MaintainViewController  *maintainController = nil;
 static UINavigationController *maintainNavController = nil;
 
@@ -86,6 +94,27 @@ static UINavigationController *maintainNavController = nil;
         relatedNavController = [[UINavigationController alloc] initWithRootViewController:relatedController];
     });
     return relatedNavController;
+}
+
+
++(UINavigationController *)shareDynamicController2{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        OrganizationController = [[OrganizationViewController alloc] init];
+        OrganizationNavController = [[UINavigationController alloc] initWithRootViewController:OrganizationController];
+    });
+    return OrganizationNavController;
+}
+
+
+
++(UINavigationController *)shareDynamicController4{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        TradeController = [[TradeViewController alloc] init];
+        TradeNavController = [[UINavigationController alloc] initWithRootViewController:TradeController];
+    });
+    return TradeNavController;
 }
 
 

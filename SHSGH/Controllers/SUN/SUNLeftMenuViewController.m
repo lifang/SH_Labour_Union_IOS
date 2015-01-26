@@ -16,7 +16,8 @@
 #import "SearchJobViewController.h"
 #import "dynamicViewController.h"
 #import "MaintainViewController.h"
-
+#import "TradeViewController.h"
+#import "OrganizationViewController.h"
 @interface SUNLeftMenuViewController ()
 
 @end
@@ -150,8 +151,16 @@
             [self.mm_drawerController setCenterViewController:self.navMaintainViewVC
                                            withCloseAnimation:YES completion:nil];
         }
-        else if (row == 3) { //维权记录
-            NSLog(@"点击了机构查询");
+        else if (row == 3)
+        { //维权记录
+            
+            
+            OrganizationViewController *slideSwitchWVC = [[OrganizationViewController alloc]init];
+            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
+            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
+                                           withCloseAnimation:YES completion:nil];
+
+          
             
         }
         else if (row == 4) { //维权记录
@@ -165,7 +174,11 @@
         }
         else if (row == 5) { //维权记录
             NSLog(@"点击了商户查询");
-            
+            TradeViewController *slideSwitchWVC = [[TradeViewController alloc]init];
+            self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
+            [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
+                                           withCloseAnimation:YES completion:nil];
+
         }
         else if (row == 6) { //维权记录
             NSLog(@"点击了健康服务");

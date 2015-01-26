@@ -207,8 +207,14 @@
         case 1:
             [self setmiantainController];
             break;
+        case 2:
+            [self Organization];
+            break;
         case 3:
             [self job];
+            break;
+        case 4:
+            [self Tradesearch];
             break;
         case 6:
             [self related];
@@ -229,7 +235,33 @@
     //    [window setRootViewController:job];
     
 }
-
+// 商户查询
+-(void)Tradesearch
+{
+    UINavigationController *dynamicNav = [AppDelegate shareDynamicController4];
+    
+    [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
+    
+    
+    //    SearchJobViewController*job=[[SearchJobViewController alloc]init];
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    [window setRootViewController:job];
+    
+}
+// 机构查询
+-(void)Organization
+{
+    UINavigationController *dynamicNav = [AppDelegate shareDynamicController2];
+    
+    [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
+    
+    
+    //    SearchJobViewController*job=[[SearchJobViewController alloc]init];
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    [window setRootViewController:job];
+    
+}
+// 岗位查询
 -(void)job
 {
     

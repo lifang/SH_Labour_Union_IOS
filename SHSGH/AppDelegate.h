@@ -15,7 +15,9 @@
 #import "SearchJobViewController.h"
 #import "RelatedViewController.h"
 #import "MaintainViewController.h"
+#import "TradeViewController.h"
 
+#import "OrganizationViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -27,9 +29,11 @@
 + (AppDelegate *)shareAppDelegate;
 
 - (SUNLeftMenuViewController *)leftVC;
++(UINavigationController *)shareDynamicController4;
 
 + (UINavigationController *)shareMainController;
 + (UINavigationController *)shareMaintainController;
++(UINavigationController *)shareDynamicController2;
 
 + (UINavigationController *)shareDynamicController;
 + (UINavigationController *)shareDynamicController3;
