@@ -56,7 +56,7 @@
     rightLabel.frame = CGRectMake(CGRectGetMaxX(leftImage.frame) + 3 * CostumViewMargin, 8, contentView.frame.size.width * 0.7, leftImage.frame.size.height + 30);
     [topView addSubview:rightLabel];
     [contentView addSubview:topView];
-    
+    //选择按钮
     //选择左边按钮
     UIButton *leftBtn = [[UIButton alloc]init];
     leftBtn.layer.cornerRadius = 2;
@@ -81,12 +81,36 @@
     rightBtn.frame = CGRectMake(CGRectGetMaxX(leftBtn.frame), CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, 30);
     self.rightBtn = rightBtn;
     [contentView addSubview:rightBtn];
-    
     //分隔线
     UIView *lineView = [[UIView alloc]init];
     lineView.backgroundColor = sColor(200, 200, 200, 1.0);
     lineView.frame = CGRectMake(0, CGRectGetMaxY(leftBtn.frame) + 4 * CostumViewMargin, mainScreenW, 1);
     [contentView addSubview:lineView];
+    //分隔线下方控件
+    CGFloat labelWidth = 60;
+    CGFloat labelHeight = 20;
+    //姓名
+    UILabel *nameLabel = [[UILabel alloc]init];
+    nameLabel.backgroundColor = [UIColor redColor];
+    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.textColor = sColor(90, 90, 90, 1.0);
+    nameLabel.text = @"姓名";
+    nameLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(lineView.frame) + 4 * CostumViewMargin, labelWidth * 0.5, labelHeight);
+    [contentView addSubview:nameLabel];
+    //红色星星
+    UILabel *redStar = [[UILabel alloc]init];
+    redStar.frame = CGRectMake(CGRectGetMaxX(nameLabel.frame) + CostumViewMargin, nameLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar.textColor = sColor(227, 15, 46, 1.0);
+    redStar.text = @"*";
+    redStar.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar];
+    //姓名输入框
+    UITextField *nameField = [[UITextField alloc]init];
+    nameField.layer.cornerRadius = 2;
+    nameField.layer.masksToBounds = YES;
+    
+    
+    
     
     
     
