@@ -58,6 +58,7 @@
     [contentView addSubview:topView];
     //选择按钮
     //选择左边按钮
+    CGFloat btnHeight = 30;
     UIButton *leftBtn = [[UIButton alloc]init];
     leftBtn.layer.cornerRadius = 2;
     leftBtn.layer.masksToBounds = YES;
@@ -66,7 +67,7 @@
     [leftBtn setBackgroundColor:sColor(233, 117, 12, 1.0)];
     [leftBtn setTitle:@"游客维权区" forState:UIControlStateNormal];
     [leftBtn setTintColor:[UIColor whiteColor]];
-    leftBtn.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, 30);
+    leftBtn.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, btnHeight);
     self.leftBtn = leftBtn;
     [contentView addSubview:leftBtn];
     //选择右边按钮
@@ -78,7 +79,7 @@
     [rightBtn setBackgroundColor:[UIColor whiteColor]];
     [rightBtn setTitle:@"会员维权区" forState:UIControlStateNormal];
     [rightBtn setTitleColor:sColor(38, 38, 38, 1.0) forState:UIControlStateNormal];
-    rightBtn.frame = CGRectMake(CGRectGetMaxX(leftBtn.frame), CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, 30);
+    rightBtn.frame = CGRectMake(CGRectGetMaxX(leftBtn.frame), CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, btnHeight);
     self.rightBtn = rightBtn;
     [contentView addSubview:rightBtn];
     //分隔线
@@ -91,7 +92,7 @@
     CGFloat labelHeight = 20;
     //姓名
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.backgroundColor = [UIColor redColor];
+    nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.font = [UIFont systemFontOfSize:14];
     nameLabel.textColor = sColor(90, 90, 90, 1.0);
     nameLabel.text = @"姓名";
@@ -105,9 +106,17 @@
     redStar.font = [UIFont systemFontOfSize:16];
     [contentView addSubview:redStar];
     //姓名输入框
+    CGFloat fieldWidth = mainScreenW * 0.84;
+    CGFloat fieldHeight = 34;
     UITextField *nameField = [[UITextField alloc]init];
     nameField.layer.cornerRadius = 2;
     nameField.layer.masksToBounds = YES;
+    nameField.placeholder = @"请输入您的姓名";
+    [nameField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    nameField.backgroundColor = [UIColor whiteColor];
+    nameField.frame = CGRectMake(CGRectGetMinX(nameLabel.frame),CGRectGetMaxY(nameLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:nameField];
+    
     
     
     
