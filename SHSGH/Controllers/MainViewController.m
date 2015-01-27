@@ -17,12 +17,17 @@
 #import "SearchJobViewController.h"
 #import "dynamicViewController.h"
 #import "UIViewController+MMDrawerController.h"
+#import "MainImage.h"
 
 @interface MainViewController ()<ReuseViewDelegate>
+
+@property(nonatomic,strong)NSMutableArray *imageArray;
 
 @end
 
 @implementation MainViewController
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -45,44 +50,37 @@
     //隐藏导航栏
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
-    //创建自定义布局
-    [self setupCustomView];
+    [self loadImageDate];
+
 }
 
 -(void)setupCustomView
 {
     //创建topView
     UIButton *topView = [[UIButton alloc]init];
-    [topView setBackgroundImage:[UIImage imageNamed:@"topView"] forState:UIControlStateNormal];
-    [topView setBackgroundImage:[UIImage imageNamed:@"topView"] forState:UIControlStateHighlighted];
+    topView.backgroundColor = sColor(217, 217, 217, 1.0);
+    UIImageView *logoV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo"]];
+    logoV.frame = CGRectMake(14, 24, mainScreenW * 0.9, logoV.frame.size.height);
+    [topView addSubview:logoV];
     CGFloat topViewX = 0;
-    CGFloat topViewY = statusBarH;
-    CGFloat topViewW = self.view.frame.size.width;
+    CGFloat topViewY = 0;
+    CGFloat topViewW = mainScreenW;
     CGFloat topViewH = 60;
     //适配4s
     if (mainScreenH <= 480) {
-        topViewH = 40;
-    }else  if(mainScreenW >= 667){
-        topViewH = 80;
+        topViewH = 60;
     }
     topView.frame = CGRectMake(topViewX, topViewY, topViewW, topViewH);
     [self.view addSubview:topView];
     
-    //创建ScrollView
-    NSString *url1 = @"http://picapi.ooopic.com/10/50/15/28b1OOOPICca.jpg";
-    NSString *url2 = @"http://picapi.ooopic.com/10/58/70/26b1OOOPIC32.jpg";
-    NSString *url3 = @"http://pic15.nipic.com/20110708/7921523_163228302177_2.jpg";
-    NSString *url4 = @"http://www.zhituad.com/photo2/10/55/23/14b1OOOPIC34.jpg";
-    NSMutableArray *picArray = [NSMutableArray arrayWithObjects:url1,url2,url3,url4, nil];
-    CGFloat scrollViewH = 100;
+    CGFloat scrollViewH = 110;
     if (mainScreenH <= 480) {
         scrollViewH = 80;
     }
-    ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,topViewY + topViewH + CostumViewMargin, mainScreenW, scrollViewH) array:picArray];
+    ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,topViewY + topViewH + CostumViewMargin, mainScreenW, scrollViewH) array:_imageArray];
     CGFloat scrollViewY = topViewY + topViewH + CostumViewMargin;
     scrollView.reuseDelegate = self;
     [self.view addSubview:scrollView];
-    
     
     //创建底部的工具按钮
     UIButton *bottomView = [[UIButton alloc]init];
@@ -121,7 +119,7 @@
     
     //创建中间的两排方格
     CGFloat centerViewW = (mainScreenW - 4 * CostumViewMargin)/3;
-    CGFloat centerViewH = (mainScreenH - (topViewH + scrollViewH + statusBarH + 4 * CostumViewMargin)  - bottomViewH + 16)/3;
+    CGFloat centerViewH = (mainScreenH - (topViewH - 20 + scrollViewH + statusBarH + 4 * CostumViewMargin)  - bottomViewH + 16)/3;
     for (int index = 0; index < 6; index++) {
         homeBtn *centerView = [[homeBtn alloc]initWithtarget:self action:@selector(btnClick:) BtnType:homeBtnTypeLittle];
 //        centerView.backgroundColor = HHZRandomColor;
@@ -293,10 +291,50 @@
 
 }
 
+-(void)loadImageDate
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =@"/api/activity/findAll";
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                NSArray *imageeArray = [result objectForKey:@"result"];
+                _imageArray = [NSMutableArray array];
+                for (int i = 0; i < imageeArray.count; i++) {
+                    MainImage *mainImg = [[MainImage alloc]init];
+                    mainImg.bigImg = [[imageeArray objectAtIndex:i]objectForKey:@"bigImg"];
+                    mainImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
+                    mainImg.smallImg = [[imageeArray objectAtIndex:i]objectForKey:@"smallImg"];                 [_imageArray addObject:mainImg.smallImg];
+                }
+                 [self setupCustomView];
+            }
+            if ([[result objectForKey:@"code"] boolValue]) {
+                SLog(@"请求失败!");
+            }
+        });
+    });
+}
+
 #pragma mark - ScrollView didSelect
 -(void)handleTop:(UITapGestureRecognizer *)imageView
 {
     SLog(@"点击了%@",imageView);
 }
 
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
 @end

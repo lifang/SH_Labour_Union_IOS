@@ -67,36 +67,21 @@
     rightLabel.frame = CGRectMake(CGRectGetMaxX(leftImage.frame) + 3 * CostumViewMargin, 8, contentView.frame.size.width * 0.7, leftImage.frame.size.height + 30);
     [topView addSubview:rightLabel];
     [contentView addSubview:topView];
-    //选择按钮
-    //选择左边按钮
-    CGFloat btnHeight = 30;
-    UIButton *leftBtn = [[UIButton alloc]init];
-    leftBtn.layer.cornerRadius = 2;
-    leftBtn.layer.masksToBounds = YES;
-    [leftBtn addTarget:self action:@selector(touchLeft) forControlEvents:UIControlEventTouchUpInside];
-    leftBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [leftBtn setBackgroundColor:sColor(233, 117, 12, 1.0)];
-    [leftBtn setTitle:@"游客维权区" forState:UIControlStateNormal];
-    [leftBtn setTintColor:[UIColor whiteColor]];
-    leftBtn.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, btnHeight);
-    self.leftBtn = leftBtn;
-    [contentView addSubview:leftBtn];
-    //选择右边按钮
-    UIButton *rightBtn = [[UIButton alloc]init];
-    rightBtn.layer.cornerRadius = 2;
-    rightBtn.layer.masksToBounds = YES;
-    [rightBtn addTarget:self action:@selector(touchRight) forControlEvents:UIControlEventTouchUpInside];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [rightBtn setBackgroundColor:[UIColor whiteColor]];
-    [rightBtn setTitle:@"会员维权区" forState:UIControlStateNormal];
-    [rightBtn setTitleColor:sColor(38, 38, 38, 1.0) forState:UIControlStateNormal];
-    rightBtn.frame = CGRectMake(CGRectGetMaxX(leftBtn.frame), CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width * 0.5, btnHeight);
-    self.rightBtn = rightBtn;
-    [contentView addSubview:rightBtn];
+    //选择segmentedControl
+    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"1",@"2",nil];
+    UISegmentedControl *segmentView = [[UISegmentedControl alloc]initWithItems:segmentedArray];
+    segmentView.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width, 32);
+    segmentView.tintColor = [UIColor orangeColor];
+    segmentView.momentary = NO;
+    [segmentView setTitle:@"游客维权区" forSegmentAtIndex:0];
+    [segmentView setTitle:@"会员维权区" forSegmentAtIndex:1];
+    [segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+//    segmentView.selectedSegmentIndex = 0;
+    [contentView addSubview:segmentView];
     //分隔线
     UIView *lineView = [[UIView alloc]init];
     lineView.backgroundColor = sColor(200, 200, 200, 1.0);
-    lineView.frame = CGRectMake(0, CGRectGetMaxY(leftBtn.frame) + 4 * CostumViewMargin, mainScreenW, 1);
+    lineView.frame = CGRectMake(0, CGRectGetMaxY(segmentView.frame) + 4 * CostumViewMargin, mainScreenW, 1);
     [contentView addSubview:lineView];
     //分隔线下方控件
     CGFloat labelWidth = 60;
@@ -107,7 +92,7 @@
     nameLabel.font = [UIFont systemFontOfSize:15];
     nameLabel.textColor = sColor(90, 90, 90, 1.0);
     nameLabel.text = @"姓名";
-    nameLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(lineView.frame) + 4 * CostumViewMargin, labelWidth * 0.5, labelHeight);
+    nameLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(lineView.frame) + 4 * CostumViewMargin, labelWidth * 0.5, labelHeight);
     [contentView addSubview:nameLabel];
     //红色星星
     UILabel *redStar1 = [[UILabel alloc]init];
@@ -140,7 +125,7 @@
     phoneLabel.font = [UIFont systemFontOfSize:15];
     phoneLabel.textColor = sColor(90, 90, 90, 1.0);
     phoneLabel.text = @"联系电话";
-    phoneLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_nameField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    phoneLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_nameField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:phoneLabel];
     //红色星星
     UILabel *redStar2 = [[UILabel alloc]init];
@@ -171,7 +156,7 @@
     addressLabel.font = [UIFont systemFontOfSize:15];
     addressLabel.textColor = sColor(90, 90, 90, 1.0);
     addressLabel.text = @"联系地址";
-    addressLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_phoneField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    addressLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_phoneField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:addressLabel];
     //联系地址输入框
     _addressField = [[UITextField alloc]init];
@@ -195,7 +180,7 @@
     emailLabel.font = [UIFont systemFontOfSize:15];
     emailLabel.textColor = sColor(90, 90, 90, 1.0);
     emailLabel.text = @"电子邮件";
-    emailLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_addressField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    emailLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_addressField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:emailLabel];
     //电子邮件输入框
     _emailField = [[UITextField alloc]init];
@@ -219,7 +204,7 @@
     questionLabel.font = [UIFont systemFontOfSize:15];
     questionLabel.textColor = sColor(90, 90, 90, 1.0);
     questionLabel.text = @"问题类别";
-    questionLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_emailField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    questionLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_emailField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:questionLabel];
     //电子邮件输入框
     _questionField = [[UITextField alloc]init];
@@ -235,7 +220,7 @@
     line.frame = CGRectMake(0, 0, 0.3, 32);
     [rightV addSubview:line];
     UIImageView *imageV = [[UIImageView alloc]init];
-    imageV.image = [UIImage imageNamed:@"particular_Gray"];
+    imageV.image = [UIImage imageNamed:@"right_dan"];
     imageV.frame = CGRectMake(10, 8, 10, 16);
     [rightV addSubview:imageV];
     UIButton *rightArrow = [[UIButton alloc]init];
@@ -260,7 +245,7 @@
     titleLabel.font = [UIFont systemFontOfSize:15];
     titleLabel.textColor = sColor(90, 90, 90, 1.0);
     titleLabel.text = @"咨询标题";
-    titleLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_questionField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    titleLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_questionField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:titleLabel];
     //咨询标题输入框
     _titleField = [[UITextField alloc]init];
@@ -284,7 +269,7 @@
     contentLabel.font = [UIFont systemFontOfSize:15];
     contentLabel.textColor = sColor(90, 90, 90, 1.0);
     contentLabel.text = @"咨询内容";
-    contentLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_titleField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    contentLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_titleField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:contentLabel];
     _contentField = [[HHZTextView alloc]init];
     _contentField.placehoder = @"请输入您要咨询的内容";
@@ -294,6 +279,11 @@
     _contentField.backgroundColor = [UIColor whiteColor];
     _contentField.frame = CGRectMake(CGRectGetMinX(contentLabel.frame),CGRectGetMaxY(contentLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight * 5);
     [contentView addSubview:_contentField];
+    //底部view
+    UIView *bottomView = [[UIView alloc]init];
+    bottomView.backgroundColor = sColor(203, 203, 203, 1.0);
+    bottomView.frame = CGRectMake(0, CGRectGetMaxY(_contentField.frame) + 5 * CostumViewMargin, mainScreenW, 280);
+    [contentView addSubview:bottomView];
     //底部分隔线
     UIView *bottomLine = [[UIView alloc]init];
     bottomLine.backgroundColor = sColor(207, 207, 207, 1.0);
@@ -302,7 +292,7 @@
     //确认按钮
     UIButton *sureBtn = [[UIButton alloc]init];
     [sureBtn addTarget:self action:@selector(sureClick) forControlEvents:UIControlEventTouchUpInside];
-    [sureBtn setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
+    [sureBtn setBackgroundImage:[UIImage imageNamed:@"bttonBG"] forState:UIControlStateNormal];
     [sureBtn setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [sureBtn setTitle:@"确 认"forState:UIControlStateNormal];
     sureBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
@@ -312,7 +302,7 @@
     UIButton *telBtn = [[UIButton alloc]init];
     [telBtn addTarget:self action:@selector(telClick) forControlEvents:UIControlEventTouchUpInside];
     [telBtn setBackgroundImage:[UIImage imageNamed:@"btn-l"] forState:UIControlStateNormal];
-    [telBtn setBackgroundImage:[UIImage imageNamed:@"btn-l"] forState:UIControlStateHighlighted];
+    [telBtn setBackgroundImage:[UIImage imageNamed:@"btn-l-highlight"] forState:UIControlStateHighlighted];
     [telBtn setTitle:@"     拨打维权热线"forState:UIControlStateNormal];
     telBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
     telBtn.frame = CGRectMake(CGRectGetMaxX(sureBtn.frame) + 2 * CostumViewMargin,CGRectGetMaxY(bottomLine.frame) + 2 *CostumViewMargin , mainScreenW * 0.42, 40);
@@ -333,25 +323,31 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://8008808888"]];
 }
 
--(void)touchLeft
+-(void)segmentAction:(UISegmentedControl *)Seg
 {
-    SLog(@"选中了左边");
-    [self.rightBtn setBackgroundColor:[UIColor whiteColor]];
-    [self.rightBtn setTitleColor:sColor(38, 38, 38, 1.0) forState:UIControlStateNormal];
-    
-    [self.leftBtn setBackgroundColor:sColor(233, 117, 12, 1.0)];
-    [self.leftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
+    NSInteger Index = Seg.selectedSegmentIndex;
+    SLog(@"Idex %ld",Index);
+    switch (Index) {
+        case 0:
+            [self selectedTourist];
+            break;
+        case 1:
+            [self selectedmMember];
+            break;
+            
+        default:
+            break;
+    }
 }
 
--(void)touchRight
+-(void)selectedTourist
 {
-    SLog(@"选中了右边");
-    [self.leftBtn setBackgroundColor:[UIColor whiteColor]];
-    [self.leftBtn setTitleColor:sColor(38, 38, 38, 1.0) forState:UIControlStateNormal];
-    
-    [self.rightBtn setBackgroundColor:sColor(233, 117, 12, 1.0)];
-    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    SLog(@"选择了游客维权");
+}
+
+-(void)selectedmMember
+{
+    SLog(@"选择了会员维权");
 }
 
 -(void)setNavBar
@@ -362,7 +358,7 @@
                                 NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"head_bg01"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 0, 21, 0)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"navBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     

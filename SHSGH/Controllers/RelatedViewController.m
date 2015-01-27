@@ -37,7 +37,7 @@
 {
      //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
     
-       [self.navigationController.navigationBar setBackgroundImage:[[UIImage imageNamed:@"head_bg01"] resizableImageWithCapInsets:UIEdgeInsetsMake(21, 0, 21, 0)] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"navBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
          segmentedControl=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20,5,SCREEN_WIDTH-40,30) items:@[               @{@"text":@"法规查询",@"":@""},
                                                                                                                                                              @{@"text":@"互助保障",@"":@""},
                                                                                                                                                              @{@"text":@"问卷调查",@"":@""}

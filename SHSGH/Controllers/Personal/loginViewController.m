@@ -306,7 +306,7 @@
     signInBtn.titleLabel.font = [UIFont systemFontOfSize:16.f];
     [signInBtn setTitle:@"登录" forState:UIControlStateNormal];
     [signInBtn setBackgroundImage:[UIImage imageNamed:@"btn-h"] forState:UIControlStateNormal];
-    [signInBtn setBackgroundImage:[UIImage imageNamed:@"btn-r"] forState:UIControlStateHighlighted];
+    [signInBtn setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [signInBtn addTarget:self action:@selector(signIn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:signInBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:signInBtn
