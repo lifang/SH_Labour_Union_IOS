@@ -106,6 +106,8 @@
 		93C6F1191A6CF7A8002C8E4A /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F1161A6CF7A8002C8E4A /* UIImage+Extension.m */; };
 		93C6F11A1A6CF7A8002C8E4A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F1181A6CF7A8002C8E4A /* UIView+Extension.m */; };
 		93E6AF851A737A940068898D /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E6AF841A737A940068898D /* MaintainViewController.m */; };
+		93FC2AA81A771E09004EE5B0 /* MainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FC2AA71A771E09004EE5B0 /* MainImage.m */; };
+		93FC2AAB1A778925004EE5B0 /* DynamicImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FC2AAA1A778925004EE5B0 /* DynamicImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,6 +310,10 @@
 		93C6F1181A6CF7A8002C8E4A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		93E6AF831A737A940068898D /* MaintainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaintainViewController.h; sourceTree = "<group>"; };
 		93E6AF841A737A940068898D /* MaintainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintainViewController.m; sourceTree = "<group>"; };
+		93FC2AA61A771E09004EE5B0 /* MainImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainImage.h; sourceTree = "<group>"; };
+		93FC2AA71A771E09004EE5B0 /* MainImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainImage.m; sourceTree = "<group>"; };
+		93FC2AA91A778925004EE5B0 /* DynamicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicImage.h; sourceTree = "<group>"; };
+		93FC2AAA1A778925004EE5B0 /* DynamicImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,6 +564,10 @@
 			isa = PBXGroup;
 			children = (
 				93C592CD1A708D9700CDF8F7 /* Common */,
+				93FC2AA61A771E09004EE5B0 /* MainImage.h */,
+				93FC2AA71A771E09004EE5B0 /* MainImage.m */,
+				93FC2AA91A778925004EE5B0 /* DynamicImage.h */,
+				93FC2AAA1A778925004EE5B0 /* DynamicImage.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -871,6 +881,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93FC2AA81A771E09004EE5B0 /* MainImage.m in Sources */,
 				93C6F0E41A6CF030002C8E4A /* EGOImageView.m in Sources */,
 				93C6F0F61A6CF049002C8E4A /* homeBtn.m in Sources */,
 				0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */,
@@ -939,6 +950,7 @@
 				0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */,
 				93C592DB1A708D9700CDF8F7 /* HHZCommonLabelItem.m in Sources */,
 				0ED0FDE91A75E30300486C2E /* OrganizationViewController.m in Sources */,
+				93FC2AAB1A778925004EE5B0 /* DynamicImage.m in Sources */,
 				93C592DA1A708D9700CDF8F7 /* HHZCommonItem.m in Sources */,
 				935DDF8A1A75D80500021146 /* ChangePhoneViewController.m in Sources */,
 				0ECE9F6A1A734B98001C448D /* README.md in Sources */,
@@ -1083,6 +1095,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "378d2ce1-7d3b-4d7c-8e26-502397d0ec95";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1103,6 +1116,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "378d2ce1-7d3b-4d7c-8e26-502397d0ec95";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -19,11 +19,6 @@
     [self addSubview:navButton];
     self.navButton = navButton;
     
-    UIImageView *lineView = [[UIImageView alloc]init];
-    lineView.image = [UIImage imageNamed:@"red_division"];
-    [self addSubview:lineView];
-    self.lineView = lineView;
-    
     [self layoutIfNeeded];
     
 }
@@ -52,16 +47,14 @@
 {
     [super layoutSubviews];
     
-    self.frame = CGRectMake(0, 0, 60, 60);
+    self.frame = CGRectMake(0, 0, 46, 46);
     
     switch (self.navType) {
             case navbarViewTypeLeft:
-            self.navButton.frame = CGRectMake(-4, 7, 40, 40);
-            self.lineView.frame = CGRectMake(47, -12, 2, 64);
+            self.navButton.frame = CGRectMake(-16, 0, 46, 46);
             break;
             case navbarViewTypeRight:
-            self.navButton.frame = CGRectMake(28, 7, 40, 40);
-            self.lineView.frame = CGRectMake(15, -12, 2, 64);
+            self.navButton.frame = CGRectMake(16, 0, 46, 46);
             break;
         default:
             break;

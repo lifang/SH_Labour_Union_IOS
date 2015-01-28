@@ -76,13 +76,16 @@
 -(void)setLittleBtn
 {
     CGFloat imageVW = mainViewW / 2.2;
-    CGFloat imageVH = imageVW * 2 / 3;
+    CGFloat imageVH = imageVW;
     CGFloat imageVX = mainViewW / 4;
-    CGFloat imageVY = mainViewH / 4;
+    CGFloat imageVY = mainViewH / 4 - 2 * CostumViewMargin;
     self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);
     
     CGFloat btnLabelX = imageVX - imageVW / 2;
     CGFloat btnLabelY = imageVY + imageVH + 2 * CostumViewMargin;
+    if (mainScreenH <= 480) {
+        btnLabelY = imageVY  + imageVH;
+    }
     CGFloat btnLabelW = imageVW * 2;
     CGFloat btnLabelH = 20;
     
@@ -92,13 +95,16 @@
 -(void)setBigBtn
 {
     CGFloat imageVW = mainViewW / 3;
-    CGFloat imageVH = imageVW * 2 / 3;
+    CGFloat imageVH = imageVW;
     CGFloat imageVX = mainViewW / 3;
-    CGFloat imageVY = mainViewH / 4;
+    CGFloat imageVY = mainViewH / 4 - 2 * CostumViewMargin;
     self.imageV.frame = CGRectMake(imageVX, imageVY, imageVW, imageVH);
     
     CGFloat btnLabelX = imageVX - imageVW / 2;
     CGFloat btnLabelY = imageVY + imageVH + 2 * CostumViewMargin;
+    if (mainScreenH <= 480) {
+        btnLabelY = imageVY  + imageVH;
+    }
     CGFloat btnLabelW = imageVW * 2;
     CGFloat btnLabelH = 20;
     
