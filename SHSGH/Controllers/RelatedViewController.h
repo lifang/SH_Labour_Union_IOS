@@ -15,6 +15,8 @@
     NSArray*namearry;
     
     UITextField*_searchfield;
+    NSMutableArray*_newallarry;
+    NSString *urls;
     
     PPiFlatSegmentedControl *segmentedControl;
     

@@ -11,7 +11,7 @@
 #import "PersonalDoneViewController.h"
 
 @interface RegisterDoneViewController ()<UITextFieldDelegate>
-@property (nonatomic, strong) UITextField *usermwssageField;
+@property (nonatomic, strong) UITextField *usermessageField;
 @property (nonatomic, strong) UITextField *emailField;
 @end
 
@@ -22,8 +22,8 @@
     
     [self setNavBar];
     [self initAndLayoutUI];
-   
 }
+
 
 -(void)setNavBar
 {
@@ -152,44 +152,44 @@
                                                          multiplier:0.0
                                                            constant:0.5f]];
     //身份证
-    _usermwssageField = [[UITextField alloc] init];
-    _usermwssageField.translatesAutoresizingMaskIntoConstraints = NO;
-    _usermwssageField.borderStyle = UITextBorderStyleNone;
-    _usermwssageField.backgroundColor = [UIColor whiteColor];
-    _usermwssageField.delegate = self;
-    _usermwssageField.placeholder = @"请输入身份证";
-    _usermwssageField.font = [UIFont systemFontOfSize:15.f];
+    _usermessageField = [[UITextField alloc] init];
+    _usermessageField.translatesAutoresizingMaskIntoConstraints = NO;
+    _usermessageField.borderStyle = UITextBorderStyleNone;
+    _usermessageField.backgroundColor = [UIColor whiteColor];
+    _usermessageField.delegate = self;
+    _usermessageField.placeholder = @"请输入身份证";
+    _usermessageField.font = [UIFont systemFontOfSize:15.f];
     UIView *nameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
     nameImageView.image = [UIImage imageNamed:@"identity_card"];
     [nameView addSubview:nameImageView];
-    _usermwssageField.leftView = nameView;
-    _usermwssageField.leftViewMode = UITextFieldViewModeAlways;
-    _usermwssageField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _usermwssageField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [self.view addSubview:_usermwssageField];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
+    _usermessageField.leftView = nameView;
+    _usermessageField.leftViewMode = UITextFieldViewModeAlways;
+    _usermessageField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _usermessageField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [self.view addSubview:_usermessageField];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermessageField
                                                           attribute:NSLayoutAttributeLeft
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeLeft
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermessageField
                                                           attribute:NSLayoutAttributeRight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeRight
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermessageField
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:firstLine
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermwssageField
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_usermessageField
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:nil
@@ -205,7 +205,7 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:secondLine
                                                           attribute:NSLayoutAttributeTop
                                                           relatedBy:NSLayoutRelationEqual
-                                                             toItem:_usermwssageField
+                                                             toItem:_usermessageField
                                                           attribute:NSLayoutAttributeBottom
                                                          multiplier:1.0
                                                            constant:0]];
@@ -238,7 +238,6 @@
     _emailField.delegate = self;
     _emailField.placeholder = @"请输入邮件";
     _emailField.font = [UIFont systemFontOfSize:15.f];
-    _emailField.secureTextEntry = YES;
     UIView *passwordView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *passwordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
     passwordImageView.image = [UIImage imageNamed:@"email_Gray"];
@@ -354,12 +353,57 @@
 
 -(void)done
 {
+    
+    //输入验证
+    if (!_usermessageField.text || [_usermessageField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"身份证不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_emailField.text || [_emailField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"Email不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"注册中!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?phone=%@&username=%@&verify_code=%@email=%@&labourUnionCode=%@",_phone,_username,_verify_code,_emailField.text,_usermessageField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                [hud hide:YES];
+                SLog(@"%@",result);
+            }
+            //请求失败
+            else
+            {
+                SLog(@"注册失败!");
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"注册失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+                [hud hide:YES];
+            }
+        });
+    });
+    
     PersonalDoneViewController *personalDoneVC = [[PersonalDoneViewController alloc]init];
     
     [self.navigationController pushViewController:personalDoneVC animated:YES];
 }
-
-
-
 
 @end

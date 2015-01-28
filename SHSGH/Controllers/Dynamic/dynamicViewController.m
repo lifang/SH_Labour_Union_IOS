@@ -16,11 +16,23 @@
 #import "DynamicChildViewController.h"
 #import "MJRefresh.h"
 #import "DynamicImage.h"
+#import "DynamicStatus.h"
+#import "DynamicCell.h"
+#import "IDModel.h"
+#import "DynamicChildViewController.h"
 
 
 @interface dynamicViewController ()<ReuseViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray *imageArray;
+
+@property(nonatomic,strong)NSMutableArray *listArray;
+
+@property(nonatomic,strong)NSMutableArray *loadMoreArray;
+
+@property(nonatomic,strong)NSMutableArray *idArray;
+
+@property(nonatomic,assign)int page;
 
 @end
 
@@ -31,6 +43,7 @@
     [self setNavBar];
     [self setupRefresh];
     [self loadImageDate];
+    self.page = 0;
 }
 
 -(void)setupRefresh
@@ -67,12 +80,17 @@
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _imageArray = [NSMutableArray array];
+                _idArray = [NSMutableArray array];
                 for (int i = 0; i < imageeArray.count; i++) {
                     DynamicImage *dynamicImg = [[DynamicImage alloc]init];
                     dynamicImg.title = [[imageeArray objectAtIndex:i]objectForKey:@"bigImg"];
                     dynamicImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
                     dynamicImg.imgPath = [[imageeArray objectAtIndex:i]objectForKey:@"imgPath"];
                     dynamicImg.time = [[imageeArray objectAtIndex:i]objectForKey:@"time"];
+                    
+                    IDModel *idModel = [[IDModel alloc]init];
+                    idModel.ids = [[imageeArray objectAtIndex:i]objectForKey:@"id"];
+                    [_idArray addObject:idModel.ids];
                     [_imageArray addObject:dynamicImg.imgPath];
                 }
                 SLog(@"%@",_imageArray);
@@ -89,18 +107,77 @@
 //下拉刷新加载更多微博数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView headerEndRefreshing];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:@"1" forKey:@"offset"];
+        
+        NSString *urls =@"/api/news/findNews";
+        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                NSArray *imageeArray = [result objectForKey:@"result"];
+                _listArray = [NSMutableArray array];
+                for (int i = 0; i < imageeArray.count; i++) {
+                    DynamicImage *dynamicImg = [[DynamicImage alloc]init];
+                    dynamicImg.title = [[imageeArray objectAtIndex:i]objectForKey:@"title"];
+                    dynamicImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
+                    dynamicImg.time = [[imageeArray objectAtIndex:i]objectForKey:@"time"];
+                    [_listArray addObject:dynamicImg];
+                }
+//                SLog(@"-----------%@",_listArray);
+                [self.tableView headerEndRefreshing];
+                [self.tableView reloadData];
+            }
+            //请求失败
+            else {
+                SLog(@"请求失败!");
+                [self.tableView headerEndRefreshing];
+            }
+        });
     });
 }
 
 //上拉刷新加载更多微博数据
 -(void)loadMoreStatuses
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView footerEndRefreshing];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        self.page++;
+        NSString *pages = [NSString stringWithFormat:@"%d",self.page];
+        [params setObject:pages forKey:@"offset"];
+        NSString *urls =@"/api/news/findNews";
+        id result = [KRHttpUtil getResultDataByPost:urls param:params];
         
-    });}
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                NSArray *imageeArray = [result objectForKey:@"result"];
+                _loadMoreArray = [NSMutableArray array];
+                for (int i = 0; i < imageeArray.count; i++) {
+                    DynamicImage *dynamicImg = [[DynamicImage alloc]init];
+                    dynamicImg.title = [[imageeArray objectAtIndex:i]objectForKey:@"title"];
+                    dynamicImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
+                    dynamicImg.time = [[imageeArray objectAtIndex:i]objectForKey:@"time"];
+                    [_loadMoreArray addObject:dynamicImg];
+                }
+                                SLog(@"-----------loadmore%@",_loadMoreArray);
+                [_listArray addObjectsFromArray:_loadMoreArray];
+                [self.tableView footerEndRefreshing];
+                [self.tableView reloadData];
+            }
+            //请求失败
+            else {
+                SLog(@"请求失败!");
+                [self.tableView footerEndRefreshing];
+            }
+        });
+    });
+
+}
 
 
 -(void)setNavBar
@@ -159,35 +236,36 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return _listArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    int row = indexPath.row;
-    NSString *ListViewCellId = @"ListViewCellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ListViewCellId];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ListViewCellId];
-    }
-    //数据方法
-    cell.textLabel.text = @"市总工会召开本市单位......";
-    cell.detailTextLabel.text = @"2015-1-17";
-    
+    DynamicCell *cell =[DynamicCell cellWithTableView:tableView];
+    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = status.title;
+    cell.detailTextLabel.text = status.time;
     return  cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DynamicStatus *status = [_listArray objectAtIndex:indexPath.row];
     DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
+    dynamicVC.page =  status.ids;
     [self.navigationController pushViewController:dynamicVC animated:YES];
     SLog(@"点击了第%ld行",indexPath.row);
 }
  #pragma mark - ScrollView didSelect
  -(void)handleTop:(UITapGestureRecognizer *)imageView
  {
-      SLog(@"点击了%@",imageView);
+     int ids = (int)imageView.view.tag - 101;
+     int imageId = [_idArray[ids] intValue];
+     DynamicChildViewController *dynamicChildVC = [[DynamicChildViewController alloc]init];
+     dynamicChildVC.page = imageId;
+     [self.navigationController pushViewController:dynamicChildVC animated:YES];
+     SLog(@"图片的ID-----------%d",imageId);
  }
 
 @end

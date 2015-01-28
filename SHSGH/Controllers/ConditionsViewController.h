@@ -14,9 +14,11 @@ typedef void (^aBlock)(NSString *hangyestring);
     UITableView*_Conditionstable;
 //    UIImageView*seariamgeview;
     NSMutableArray*imagearry;
-    
-       NSArray*namearry;
-    
+    NSString *urls;
+    NSMutableArray*_allarry;
+
+    BOOL _isReloadingAllData;
+
 }
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;

@@ -61,7 +61,7 @@
     
     UILabel*jobname=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH/2, 30)];
     [bigscrollow addSubview:jobname];
-    jobname.text=@"酒店运营经理";
+    jobname.text=[NSString stringWithFormat:@"%@ (%@  )",self.zhiweiname,self.peoplenumber];
 //    UILabel*discuss=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-70, 50, 60, 10)];
 //    discuss.font=[UIFont systemFontOfSize:15];
 //    discuss.textColor=[UIColor redColor];
@@ -72,19 +72,19 @@
     datename.font=[UIFont systemFontOfSize:15];
     datename.textColor=[UIColor grayColor];
     [bigscrollow addSubview:datename];
-      datename.text=@"2014/06/12";
+//      datename.text=@"2014/06/12";
     
     UILabel*companyname=[[UILabel alloc]initWithFrame:CGRectMake(20, 30, SCREEN_WIDTH-20, 20)];
     companyname.font=[UIFont systemFontOfSize:15];
     companyname.textColor=[UIColor grayColor];
     [bigscrollow addSubview:companyname];
-      companyname.text=@"中邦置业集团有限公司";
+      companyname.text=self.companyname;
     
     UILabel*address=[[UILabel alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH-80, 20)];
     address.font=[UIFont systemFontOfSize:15];
     address.textColor=[UIColor grayColor];
     [bigscrollow addSubview:address];
-    address.text=@"杭州 西湖区";
+    address.text=[NSString stringWithFormat:@"上海  %@",self.area];
 
     UILabel*require=[[UILabel alloc]initWithFrame:CGRectMake(20, 80, SCREEN_WIDTH-20, 30)];
     require.font=[UIFont systemFontOfSize:15];
@@ -97,7 +97,7 @@
       requirecontent.textColor=[UIColor grayColor];
      requirecontent.numberOfLines=0;
     [bigscrollow addSubview:requirecontent];
-    requirecontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+    requirecontent.text=self.require;
 
     [requirecontent sizeToFit];
     
@@ -117,7 +117,7 @@
     [bigscrollow addSubview:contactcontent];
       contactcontent.numberOfLines=0;
     
-        contactcontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+        contactcontent.text=self.contact;
 [contactcontent sizeToFit];
     
     
@@ -126,7 +126,7 @@
     coompamyname.font=[UIFont systemFontOfSize:15];
     //    address.textColor=[UIColor grayColor];
     [bigscrollow addSubview:coompamyname];
-    coompamyname.text=@"中邦置业有限公司：";
+    coompamyname.text=[NSString stringWithFormat:@"%@:",self.companyname];
     
     
     
@@ -135,7 +135,7 @@
       coompamycontent.textColor=[UIColor grayColor];
     [bigscrollow addSubview:coompamycontent];
     coompamycontent.numberOfLines=0;
-    coompamycontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+    coompamycontent.text=self.companyintroduce;
     [coompamycontent sizeToFit];
     
     

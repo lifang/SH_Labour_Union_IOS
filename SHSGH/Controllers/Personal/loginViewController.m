@@ -340,10 +340,29 @@
     
 }
 
+//登录
 -(void)signIn:(id)sender
 {
-    NSLog(@"登录!");
-    
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        
+//        NSString *urls = [NSString stringWithFormat:@"/api/user/registfcode?phone="];
+//        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //成功
+//            if ([[result objectForKey:@"code"] integerValue]==0)
+//            {
+//                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                [alertV1 show];
+//            }
+//            //请求失败
+//            else
+//            {
+//                SLog(@"验证码发送失败!");
+//                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//                [alertV2 show];
+//            }
+//        });
+//    });
     PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
     [self.navigationController pushViewController:personDoneVC animated:YES];
 }
@@ -362,7 +381,6 @@
     [self.navigationController pushViewController:findVC animated:YES];
     
     NSLog(@"忘记密码!");
-    
 }
 
 @end

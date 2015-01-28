@@ -10,4 +10,6 @@
 
 @interface DynamicChildViewController : UIViewController
 
+@property(nonatomic,assign)int page;
+
 @end

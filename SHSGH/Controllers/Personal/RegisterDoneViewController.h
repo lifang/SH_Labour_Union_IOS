@@ -10,4 +10,10 @@
 
 @interface RegisterDoneViewController : UIViewController
 
+@property(nonatomic,copy)NSString *username;
+
+@property(nonatomic,copy)NSString *phone;
+
+@property(nonatomic,copy)NSString *verify_code;
+
 @end

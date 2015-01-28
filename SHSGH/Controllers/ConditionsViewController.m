@@ -9,6 +9,7 @@
 #import "ConditionsViewController.h"
 #import "ConditionsTableViewCell.h"
 #import "navbarView.h"
+#import "people.h"
 @interface ConditionsViewController ()
 
 @end
@@ -18,19 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     
+    
+
     self.title=self.conditionsname;
     [self createui];
     
-    namearry=[[NSArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"搜索记录",@"职位推荐", nil];
-    imagearry=[[NSMutableArray alloc]initWithCapacity:0];
-    for(NSInteger i=0;i<7;i++)
-    {
-        [imagearry addObject:@""];
-        
-    
-    }
-
+  
+[self date];
     // Do any additional setup after loading the view.
     _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
@@ -47,6 +44,137 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+#pragma mark - 获取网络数据
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        //        [params setObject:@"1" forKey:@"typeId"];
+        
+        
+        if([self.conditionsname isEqualToString:@"行业类别"])
+        {
+            urls =@"/api/job/findAllRI";
+
+        
+        }
+       
+       else if([self.conditionsname isEqualToString:@"首选工作区域"])
+        {
+            
+            urls =@"/api/job/findAllAddr";
+
+        }
+        else
+        {
+        
+            urls =@"/api/job/findAllAddr";
+
+        
+        }
+            
+               
+        
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+                      
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+               
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    people*peo=[[people alloc]init];
+                    
+                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                    
+                    if([self.conditionsname isEqualToString:@"行业类别"])
+                    {
+                        peo.namestring=[[arry objectAtIndex:i] objectForKey:@"hymc"];
+
+
+                    
+                    }
+                    else
+                    {
+                        peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+
+                    }
+                    
+                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_allarry addObject:peo];
+                    
+                }
+                imagearry=[[NSMutableArray alloc]initWithCapacity:0];
+                for(NSInteger i=0;i<_allarry.count;i++)
+                {
+                    [imagearry addObject:@""];
+                    
+                    
+                }
+                [_Conditionstable reloadData];
+                
+            }
+            
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+                
+            }
+        });
+    });
+}
+
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
+
 -(void)setnavBar
 {
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
@@ -115,7 +243,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return _allarry.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -133,9 +261,10 @@
   
    cell.logoImageView.image=[UIImage imageNamed:[imagearry objectAtIndex:indexPath.row]];
     
-
+    people*pname=[_allarry objectAtIndex:indexPath.row];
     
-    cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text=pname.namestring;
 //    seariamgeview.tag=indexPath.row;
     
      return cell;
@@ -151,7 +280,7 @@
     
   
     imagearry=[[NSMutableArray alloc]initWithCapacity:0];
-    for(NSInteger i=0;i<7;i++)
+    for(NSInteger i=0;i<_allarry.count;i++)
     {
         [imagearry addObject:@""];
         
@@ -159,8 +288,24 @@
     }
 
     [imagearry replaceObjectAtIndex:indexPath.row withObject:@"dui"];
+    
+    people*pname=[_allarry objectAtIndex:indexPath.row];
+    
+
     if (self.block) {
-        block([NSString stringWithFormat:@"%ld",(long)indexPath.row]);
+        if([self.conditionsname isEqualToString:@"行业类别"])
+        {
+           block([NSString stringWithFormat:@"%d",pname.ids]);
+            
+        }
+        else{
+        
+        
+            block([NSString stringWithFormat:@"%@",pname.namestring]);
+
+        }
+
+       
     }
 
    [_Conditionstable reloadData];

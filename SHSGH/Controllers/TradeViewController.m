@@ -12,7 +12,11 @@
 #import "AppDelegate.h"
 #import "NSString+FontAwesome.h"
 #import "PersonalViewController.h"
+#import "TradedetalViewController.h"
+#import "QipaoTableViewCell.h"
+#import "MJRefresh.h"
 
+#import "people.h"
 @interface TradeViewController ()
 
 @end
@@ -22,14 +26,58 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+
     self.title=@"商户信息";
     [self setnavBar];
     [self createui];
     [self left];
+    [self date];
+    [self setupRefresh];
+}
+
+-(void)setupRefresh
+{
+    //下拉
+    [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_Seatchtable headerBeginRefreshing];
+    //上拉
+    [_Seatchtable addFooterWithTarget:self action:@selector(loadMoreStatuses)];
     
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _Seatchtable.headerPullToRefreshText = @"下拉可以刷新了";
+    _Seatchtable.headerReleaseToRefreshText = @"松开马上刷新了";
+    _Seatchtable.headerRefreshingText = @">.< 正在努力加载中!";
     
+    _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
     
 }
+
+//下拉刷新加载更多微博数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    _isReloadingAllData=YES;
+    [self date];
+    
+        
+//    });
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    _isReloadingAllData=NO;
+    [self date];
+
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [_Seatchtable footerEndRefreshing];
+//        
+//    });
+}
+
 -(void)createui
 {
     //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
@@ -93,16 +141,17 @@
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
-    _Seatchtable.rowHeight=40;
+//    _Seatchtable.rowHeight=40;
     
-    
+    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 6;
+    return _allarry.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -124,19 +173,28 @@
 {
     static NSString *cellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    QipaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+        cell = [[QipaoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
     }
     
     
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    cell.textLabel.text=@"社会保障法";
+    cell.namelable.tintColor=[UIColor grayColor];
+    people*peop=[_allarry objectAtIndex:indexPath.section];
+    
+    cell.namelable.text=peop.about_detail;
+    cell.namelable.numberOfLines=0;
+    
+    [cell.namelable sizeToFit];
+    
+   
+   
+    cell.logoImageView.frame=CGRectMake(0, -5, SCREEN_WIDTH, cell.namelable.frame.size.height+20);
     
     
     
@@ -145,50 +203,81 @@
     
     
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 55)];
+    templabel.numberOfLines=0;
+    people*peop=[_allarry objectAtIndex:indexPath.section];
+
+    templabel.text =peop.about_detail;
+    
+    templabel.font=[UIFont systemFontOfSize:12];
+    [templabel sizeToFit];
+    
+    
+        return templabel.frame.size.height+30;
+    
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
+    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+    rootimageview.userInteractionEnabled=YES;
     
+//    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
+    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
+    touchclickimageview.tag=section;
+    
+    [rootimageview addSubview:touchclickimageview];
+    
+    [touchclickimageview addTarget:self action:@selector(handleSingleFingerEvent:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+//       [ touchclickimageview addGestureRecognizer:singleTapss];
     UIImageView *logoimageview = [[UIImageView alloc]init];
     
     logoimageview.frame = CGRectMake(10, 10, 80, 80);
     logoimageview.image=[UIImage imageNamed:@"structure"];
     
     [rootimageview addSubview:logoimageview];
-    
+    logoimageview.userInteractionEnabled=NO;
+    people*peop=[_allarry objectAtIndex:section];
+
     UILabel*namelable=[[UILabel alloc]init];
-    namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 30);
+    namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 20);
     
-    namelable.font=[UIFont systemFontOfSize:15];
-    //    requirecontent.textColor=[UIColor grayColor];
-    namelable.numberOfLines=0;
+    namelable.font=[UIFont systemFontOfSize:13];
+//      requirecontent.textColor=[UIColor grayColor];
+//    namelable.numberOfLines=0;
     [rootimageview addSubview:namelable];
-    namelable.text=@"大概IDG热的分割肉";
-    
+    namelable.text=peop.namestring;
+    namelable.userInteractionEnabled=NO;
+
     UILabel*addresslable=[[UILabel alloc]init];
-    addresslable.frame=CGRectMake(95,40, SCREEN_WIDTH-100, 30);
+    addresslable.frame=CGRectMake(95,30, SCREEN_WIDTH-100, 20);
     
     addresslable.font=[UIFont systemFontOfSize:15];
     addresslable.textColor=[UIColor grayColor];
     addresslable.numberOfLines=0;
     [rootimageview addSubview:addresslable];
-    addresslable.text=@"大概IDG热的分割肉";
+    addresslable.text=peop.addrstring;
     
-    
+    addresslable.userInteractionEnabled=NO;
+
     UILabel*phonelable=[[UILabel alloc]init];
-    phonelable.frame=CGRectMake(95,70, 120, 30);
+    phonelable.frame=CGRectMake(95,50, 120, 20);
     
     phonelable.font=[UIFont systemFontOfSize:15];
     phonelable.textColor=[UIColor grayColor];
     phonelable.numberOfLines=0;
     [rootimageview addSubview:phonelable];
-    phonelable.text=@"大概IDG热的分割肉";
+    phonelable.text=@"0512-88888888";
     
-    
+    phonelable.userInteractionEnabled=NO;
+
     UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
     
-    phonebutton.frame=CGRectMake( 220, 70,25, 25);
+    phonebutton.frame=CGRectMake( 220, 50,25, 25);
     [phonebutton setBackgroundImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
     [phonebutton addTarget:self action:@selector(callclick) forControlEvents:UIControlEventTouchUpInside];
     
@@ -197,32 +286,54 @@
 
     
     UILabel*contentlable=[[UILabel alloc]init];
-    contentlable.frame=CGRectMake(95,100, SCREEN_WIDTH-100, 30);
+    contentlable.frame=CGRectMake(95,70, SCREEN_WIDTH-140, 40);
     
-    contentlable.font=[UIFont systemFontOfSize:15];
-    contentlable.textColor=[UIColor grayColor];
+    contentlable.font=[UIFont systemFontOfSize:12];
+//    contentlable.textColor=[UIColor grayColor];
     contentlable.numberOfLines=0;
+    
     [rootimageview addSubview:contentlable];
-    contentlable.text=@"大概IDG热的分割肉";
+    contentlable.text=peop.about;
     
-    
+    contentlable.userInteractionEnabled=NO;
+
     
     
     UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    searchButton.frame= CGRectMake(120, 10, 90, 30);
+    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 80, 30, 30);
+
     
-    [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
-    searchButton.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+    if (_flagArray[section])
+    {   [UIView beginAnimations:nil context:nil];
+        
+        [UIView setAnimationDuration:0.5];
+        
+        [searchButton setImage:[UIImage imageNamed:@"show2"] forState:UIControlStateNormal];
+
+        [UIView commitAnimations];
+
+       
+    }
+    else
+    {
+        [UIView beginAnimations:nil context:nil];
+        
+        [UIView setAnimationDuration:0.5];
+        
+        [searchButton setImage:[UIImage imageNamed:@"show1"] forState:UIControlStateNormal];
+        
+        [UIView commitAnimations];
+    }
     
+
     
-   
     
     [rootimageview addSubview:searchButton];
     
    
-    searchButton.userInteractionEnabled=YES;
+//    searchButton.userInteractionEnabled=NO;
     
-    [searchButton addTarget:self action:@selector(searchButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+    [searchButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
     
     searchButton.tag=1+section;
     return rootimageview;
@@ -230,6 +341,16 @@
     
     
 }
+- (void)handleSingleFingerEvent:(UIButton *)sender
+{
+    TradedetalViewController*detal=[[TradedetalViewController alloc]init];
+   
+    [self.navigationController pushViewController:detal animated:YES];
+    
+    
+    
+}
+
 -(void)callclick
 {
     UIWebView*callWebview =[[UIWebView alloc] init];
@@ -255,7 +376,7 @@
     [self.view addSubview:callWebview];
 }
 
--(void)searchButtonclick:(UIButton*)send
+-(void)detalButtonclick:(UIButton*)send
 
 {
     
@@ -283,7 +404,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 150;
+    return 110;
     
     
 }
@@ -331,41 +452,76 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"5" forKey:@"limit"];
+//        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+//        [params setObject:@"1" forKey:@"typeId"];
         
-        NSString *urls =@"/collect/list";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        
+        
+        if (_isReloadingAllData)
+            
+        {
+             urls =@"/api/merchant/findAll?typeId=1&offset=1";
+            
+            
+        }
+        else
+        {
+            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10];
+            
+
+        }
+       
+
+    
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"success"] boolValue])
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+
+
+            if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                [HUD removeFromSuperview];
-                
-                
-                
-                
+                if (_isReloadingAllData)
+                    
+                {
+                    [_allarry removeAllObjects];
+                }
+               NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+              
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    people*peo=[[people alloc]init];
+                    
+                    peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
+                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                   
+                    peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+                    
+                    peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
+                    peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
+                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+
+                    [_allarry addObject:peo];
+                    
+                }
+                         [_Seatchtable reloadData];
+              
             }
+            
             
             else
             {
-                NSString *reason = [result objectForKey:@"reason"];
-                if (![KRHttpUtil checkString:reason])
-                {
-                    reason = @"请求超时或者网络环境较差!";
+                NSString *reason = @"请求超时或者网络环境较差!";
+                
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                }
-                if([reason isEqualToString:@"认证失败"])
-                {
-                    [self showMessage:reason viewHeight:0.0];
-                    
-                    
-                    
-                }
+         
+                
                 
                 
             }
@@ -401,14 +557,14 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
-    [self.navigationController pushViewController:detal animated:YES];
-    
-    
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
+//    [self.navigationController pushViewController:detal animated:YES];
+//    
+//    
+//}
 
 
 //-(void)change:(MCSegmentedControl*)segmentedControl
