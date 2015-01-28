@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    changeint=798;
+
     _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
  urls =@"/api/news/findLaws";
     [self date];
@@ -38,7 +40,26 @@
 -(void)createui
 {
      //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
     
+    _helptable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+    [self.view addSubview:_helptable];
+    
+    [self.view addSubview:_Seatchtable];
+    _Seatchtable.delegate=self;
+    _Seatchtable.dataSource=self;
+    _Seatchtable.rowHeight=40;
+    
+    
+    _helptable.delegate=self;
+    _helptable.dataSource=self;
+    _helptable.rowHeight=40;
+    _helptable.hidden=YES;
+    _Seatchtable.hidden=NO;
+
+    
+    self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
+
         [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"navBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
          segmentedControl=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20,5,SCREEN_WIDTH-40,30) items:@[               @{@"text":@"法规查询",@"":@""},
                                                                                                                                                              @{@"text":@"互助保障",@"":@""},
@@ -50,19 +71,38 @@
                                                      
                                                        if(segmentIndex==0)
                                                        {
+                                                           changeint=798;
+                                                           
+                                                           urls =@"/api/news/findLaws";
+
+                                                           
+                                                           [self date];
+
                                                            _Seatchtable.hidden=NO;
                                                            
+                                                           _helptable.hidden=YES;
+
                                                        }
                                                        else if(segmentIndex==1)
                                                        {
-                                                           _Seatchtable.hidden=NO;
+                                                                changeint=790;
+                                                           urls =@"/api/mutualAid/findAll?type=0";
+
                                                            
+                                                           [self date];
+
+                                                           _Seatchtable.hidden=YES;
+                                                           _helptable.hidden=NO;
+
                                                        }
                                                        else
                                                        {
+                                                      
+
                                                            
                                                            _Seatchtable.hidden=YES;
-                                                           
+                                                           _helptable.hidden=YES;
+
                                                            [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
                                                            
                                                        }
@@ -70,11 +110,6 @@
 
                                                    }];
         
-        _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
-        
-        
-    
-    self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
     
     
 
@@ -99,13 +134,7 @@
 //    [segmentedControl setSelectedSegmentIndex:0];
 //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
 //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
-    
-    [self.view addSubview:_Seatchtable];
-    _Seatchtable.delegate=self;
-    _Seatchtable.dataSource=self;
-    _Seatchtable.rowHeight=40;
-    
-    
+   
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
@@ -118,6 +147,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
+    NSLog(@"tttt%d",_newallarry.count);
          return _newallarry.count;
   
     
@@ -139,10 +169,10 @@
 
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text=jobp.jobname;
-    
+    NSLog(@"tttt%@",jobp.jobname);
 
+    cell.textLabel.text=[NSString stringWithFormat:@"%@",jobp.jobname];
+    
  
     
     
@@ -152,7 +182,8 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
+   if(tableView==_Seatchtable)
+   {
     UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
     
     UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-80, 35)];
@@ -214,7 +245,161 @@
     [searchButton addTarget:self action:@selector(searchButtonclick) forControlEvents:UIControlEventTouchUpInside];
     return rootimageview;
     
+   }
+    else
+    {
+    
+        UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 130)];
+        
+        UIView*searchrootview=[[UIView alloc]initWithFrame:CGRectMake(20, 5, SCREEN_WIDTH-40, 35)];
+        [rootimageview addSubview:searchrootview];
+        
+        if(iOS7)
+        {
+            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-80, 33)];
+        }
+        else
+        {
+            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 5, SCREEN_WIDTH-80, 33)];
+            
+        }
+        searchrootview.layer.cornerRadius=18;
+        
+        _searchfield.placeholder=@"请输入关键字 ";
+        _searchfield.delegate=self;
+        CALayer *layer=[searchrootview layer];
+        //是否设置边框以及是否可见
+        [layer setMasksToBounds:YES];
+        //设置边框圆角的弧度
+        
+        //设置边框线的宽
+        //
+        [layer setBorderWidth:1];
+        //设置边框线的颜色
+        [layer setBorderColor:[[UIColor grayColor] CGColor]];
+        [searchrootview addSubview:_searchfield];
+        
+        UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
+        [searchrootview addSubview: seariamgeview];
+        seariamgeview.image=[UIImage imageNamed:@"search"];
+        
+        
+        UIButton*TuixiuButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/4-15, 50, 30, 30)];
+        if(changeimage==YES)
+        {
+         [TuixiuButton setImage:[UIImage imageNamed:@"tuixiu"] forState:UIControlStateNormal];
+        }
+       else
+       {
+           [TuixiuButton setImage:[UIImage imageNamed:@"zaizhi"] forState:UIControlStateNormal];
 
+       
+       }
+        
+        
+        [rootimageview addSubview:TuixiuButton];
+        
+        UILabel*tuixiulable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4+15, 50, 50, 30)];
+        [rootimageview addSubview:tuixiulable];
+        
+ tuixiulable.text=@"退休";
+
+        //        CALayer *layers=[searchButton layer];
+        //        //是否设置边框以及是否可见
+        //        [layers setMasksToBounds:YES];
+        //        //设置边框圆角的弧度
+        //
+        //        //设置边框线的宽
+        //        //
+        //        [layers setBorderWidth:1];
+        //        //设置边框线的颜色
+        //        [layers setBorderColor:[[UIColor grayColor] CGColor]];
+        TuixiuButton.userInteractionEnabled=YES;
+        
+        [TuixiuButton addTarget:self action:@selector(tuixiuButtonclick) forControlEvents:UIControlEventTouchUpInside];
+
+        UIButton*zaizhiButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60-SCREEN_WIDTH/4, 50, 30, 30)];
+        
+        if(changeimage==NO)
+        {
+            [zaizhiButton setImage:[UIImage imageNamed:@"tuixiu"] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [zaizhiButton setImage:[UIImage imageNamed:@"zaizhi"] forState:UIControlStateNormal];
+            
+            
+        }
+        
+        
+        
+        [rootimageview addSubview:zaizhiButton];
+        UILabel*zaizhilable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30-SCREEN_WIDTH/4, 50, 40, 30)];
+        [rootimageview addSubview:zaizhilable];
+        zaizhilable.text=@"在职";
+
+        //        CALayer *layers=[searchButton layer];
+        //        //是否设置边框以及是否可见
+        //        [layers setMasksToBounds:YES];
+        //        //设置边框圆角的弧度
+        //
+        //        //设置边框线的宽
+        //        //
+        //        [layers setBorderWidth:1];
+        //        //设置边框线的颜色
+        //        [layers setBorderColor:[[UIColor grayColor] CGColor]];
+        zaizhiButton.userInteractionEnabled=YES;
+        
+        [zaizhiButton addTarget:self action:@selector(zaizhiButtonclick) forControlEvents:UIControlEventTouchUpInside];
+        
+
+        
+        
+        
+        
+        
+        
+        UIButton*searchButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 90, SCREEN_WIDTH-40, 30)];
+        
+        [searchButton setTitle: @"搜索" forState:UIControlStateNormal];
+        
+        searchButton.titleLabel.font = [UIFont systemFontOfSize: 14.0];
+        searchButton.backgroundColor=HHZColor(143, 20, 4);
+        
+        searchButton.layer.cornerRadius=5;
+        
+        [rootimageview addSubview:searchButton];
+        
+//        CALayer *layers=[searchButton layer];
+//        //是否设置边框以及是否可见
+//        [layers setMasksToBounds:YES];
+//        //设置边框圆角的弧度
+//        
+//        //设置边框线的宽
+//        //
+//        [layers setBorderWidth:1];
+//        //设置边框线的颜色
+//        [layers setBorderColor:[[UIColor grayColor] CGColor]];
+        searchButton.userInteractionEnabled=YES;
+        
+        [searchButton addTarget:self action:@selector(helpButtonclick) forControlEvents:UIControlEventTouchUpInside];
+        return rootimageview;
+    
+    }
+
+}
+-(void)tuixiuButtonclick
+{
+    tuizaiA=0;
+    changeimage=NO;
+    [_helptable reloadData];
+    
+}
+-(void)zaizhiButtonclick
+{
+    tuizaiA=1;
+    changeimage=YES;
+    [_helptable reloadData];
 
 }
 -(void)left
@@ -256,6 +441,14 @@
 
 
 }
+-(void)helpButtonclick
+{
+    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%d&name=%@",tuizaiA,_searchfield.text];
+    [self date];
+    
+    
+    
+}
 #pragma mark - 获取网络数据
 -(void)date
 {
@@ -273,7 +466,7 @@
         
         
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-      
+          
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -292,15 +485,35 @@
                     
                     JObpp*peo=[[JObpp alloc]init];
                     
-                    
-                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    if(changeint==798)
+                    {peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
                     peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"title"]];
                     
                     
                     [_newallarry addObject:peo];
+                    }else
+                    {
+                        peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                        peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"name"]];
+                        
+                        
+                        [_newallarry addObject:peo];
+                    
+                    }
                     
                 }
-                [_Seatchtable reloadData];
+                 if(changeint==798)
+                 {
+                     [_Seatchtable reloadData];
+
+                 }
+                else
+                {
+                    [_helptable reloadData];
+
+                
+                }
+
                 
             }
             else
@@ -311,7 +524,6 @@
                     reason = @"请求超时或者网络环境较差!";
                 }
 
-//                    reason = @"请求超时或者网络环境较差!";
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                
                 
@@ -320,6 +532,74 @@
         });
     });
 }
+-(void)detaldate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        //        [params setObject:@"5" forKey:@"limit"];
+        if(changeint==798)
+        {
+        detalstring=[NSString stringWithFormat:@"/api/news/findLawsById?id=%d",A];
+        }
+        else
+        {
+            detalstring=[NSString stringWithFormat:@"/api/mutualAid/findById?id=%d",A];
+
+        }
+        id result = [KRHttpUtil getResultDataByPost:detalstring param:nil];
+        
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"ppppppppp地对地导弹%@",result);
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                
+                
+                DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
+                if(changeint==798)
+                {
+                    detal.contentstring=[[result objectForKey:@"result"] objectForKey:@"content"];
+                    detal.titles=[[result objectForKey:@"result"] objectForKey:@"title"];
+
+                }
+                else
+                {
+                    detal.contentstring=[[result objectForKey:@"result"] objectForKey:@"img"];
+                    detal.titles=[[result objectForKey:@"result"] objectForKey:@"name"];
+
+                }
+                
+                
+                [self.navigationController pushViewController:detal animated:YES];
+            }
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
+    });
+}
+
 
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
@@ -352,8 +632,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
-    DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
-    [self.navigationController pushViewController:detal animated:YES];
+    JObpp*jop=[_newallarry objectAtIndex:indexPath.row];
+    
+    A=[jop.jobid integerValue];
+    [self detaldate];
+    
+   
  
     
 }
@@ -393,9 +677,15 @@
 //}
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-   
+   if(tableView==_Seatchtable)
+   {
         return 50;
-        
+   }
+    else
+    {
+        return 130;
+
+    }
   
 }
 

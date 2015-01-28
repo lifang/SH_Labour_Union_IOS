@@ -136,7 +136,11 @@
             else
             {
                 NSString *reason = @"请求超时或者网络环境较差!";
-                
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                 
                 
@@ -293,17 +297,17 @@
     
 
     if (self.block) {
-        if([self.conditionsname isEqualToString:@"行业类别"])
-        {
-           block([NSString stringWithFormat:@"%d",pname.ids]);
-            
-        }
-        else{
+//        if([self.conditionsname isEqualToString:@"行业类别"])
+//        {
+//           block([NSString stringWithFormat:@"%d",pname.ids]);
+//            
+//        }
+//        else{
         
         
             block([NSString stringWithFormat:@"%@",pname.namestring]);
 
-        }
+//        }
 
        
     }

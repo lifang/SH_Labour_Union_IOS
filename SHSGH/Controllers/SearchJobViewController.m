@@ -17,6 +17,7 @@
 #import "JObpp.h"
 #import "PersonalViewController.h"
 #import "people.h"
+
 @interface SearchJobViewController ()
 
 @end
@@ -276,6 +277,7 @@
             str1=hangyestring;
             
             
+            
         };
 
     }
@@ -472,8 +474,12 @@
             else
             {
                 NSString *reason = @"请求超时或者网络环境较差!";
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
 
-                    [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
               
                 
                 
@@ -539,7 +545,11 @@
             else
             {
                 NSString *reason = @"请求超时或者网络环境较差!";
-                
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                 
                 

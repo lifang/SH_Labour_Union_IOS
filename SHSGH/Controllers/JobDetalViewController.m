@@ -138,7 +138,8 @@
     coompamycontent.text=self.companyintroduce;
     [coompamycontent sizeToFit];
     
-    
+    if(self.chanageA!=9)
+    {
     
     UIButton *othersbut = [[UIButton alloc]init];
     [othersbut setTitle:@"该公司其他推荐职位" forState:UIControlStateNormal];
@@ -165,11 +166,17 @@
     [bigscrollow addSubview:othersbuts];
     
 
-    bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, othersbut.frame.origin.y+othersbut.frame.size.height+20)
-    ;
+        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, othersbut.frame.origin.y+othersbut.frame.size.height+20);
     
     
+        
+    }
+    else
+    {
+        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+20);
+
     
+    }
 
     
     
@@ -177,6 +184,9 @@
 -(void)otherclick
 {
     OtherjobViewController*otherview=[[OtherjobViewController alloc]init];
+    
+    otherview.otherids=self.otherids;
+    
     [self.navigationController pushViewController:otherview animated:YES];
     
 

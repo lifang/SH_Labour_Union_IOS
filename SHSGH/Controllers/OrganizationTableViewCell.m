@@ -27,7 +27,7 @@
         phoonelable=[[UILabel alloc]initWithFrame:CGRectMake(20, 30, 120, 20)];
         phoonelable.font=[UIFont systemFontOfSize:15];
         phoonelable.textColor=[UIColor grayColor];
-        phoonelable.text=@"021-56874968";
+//        phoonelable.text=@"021-56874968";
         
         
         [self addSubview:phoonelable];

@@ -15,7 +15,8 @@
     NSArray*namearry;
     NSMutableArray*_allarry;
     NSString *urls;
-    
+    NSInteger totalCount;
+
     UITextField*_searchfield;
         BOOL _flagArray[100];
     PPiFlatSegmentedControl *segmentedControl;

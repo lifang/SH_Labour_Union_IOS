@@ -15,7 +15,7 @@
 #import "TradedetalViewController.h"
 #import "QipaoTableViewCell.h"
 #import "MJRefresh.h"
-
+#import "MJRefreshFooterView.h"
 #import "people.h"
 @interface TradeViewController ()
 
@@ -27,6 +27,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%lu",_allarry.count/10+1];
+
+    _isReloadingAllData = YES;
 
     self.title=@"商户信息";
     [self setnavBar];
@@ -70,9 +73,14 @@
 -(void)loadMoreStatuses
 {
     _isReloadingAllData=NO;
+    
+    if(_allarry.count<totalCount)
+    {
     [self date];
 
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    }
+    
+     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        [_Seatchtable footerEndRefreshing];
 //        
 //    });
@@ -92,21 +100,33 @@
                           
                           if(segmentIndex==0)
                           {
-                              _Seatchtable.hidden=NO;
+                              [_allarry removeAllObjects];
+                              
+                              _isReloadingAllData = YES;
+                              urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%lu",_allarry.count/10+1];
+
+                              
+                              [self date];
+                              
                               
                           }
                           
                           else
                           {
+                              _isReloadingAllData = YES;
+                              [_allarry removeAllObjects];
                               
-                              _Seatchtable.hidden=YES;
                               
-                              [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
+                              urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=2&offset=%lu",_allarry.count/10+1];
+                              
+                              [self date];
                               
                           }
                           
                           
                       }];
+    
+  
     
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
     
@@ -184,7 +204,7 @@
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
-    cell.namelable.tintColor=[UIColor grayColor];
+    cell.namelable.textColor=[UIColor grayColor];
     people*peop=[_allarry objectAtIndex:indexPath.section];
     
     cell.namelable.text=peop.about_detail;
@@ -383,7 +403,7 @@
     UIButton *button=(UIButton *)send;
     
     //根据按钮的tag值找到所找按钮所在的区
-    int section=button.tag-1;
+    int section=button.tag-1.0;
     
     //取反  如果布尔数组中的值是yes=>>no.no=>>yes
     _flagArray[section]=!_flagArray[section];
@@ -457,19 +477,10 @@
         
         
         
-        if (_isReloadingAllData)
-            
-        {
-             urls =@"/api/merchant/findAll?typeId=1&offset=1";
-            
-            
-        }
-        else
-        {
-            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10];
-            
+      
 
-        }
+        
+     
        
 
     
@@ -480,9 +491,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            [_Seatchtable headerEndRefreshing];
-            [_Seatchtable footerEndRefreshing];
-
+          
 
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
@@ -510,7 +519,24 @@
                     [_allarry addObject:peo];
                     
                 }
-                         [_Seatchtable reloadData];
+                totalCount = [[result objectForKey:@"total"] integerValue];
+                
+                if (_allarry.count!=0)
+                {
+                    
+                    [_Seatchtable reloadData];
+                    [_Seatchtable headerEndRefreshing];
+                    [_Seatchtable footerEndRefreshing];
+
+                }
+                if(_allarry.count==totalCount)
+                {
+                    [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+                    
+                    
+                    
+                }
+
               
             }
             
@@ -518,7 +544,12 @@
             else
             {
                 NSString *reason = @"请求超时或者网络环境较差!";
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
                 
+
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
          
                 

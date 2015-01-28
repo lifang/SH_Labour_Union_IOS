@@ -16,5 +16,7 @@
 @property(nonatomic,strong)NSString*companyintroduce;
 @property(nonatomic,strong)NSString*area;
 @property(nonatomic,strong)NSString*peoplenumber;
+@property(nonatomic,strong)NSString*otherids;
+@property(nonatomic,assign)NSInteger chanageA;
 
 @end

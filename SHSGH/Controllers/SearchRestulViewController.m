@@ -181,12 +181,12 @@
        [tableView deselectRowAtIndexPath:indexPath animated:NO];
         }
         else
-        {
+        {   JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row-1];
+            
+            getids=jobp.jobid;
             [self date];
 
-            JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row-1];
-
-            getids=jobp.jobid;
+         
             
             
         }
@@ -198,12 +198,14 @@
     
     else
     {
-        [self date];
-
         
         JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row];
         
         getids=jobp.jobid;
+        [self date];
+
+        
+        
         
         
         
@@ -261,6 +263,7 @@
 
                 jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
                 jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+                jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_id"]];
 
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];
@@ -273,7 +276,11 @@
             else
             {
                 NSString *reason = @"请求超时或者网络环境较差!";
-                
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                 
                 

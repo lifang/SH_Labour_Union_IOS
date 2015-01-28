@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title=@"《社会保障法》";
+    self.title=self.titles;
     
     if(iOS7)
     {
@@ -35,28 +35,34 @@
 
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
-    UILabel*requirecontent=[[UILabel alloc]init];
+    UIWebView*requirecontent=[[UIWebView alloc]init];
     
+    [requirecontent loadHTMLString:self.contentstring baseURL:nil];
+    
+    //        simpleintroducetlable.numberOfLines=0;
+    [requirecontent sizeToFit];
     
     if(iOS7)
     {
-        requirecontent.frame=CGRectMake(10, 70, SCREEN_WIDTH-20, 30);
+        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, SCREEN_HEIGHT-80);
         
     }
     else
     {
-        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, 30);
+        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, SCREEN_HEIGHT);
         
 
     
     }
-    requirecontent.font=[UIFont systemFontOfSize:15];
 //    requirecontent.textColor=[UIColor grayColor];
-    requirecontent.numberOfLines=0;
     [self.view addSubview:requirecontent];
-    requirecontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+//    requirecontent.text=self.contentstring;
+    NSLog(@"=======%@",self.contentstring);
+//    requirecontent.numberOfLines=0;
+
     
-    [requirecontent sizeToFit];
+    
+   [requirecontent sizeToFit];
     
     
     [ self setnavBar];

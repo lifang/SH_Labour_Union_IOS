@@ -12,11 +12,17 @@
 {
     
     UITableView*_Seatchtable;
+    UITableView*_helptable;
     NSArray*namearry;
     
     UITextField*_searchfield;
     NSMutableArray*_newallarry;
     NSString *urls;
+    NSInteger tuizaiA;
+    NSInteger A;
+    NSInteger changeint;
+    NSString*detalstring;
+    BOOL changeimage;
     
     PPiFlatSegmentedControl *segmentedControl;
     
