@@ -10,6 +10,8 @@
 #import "GetresultTableViewCell.h"
 #import "JobDetalViewController.h"
 #import "navbarView.h"
+#import "people.h"
+#import "JObpp.h"
 @interface SearchRestulViewController ()
 
 @end
@@ -20,7 +22,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
       self.title=self.conditionsname;
-    
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
     [self setNavBar];
     
     [self createui];
@@ -35,7 +38,7 @@
     [self.view addSubview:_getresulttable];
     _getresulttable.delegate=self;
     _getresulttable.dataSource=self;
-    _getresulttable.rowHeight=70;
+    _getresulttable.rowHeight=50;
     
     
     
@@ -95,7 +98,19 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    if([self.conditionsname isEqualToString:@"搜索结果"])
+    {
+        return self.jobarry.count+1;
+
+    
+    }
+    else
+    {
+    
+    
+        return self.jobarry.count;
+}
+    
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,11 +137,12 @@
      }
         else
         {
-            cell.jobname.text=@"酒店经理";
+            JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row-1];
             
-            cell.companyname.text=@"协创有限公司";
             
-            cell.date.text=@"2014/09/05";
+            cell.jobname.text=jobp.jobname;
+            
+            cell.companyname.text=jobp.jobunit_name;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         }
@@ -134,12 +150,18 @@
     }
     else
     {
-    cell.jobname.text=@"酒店经理";
+        NSLog(@"00000000%@",self.jobarry);
+        
+        
+        
+        JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row];
+        
+        
+    cell.jobname.text=jobp.jobname;
     
-    cell.companyname.text=@"协创有限公司";
+    cell.companyname.text=jobp.jobunit_name;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    cell.date.text=@"2014/09/05";
     }
     return cell;
     
@@ -160,10 +182,12 @@
         }
         else
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+            [self date];
+
+            JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row-1];
+
+            getids=jobp.jobid;
             
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
             
         }
     
@@ -174,16 +198,116 @@
     
     else
     {
-        JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+        [self date];
+
+        
+        JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row];
+        
+        getids=jobp.jobid;
         
         
-        [self.navigationController pushViewController:jobdetal animated:YES];
         
 
     
     }
     
     
+}
+#pragma mark - 获取网络数据
+
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        
+        
+        NSString *urls =  [NSString stringWithFormat:@"/api/job/findById?id=%@",getids];
+        
+
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                
+                
+                
+                
+                    
+              
+                
+                JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+                jobdetal.zhiweiname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_name"]];
+                
+                jobdetal.peoplenumber=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"rs"]];
+
+                jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
+
+                jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+                jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
+
+                jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
+                jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+
+                
+                [self.navigationController pushViewController:jobdetal animated:YES];
+
+                
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
+    });
+}
+
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
 }
 
 

@@ -14,8 +14,9 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 #import "JobDetalViewController.h"
-
+#import "JObpp.h"
 #import "PersonalViewController.h"
+#import "people.h"
 @interface SearchJobViewController ()
 
 @end
@@ -24,7 +25,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
      NSLog(@"%@%@%@",str1,str3,str2);
-    namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        职位推荐", nil];
+    namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        最新职位", nil];
     
 
     recordarry=[NSMutableArray  arrayWithCapacity:0];
@@ -69,7 +70,9 @@
     
     
     [super viewDidLoad];
-    
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
+
     self.title=@"岗位查询";
     [self setnavBar];
     if(iOS7)
@@ -339,19 +342,13 @@
         [self.navigationController pushViewController:seach animated:YES];
         
     }
-    //  职位推荐
+    //  最新职位
 
     if(indexPath.row==namearry.count-1)
     {
-        
-        SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
-        
-        seach.conditionsname=@"职位推荐";
-        
-        
-        [self.navigationController pushViewController:seach animated:YES];
+        [self newjobdate];
 
-    }
+            }
     
     //  搜索记录1
     
@@ -431,41 +428,120 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"5" forKey:@"limit"];
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@",_searchfield.text,str1,str2,str3];
         
-        NSString *urls =@"/collect/list";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"success"] boolValue])
+            if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                [HUD removeFromSuperview];
                 
                 
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
                 
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+                    
+                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_newallarry addObject:peo];
+                    
+                }
+                
+                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+                
+                seach.conditionsname=@"搜索结果";
+                seach.jobarry=_newallarry;
+                NSLog(@"%@",seach.jobarry);
+                [self.navigationController pushViewController:seach animated:YES];
+
                 
             }
             
             else
             {
-                NSString *reason = [result objectForKey:@"reason"];
-                if (![KRHttpUtil checkString:reason])
-                {
-                    reason = @"请求超时或者网络环境较差!";
+                NSString *reason = @"请求超时或者网络环境较差!";
+
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                }
-                if([reason isEqualToString:@"认证失败"])
+              
+                
+                
+            }
+        });
+    });
+}
+
+-(void)newjobdate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =@"/api/job/findNewJob";
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                [_newallarry removeAllObjects];
+                
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
                 {
-                    [self showMessage:reason viewHeight:0.0];
+                    
+                    JObpp*peo=[[JObpp alloc]init];
                     
                     
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+
+//                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_newallarry addObject:peo];
                     
                 }
+
+                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+                
+                seach.conditionsname=@"最新职位";
+                seach.jobarry=_newallarry;
+                NSLog(@"%@",seach.jobarry);
+                [self.navigationController pushViewController:seach animated:YES];
+                
+
+                
+            }
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
                 
                 
             }
@@ -504,16 +580,18 @@
 -(void)searchButtonclick
 {
 
-    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES)
+    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES&&[self isBlankString:_searchfield.text]==YES)
     {
-        [self showMessage:@"请选择行业，区域等" viewHeight:SCREEN_HEIGHT/2-80];
+        [self showMessage:@"请选择查询条件" viewHeight:SCREEN_HEIGHT/2-80];
         return;
         
     
     }
    
+    [self date];
+    
+    
 
-    SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     recordarry=[userDefaults objectForKey:@"record"];
@@ -525,7 +603,6 @@
     
     
     }
-    seach.conditionsname=@"搜索结果";
     NSMutableDictionary*dict=[[NSMutableDictionary alloc]init];
     [dict setValue:str1 forKey:@"12"];
     [dict setValue:str2 forKey:@"13"];
@@ -536,7 +613,6 @@
     [userDefaults synchronize];
     
 
-    [self.navigationController pushViewController:seach animated:YES];
      str1=@"";
     
     str2=@"";

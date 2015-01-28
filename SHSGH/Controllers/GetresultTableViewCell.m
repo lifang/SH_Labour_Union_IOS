@@ -29,12 +29,12 @@
         
         
         [self addSubview:companyname];
-        date=[[UILabel alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH, 20)];
-        
-        [self addSubview:date];
-        
-        date.font=[UIFont systemFontOfSize:15];
-        date.textColor=[UIColor grayColor];
+//        date=[[UILabel alloc]initWithFrame:CGRectMake(20, 50, SCREEN_WIDTH, 20)];
+//        
+//        [self addSubview:date];
+//        
+//        date.font=[UIFont systemFontOfSize:15];
+//        date.textColor=[UIColor grayColor];
         
 
 

@@ -10,14 +10,25 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 #import "PersonalViewController.h"
+#import "HHZTextView.h"
+#import "QuestionViewController.h"
 
-@interface MaintainViewController ()<UITextFieldDelegate>
+@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate>
 
 @property(nonatomic,weak)UIScrollView *contentView;
 
 @property(nonatomic,weak)UIButton *leftBtn;
 
 @property(nonatomic,weak)UIButton *rightBtn;
+
+@property(nonatomic,strong)UITextField *nameField;
+@property(nonatomic,strong)UITextField *phoneField;
+@property(nonatomic,strong)UITextField *addressField;
+@property(nonatomic,strong)UITextField *emailField;
+@property(nonatomic,strong)UITextField *questionField;
+@property(nonatomic,strong)UITextField *titleField;
+@property(nonatomic,strong)HHZTextView *contentField;
+
 
 @end
 
@@ -34,7 +45,7 @@
     //整个界面
     UIScrollView *contentView = [[UIScrollView alloc]init];
     contentView.frame = self.view.bounds;
-    contentView.backgroundColor = sColor(220, 220, 220, 1.0);
+    contentView.backgroundColor = sColor(236, 236, 236, 1.0);
     //顶部View
     UIView *topView = [[UIView alloc]init];
     topView.backgroundColor = sColor(245, 241, 201, 1.0);
@@ -93,38 +104,233 @@
     //姓名
     UILabel *nameLabel = [[UILabel alloc]init];
     nameLabel.backgroundColor = [UIColor clearColor];
-    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.font = [UIFont systemFontOfSize:15];
     nameLabel.textColor = sColor(90, 90, 90, 1.0);
     nameLabel.text = @"姓名";
     nameLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(lineView.frame) + 4 * CostumViewMargin, labelWidth * 0.5, labelHeight);
     [contentView addSubview:nameLabel];
     //红色星星
-    UILabel *redStar = [[UILabel alloc]init];
-    redStar.frame = CGRectMake(CGRectGetMaxX(nameLabel.frame) + CostumViewMargin, nameLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
-    redStar.textColor = sColor(227, 15, 46, 1.0);
-    redStar.text = @"*";
-    redStar.font = [UIFont systemFontOfSize:16];
-    [contentView addSubview:redStar];
+    UILabel *redStar1 = [[UILabel alloc]init];
+    redStar1.frame = CGRectMake(CGRectGetMaxX(nameLabel.frame) + CostumViewMargin, nameLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar1.textColor = sColor(227, 15, 46, 1.0);
+    redStar1.text = @"*";
+    redStar1.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar1];
     //姓名输入框
     CGFloat fieldWidth = mainScreenW * 0.84;
-    CGFloat fieldHeight = 34;
-    UITextField *nameField = [[UITextField alloc]init];
-    nameField.layer.cornerRadius = 2;
-    nameField.layer.masksToBounds = YES;
-    nameField.placeholder = @"请输入您的姓名";
-    [nameField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
-    nameField.backgroundColor = [UIColor whiteColor];
-    nameField.frame = CGRectMake(CGRectGetMinX(nameLabel.frame),CGRectGetMaxY(nameLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
-    [contentView addSubview:nameField];
-    
-    
-    
-    
-    
-    
-    
-    contentView.contentSize = CGSizeMake(0, 1000);
+    CGFloat fieldHeight = 32;
+    _nameField = [[UITextField alloc]init];
+    UIView *leftV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _nameField.delegate = self;
+    _nameField.leftView = leftV1;
+    _nameField.leftViewMode = UITextFieldViewModeAlways;
+    _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _nameField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _nameField.layer.cornerRadius = 2;
+    _nameField.layer.masksToBounds = YES;
+    _nameField.placeholder = @"请输入您的姓名";
+    [_nameField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_nameField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _nameField.backgroundColor = [UIColor whiteColor];
+    _nameField.frame = CGRectMake(CGRectGetMinX(nameLabel.frame),CGRectGetMaxY(nameLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_nameField];
+    //联系电话
+    UILabel *phoneLabel = [[UILabel alloc]init];
+    phoneLabel.backgroundColor = [UIColor clearColor];
+    phoneLabel.font = [UIFont systemFontOfSize:15];
+    phoneLabel.textColor = sColor(90, 90, 90, 1.0);
+    phoneLabel.text = @"联系电话";
+    phoneLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_nameField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:phoneLabel];
+    //红色星星
+    UILabel *redStar2 = [[UILabel alloc]init];
+    redStar2.frame = CGRectMake(CGRectGetMaxX(phoneLabel.frame) + CostumViewMargin, phoneLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar2.textColor = sColor(227, 15, 46, 1.0);
+    redStar2.text = @"*";
+    redStar2.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar2];
+    //联系电话输入框
+    _phoneField = [[UITextField alloc]init];
+    UIView *leftV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _phoneField.delegate = self;
+    _phoneField.leftView = leftV2;
+    _phoneField.leftViewMode = UITextFieldViewModeAlways;
+    _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _phoneField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _phoneField.layer.cornerRadius = 2;
+    _phoneField.layer.masksToBounds = YES;
+    _phoneField.placeholder = @"请输入您的手机号码";
+    [_phoneField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_phoneField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _phoneField.backgroundColor = [UIColor whiteColor];
+    _phoneField.frame = CGRectMake(CGRectGetMinX(phoneLabel.frame),CGRectGetMaxY(phoneLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_phoneField];
+    //联系地址
+    UILabel *addressLabel = [[UILabel alloc]init];
+    addressLabel.backgroundColor = [UIColor clearColor];
+    addressLabel.font = [UIFont systemFontOfSize:15];
+    addressLabel.textColor = sColor(90, 90, 90, 1.0);
+    addressLabel.text = @"联系地址";
+    addressLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_phoneField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:addressLabel];
+    //联系地址输入框
+    _addressField = [[UITextField alloc]init];
+    UIView *leftV3 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _addressField.delegate = self;
+    _addressField.leftView = leftV3;
+    _addressField.leftViewMode = UITextFieldViewModeAlways;
+    _addressField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _addressField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _addressField.layer.cornerRadius = 2;
+    _addressField.layer.masksToBounds = YES;
+    _addressField.placeholder = @"请输入您的联系地址";
+    [_addressField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_addressField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _addressField.backgroundColor = [UIColor whiteColor];
+    _addressField.frame = CGRectMake(CGRectGetMinX(addressLabel.frame),CGRectGetMaxY(addressLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_addressField];
+    //电子邮件
+    UILabel *emailLabel = [[UILabel alloc]init];
+    emailLabel.backgroundColor = [UIColor clearColor];
+    emailLabel.font = [UIFont systemFontOfSize:15];
+    emailLabel.textColor = sColor(90, 90, 90, 1.0);
+    emailLabel.text = @"电子邮件";
+    emailLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_addressField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:emailLabel];
+    //电子邮件输入框
+    _emailField = [[UITextField alloc]init];
+    UIView *leftV4 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _emailField.delegate = self;
+    _emailField.leftView = leftV4;
+    _emailField.leftViewMode = UITextFieldViewModeAlways;
+    _emailField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _emailField.layer.cornerRadius = 2;
+    _emailField.layer.masksToBounds = YES;
+    _emailField.placeholder = @"请输入您的电子邮件";
+    [_emailField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_emailField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _emailField.backgroundColor = [UIColor whiteColor];
+    _emailField.frame = CGRectMake(CGRectGetMinX(emailLabel.frame),CGRectGetMaxY(emailLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_emailField];
+    //问题类别
+    UILabel *questionLabel = [[UILabel alloc]init];
+    questionLabel.backgroundColor = [UIColor clearColor];
+    questionLabel.font = [UIFont systemFontOfSize:15];
+    questionLabel.textColor = sColor(90, 90, 90, 1.0);
+    questionLabel.text = @"问题类别";
+    questionLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_emailField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:questionLabel];
+    //电子邮件输入框
+    _questionField = [[UITextField alloc]init];
+    UIView *leftV5 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _questionField.delegate = self;
+    _questionField.leftView = leftV5;
+    _questionField.leftViewMode = UITextFieldViewModeAlways;
+    //右边View
+    UIView *rightV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    rightV.backgroundColor = [UIColor clearColor];
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = sColor(148, 148, 148, 0.5);
+    line.frame = CGRectMake(0, 0, 0.3, 32);
+    [rightV addSubview:line];
+    UIImageView *imageV = [[UIImageView alloc]init];
+    imageV.image = [UIImage imageNamed:@"particular_Gray"];
+    imageV.frame = CGRectMake(10, 8, 10, 16);
+    [rightV addSubview:imageV];
+    UIButton *rightArrow = [[UIButton alloc]init];
+    [rightArrow addTarget:self action:@selector(rightArrow) forControlEvents:UIControlEventTouchUpInside];
+    rightArrow.frame = CGRectMake(0, 0, rightV.frame.size.width, rightV.frame.size.height);
+    [rightV addSubview:rightArrow];
+    _questionField.rightViewMode = UITextFieldViewModeAlways;
+    _questionField.rightView = rightV;
+    _questionField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _questionField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _questionField.layer.cornerRadius = 2;
+    _questionField.layer.masksToBounds = YES;
+    _questionField.placeholder = @"请选择问题类别";
+    [_questionField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_questionField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _questionField.backgroundColor = [UIColor whiteColor];
+    _questionField.frame = CGRectMake(CGRectGetMinX(questionLabel.frame),CGRectGetMaxY(questionLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_questionField];
+    //咨询标题
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.textColor = sColor(90, 90, 90, 1.0);
+    titleLabel.text = @"咨询标题";
+    titleLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_questionField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:titleLabel];
+    //咨询标题输入框
+    _titleField = [[UITextField alloc]init];
+    UIView *leftV6 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
+    _titleField.delegate = self;
+    _titleField.leftView = leftV6;
+    _titleField.leftViewMode = UITextFieldViewModeAlways;
+    _titleField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _titleField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    _titleField.layer.cornerRadius = 2;
+    _titleField.layer.masksToBounds = YES;
+    _titleField.placeholder = @"请输入您要咨询的标题";
+    [_titleField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
+    [_titleField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    _titleField.backgroundColor = [UIColor whiteColor];
+    _titleField.frame = CGRectMake(CGRectGetMinX(titleLabel.frame),CGRectGetMaxY(titleLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    [contentView addSubview:_titleField];
+    //咨询内容
+    UILabel *contentLabel = [[UILabel alloc]init];
+    contentLabel.backgroundColor = [UIColor clearColor];
+    contentLabel.font = [UIFont systemFontOfSize:15];
+    contentLabel.textColor = sColor(90, 90, 90, 1.0);
+    contentLabel.text = @"咨询内容";
+    contentLabel.frame = CGRectMake(CGRectGetMinX(leftBtn.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_titleField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
+    [contentView addSubview:contentLabel];
+    _contentField = [[HHZTextView alloc]init];
+    _contentField.placehoder = @"请输入您要咨询的内容";
+    _contentField.delegate = self;
+    _contentField.layer.cornerRadius = 2;
+    _contentField.layer.masksToBounds = YES;
+    _contentField.backgroundColor = [UIColor whiteColor];
+    _contentField.frame = CGRectMake(CGRectGetMinX(contentLabel.frame),CGRectGetMaxY(contentLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight * 5);
+    [contentView addSubview:_contentField];
+    //底部分隔线
+    UIView *bottomLine = [[UIView alloc]init];
+    bottomLine.backgroundColor = sColor(207, 207, 207, 1.0);
+    bottomLine.frame = CGRectMake(0, CGRectGetMaxY(_contentField.frame) + 5 * CostumViewMargin, mainScreenW, 1);
+    [contentView addSubview:bottomLine];
+    //确认按钮
+    UIButton *sureBtn = [[UIButton alloc]init];
+    [sureBtn addTarget:self action:@selector(sureClick) forControlEvents:UIControlEventTouchUpInside];
+    [sureBtn setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
+    [sureBtn setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
+    [sureBtn setTitle:@"确 认"forState:UIControlStateNormal];
+    sureBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    sureBtn.frame = CGRectMake(_contentField.frame.origin.x,CGRectGetMaxY(bottomLine.frame) + 2 *CostumViewMargin , mainScreenW * 0.4, 40);
+    [contentView addSubview:sureBtn];
+    //拨打维权热线
+    UIButton *telBtn = [[UIButton alloc]init];
+    [telBtn addTarget:self action:@selector(telClick) forControlEvents:UIControlEventTouchUpInside];
+    [telBtn setBackgroundImage:[UIImage imageNamed:@"btn-l"] forState:UIControlStateNormal];
+    [telBtn setBackgroundImage:[UIImage imageNamed:@"btn-l"] forState:UIControlStateHighlighted];
+    [telBtn setTitle:@"     拨打维权热线"forState:UIControlStateNormal];
+    telBtn.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+    telBtn.frame = CGRectMake(CGRectGetMaxX(sureBtn.frame) + 2 * CostumViewMargin,CGRectGetMaxY(bottomLine.frame) + 2 *CostumViewMargin , mainScreenW * 0.42, 40);
+    [contentView addSubview:telBtn];
+
+    contentView.contentSize = CGSizeMake(0, CGRectGetMaxY(telBtn.frame) + 4 * CostumViewMargin +  60);
     [self.view addSubview:contentView];
+}
+
+-(void)sureClick
+{
+    SLog(@"sureClick");
+}
+
+-(void)telClick
+{
+    SLog(@"telClick");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://8008808888"]];
 }
 
 -(void)touchLeft
@@ -184,6 +390,13 @@
     self.maintainNav = [AppDelegate shareMaintainController];
     [self.maintainNav pushViewController:personVC animated:YES];
     SLog(@"toUser");
+}
+
+-(void)rightArrow
+{
+    SLog(@"rightArrow");
+    QuestionViewController *questionVC = [[QuestionViewController alloc]init];
+    [self.navigationController pushViewController:questionVC animated:YES];
 }
 
 @end

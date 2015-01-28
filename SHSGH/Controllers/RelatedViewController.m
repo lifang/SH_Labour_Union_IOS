@@ -11,7 +11,7 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 #import "NSString+FontAwesome.h"
-
+#import "JObpp.h"
 #import "PersonalViewController.h"
 @interface RelatedViewController ()
 
@@ -21,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
+ urls =@"/api/news/findLaws";
     [self date];
     
     // Do any additional setup after loading the view.
@@ -116,7 +118,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-         return 7;
+         return _newallarry.count;
   
     
 }
@@ -136,7 +138,10 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
 
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text=@"社会保障法";
+    JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text=jobp.jobname;
+    
 
  
     
@@ -245,8 +250,9 @@
 
 -(void)searchButtonclick
 {
-
-
+    urls =[NSString stringWithFormat:@"/api/news/findLaws?title=%@",_searchfield.text];
+    [self date];
+    
 
 
 }
@@ -265,7 +271,7 @@
 //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 //        [params setObject:@"5" forKey:@"limit"];
         
-        NSString *urls =@"/api/job/findAllRI";
+        
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
       
         
@@ -276,18 +282,36 @@
             
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
-             
+                [_newallarry removeAllObjects];
                 
-                 [self showMessage:@"请求成功" viewHeight:SCREEN_HEIGHT/2-80];
                 
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"title"]];
+                    
+                    
+                    [_newallarry addObject:peo];
+                    
+                }
+                [_Seatchtable reloadData];
                 
             }
-            
             else
             {
                 NSString *reason = [result objectForKey:@"message"];
-               
+                if (![KRHttpUtil checkString:reason])
+                {
                     reason = @"请求超时或者网络环境较差!";
+                }
+
+//                    reason = @"请求超时或者网络环境较差!";
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                
                 
