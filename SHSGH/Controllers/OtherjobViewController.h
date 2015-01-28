@@ -12,9 +12,12 @@
 {
     
     UITableView*_Conditionstable;
-  
+    NSMutableArray*_newallarry;
+    NSString*getids;
+
     
 }
+@property(nonatomic,strong)NSString*otherids;
 
 
 @end

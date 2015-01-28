@@ -10,6 +10,7 @@
 
 @interface dynamicViewController : UITableViewController
 
+
 @property(nonatomic,strong)UINavigationController *dynamicNav;
 
 @end

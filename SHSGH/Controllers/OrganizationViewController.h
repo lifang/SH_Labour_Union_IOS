@@ -13,8 +13,13 @@
     
     UITableView*_Seatchtable;
     NSArray*namearry;
-    
+    NSMutableArray*_allarry;
+
     UITextField*_searchfield;
+    NSString*urls;
+    BOOL _isReloadingAllData;
+    NSInteger totalCount;
+    NSInteger changeA;
     
     PPiFlatSegmentedControl *segmentedControl;
     

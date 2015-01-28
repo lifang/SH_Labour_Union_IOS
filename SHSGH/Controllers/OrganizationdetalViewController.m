@@ -102,7 +102,7 @@
     //    requirecontent.textColor=[UIColor grayColor];
     namelable.numberOfLines=0;
     [bigscroll addSubview:namelable];
-    namelable.text=@"任职要求：都刚好合";
+    namelable.text=self.name;
     
     
     UILabel*timelable=[[UILabel alloc]init];
@@ -122,7 +122,7 @@
     phonelable.textColor=[UIColor grayColor];
     phonelable.numberOfLines=0;
     [bigscroll addSubview:phonelable];
-    phonelable.text=@"153124587944";
+    phonelable.text=[NSString stringWithFormat:@"联系电话:    %@",self.tel];
 
     UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -146,7 +146,7 @@
     
     [bigscroll addSubview:addressbutton];
     addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-   [addressbutton setTitle:@"      大概IDG热的分割肉kjkli" forState:UIControlStateNormal];
+   [addressbutton setTitle:[NSString stringWithFormat:@"        %@",self.address] forState:UIControlStateNormal];
     [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     
@@ -163,8 +163,8 @@
     
     UIImageView *dituimageview = [[UIImageView alloc]init];
     
-    dituimageview.frame = CGRectMake(10, 0, 20, 20);
-    dituimageview.image=[UIImage imageNamed:@"particular_Gray"];
+    dituimageview.frame = CGRectMake(10, 5, 20, 20);
+    dituimageview.image=[UIImage imageNamed:@"ditu"];
     
     [addressbutton addSubview:dituimageview];
 
@@ -180,8 +180,8 @@
     
     UIImageView *llogoimageview = [[UIImageView alloc]init];
     
-    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+10, 25, 20);
-    llogoimageview.image=[UIImage imageNamed:@"structure"];
+    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 30, 30);
+    llogoimageview.image=[UIImage imageNamed:@"jieshao"];
     
     [bigscroll addSubview:llogoimageview];
     
@@ -190,13 +190,13 @@
     
     
     UILabel*llogolable=[[UILabel alloc]init];
-    llogolable.frame=CGRectMake(40, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 30);
+    llogolable.frame=CGRectMake(50, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 30);
     
-    llogolable.font=[UIFont systemFontOfSize:15];
+//    llogolable.font=[UIFont systemFontOfSize:15];
     //    requirecontent.textColor=[UIColor grayColor];
     llogolable.numberOfLines=0;
     [bigscroll addSubview:llogolable];
-    llogolable.text=@"大概IDG热的分割肉";
+    llogolable.text=@"机构简介";
     
     
     

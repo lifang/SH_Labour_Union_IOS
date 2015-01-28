@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DetalsocialViewController : UIViewController
+@property(nonatomic,strong)NSString*contentstring;
+@property(nonatomic,strong)NSString*titles;
 
 @end

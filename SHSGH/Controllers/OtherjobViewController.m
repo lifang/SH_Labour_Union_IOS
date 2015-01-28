@@ -9,6 +9,8 @@
 #import "OtherjobViewController.h"
 #import "JobDetalViewController.h"
 #import "navbarView.h"
+
+#import "JObpp.h"
 @interface OtherjobViewController ()
 
 @end
@@ -18,7 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
+    [self newjobdate];
     
+
     self.title=@"其他岗位招聘";
     
     // Do any additional setup after loading the view.
@@ -40,6 +45,167 @@
     
     
 }
+-(void)newjobdate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =  [NSString stringWithFormat:@"/api/job/findOtherJobById?id=%@",self.otherids];
+
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                [_newallarry removeAllObjects];
+                
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    
+                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_newallarry addObject:peo];
+                    
+                }
+                
+               
+                
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
+    });
+}
+
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =  [NSString stringWithFormat:@"/api/job/findById?id=%@",getids];
+        
+        
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                
+                
+                
+                
+                
+                
+                
+                JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+                jobdetal.zhiweiname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_name"]];
+                
+                jobdetal.peoplenumber=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"rs"]];
+                
+                jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
+                
+                jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+                jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
+                
+                jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
+                jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+                
+                
+                [self.navigationController pushViewController:jobdetal animated:YES];
+                
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
+    });
+}
+
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
 -(void)setNavBar
 {
     
@@ -89,7 +255,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return _newallarry.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,7 +272,10 @@
     
      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
      cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    cell.textLabel.text=@"网页设计师";
+    
+    JObpp*jj=[_newallarry objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text=jj.jobname;
     //    seariamgeview.tag=indexPath.row;
     
     return cell;
@@ -117,7 +286,11 @@
 {
     
     JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+    JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
+    jobdetal.chanageA=9;
     
+    getids=jobp.jobid;
+    [self date];
     
     [self.navigationController pushViewController:jobdetal animated:YES];
     

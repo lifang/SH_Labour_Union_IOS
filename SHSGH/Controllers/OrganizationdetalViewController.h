@@ -18,4 +18,11 @@
     NSInteger          _move;
     NSTimer      *_scrollcententtimer;
 }
+
+
+
+@property(nonatomic,strong)NSString*name;
+@property(nonatomic,strong)NSString*address;
+@property(nonatomic,strong)NSString*tel;
+
 @end

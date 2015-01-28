@@ -23,7 +23,7 @@
         
         
         [self addSubview:logoImageView];
-        namelable=[[UIWebView alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 50)];
+        namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 50)];
         
         [self addSubview:namelable];
         

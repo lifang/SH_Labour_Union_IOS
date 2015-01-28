@@ -14,6 +14,7 @@
 #import "PersonalViewController.h"
 #import "OrganizationTableViewCell.h"
 #import "OrganizationdetalViewController.h"
+#import "people.h"
 @interface OrganizationViewController ()
 
 @end
@@ -23,6 +24,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _isReloadingAllData = YES;
+    urls =[NSString stringWithFormat:@"/api/service/center/worker/page?page=%lu",_allarry.count/10+1];
+
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    [self date];
     
     self.title=@"机构查询";
     [self setnavBar];
@@ -31,7 +37,63 @@
     
     
     
+    [self setupRefresh];
 }
+
+-(void)setupRefresh
+{
+    //下拉
+    [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_Seatchtable headerBeginRefreshing];
+    //上拉
+    [_Seatchtable addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _Seatchtable.headerPullToRefreshText = @"下拉可以刷新了";
+    _Seatchtable.headerReleaseToRefreshText = @"松开马上刷新了";
+    _Seatchtable.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+
+//下拉刷新加载更多微博数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    _isReloadingAllData=YES;
+    [self date];
+    
+    
+    //    });
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    _isReloadingAllData=NO;
+    
+    if(_allarry.count<totalCount)
+    {
+        [self date];
+        
+    }
+    
+    if(_allarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        
+        
+    }
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [_Seatchtable footerEndRefreshing];
+    //        
+    //    });
+}
+
 -(void)createui
 {
     //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
@@ -46,16 +108,26 @@
                           
                           if(segmentIndex==0)
                           {
-                              _Seatchtable.hidden=NO;
+                              [_allarry removeAllObjects];
+
+                              _isReloadingAllData = YES;
+
+                              urls =[NSString stringWithFormat:@"/api/service/center/worker/page?page=%lu",_allarry.count/10+1];
+
+                              [self date];
+                              
                               
                           }
                        
                           else
                           {
+                              _isReloadingAllData = YES;
+                              [_allarry removeAllObjects];
                               
-                              _Seatchtable.hidden=YES;
+
+                              urls =[NSString stringWithFormat:@"/api/service/center/law/page?page=%lu",_allarry.count/10+1];
                               
-                              [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
+                              [self date];
                               
                           }
                           
@@ -65,7 +137,10 @@
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
     
-    
+    [self.view addSubview:_Seatchtable];
+    _Seatchtable.delegate=self;
+    _Seatchtable.dataSource=self;
+    _Seatchtable.rowHeight=70;
     self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
     
     
@@ -92,10 +167,7 @@
     //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
     //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
     
-    [self.view addSubview:_Seatchtable];
-    _Seatchtable.delegate=self;
-    _Seatchtable.dataSource=self;
-    _Seatchtable.rowHeight=70;
+   
     
     
     
@@ -106,7 +178,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 7;
+    return _allarry.count;
     
     
 }
@@ -126,10 +198,14 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
- 
+    people*pp=[_allarry objectAtIndex:indexPath.row];
     
+    cell.namelable.text=pp.namestring;
     
-    
+    cell.addresslable.text=pp.addrstring;
+
+    cell.phoonelable.text=pp.phone;
+
     
     return cell;
     
@@ -138,8 +214,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    OrganizationdetalViewController*detal=[[OrganizationdetalViewController alloc]init];
-    [self.navigationController pushViewController:detal animated:YES];
+    people*pp=[_allarry objectAtIndex:indexPath.row];
+    changeA=pp.ids;
+    
+    [self detaldate];
     
     
 }
@@ -254,47 +332,151 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"5" forKey:@"limit"];
+      
         
-        NSString *urls =@"/collect/list";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+      
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"success"] boolValue])
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                [HUD removeFromSuperview];
+                if (_isReloadingAllData)
+                    
+                {
+                    [_allarry removeAllObjects];
+                }
+                NSArray* arry= [[NSArray alloc]initWithArray:[[result objectForKey:@"result"] objectForKey:@"content"]];
                 
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    people*peo=[[people alloc]init];
+                    
+                    peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
+                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                    
+                    peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+                    peo.phone=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"tel"]];
+
+                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_allarry addObject:peo];
+                    
+                }
+                totalCount = [[[result objectForKey:@"result"] objectForKey:@"total"] integerValue];
                 
+                if (_allarry.count!=0)
+                {
+                    
+                    [_Seatchtable reloadData];
+                    
+                }
                 
                 
             }
             
+            
             else
             {
-                NSString *reason = [result objectForKey:@"reason"];
+                NSString *reason = @"请求超时或者网络环境较差!";
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";
-                    [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                 }
-                if([reason isEqualToString:@"认证失败"])
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+
+                
+            }
+        });
+    });
+}
+-(void)detaldate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString*changeurl=[NSString stringWithFormat:@"/api/service/center/info?id=%ld",(long)changeA];
+        
+        id result = [KRHttpUtil getResultDataByPost:changeurl param:nil];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+//                NSArray*arry=[result objectForKey:@"result"] ;
+                
+               
+                OrganizationdetalViewController*detal=[[OrganizationdetalViewController alloc]init];
+                
+                
+                detal.name=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                
+                detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
+                detal.address=[[result objectForKey:@"result"]  objectForKey:@"name"];
+                NSLog(@"%@",detal.name);
+
+                
+                [self.navigationController pushViewController:detal animated:YES];
+                
+                    
+                
+                
+                
+                
+          
+            
+            
+                
+                
+            }
+            
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                if (![KRHttpUtil checkString:reason])
                 {
-                    [self showMessage:reason viewHeight:0.0];
-                    
-                    
-                    
+                    reason = @"请求超时或者网络环境较差!";
                 }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
                 
                 
             }
         });
     });
 }
+
 
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {
