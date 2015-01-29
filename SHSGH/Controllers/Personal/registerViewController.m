@@ -10,6 +10,7 @@
 #import "navbarView.h"
 #import "SearchJobViewController.h"
 #import "RegisterDoneViewController.h"
+#import "AppDelegate.h"
 
 @interface registerViewController ()<UITextFieldDelegate>
 
@@ -643,29 +644,37 @@
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
+                 NSDictionary *dict = [result objectForKey:@"result"];
+                SLog(@"注册成功的id是%@",[dict objectForKey:@"id"]);
+                SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
+                SLog(@"注册成功的密码是%@",[dict objectForKey:@"password"]);
+                SLog(@"注册成功的用户名是%@",[dict objectForKey:@"username"]);
+                AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                delegate.username = [dict objectForKey:@"username"];
+                delegate.password = [dict objectForKey:@"password"];
+                delegate.phone = [dict objectForKey:@"phone"];
+                delegate.userId = [dict objectForKey:@"id"];
+                
+                _phoneField.text = nil;
+                _usernameField.text = nil;
+                _passwordField.text = nil;
+                _authcodeField.text = nil;
+                _passwordSureField.text = nil;
+                
+                RegisterDoneViewController *registerVC = [[RegisterDoneViewController alloc]init];
+                [self.navigationController pushViewController:registerVC animated:YES];
             }
             //请求失败
             else
             {
                 SLog(@"注册失败!");
-                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"注册失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV2 show];
                 [hud hide:YES];
             }
         });
     });
     
-    RegisterDoneViewController *registerVC = [[RegisterDoneViewController alloc]init];
-    registerVC.username = _usernameField.text;
-    registerVC.phone = _phoneField.text;
-    registerVC.verify_code = _authcodeField.text;
-    [self.navigationController pushViewController:registerVC animated:YES];
-    
-    _phoneField.text = nil;
-    _usernameField.text = nil;
-    _passwordField.text = nil;
-    _authcodeField.text = nil;
-    _passwordSureField.text = nil;
 }
 -(void)authcode
 {
@@ -679,6 +688,8 @@
         [alert show];
         return;
     }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"发送中!";
     if (_phoneField.text) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
@@ -692,6 +703,7 @@
                     _authCodeM = AuthId;
                     UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV1 show];
+                    [hud hide:YES];
                 }
                 //请求失败
                 else
@@ -699,6 +711,7 @@
                     SLog(@"验证码发送失败!");
                     UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV2 show];
+                    [hud hide:YES];
                 }
             });
         });

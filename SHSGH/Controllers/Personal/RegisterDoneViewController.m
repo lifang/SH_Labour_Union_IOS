@@ -9,6 +9,7 @@
 #import "RegisterDoneViewController.h"
 #import "navbarView.h"
 #import "PersonalDoneViewController.h"
+#import "AppDelegate.h"
 
 @interface RegisterDoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *usermessageField;
@@ -22,6 +23,11 @@
     
     [self setNavBar];
     [self initAndLayoutUI];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    
+    SLog(@"%@",delegate.userId);
+    
 }
 
 
@@ -378,8 +384,8 @@
     hud.labelText = @"注册中!";
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-        NSString *urls = [NSString stringWithFormat:@"/api/user/update?phone=%@&username=%@&verify_code=%@email=%@&labourUnionCode=%@",_phone,_username,_verify_code,_emailField.text,_usermessageField.text];
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?id=%@&email=%@&labourUnionCode=%@",delegate.userId,_emailField.text,_usermessageField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
@@ -389,6 +395,10 @@
                 [alertV1 show];
                 [hud hide:YES];
                 SLog(@"%@",result);
+                NSDictionary *userData = [result objectForKey:@"result"];
+                delegate.email = [userData objectForKey:@"email"];
+                delegate.labourUnionCode = [userData objectForKey:@"labourUnionCode"];
+                SLog(@"%@ -------- %@ ",delegate.email,delegate.labourUnionCode);
             }
             //请求失败
             else

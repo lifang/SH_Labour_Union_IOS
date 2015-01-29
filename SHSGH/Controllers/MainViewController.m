@@ -303,6 +303,7 @@
 
 -(void)loadImageDate
 {
+    [self setupCustomView];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *urls =@"/api/activity/findAll";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
@@ -341,7 +342,7 @@
     int ids = (int)imageView.view.tag - 101;
     EGOImageView *bigV = [[EGOImageView alloc]init];
     bigV.userInteractionEnabled = YES;
-    bigV.imageURL = _bigArray[ids];
+    bigV.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_bigArray[ids]]];
     bigV.backgroundColor = [UIColor clearColor];
     bigV.frame = CGRectMake(0, 0, mainScreenW, mainScreenH);
     [self.view addSubview:bigV];

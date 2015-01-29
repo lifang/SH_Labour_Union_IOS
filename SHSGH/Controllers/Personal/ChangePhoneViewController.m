@@ -8,11 +8,13 @@
 
 #import "ChangePhoneViewController.h"
 #import "navbarView.h"
+#import "AppDelegate.h"
 
 @interface ChangePhoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *oldPhoneField;
 @property (nonatomic, strong) UITextField *authCodeField;
 @property (nonatomic, strong) UITextField *newsPhoneField;
+@property(nonatomic,strong)NSString *authCodeM;
 @end
 
 @implementation ChangePhoneViewController
@@ -50,7 +52,76 @@
 -(void)save
 {
     SLog(@"点击了save!");
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    if (!_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"原手机号码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_authCodeField.text || [_authCodeField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"验证码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![_authCodeField.text isEqualToString:_authCodeM]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"验证码错误!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"新手机号码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"修改中!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        NSString *urls = [NSString stringWithFormat:@"/api/user/changePhone?verify_code=%@&id=%@&phone=%@",_authCodeField.text,delegate.userId,_newsPhoneField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"更换成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                [hud hide:YES];
+                NSDictionary *dict = [result objectForKey:@"result"];
+                delegate.phone = nil;
+                delegate.phone = [dict objectForKey:@"phone"];
+                delegate.password = _oldPhoneField.text;
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            //请求失败
+            else
+            {
+                SLog(@"更换失败!");
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"更换失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+                [hud hide:YES];
+                delegate.phone = _oldPhoneField.text;
+            }
+        });
+    });
 }
 
 -(void)initAndLayoutUI
@@ -98,7 +169,7 @@
     _oldPhoneField.borderStyle = UITextBorderStyleNone;
     _oldPhoneField.backgroundColor = [UIColor clearColor];
     _oldPhoneField.delegate = self;
-    _oldPhoneField.placeholder = @"15848554844";
+    _oldPhoneField.placeholder = @"请输入原手机号码";
     _oldPhoneField.font = [UIFont systemFontOfSize:15.f];
     
     UIView *leftoldPhoneView = [[UIView alloc]init];
@@ -113,8 +184,8 @@
     [leftoldPhoneView addSubview:leftoldPhone];
     
     UIView *rightViewFS = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 50)];
-    UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(5, 10, 60, 30)];
-    [send setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
+    UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(-10, 10, 76, 30)];
+    [send setBackgroundImage:[UIImage imageNamed:@"authcode"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [send addTarget:self action:@selector(authCode) forControlEvents:UIControlEventTouchUpInside];
     send.titleLabel.tintColor = [UIColor whiteColor];
@@ -199,17 +270,15 @@
     _authCodeField.borderStyle = UITextBorderStyleNone;
     _authCodeField.backgroundColor = [UIColor clearColor];
     _authCodeField.delegate = self;
-    _authCodeField.placeholder = @"suxiaon@126.com";
+    _authCodeField.placeholder = @"请输入验证码";
     _authCodeField.font = [UIFont systemFontOfSize:15.f];
-    _authCodeField.secureTextEntry = YES;
-    
     UIView *leftauthCodeView = [[UIView alloc]init];
     leftauthCodeView.size = CGSizeMake(100, 30);
     
     UILabel *leftauthCode = [[UILabel alloc]init];
     leftauthCode.textAlignment = NSTextAlignmentCenter;
     leftauthCode.frame = CGRectMake(0, 5, 70, labelSize);
-    leftauthCode.text = @"Email";
+    leftauthCode.text = @"验证码";
     leftauthCode.font = mainFont;
     leftauthCode.textColor = sColor(56, 56, 56, 56);
     [leftauthCodeView addSubview:leftauthCode];
@@ -288,17 +357,15 @@
     _newsPhoneField.borderStyle = UITextBorderStyleNone;
     _newsPhoneField.backgroundColor = [UIColor clearColor];
     _newsPhoneField.delegate = self;
-    _newsPhoneField.placeholder = @"20552544451255559596";
+    _newsPhoneField.placeholder = @"请输入新手机号码";
     _newsPhoneField.font = [UIFont systemFontOfSize:15.f];
-    _newsPhoneField.secureTextEntry = YES;
-    
     UIView *leftewPhoneView = [[UIView alloc]init];
     leftewPhoneView.size = CGSizeMake(100, 30);
     
     UILabel *leftnewPhone = [[UILabel alloc]init];
     leftnewPhone.textAlignment = NSTextAlignmentRight;
     leftnewPhone.frame = CGRectMake(0, 5, 90, labelSize);
-    leftnewPhone.text = @"工会会员号";
+    leftnewPhone.text = @"新手机号码";
     leftnewPhone.font = mainFont;
     leftnewPhone.textColor = sColor(56, 56, 56, 56);
     [leftewPhoneView addSubview:leftnewPhone];
@@ -375,6 +442,45 @@
 -(void)authCode
 {
     SLog(@"发送验证码!");
+    if (!_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"原手机号不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"发送中!";
+    if (_oldPhoneField.text) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            
+            NSString *urls = [NSString stringWithFormat:@"/api/user/getPhoneCode?phone=%@",_oldPhoneField.text];
+            id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //成功
+                if ([[result objectForKey:@"code"] integerValue]==0)
+                {
+                    NSString *AuthId = [result objectForKey:@"result"];
+                    _authCodeM = AuthId;
+                    UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV1 show];
+                    [hud hide:YES];
+                }
+                //请求失败
+                else
+                {
+                    SLog(@"验证码发送失败!");
+                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV2 show];
+                    [hud hide:YES];
+                }
+            });
+        });
+        
+    }
+
 }
 
 @end

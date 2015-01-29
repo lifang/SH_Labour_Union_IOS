@@ -13,6 +13,8 @@
 #import "findCodeViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "PersonalDoneViewController.h"
+#import "UserModel.h"
+#import "UserTool.h"
 
 @interface loginViewController ()<UITextFieldDelegate>
 
@@ -343,28 +345,50 @@
 //登录
 -(void)signIn:(id)sender
 {
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        
-//        NSString *urls = [NSString stringWithFormat:@"/api/user/registfcode?phone="];
-//        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            //成功
-//            if ([[result objectForKey:@"code"] integerValue]==0)
-//            {
-//                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//                [alertV1 show];
-//            }
-//            //请求失败
-//            else
-//            {
-//                SLog(@"验证码发送失败!");
-//                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//                [alertV2 show];
-//            }
-//        });
-//    });
-    PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
-    [self.navigationController pushViewController:personDoneVC animated:YES];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+       
+        
+        NSString *urls = [NSString stringWithFormat:@"/api/user/login?username=%@&password=%@",_usernameField.text,_passwordField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                NSDictionary *dict = [result objectForKey:@"result"];
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"登录成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                
+                AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                delegate.username = [dict objectForKey:@"username"];
+                delegate.userId = [dict objectForKey:@"id"];
+                delegate.password = [dict objectForKey:@"password"];
+                delegate.phoneCode = [dict objectForKey:@"phoneCode"];
+                delegate.phone = [dict objectForKey:@"phone"];
+                if ([dict objectForKey:@"labourUnionCode"]) {
+                    delegate.labourUnionCode = [dict objectForKey:@"labourUnionCode"];
+                }if ([dict objectForKey:@"email"]) {
+                    delegate.email = [dict objectForKey:@"email"];
+                }
+                
+                UserModel *account = [[UserModel alloc]init];
+                account.userID = delegate.userId;
+                account.username = delegate.username;
+                account.password = delegate.password;
+                [UserTool save:account];
+                
+                PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+                [self.navigationController pushViewController:personDoneVC animated:YES];
+            }
+            //请求失败
+            else
+            {
+                NSString *str = [result objectForKey:@"message"];
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:str message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+            }
+        });
+    });
+
 }
 
 -(void)signUp:(id)sender

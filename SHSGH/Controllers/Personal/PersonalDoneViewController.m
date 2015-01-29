@@ -15,6 +15,7 @@
 #import "HHZCommonLabelItem.h"
 #import "navbarView.h"
 #import "PersonalManagerViewController.h"
+#import "AppDelegate.h"
 
 @interface PersonalDoneViewController () <UIAlertViewDelegate>
 
@@ -31,6 +32,7 @@
     [self setupHeaderView];
     
     [self setupGroups];
+    
 }
 
 
@@ -114,7 +116,6 @@
 
 }
 
-
 -(void)backtoDynamic
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -124,7 +125,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 2) {
-        SLog(@"点击了第三行!");
         UIAlertView *sureView =[[UIAlertView alloc]initWithTitle:@"提示" message:@"你确定要退出帐号吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [sureView show];
     }
@@ -136,6 +136,8 @@
     if (buttonIndex == 1) {
         SLog(@"点击了确定!");
         //清除用户数据
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        [delegate clearLoginInfo];
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

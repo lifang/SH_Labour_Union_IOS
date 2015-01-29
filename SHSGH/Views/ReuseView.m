@@ -21,9 +21,10 @@
     self = [super initWithFrame:frame];
     if (self) {
 //       [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(runTimer) userInfo:nil repeats:YES];
+        if (!array || array.count == 0) return nil;
+  
         [array insertObject:[array firstObject] atIndex:0];
         [array addObject:[array firstObject]];
-        
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.contentSize = CGSizeMake(frame.size.width * array.count, frame.size.height);
         _scrollView.tag = 100;
