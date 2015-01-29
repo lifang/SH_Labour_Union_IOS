@@ -20,7 +20,8 @@
     BOOL _isReloadingAllData;
     NSInteger totalCount;
     NSInteger changeA;
-    
+    NSInteger firstA;
+
     PPiFlatSegmentedControl *segmentedControl;
     
 }

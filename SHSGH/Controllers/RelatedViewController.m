@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     changeint=798;
-
+    _isReloadingAllData = YES;
     _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
  urls =@"/api/news/findLaws";
     [self date];
@@ -36,7 +36,63 @@
     
     
     
+    [self setupRefresh];
 }
+
+-(void)setupRefresh
+{
+    //下拉
+    [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_Seatchtable headerBeginRefreshing];
+    //上拉
+    [_Seatchtable addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _Seatchtable.headerPullToRefreshText = @"下拉可以刷新了";
+    _Seatchtable.headerReleaseToRefreshText = @"松开马上刷新了";
+    _Seatchtable.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+
+//下拉刷新加载更多微博数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    _isReloadingAllData=YES;
+    [self date];
+    
+    
+    //    });
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    _isReloadingAllData=NO;
+    
+    if(_newallarry.count<totalCount)
+    {
+        [self date];
+        
+    }
+    
+    if(_newallarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        
+        
+    }
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [_Seatchtable footerEndRefreshing];
+    //
+    //    });
+}
+
 -(void)createui
 {
      //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
@@ -73,8 +129,12 @@
                                                        {
                                                            changeint=798;
                                                            
-                                                           urls =@"/api/news/findLaws";
 
+                                                           
+                                                           [_newallarry removeAllObjects];
+                                                           
+                                                           _isReloadingAllData = YES;
+                                                           
                                                            
                                                            [self date];
 
@@ -86,8 +146,12 @@
                                                        else if(segmentIndex==1)
                                                        {
                                                                 changeint=790;
-                                                           urls =@"/api/mutualAid/findAll?type=0";
 
+                                                           
+                                                           _isReloadingAllData = YES;
+                                                           [_newallarry removeAllObjects];
+                                                           
+                                                           
                                                            
                                                            [self date];
 
@@ -443,7 +507,7 @@
 }
 -(void)helpButtonclick
 {
-    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%d&name=%@",tuizaiA,_searchfield.text];
+    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@",(long)tuizaiA,_searchfield.text];
     [self date];
     
     
@@ -464,6 +528,17 @@
 //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 //        [params setObject:@"5" forKey:@"limit"];
         
+        if(changeint==798)
+        {
+
+            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
+
+        }
+        else
+        {
+            urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+
+        }
         
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
           
@@ -473,9 +548,17 @@
               NSLog(@"ppppppppp地对地导弹%@",result);
             [HUD removeFromSuperview];
             
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+            
+            
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                [_newallarry removeAllObjects];
+                if (_isReloadingAllData)
+                    
+                {
+                    [_newallarry removeAllObjects];
+                }
                 
                 
                 NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
@@ -502,6 +585,8 @@
                     }
                     
                 }
+                totalCount = [[result  objectForKey:@"total"] integerValue];
+
                  if(changeint==798)
                  {
                      [_Seatchtable reloadData];
@@ -547,11 +632,11 @@
         //        [params setObject:@"5" forKey:@"limit"];
         if(changeint==798)
         {
-        detalstring=[NSString stringWithFormat:@"/api/news/findLawsById?id=%d",A];
+        detalstring=[NSString stringWithFormat:@"/api/news/findLawsById?id=%ld",(long)A];
         }
         else
         {
-            detalstring=[NSString stringWithFormat:@"/api/mutualAid/findById?id=%d",A];
+            detalstring=[NSString stringWithFormat:@"/api/mutualAid/findById?id=%ld",(long)A];
 
         }
         id result = [KRHttpUtil getResultDataByPost:detalstring param:nil];

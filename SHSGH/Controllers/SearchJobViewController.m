@@ -430,7 +430,7 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@",_searchfield.text,str1,str2,str3];
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",_searchfield.text,str1,str2,str3];
         
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);

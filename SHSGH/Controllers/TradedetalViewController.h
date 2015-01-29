@@ -7,7 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMapKit.h"
+@interface TradedetalViewController : UIViewController<UIScrollViewDelegate,BMKMapViewDelegate,CLLocationManagerDelegate>
 
-@interface TradedetalViewController : UIViewController
+
+{
+    UIScrollView*_scrool;
+    UIPageControl *_page;
+    UIScrollView*bigscroll;
+    NSInteger          _move;
+    NSTimer      *_scrollcententtimer;
+        BMKMapView* _mapView;
+    CLLocationManager* _locationManager;
+
+}
+
+
+@property(nonatomic,strong)NSString*ids;
+@property(nonatomic,strong)NSString*name;
+@property(nonatomic,strong)NSString*address;
+@property(nonatomic,strong)NSString*tel;
+@property(nonatomic,strong)NSString*about;
 
 @end

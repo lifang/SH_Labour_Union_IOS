@@ -16,6 +16,8 @@
     NSMutableArray*_allarry;
     NSString *urls;
     NSInteger totalCount;
+    NSInteger firstA;
+    NSInteger changeA;
 
     UITextField*_searchfield;
         BOOL _flagArray[100];

@@ -151,6 +151,14 @@ static UINavigationController *maintainNavController = nil;
     //1.创建窗口
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
+    
+    _mapManager = [[BMKMapManager alloc]init];
+    // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
+    BOOL ret = [_mapManager start:@"uMViGm2ikM1DaHXlGnR8bQze"  generalDelegate:nil];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+
     SUNLeftMenuViewController *leftVC = [[SUNLeftMenuViewController alloc]initWithNibName:@"SUNLeftMenuViewController" bundle:nil];
     UINavigationController *mainViewController = [[self class] shareMainController];
     SUNViewController *drawerController = [[SUNViewController alloc]initWithCenterViewController:mainViewController leftDrawerViewController:leftVC rightDrawerViewController:nil];
