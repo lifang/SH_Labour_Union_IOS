@@ -10,6 +10,8 @@
 #import "navbarView.h"
 #import "ListTableViewCell.h"
 #import "people.h"
+
+#import "DituViewController.h"
 @interface ListViewController ()
 
 @end
@@ -23,7 +25,8 @@
     [_allarry removeAllObjects];
     _locationManager = [[CLLocationManager alloc]init];
     if (![CLLocationManager locationServicesEnabled]) {
-        NSLog(@"定位服务当前可能尚未打开，请设置打开！");
+        [self showMessage:@"定位服务当前可能尚未打开，请设置打开" viewHeight:SCREEN_HEIGHT/2-80];
+
         return;
     }
     
@@ -31,7 +34,10 @@
     if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
         
     {
-        [_locationManager requestWhenInUseAuthorization];
+        if(iOS7)
+        {
+            [_locationManager requestWhenInUseAuthorization];
+         }
     }
     else {
         //设置代理
@@ -64,6 +70,10 @@
     _Seatchtable.dataSource=self;
     _Seatchtable.rowHeight=70;
     self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
+    
+    
+   
+   
     [ self setnavBar];
     [ self setNavBar];
     
@@ -88,7 +98,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return _allarry.count;
+    return 2;
     
     
 }
@@ -108,11 +118,11 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    people*pp=[_allarry objectAtIndex:indexPath.row];
-    
-    cell.namelable.text=pp.namestring;
-    
-    cell.addresslable.text=pp.addrstring;
+//    people*pp=[_allarry objectAtIndex:indexPath.row];
+//    
+//    cell.namelable.text=pp.namestring;
+//    
+//    cell.addresslable.text=pp.addrstring;
     
    
     
@@ -123,9 +133,13 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DituViewController*ditu=[[DituViewController alloc]init];
     
-    people*pp=[_allarry objectAtIndex:indexPath.row];
-    changeA=pp.ids;
+    
+    [self.navigationController pushViewController:ditu animated:YES];
+    
+//    people*pp=[_allarry objectAtIndex:indexPath.row];
+//    changeA=pp.ids;
     
 //    [self detaldate];
     

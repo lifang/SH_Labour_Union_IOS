@@ -17,12 +17,12 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-120, 17, 26, 26)];
-        
-        logoImageView.image=[UIImage imageNamed:@"location"];
-        
-        
-        [self addSubview:logoImageView];
+//        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-120, 17, 26, 26)];
+//        
+//        logoImageView.image=[UIImage imageNamed:@"location"];
+//        
+//        
+//        [self addSubview:logoImageView];
         namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-120, 30)];
         
         [self addSubview:namelable];

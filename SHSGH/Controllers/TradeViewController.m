@@ -601,14 +601,27 @@
                 {
                     
                     people*peo=[[people alloc]init];
+                    if([[[arry objectAtIndex:i] objectForKey:@"about"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.about=@"";
+                        
+                    peo.about_detail=@"";
+                        
+                    
+                    }
+                    else
+                    {
+                        peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
+                        peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
+
+                    
+                    }
                     
                     peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
                     peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
                    
                     peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
                     
-                    peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
-                    peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
                     NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
 
                     [_allarry addObject:peo];

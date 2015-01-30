@@ -42,6 +42,8 @@
 		0ECE9F6E1A734B98001C448D /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ECE9F651A734B98001C448D /* fontawesome-webfont.ttf */; };
 		0ECE9F6F1A734B98001C448D /* UIButton+PPiAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE9F671A734B98001C448D /* UIButton+PPiAwesome.m */; };
 		0ECF8A1E1A7B13C700FCEC91 /* DituViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */; };
+		0ECF8A211A7B2B0400FCEC91 /* Route ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */; };
+		0ECF8A231A7B432E00FCEC91 /* luxian.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECF8A221A7B432E00FCEC91 /* luxian.png */; };
 		0ECFF2261A6F38F1007F882E /* ConditionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */; };
 		0ECFF2291A6F4865007F882E /* GetresultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2281A6F4865007F882E /* GetresultTableViewCell.m */; };
 		0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF22B1A6F5134007F882E /* JobDetalViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -252,6 +254,9 @@
 		0ECE9F671A734B98001C448D /* UIButton+PPiAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+PPiAwesome.m"; sourceTree = "<group>"; };
 		0ECF8A1C1A7B13C700FCEC91 /* DituViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DituViewController.h; sourceTree = "<group>"; };
 		0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DituViewController.m; sourceTree = "<group>"; };
+		0ECF8A1F1A7B2B0400FCEC91 /* Route ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route ViewController.h"; sourceTree = "<group>"; };
+		0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route ViewController.m"; sourceTree = "<group>"; };
+		0ECF8A221A7B432E00FCEC91 /* luxian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = luxian.png; sourceTree = "<group>"; };
 		0ECFF2241A6F38F1007F882E /* ConditionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsTableViewCell.h; sourceTree = "<group>"; };
 		0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsTableViewCell.m; sourceTree = "<group>"; };
 		0ECFF2271A6F4865007F882E /* GetresultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetresultTableViewCell.h; sourceTree = "<group>"; };
@@ -567,6 +572,7 @@
 		0ECDDA5B1A772814006D7102 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0ECF8A221A7B432E00FCEC91 /* luxian.png */,
 				0EC8A5E81A787EF800FBFD53 /* tuixiu.png */,
 				0E416A181A78FD8800A66EDD /* jieshao.png */,
 				0EC8A5E91A787EF800FBFD53 /* zaizhi.png */,
@@ -641,6 +647,8 @@
 				0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */,
 				0ECF8A1C1A7B13C700FCEC91 /* DituViewController.h */,
 				0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */,
+				0ECF8A1F1A7B2B0400FCEC91 /* Route ViewController.h */,
+				0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */,
 				0ED0FDEE1A75FAEC00486C2E /* OrganizationTableViewCell.h */,
 				0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */,
 			);
@@ -1090,6 +1098,7 @@
 				0ECDDA5D1A77289A006D7102 /* show1.png in Resources */,
 				9335480A1A733C68009F38D4 /* MJRefresh.bundle in Resources */,
 				0EC8A5EA1A787EF800FBFD53 /* tuixiu.png in Resources */,
+				0ECF8A231A7B432E00FCEC91 /* luxian.png in Resources */,
 				0ECDDA5F1A77289F006D7102 /* show2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1179,6 +1188,7 @@
 				93DDD0D91A7889830025EA40 /* DynamicContent.m in Sources */,
 				9385B32D1A7A28E600B2082A /* UserTool.m in Sources */,
 				0ECFF2461A6F9AE0007F882E /* RPBase64.m in Sources */,
+				0ECF8A211A7B2B0400FCEC91 /* Route ViewController.m in Sources */,
 				935DDF911A75D80500021146 /* RegisterDoneViewController.m in Sources */,
 				0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */,
 				93C592DB1A708D9700CDF8F7 /* HHZCommonLabelItem.m in Sources */,
