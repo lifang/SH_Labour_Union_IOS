@@ -27,8 +27,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
-    urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%lu",_allarry.count/10+1];
-
+    firstA=1002;
+    
     _isReloadingAllData = YES;
 
     self.title=@"商户信息";
@@ -63,6 +63,8 @@
 {
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     _isReloadingAllData=YES;
+    [_allarry removeAllObjects];
+
     [self date];
     
         
@@ -101,9 +103,8 @@
                           if(segmentIndex==0)
                           {
                               [_allarry removeAllObjects];
-                              
+                              firstA=1002;
                               _isReloadingAllData = YES;
-                              urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%lu",_allarry.count/10+1];
 
                               
                               [self date];
@@ -113,11 +114,12 @@
                           
                           else
                           {
+                              firstA=1003;
+
                               _isReloadingAllData = YES;
                               [_allarry removeAllObjects];
                               
                               
-                              urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=2&offset=%lu",_allarry.count/10+1];
                               
                               [self date];
                               
@@ -363,9 +365,17 @@
 }
 - (void)handleSingleFingerEvent:(UIButton *)sender
 {
-    TradedetalViewController*detal=[[TradedetalViewController alloc]init];
-   
-    [self.navigationController pushViewController:detal animated:YES];
+    
+    NSInteger tagA=sender.tag;
+    
+    people*pp=[_allarry objectAtIndex:tagA];
+    changeA=pp.ids;
+    
+    [self detaldate];
+    
+    
+    
+    
     
     
     
@@ -461,6 +471,84 @@
 
 
 #pragma mark - 获取网络数据
+-(void)detaldate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString*changeurl=[NSString stringWithFormat:@"/api/merchant/findById?id=%ld",(long)changeA];
+        
+        id result = [KRHttpUtil getResultDataByPost:changeurl param:nil];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                //                NSArray*arry=[result objectForKey:@"result"] ;
+                
+                
+                TradedetalViewController*detal=[[TradedetalViewController alloc]init];
+                
+                
+                detal.ids=[NSString stringWithFormat:@"%d",changeA];
+                
+                
+                
+                detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
+                
+                detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
+                detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                detal.about=[[result objectForKey:@"result"]  objectForKey:@"about"];
+
+                
+                [self.navigationController pushViewController:detal animated:YES];
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+                
+                
+            }
+        });
+    });
+}
+
 -(void)date
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
@@ -476,16 +564,23 @@
 //        [params setObject:@"1" forKey:@"typeId"];
         
         
-        
-      
+        if (firstA==1002)
+        {
+            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10+1];
 
-        
+        }
+      
+     else
+        {
+    urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=2&offset=%d",_allarry.count/10+1];
+
+        }
+    
      
        
 
     
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -506,14 +601,27 @@
                 {
                     
                     people*peo=[[people alloc]init];
+                    if([[[arry objectAtIndex:i] objectForKey:@"about"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.about=@"";
+                        
+                    peo.about_detail=@"";
+                        
+                    
+                    }
+                    else
+                    {
+                        peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
+                        peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
+
+                    
+                    }
                     
                     peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
                     peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
                    
                     peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
                     
-                    peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
-                    peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
                     NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
 
                     [_allarry addObject:peo];
@@ -543,7 +651,7 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";

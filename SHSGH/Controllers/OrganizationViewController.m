@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _isReloadingAllData = YES;
-    urls =[NSString stringWithFormat:@"/api/service/center/worker/page?page=%lu",_allarry.count/10+1];
+    firstA=1002;
 
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     [self date];
@@ -108,11 +108,12 @@
                           
                           if(segmentIndex==0)
                           {
+                              firstA=1002;
+
                               [_allarry removeAllObjects];
 
                               _isReloadingAllData = YES;
 
-                              urls =[NSString stringWithFormat:@"/api/service/center/worker/page?page=%lu",_allarry.count/10+1];
 
                               [self date];
                               
@@ -121,11 +122,12 @@
                        
                           else
                           {
+                              firstA=1003;
+
                               _isReloadingAllData = YES;
                               [_allarry removeAllObjects];
                               
 
-                              urls =[NSString stringWithFormat:@"/api/service/center/law/page?page=%lu",_allarry.count/10+1];
                               
                               [self date];
                               
@@ -333,10 +335,20 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
       
+        if (firstA==1002)
+        {
+            urls =[NSString stringWithFormat:@"/api/service/center/worker/page?page=%d",_allarry.count/10+1];
+            
+        }
         
-      
+        else
+        {
+            urls =[NSString stringWithFormat:@"/api/service/center/law/page?page=%d",_allarry.count/10+1];
+            
+        }
+        
+        
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -386,7 +398,7 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";
@@ -459,7 +471,7 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";

@@ -18,9 +18,14 @@
 #import "TradeViewController.h"
 #import "UserModel.h"
 #import "UserTool.h"
+#import "BMapKit.h"
 #import "OrganizationViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-
+{
+    BMKMapManager* _mapManager;
+    
+    
+}
 @property (strong, nonatomic) UIWindow *window;
 
 @property(nonatomic,strong)SUNLeftMenuViewController *leftVC;

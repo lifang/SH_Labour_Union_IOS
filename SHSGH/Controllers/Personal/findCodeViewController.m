@@ -621,7 +621,7 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
     
-        NSString *urls = [NSString stringWithFormat:@"/api/user/findPwd?phone=%@&password=%@&inputCode=%@",_phoneField.text,_passwordField.text,_authcodeField.text];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/findPwd?username=%@&phone=%@&password=%@&inputCode=%@",_usernameField.text,_phoneField.text,_passwordField.text,_authcodeField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功

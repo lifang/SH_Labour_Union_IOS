@@ -145,6 +145,9 @@
     UIButton*addressbutton=[[UIButton alloc] initWithFrame:CGRectMake(0, linelable1.frame.origin.y+10,SCREEN_WIDTH, 30)];
     
     [bigscroll addSubview:addressbutton];
+    addressbutton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
+    
+    
     addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
    [addressbutton setTitle:[NSString stringWithFormat:@"        %@",self.address] forState:UIControlStateNormal];
     [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];

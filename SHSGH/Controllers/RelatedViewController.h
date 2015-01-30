@@ -14,7 +14,8 @@
     UITableView*_Seatchtable;
     UITableView*_helptable;
     NSArray*namearry;
-    
+    BOOL _isReloadingAllData;
+
     UITextField*_searchfield;
     NSMutableArray*_newallarry;
     NSString *urls;
@@ -23,7 +24,8 @@
     NSInteger changeint;
     NSString*detalstring;
     BOOL changeimage;
-    
+    NSInteger totalCount;
+
     PPiFlatSegmentedControl *segmentedControl;
     
 }

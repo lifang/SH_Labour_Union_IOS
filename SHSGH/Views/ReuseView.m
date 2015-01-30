@@ -20,6 +20,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        if (!array || array.count == 0) return nil;
 //       [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(runTimer) userInfo:nil repeats:YES];
         if (!array || array.count == 0) return nil;
   
