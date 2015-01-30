@@ -10,6 +10,9 @@
 #import "navbarView.h"
 #import "PersonalDoneViewController.h"
 #import "AppDelegate.h"
+#import "UserTool.h"
+#import "UserModel.h"
+#import "IsPhone.h"
 
 @interface RegisterDoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *usermessageField;
@@ -379,6 +382,15 @@
         [alert show];
         return;
     }
+    if (![IsPhone validateEmail:_emailField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"Email格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"注册中!";
@@ -394,11 +406,10 @@
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
-                SLog(@"%@",result);
-                NSDictionary *userData = [result objectForKey:@"result"];
-                delegate.email = [userData objectForKey:@"email"];
-                delegate.labourUnionCode = [userData objectForKey:@"labourUnionCode"];
-                SLog(@"%@ -------- %@ ",delegate.email,delegate.labourUnionCode);
+                UserModel *account = [UserTool userModel];
+                account.email = _emailField.text;
+                account.LabourUnion = _usermessageField.text;
+                [UserTool save:account];
             }
             //请求失败
             else

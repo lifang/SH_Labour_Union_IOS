@@ -9,6 +9,7 @@
 #import "findCodeViewController.h"
 #import "navbarView.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface findCodeViewController ()<UITextFieldDelegate>
 
@@ -597,6 +598,15 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     if (!_authcodeField.text || [_authcodeField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"验证码不能为空!"
@@ -631,7 +641,6 @@
                 [alertV1 show];
                 [hud hide:YES];
                 SLog(@"%@",result);
-                
 //                注册成功的id是64
 //                2015-01-30 13:30:26.117 SHSGH[7849:100565] 注册成功的手机是1234567888
 //                2015-01-30 13:30:26.117 SHSGH[7849:100565] 注册成功的密码是123456

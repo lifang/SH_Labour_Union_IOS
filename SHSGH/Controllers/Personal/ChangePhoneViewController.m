@@ -9,6 +9,7 @@
 #import "ChangePhoneViewController.h"
 #import "navbarView.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface ChangePhoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *oldPhoneField;
@@ -191,7 +192,7 @@
     UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(-10, 10, 76, 30)];
     [send setBackgroundImage:[UIImage imageNamed:@"authcode"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
-    [send addTarget:self action:@selector(authCode) forControlEvents:UIControlEventTouchUpInside];
+    [send addTarget:self action:@selector(authCodeClick) forControlEvents:UIControlEventTouchUpInside];
     send.titleLabel.tintColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
     [send setTitle:@"验证码" forState:UIControlStateNormal];
@@ -444,12 +445,21 @@
                                                            constant:0.5f]];
 }
 
--(void)authCode
+-(void)authCodeClick
 {
     SLog(@"发送验证码!");
     if (!_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"原手机号不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![IsPhone isMobileNumber:_authCodeField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定!"
                                               otherButtonTitles:nil];

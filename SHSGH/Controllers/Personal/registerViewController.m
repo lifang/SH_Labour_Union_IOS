@@ -11,6 +11,7 @@
 #import "SearchJobViewController.h"
 #import "RegisterDoneViewController.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface registerViewController ()<UITextFieldDelegate>
 
@@ -610,6 +611,16 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"手机号不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+
+    }
     if (!_authcodeField.text || [_authcodeField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"验证码不能为空!"
@@ -698,6 +709,16 @@
                                               otherButtonTitles:nil];
         [alert show];
         return;
+    }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+        
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";

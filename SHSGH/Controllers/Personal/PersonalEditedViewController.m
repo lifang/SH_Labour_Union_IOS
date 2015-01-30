@@ -11,6 +11,7 @@
 #import "UserModel.h"
 #import "UserTool.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface PersonalEditedViewController ()<UITextFieldDelegate>
 
@@ -54,35 +55,18 @@
 
 -(void)save
 {
-    if (!_usernameField.text || [_usernameField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"会员名不能为空!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定!"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    if (!_emailField.text || [_emailField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"email不能为空!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定!"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
+    if (![_emailField.text isEqualToString:@""]) {
+        if (![IsPhone validateEmail:_emailField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Email格式不正确!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
     }
 
-    if (!_userIDField.text || [_userIDField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"工会会员号不能为空!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定!"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
-    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"完善中!";
  
@@ -98,10 +82,19 @@
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"完善成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
-                account.userIDName = _usernameField.text;
-                account.email = _emailField.text;
-                account.LabourUnion = _userIDField.text;
-                [UserTool save:account];
+                if (![_usernameField.text isEqualToString:@""]) {
+                    account.userIDName = _usernameField.text;
+                    [UserTool save:account];
+                }
+                if (![_emailField.text isEqualToString:@""]) {
+                     account.email = _emailField.text;
+                    [UserTool save:account];
+                }
+                if (![_userIDField.text isEqualToString:@""]) {
+                    account.LabourUnion = _userIDField.text;
+                    [UserTool save:account];
+                }
+                
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }
