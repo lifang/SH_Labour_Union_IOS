@@ -378,7 +378,7 @@
                 
                 PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
                 [self.navigationController pushViewController:personDoneVC animated:YES];
-            }
+            }	
             //请求失败
             else
             {
