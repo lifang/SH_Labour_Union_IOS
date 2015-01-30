@@ -649,11 +649,22 @@
                 SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
                 SLog(@"注册成功的密码是%@",[dict objectForKey:@"password"]);
                 SLog(@"注册成功的用户名是%@",[dict objectForKey:@"username"]);
+                
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                 [delegate clearLoginInfo];
                 delegate.username = [dict objectForKey:@"username"];
-                delegate.password = [dict objectForKey:@"password"];
-                delegate.phone = [dict objectForKey:@"phone"];
                 delegate.userId = [dict objectForKey:@"id"];
+                delegate.password = [dict objectForKey:@"password"];
+                delegate.phoneCode = [dict objectForKey:@"phoneCode"];
+                delegate.phone = [dict objectForKey:@"phone"];
+               
+                UserModel *account = [[UserModel alloc]init];
+                account.userID = delegate.userId;
+                account.username = delegate.username;
+                account.password = delegate.password;
+                account.phoneNum = delegate.phone;
+               
+                [UserTool save:account];
                 
                 _phoneField.text = nil;
                 _usernameField.text = nil;

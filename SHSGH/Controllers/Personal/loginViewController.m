@@ -28,10 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = mainScreenColor;
-    
     [self setNavBar];
     [self initAndLayoutUI];
-    
 }
 
 -(void)setNavBar
@@ -339,7 +337,10 @@
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:0.0
                                                            constant:40]];
-    
+    UserModel *account = [UserTool userModel];
+    if (account.username) {
+        _usernameField.text = account.username;
+    }
 }
 
 //登录
@@ -369,16 +370,23 @@
                 }if ([dict objectForKey:@"email"]) {
                     delegate.email = [dict objectForKey:@"email"];
                 }
+                if ([dict objectForKey:@"nickName"]) {
+                    delegate.userIDName = [dict objectForKey:@"nickName"];
+                }
                 
                 UserModel *account = [[UserModel alloc]init];
                 account.userID = delegate.userId;
                 account.username = delegate.username;
                 account.password = delegate.password;
+                account.phoneNum = delegate.phone;
+                account.LabourUnion = delegate.labourUnionCode;
+                account.userIDName = delegate.userIDName;
+                account.email = delegate.email;
                 [UserTool save:account];
                 
                 PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
                 [self.navigationController pushViewController:personDoneVC animated:YES];
-            }	
+            }
             //请求失败
             else
             {

@@ -20,6 +20,9 @@
 #import "DynamicCell.h"
 #import "IDModel.h"
 #import "DynamicChildViewController.h"
+#import "UserModel.h"
+#import "UserTool.h"
+#import "PersonalDoneViewController.h"
 
 
 @interface dynamicViewController ()<ReuseViewDelegate>
@@ -213,10 +216,25 @@
 
 -(void)toUser
 {
+    UserModel *account = [UserTool userModel];
+    if (account.password) {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        personDoneVC.userName = account.username;
+        personDoneVC.userPasswd = account.password;
+        
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.username = account.username;
+        delegate.password = account.password;
+        delegate.phone = account.phoneNum;
+        delegate.email = account.email;
+        delegate.labourUnionCode = account.LabourUnion;
+        self.dynamicNav = [AppDelegate shareDynamicController];
+        [self.dynamicNav pushViewController:personDoneVC animated:YES];
+    }else{
     PersonalViewController *personVC = [[PersonalViewController alloc]init];
     self.dynamicNav = [AppDelegate shareDynamicController];
     [self.dynamicNav pushViewController:personVC animated:YES];
-    SLog(@"toUser");
+    }
 }
 
 

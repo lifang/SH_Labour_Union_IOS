@@ -14,6 +14,10 @@
     [aCoder encodeObject:_username forKey:@"username"];
     [aCoder encodeObject:_password forKey:@"password"];
     [aCoder encodeObject:_userID forKey:@"userID"];
+    [aCoder encodeObject:_email forKey:@"email"];
+    [aCoder encodeObject:_phoneNum forKey:@"phoneNum"];
+    [aCoder encodeObject:_LabourUnion forKey:@"LabourUnion"];
+    [aCoder encodeObject:_userIDName forKey:@"userIDName"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -21,6 +25,10 @@
         _username = [aDecoder decodeObjectForKey:@"username"];
         _password = [aDecoder decodeObjectForKey:@"password"];
         _userID = [aDecoder decodeObjectForKey:@"userID"];
+        _email = [aDecoder decodeObjectForKey:@"email"];
+        _phoneNum = [aDecoder decodeObjectForKey:@"phoneNum"];
+        _LabourUnion = [aDecoder decodeObjectForKey:@"LabourUnion"];
+        _userIDName = [aDecoder decodeObjectForKey:@"userIDName"];
     }
     return self;
 }
@@ -30,6 +38,10 @@
     user.username = [_username copyWithZone:zone];
     user.password = [_password copyWithZone:zone];
     user.userID = [_userID copyWithZone:zone];
+    user.email = [_email copyWithZone:zone];
+    user.phoneNum = [_phoneNum copyWithZone:zone];
+    user.LabourUnion = [_LabourUnion copyWithZone:zone];
+    user.userIDName = [_userIDName copyWithZone:zone];
     return user;
 }
 

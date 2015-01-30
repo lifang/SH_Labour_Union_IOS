@@ -19,6 +19,8 @@
 #import "ChangePhoneViewController.h"
 #import "ChangePasswordViewController.h"
 #import "AppDelegate.h"
+#import "UserModel.h"
+#import "UserTool.h"
 
 @interface PersonalManagerViewController ()
 
@@ -59,9 +61,16 @@
 
 -(void)edit
 {
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     PersonalEditedViewController *personalEditedVC = [[PersonalEditedViewController alloc]init];
+    personalEditedVC.name = delegate.userIDName;
+    personalEditedVC.email = delegate.email;
+    personalEditedVC.labourUnion = delegate.labourUnionCode;
+    delegate.userIDName = nil;
+    delegate.email = nil;
+    delegate.labourUnionCode = nil;
     [self.navigationController pushViewController:personalEditedVC animated:YES];
-    SLog(@"点击了编辑!");
+    [self.groups removeAllObjects];
 }
 
 -(void)back
@@ -77,21 +86,34 @@
 
 -(void)setupGroup0
 {
+    UserModel *account = [UserTool userModel];
     //1创建组
     HHZCommonGroup *group0 = [HHZCommonGroup group];
     [self.groups addObject:group0];
     
     //2.设置组所有行的数据
     HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
-    userName.subtitle = @"苏晓天";
+    if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil) {
+         userName.subtitle = @"请完善";
+    }else{
+        userName.subtitle = account.userIDName;
+    }
     
     HHZNoArrowItem *emailNum = [HHZNoArrowItem itemWithTitle:@"Email"];
-    emailNum.subtitle = @"suxiaon@126.com";
+    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil) {
+        emailNum.subtitle = @"请完善";
+    }else{
+        emailNum.subtitle = account.email;
+    }
     
-    HHZNoArrowItem *exitUser = [HHZNoArrowItem itemWithTitle:@"工会会员号"];
-    exitUser.subtitle = @"2055254445125559596";
+    HHZNoArrowItem *LabourUnion = [HHZNoArrowItem itemWithTitle:@"工会会员号"];
+    if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil) {
+        LabourUnion.subtitle = @"请完善";
+    }else{
+        LabourUnion.subtitle = account.LabourUnion;
+    }
     
-    group0.items = @[userName,emailNum,exitUser];
+    group0.items = @[userName,emailNum,LabourUnion];
     
 }
 
@@ -118,7 +140,6 @@
     versionsUp.subtitle = phoneStr;
     
     group1.items = @[aboutUs,versionsUp];
-    
 }
 
 
@@ -129,12 +150,14 @@
     if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             ChangePhoneViewController *changePhoneVC = [[ChangePhoneViewController alloc]init];
+            changePhoneVC.phoneNum = delegate.phone;
                delegate.phone = nil;
             [self.groups removeAllObjects];
             [self.navigationController pushViewController:changePhoneVC animated:YES];
         }
         if (indexPath.row == 0) {
             ChangePasswordViewController *changgePasswordVC = [[ChangePasswordViewController alloc]init];
+            changgePasswordVC.passWD = delegate.password;
             delegate.password = nil;
             [self.groups removeAllObjects];
             [self.navigationController pushViewController:changgePasswordVC animated:YES];

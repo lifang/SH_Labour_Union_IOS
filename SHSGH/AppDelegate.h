@@ -16,7 +16,8 @@
 #import "RelatedViewController.h"
 #import "MaintainViewController.h"
 #import "TradeViewController.h"
-
+#import "UserModel.h"
+#import "UserTool.h"
 #import "OrganizationViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -33,6 +34,7 @@
 @property(nonatomic,strong)NSString *email;
 @property(nonatomic,strong)NSString *labourUnionCode;
 @property(nonatomic,strong)NSString *phoneCode;
+@property(nonatomic,strong)NSString *userIDName;
 
 
 + (AppDelegate *)shareAppDelegate;

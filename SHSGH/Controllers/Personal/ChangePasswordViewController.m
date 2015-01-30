@@ -46,6 +46,11 @@
 
 -(void)back
 {
+    if (_oldPasswordField.text || [_oldPasswordField.text isEqualToString:@""]) {
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.password = _passWD;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -105,10 +110,9 @@
                     UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"修改成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV1 show];
                     [hud hide:YES];
-                    NSDictionary *dict = [result objectForKey:@"result"];
-                    delegate.password = nil;
-                    delegate.password = [dict objectForKey:@"password"];
-                    delegate.phone = [dict objectForKey:@"phone"];
+                    SLog(@"%@",result);
+//                    delegate.password = nil;
+                    delegate.password = _newsPasswordField.text;
                     
                     [self.navigationController popViewControllerAnimated:YES];
                 }

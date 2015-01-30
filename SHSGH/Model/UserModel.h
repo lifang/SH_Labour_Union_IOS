@@ -16,4 +16,12 @@
 
 @property (nonatomic, strong) NSString *userID;
 
+@property(nonatomic,strong)NSString *phoneNum;
+
+@property(nonatomic,strong)NSString *LabourUnion;
+
+@property(nonatomic,strong)NSString *email;
+
+@property(nonatomic,strong)NSString *userIDName;
+
 @end
