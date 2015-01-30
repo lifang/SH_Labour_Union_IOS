@@ -10,8 +10,12 @@
 #import "navbarView.h"
 #import "SearchJobViewController.h"
 #import "RegisterDoneViewController.h"
+#import "AppDelegate.h"
 
 @interface registerViewController ()<UITextFieldDelegate>
+
+@property(nonatomic,strong)NSString *authCodeM;
+
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
 @property (nonatomic, strong) UITextField *passwordSureField;
@@ -352,7 +356,6 @@
     _phoneField.delegate = self;
     _phoneField.placeholder = @"请输入您的手机号";
     _phoneField.font = [UIFont systemFontOfSize:15.f];
-    _phoneField.secureTextEntry = YES;
     UIView *_phoneFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *_phoneFieldImageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
     _phoneFieldImageView.image = [UIImage imageNamed:@"iphone"];
@@ -446,7 +449,6 @@
     _authcodeField.delegate = self;
     _authcodeField.placeholder = @"请输入验证码";
     _authcodeField.font = [UIFont systemFontOfSize:15.f];
-    _authcodeField.secureTextEntry = YES;
     UIView *_authcodeFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *_authcodeFieldImageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
     _authcodeFieldImageView.image = [UIImage imageNamed:@"authcode_Gray"];
@@ -528,7 +530,7 @@
     [makeSureBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [makeSureBtn setBackgroundImage:[UIImage imageNamed:@"btn-h"] forState:UIControlStateNormal];
     [makeSureBtn setBackgroundImage:[UIImage imageNamed:@"btn-r"] forState:UIControlStateHighlighted];
-    [makeSureBtn addTarget:self action:@selector(next) forControlEvents:UIControlEventTouchUpInside];
+    [makeSureBtn addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:makeSureBtn];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:makeSureBtn
                                                           attribute:NSLayoutAttributeTop
@@ -559,14 +561,161 @@
                                                          multiplier:0.0
                                                            constant:40]];
 }
--(void)next
+-(void)next:(id)sender
 {
-    RegisterDoneViewController *registerVC = [[RegisterDoneViewController alloc]init];
-    [self.navigationController pushViewController:registerVC animated:YES];
-    SLog(@"下一步!");
+    NSString *kPromptInfo = @"";
+    //输入验证
+    if (!_usernameField.text || [_usernameField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"用户名不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_passwordField.text || [_passwordField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"用户密码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_passwordSureField.text || [_passwordSureField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"确认密码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![_passwordField.text isEqualToString:_passwordSureField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"密码确认失败,请重新输入!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"手机号不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_authcodeField.text || [_authcodeField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"验证码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![_authcodeField.text isEqualToString:_authCodeM]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"验证码错误!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"注册中!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        
+        NSString *urls = [NSString stringWithFormat:@"/api/user/regist?phone=%@&username=%@&password=%@&verify_code=%@",_phoneField.text,_usernameField.text,_passwordField.text,_authcodeField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                [hud hide:YES];
+                 NSDictionary *dict = [result objectForKey:@"result"];
+                SLog(@"注册成功的id是%@",[dict objectForKey:@"id"]);
+                SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
+                SLog(@"注册成功的密码是%@",[dict objectForKey:@"password"]);
+                SLog(@"注册成功的用户名是%@",[dict objectForKey:@"username"]);
+                AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                delegate.username = [dict objectForKey:@"username"];
+                delegate.password = [dict objectForKey:@"password"];
+                delegate.phone = [dict objectForKey:@"phone"];
+                delegate.userId = [dict objectForKey:@"id"];
+                
+                _phoneField.text = nil;
+                _usernameField.text = nil;
+                _passwordField.text = nil;
+                _authcodeField.text = nil;
+                _passwordSureField.text = nil;
+                
+                RegisterDoneViewController *registerVC = [[RegisterDoneViewController alloc]init];
+                [self.navigationController pushViewController:registerVC animated:YES];
+            }
+            //请求失败
+            else
+            {
+                SLog(@"注册失败!");
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"注册失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+                [hud hide:YES];
+            }
+        });
+    });
+    
 }
 -(void)authcode
 {
-    SLog(@"验证码!");
+    
+    if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"发送中!";
+    if (_phoneField.text) {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            
+            NSString *urls = [NSString stringWithFormat:@"/api/user/registfcode?phone=%@",_phoneField.text];
+            id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //成功
+                if ([[result objectForKey:@"code"] integerValue]==0)
+                {
+                    NSString *AuthId = [result objectForKey:@"result"];
+                    _authCodeM = AuthId;
+                    UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV1 show];
+                    [hud hide:YES];
+                }
+                //请求失败
+                else
+                {
+                    SLog(@"验证码发送失败!");
+                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV2 show];
+                    [hud hide:YES];
+                }
+            });
+        });
+
+    }
 }
 @end

@@ -8,6 +8,8 @@
 
 #import "ChangePasswordViewController.h"
 #import "navbarView.h"
+#import "AppDelegate.h"
+#import "PersonalManagerViewController.h"
 
 @interface ChangePasswordViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *oldPasswordField;
@@ -26,7 +28,7 @@
 -(void)setNavBar
 {
     self.title = @"修改密码";
-    self.view.backgroundColor = sColor(236, 236, 236, 1.0);
+    self.view.backgroundColor = mainScreenColor;
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
@@ -50,7 +52,77 @@
 -(void)save
 {
     SLog(@"点击了save!");
-    [self.navigationController popViewControllerAnimated:YES];
+        NSString *kPromptInfo = @"";
+        //输入验证
+        if (!_oldPasswordField.text || [_oldPasswordField.text isEqualToString:@""]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"旧密码不能为空!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        if (!_newsPasswordField.text || [_newsPasswordField.text isEqualToString:@""]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"新密码不能为空!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        if (!_surePasswordField.text || [_surePasswordField.text isEqualToString:@""]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"确认密码不能为空!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+        if (![_newsPasswordField.text isEqualToString:_surePasswordField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"密码确认失败,请重新输入!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.labelText = @"正在修改中!";
+    
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+            NSString *urls = [NSString stringWithFormat:@"/api/user/changePassword?id=%@&password=%@&newpwd=%@",delegate.userId,_oldPasswordField.text,_newsPasswordField.text];
+            id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //成功
+                if ([[result objectForKey:@"code"] integerValue]==0)
+                {
+                    UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"修改成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV1 show];
+                    [hud hide:YES];
+                    NSDictionary *dict = [result objectForKey:@"result"];
+                    delegate.password = nil;
+                    delegate.password = [dict objectForKey:@"password"];
+                    delegate.phone = [dict objectForKey:@"phone"];
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                //请求失败
+                else
+                {
+                    SLog(@"修改失败!");
+                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"修改失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    [alertV2 show];
+                    [hud hide:YES];
+                    delegate.password = _oldPasswordField.text;
+                }
+            });
+        });
 }
 
 -(void)initAndLayoutUI
@@ -98,8 +170,9 @@
     _oldPasswordField.borderStyle = UITextBorderStyleNone;
     _oldPasswordField.backgroundColor = [UIColor clearColor];
     _oldPasswordField.delegate = self;
-    _oldPasswordField.placeholder = @"987654321";
+    _oldPasswordField.placeholder = @"请输入原始密码";
     _oldPasswordField.font = [UIFont systemFontOfSize:15.f];
+    _oldPasswordField.secureTextEntry = YES;
     
     UIView *leftoldPasswordView = [[UIView alloc]init];
     leftoldPasswordView.size = CGSizeMake(100, 30);
@@ -185,7 +258,7 @@
     _newsPasswordField.borderStyle = UITextBorderStyleNone;
     _newsPasswordField.backgroundColor = [UIColor clearColor];
     _newsPasswordField.delegate = self;
-    _newsPasswordField.placeholder = @"123456789";
+    _newsPasswordField.placeholder = @"请输入新密码";
     _newsPasswordField.font = [UIFont systemFontOfSize:15.f];
     _newsPasswordField.secureTextEntry = YES;
     
@@ -274,7 +347,7 @@
     _surePasswordField.borderStyle = UITextBorderStyleNone;
     _surePasswordField.backgroundColor = [UIColor clearColor];
     _surePasswordField.delegate = self;
-    _surePasswordField.placeholder = @"123456789";
+    _surePasswordField.placeholder = @"请确认新密码";
     _surePasswordField.font = [UIFont systemFontOfSize:15.f];
     _surePasswordField.secureTextEntry = YES;
     
@@ -358,9 +431,5 @@
                                                            constant:0.5f]];
 }
 
--(void)authCode
-{
-    SLog(@"发送验证码!");
-}
 
 @end

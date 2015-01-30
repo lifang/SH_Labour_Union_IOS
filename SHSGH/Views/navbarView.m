@@ -51,10 +51,10 @@
     
     switch (self.navType) {
             case navbarViewTypeLeft:
-            self.navButton.frame = CGRectMake(-16, 0, 46, 46);
+            self.navButton.frame = CGRectMake(-10, 0, 46, 46);
             break;
             case navbarViewTypeRight:
-            self.navButton.frame = CGRectMake(16, 0, 46, 46);
+            self.navButton.frame = CGRectMake(10, 0, 46, 46);
             break;
         default:
             break;

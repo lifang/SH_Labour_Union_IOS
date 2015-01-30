@@ -18,6 +18,7 @@
 #import "PersonalEditedViewController.h"
 #import "ChangePhoneViewController.h"
 #import "ChangePasswordViewController.h"
+#import "AppDelegate.h"
 
 @interface PersonalManagerViewController ()
 
@@ -28,6 +29,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
     [self setupGroups];
 }
 
@@ -93,13 +100,22 @@
     //1创建组
     HHZCommonGroup *group1 = [HHZCommonGroup group];
     [self.groups addObject:group1];
-    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     //2.设置组所有行的数据
     HHZCommonArrowItem *aboutUs = [HHZCommonArrowItem itemWithTitle:@"修改密码"];
-    aboutUs.subtitle = @"********";
+    NSMutableString *password = (NSMutableString *)delegate.password;
+    NSMutableString *star = [[NSMutableString alloc]init];
+    for (int i = 0; i < password.length; i++) {
+        [star appendString:@"*"];
+    }
+    NSString *passwordStr = [password stringByReplacingCharactersInRange:NSMakeRange(0, password.length) withString:star];
+    aboutUs.subtitle = passwordStr;
     
     HHZCommonArrowItem *versionsUp = [HHZCommonArrowItem itemWithTitle:@"绑定手机"];
-    versionsUp.subtitle = @"158****5241";
+    NSMutableString *phone = (NSMutableString *)delegate.phone;
+    NSString *stars = @"****";
+     NSString *phoneStr = [phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:stars];
+    versionsUp.subtitle = phoneStr;
     
     group1.items = @[aboutUs,versionsUp];
     
@@ -109,17 +125,24 @@
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+       AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             ChangePhoneViewController *changePhoneVC = [[ChangePhoneViewController alloc]init];
+               delegate.phone = nil;
+            [self.groups removeAllObjects];
             [self.navigationController pushViewController:changePhoneVC animated:YES];
         }
         if (indexPath.row == 0) {
             ChangePasswordViewController *changgePasswordVC = [[ChangePasswordViewController alloc]init];
+            delegate.password = nil;
+            [self.groups removeAllObjects];
             [self.navigationController pushViewController:changgePasswordVC animated:YES];
         }
 
     }
 }
+
+
 
 @end

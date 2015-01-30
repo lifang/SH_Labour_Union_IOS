@@ -18,10 +18,17 @@
 #import "dynamicViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "MainImage.h"
+#import "EGOImageView.h"
 
 @interface MainViewController ()<ReuseViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray *imageArray;
+
+@property(nonatomic,strong)NSMutableArray *bigArray;
+
+@property(nonatomic,strong)EGOImageView *bigView;
+
+@property(nonatomic,strong)UIButton *clickBtn;
 
 @end
 
@@ -47,6 +54,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _bigView = [[EGOImageView alloc]init];
+    _clickBtn = [[UIButton alloc]init];
+    
     //隐藏导航栏
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -293,6 +303,7 @@
 
 -(void)loadImageDate
 {
+    [self setupCustomView];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *urls =@"/api/activity/findAll";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
@@ -302,16 +313,19 @@
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _imageArray = [NSMutableArray array];
+                _bigArray = [NSMutableArray array];
                 for (int i = 0; i < imageeArray.count; i++) {
                     MainImage *mainImg = [[MainImage alloc]init];
                     mainImg.bigImg = [[imageeArray objectAtIndex:i]objectForKey:@"bigImg"];
                     mainImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
-                    mainImg.smallImg = [[imageeArray objectAtIndex:i]objectForKey:@"smallImg"];                 [_imageArray addObject:mainImg.smallImg];
+                    mainImg.smallImg = [[imageeArray objectAtIndex:i]objectForKey:@"smallImg"];                [_imageArray addObject:mainImg.smallImg];
+                    [_bigArray addObject:mainImg.bigImg];
                 }
                  [self setupCustomView];
             }
-            if ([[result objectForKey:@"code"] boolValue]) {
+            else {
                 SLog(@"请求失败!");
+                [self setupCustomView];
             }
         });
     });
@@ -320,7 +334,26 @@
 #pragma mark - ScrollView didSelect
 -(void)handleTop:(UITapGestureRecognizer *)imageView
 {
-    SLog(@"点击了%@",imageView);
+    UIButton *mainClick = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, mainScreenH)];
+    [mainClick addTarget:self action:@selector(clickedBtn) forControlEvents:UIControlEventTouchUpInside];
+    [mainClick becomeFirstResponder];
+    self.clickBtn = mainClick;
+    
+    int ids = (int)imageView.view.tag - 101;
+    EGOImageView *bigV = [[EGOImageView alloc]init];
+    bigV.userInteractionEnabled = YES;
+    bigV.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_bigArray[ids]]];
+    bigV.backgroundColor = [UIColor clearColor];
+    bigV.frame = CGRectMake(0, 0, mainScreenW, mainScreenH);
+    [self.view addSubview:bigV];
+    [self.view addSubview:mainClick];
+     self.bigView = bigV;
+}
+
+-(void)clickedBtn
+{
+    [self.bigView removeFromSuperview];
+    [self.clickBtn removeFromSuperview];
 }
 
 - (void)showMessage:(NSString*)message viewHeight:(float)height;

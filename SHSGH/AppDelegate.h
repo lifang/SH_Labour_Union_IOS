@@ -30,6 +30,15 @@
 
 @property(nonatomic,strong)SUNViewController *DrawerController;
 
+@property(nonatomic,strong)NSString *userId;
+@property(nonatomic,strong)NSString *phone;
+@property(nonatomic,strong)NSString *password;
+@property(nonatomic,strong)NSString *username;
+@property(nonatomic,strong)NSString *email;
+@property(nonatomic,strong)NSString *labourUnionCode;
+@property(nonatomic,strong)NSString *phoneCode;
+
+
 + (AppDelegate *)shareAppDelegate;
 
 - (SUNLeftMenuViewController *)leftVC;
@@ -42,6 +51,8 @@
 + (UINavigationController *)shareDynamicController;
 + (UINavigationController *)shareDynamicController3;
 + (UINavigationController *)shareDynamicController6;
+
+-(void)clearLoginInfo;
 
 @end
 
