@@ -8,6 +8,8 @@
 
 #import "OrganizationdetalViewController.h"
 #import "navbarView.h"
+
+#import "DituViewController.h"
 @interface OrganizationdetalViewController ()
 
 @end
@@ -146,8 +148,9 @@
     
     [bigscroll addSubview:addressbutton];
     addressbutton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
+    [addressbutton addTarget:self action:@selector(dituclick) forControlEvents:UIControlEventTouchUpInside];
     
-    
+   
     addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
    [addressbutton setTitle:[NSString stringWithFormat:@"        %@",self.address] forState:UIControlStateNormal];
     [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -222,6 +225,18 @@
 
 
     bigscroll.contentSize=CGSizeMake(0, requirecontent.frame.size.height+requirecontent.frame.origin.y+50);
+
+
+
+}
+-(void)dituclick
+{
+
+    DituViewController*ditu=[[DituViewController alloc]init];
+    
+    
+    [self.navigationController pushViewController:ditu animated:YES];
+
 
 
 

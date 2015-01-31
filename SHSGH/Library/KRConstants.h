@@ -18,7 +18,6 @@
 #define BASEURL_PUBLIC            @"http://192.168.0.250:7070/shanghaiunion"
 // #define BASEURL_PUBLIC            @"http://180.166.148.170:8080"
 
-//#define BASEURL_PUBLIC            @"http://192.168.1.116:8080/hotelclient"
 
 
 #define BASEURL_PUBLICs @ "http://data.i-xiangce.com:8088/clientServer/mobile/"
