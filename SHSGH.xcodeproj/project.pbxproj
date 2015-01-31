@@ -41,7 +41,7 @@
 		0ECE9F6D1A734B98001C448D /* FontAwesome+iOS.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0ECE9F641A734B98001C448D /* FontAwesome+iOS.podspec */; };
 		0ECE9F6E1A734B98001C448D /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ECE9F651A734B98001C448D /* fontawesome-webfont.ttf */; };
 		0ECE9F6F1A734B98001C448D /* UIButton+PPiAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECE9F671A734B98001C448D /* UIButton+PPiAwesome.m */; };
-		0ECF8A1E1A7B13C700FCEC91 /* DituViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */; };
+		0ECF8A1E1A7B13C700FCEC91 /* DituViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF8A1D1A7B13C700FCEC91 /* DituViewController.mm */; };
 		0ECF8A211A7B2B0400FCEC91 /* Route ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */; };
 		0ECF8A231A7B432E00FCEC91 /* luxian.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ECF8A221A7B432E00FCEC91 /* luxian.png */; };
 		0ECFF2261A6F38F1007F882E /* ConditionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECFF2251A6F38F1007F882E /* ConditionsTableViewCell.m */; };
@@ -94,7 +94,7 @@
 		93C592DF1A708DF400CDF8F7 /* HHZCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592DE1A708DF400CDF8F7 /* HHZCommonViewController.m */; };
 		93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592E11A708E8800CDF8F7 /* HHZCommonCell.m */; };
 		93C6F0231A6CE747002C8E4A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0221A6CE747002C8E4A /* main.m */; };
-		93C6F0261A6CE747002C8E4A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0251A6CE747002C8E4A /* AppDelegate.mm */; };
+		93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F0251A6CE747002C8E4A /* AppDelegate.m */; };
 		93C6F02E1A6CE747002C8E4A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93C6F02D1A6CE747002C8E4A /* Images.xcassets */; };
 		93C6F0311A6CE747002C8E4A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 93C6F02F1A6CE747002C8E4A /* LaunchScreen.xib */; };
 		93C6F03D1A6CE747002C8E4A /* SHSGHTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6F03C1A6CE747002C8E4A /* SHSGHTests.m */; };
@@ -253,7 +253,7 @@
 		0ECE9F661A734B98001C448D /* UIButton+PPiAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+PPiAwesome.h"; sourceTree = "<group>"; };
 		0ECE9F671A734B98001C448D /* UIButton+PPiAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+PPiAwesome.m"; sourceTree = "<group>"; };
 		0ECF8A1C1A7B13C700FCEC91 /* DituViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DituViewController.h; sourceTree = "<group>"; };
-		0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DituViewController.m; sourceTree = "<group>"; };
+		0ECF8A1D1A7B13C700FCEC91 /* DituViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DituViewController.mm; sourceTree = "<group>"; };
 		0ECF8A1F1A7B2B0400FCEC91 /* Route ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Route ViewController.h"; sourceTree = "<group>"; };
 		0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Route ViewController.m"; sourceTree = "<group>"; };
 		0ECF8A221A7B432E00FCEC91 /* luxian.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = luxian.png; sourceTree = "<group>"; };
@@ -361,7 +361,7 @@
 		93C6F0211A6CE747002C8E4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93C6F0221A6CE747002C8E4A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93C6F0241A6CE747002C8E4A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		93C6F0251A6CE747002C8E4A /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		93C6F0251A6CE747002C8E4A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		93C6F02D1A6CE747002C8E4A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		93C6F0301A6CE747002C8E4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		93C6F0361A6CE747002C8E4A /* SHSGHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SHSGHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -646,7 +646,7 @@
 				0ED0FDF11A76015F00486C2E /* OrganizationdetalViewController.h */,
 				0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */,
 				0ECF8A1C1A7B13C700FCEC91 /* DituViewController.h */,
-				0ECF8A1D1A7B13C700FCEC91 /* DituViewController.m */,
+				0ECF8A1D1A7B13C700FCEC91 /* DituViewController.mm */,
 				0ECF8A1F1A7B2B0400FCEC91 /* Route ViewController.h */,
 				0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */,
 				0ED0FDEE1A75FAEC00486C2E /* OrganizationTableViewCell.h */,
@@ -737,7 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				93C6F0241A6CE747002C8E4A /* AppDelegate.h */,
-				93C6F0251A6CE747002C8E4A /* AppDelegate.mm */,
+				93C6F0251A6CE747002C8E4A /* AppDelegate.m */,
 				93C6F04C1A6CEC24002C8E4A /* Constants.h */,
 				93C6F0ED1A6CF049002C8E4A /* Views */,
 				93C6F0791A6CF030002C8E4A /* Library */,
@@ -1161,7 +1161,7 @@
 				0ECFF24B1A6F9BCA007F882E /* MBProgressHUD.m in Sources */,
 				93DDD0D31A787C370025EA40 /* DynamicStatus.m in Sources */,
 				933548101A733C68009F38D4 /* UIScrollView+MJRefresh.m in Sources */,
-				93C6F0261A6CE747002C8E4A /* AppDelegate.mm in Sources */,
+				93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */,
 				935DDF8B1A75D80500021146 /* findCodeViewController.m in Sources */,
 				935DDF731A75D76E00021146 /* DynamicChildViewController.m in Sources */,
 				93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */,
@@ -1184,7 +1184,7 @@
 				93C6F0E01A6CF030002C8E4A /* EGOCache.m in Sources */,
 				93E6AF851A737A940068898D /* MaintainViewController.m in Sources */,
 				0ED0FDED1A75E82C00486C2E /* TradeViewController.m in Sources */,
-				0ECF8A1E1A7B13C700FCEC91 /* DituViewController.m in Sources */,
+				0ECF8A1E1A7B13C700FCEC91 /* DituViewController.mm in Sources */,
 				93DDD0D91A7889830025EA40 /* DynamicContent.m in Sources */,
 				9385B32D1A7A28E600B2082A /* UserTool.m in Sources */,
 				0ECFF2461A6F9AE0007F882E /* RPBase64.m in Sources */,

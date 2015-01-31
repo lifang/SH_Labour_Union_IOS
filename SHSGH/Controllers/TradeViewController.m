@@ -130,8 +130,6 @@
     
   
     
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
-    
     
     
     self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
@@ -159,7 +157,9 @@
     //    [segmentedControl setSelectedSegmentIndex:0];
     //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
     //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
     
+
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
@@ -247,7 +247,7 @@
     rootimageview.userInteractionEnabled=YES;
     
 //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
-    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150)];
+    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
     touchclickimageview.tag=section;
     
     [rootimageview addSubview:touchclickimageview];

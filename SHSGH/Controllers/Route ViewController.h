@@ -8,13 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Route_ViewController : UIViewController
+@interface Route_ViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
+    
+    UITableView*_Seatchtable;
 
 
     NSArray*_gryarry;
     NSArray*_hightarry;
     NSInteger     _seletedIndex;
+    BOOL _flagArray[100];
 
 
 }

@@ -18,6 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title=@"地图详情";
+    
     [ self setnavBar];
     [ self setNavBar];
     
@@ -107,7 +110,7 @@
 {
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-124)];
     [self.view  addSubview: _mapView];
-    _mapView.zoomLevel = 9;
+    _mapView.zoomLevel = 7;
 
     UIView*backview=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-124, SCREEN_WIDTH, 60)];
     backview.backgroundColor=[UIColor whiteColor];
