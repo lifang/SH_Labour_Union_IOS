@@ -135,9 +135,26 @@
 {
     if (buttonIndex == 1) {
         SLog(@"点击了确定!");
-        //清除用户数据
-        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        [delegate clearLoginInfo];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+            UserModel *account = [UserTool userModel];
+            NSString *urls = [NSString stringWithFormat:@"/api/user/loginOut?token=%@",account.token];
+            id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //成功
+                if ([[result objectForKey:@"code"] integerValue]==0)
+                {
+                     //清除用户数据
+                    [delegate clearLoginInfo];
+                }
+                //请求失败
+                else
+                {
+                    
+                }
+            });
+        });
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }

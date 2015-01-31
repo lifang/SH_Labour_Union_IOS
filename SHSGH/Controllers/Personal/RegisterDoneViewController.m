@@ -393,17 +393,17 @@
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"注册中!";
+    hud.labelText = @"完善中!";
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        NSString *urls = [NSString stringWithFormat:@"/api/user/update?id=%@&email=%@&labourUnionCode=%@",delegate.userId,_emailField.text,_usermessageField.text];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?token=%@&id=%@&email=%@&labourUnionCode=%@",delegate.token, delegate.userId,_emailField.text,_usermessageField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
-                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"注册成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"完善成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
                 UserModel *account = [UserTool userModel];
@@ -415,7 +415,7 @@
             else
             {
                 SLog(@"注册失败!");
-                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"注册失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"完善失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV2 show];
                 [hud hide:YES];
             }

@@ -24,4 +24,6 @@
 
 @property(nonatomic,strong)NSString *userIDName;
 
+@property(nonatomic,strong)NSString *token;
+
 @end

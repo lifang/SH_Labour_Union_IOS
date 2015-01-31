@@ -101,7 +101,7 @@
     
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-            NSString *urls = [NSString stringWithFormat:@"/api/user/changePassword?id=%@&password=%@&newpwd=%@",delegate.userId,_oldPasswordField.text,_newsPasswordField.text];
+            NSString *urls = [NSString stringWithFormat:@"/api/user/changePassword?token=%@&id=%@&password=%@&newpwd=%@",delegate.token, delegate.userId,_oldPasswordField.text,_newsPasswordField.text];
             id result = [KRHttpUtil getResultDataByPost:urls param:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //成功
@@ -111,7 +111,6 @@
                     [alertV1 show];
                     [hud hide:YES];
                     SLog(@"%@",result);
-//                    delegate.password = nil;
                     delegate.password = _newsPasswordField.text;
                     
                     [self.navigationController popViewControllerAnimated:YES];

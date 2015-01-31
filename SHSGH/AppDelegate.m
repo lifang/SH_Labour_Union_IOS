@@ -187,8 +187,10 @@ static UINavigationController *maintainNavController = nil;
     self.email = nil;
     self.phoneCode = nil;
     self.userIDName = nil;
+    self.token = nil;
     UserModel *user = [UserTool userModel];
     user.password = nil;
+    user.token = nil;
     [UserTool save:user];
 }
 
