@@ -9,5 +9,8 @@
 #import "HHZCommonViewController.h"
 
 @interface PersonalDoneViewController : HHZCommonViewController
+@property(nonatomic,strong)NSString *userName;
+
+@property(nonatomic,strong)NSString *userPasswd;
 
 @end

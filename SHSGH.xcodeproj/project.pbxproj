@@ -84,6 +84,7 @@
 		935DDF921A75D80500021146 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF881A75D80500021146 /* registerViewController.m */; };
 		935DDFC71A7606CD00021146 /* HHZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFC61A7606CD00021146 /* HHZTextView.m */; };
 		935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFCF1A7626BF00021146 /* QuestionViewController.m */; };
+		9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 9382C6121A7B9F7B000B8E8B /* IsPhone.m */; };
 		9385B32A1A7A26FC00B2082A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9385B3291A7A26FC00B2082A /* UserModel.m */; };
 		9385B32D1A7A28E600B2082A /* UserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9385B32C1A7A28E600B2082A /* UserTool.m */; };
 		93C592D81A708D9700CDF8F7 /* HHZCommonArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C592CF1A708D9700CDF8F7 /* HHZCommonArrowItem.m */; };
@@ -339,6 +340,8 @@
 		935DDFC61A7606CD00021146 /* HHZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZTextView.m; sourceTree = "<group>"; };
 		935DDFCE1A7626BF00021146 /* QuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionViewController.h; sourceTree = "<group>"; };
 		935DDFCF1A7626BF00021146 /* QuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionViewController.m; sourceTree = "<group>"; };
+		9382C6111A7B9F7B000B8E8B /* IsPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsPhone.h; sourceTree = "<group>"; };
+		9382C6121A7B9F7B000B8E8B /* IsPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsPhone.m; sourceTree = "<group>"; };
 		9385B3281A7A26FC00B2082A /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		9385B3291A7A26FC00B2082A /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		9385B32B1A7A28E600B2082A /* UserTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserTool.h; sourceTree = "<group>"; };
@@ -796,6 +799,8 @@
 				9385B3291A7A26FC00B2082A /* UserModel.m */,
 				9385B32B1A7A28E600B2082A /* UserTool.h */,
 				9385B32C1A7A28E600B2082A /* UserTool.m */,
+				9382C6111A7B9F7B000B8E8B /* IsPhone.h */,
+				9382C6121A7B9F7B000B8E8B /* IsPhone.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1176,6 +1181,7 @@
 				0ECFF23A1A6F9871007F882E /* DetalsocialViewController.m in Sources */,
 				0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */,
 				935DDF8F1A75D80500021146 /* PersonalManagerViewController.m in Sources */,
+				9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */,
 				0ECE9F5B1A734B7C001C448D /* PPiFlatSegmentedControl.m in Sources */,
 				0ECFF2481A6F9AE0007F882E /* Reachability.m in Sources */,
 				93C6F0EC1A6CF030002C8E4A /* SUNSlideSwitchView.m in Sources */,

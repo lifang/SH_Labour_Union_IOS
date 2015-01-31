@@ -11,6 +11,7 @@
 #import "SearchJobViewController.h"
 #import "RegisterDoneViewController.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface registerViewController ()<UITextFieldDelegate>
 
@@ -610,6 +611,16 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"手机号不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+
+    }
     if (!_authcodeField.text || [_authcodeField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"验证码不能为空!"
@@ -649,11 +660,22 @@
                 SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
                 SLog(@"注册成功的密码是%@",[dict objectForKey:@"password"]);
                 SLog(@"注册成功的用户名是%@",[dict objectForKey:@"username"]);
+                
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                 [delegate clearLoginInfo];
                 delegate.username = [dict objectForKey:@"username"];
-                delegate.password = [dict objectForKey:@"password"];
-                delegate.phone = [dict objectForKey:@"phone"];
                 delegate.userId = [dict objectForKey:@"id"];
+                delegate.password = [dict objectForKey:@"password"];
+                delegate.phoneCode = [dict objectForKey:@"phoneCode"];
+                delegate.phone = [dict objectForKey:@"phone"];
+               
+                UserModel *account = [[UserModel alloc]init];
+                account.userID = delegate.userId;
+                account.username = delegate.username;
+                account.password = delegate.password;
+                account.phoneNum = delegate.phone;
+               
+                [UserTool save:account];
                 
                 _phoneField.text = nil;
                 _usernameField.text = nil;
@@ -687,6 +709,16 @@
                                               otherButtonTitles:nil];
         [alert show];
         return;
+    }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+        
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";

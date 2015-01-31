@@ -10,4 +10,6 @@
 
 @interface ChangePasswordViewController : UIViewController
 
+@property(nonatomic,strong)NSString *passWD;
+
 @end

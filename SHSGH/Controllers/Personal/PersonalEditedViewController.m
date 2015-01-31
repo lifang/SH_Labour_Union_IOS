@@ -8,6 +8,10 @@
 
 #import "PersonalEditedViewController.h"
 #import "navbarView.h"
+#import "UserModel.h"
+#import "UserTool.h"
+#import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface PersonalEditedViewController ()<UITextFieldDelegate>
 
@@ -51,8 +55,60 @@
 
 -(void)save
 {
-    SLog(@"点击了save!");
-    [self.navigationController popViewControllerAnimated:YES];
+    if (![_emailField.text isEqualToString:@""]) {
+        if (![IsPhone validateEmail:_emailField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"Email格式不正确!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    }
+
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"完善中!";
+ 
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                        UserModel *account = [UserTool userModel];
+        SLog(@"------------------%@",account.userID);
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.userID,_usernameField.text,_emailField.text,_userIDField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"完善成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                [hud hide:YES];
+                if (![_usernameField.text isEqualToString:@""]) {
+                    account.userIDName = _usernameField.text;
+                    [UserTool save:account];
+                }
+                if (![_emailField.text isEqualToString:@""]) {
+                     account.email = _emailField.text;
+                    [UserTool save:account];
+                }
+                if (![_userIDField.text isEqualToString:@""]) {
+                    account.LabourUnion = _userIDField.text;
+                    [UserTool save:account];
+                }
+                
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            //请求失败
+            else
+            {
+                SLog(@"更换失败!");
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"完善失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+                [hud hide:YES];
+            }
+        });
+    });
+
 }
 
 -(void)initAndLayoutUI
@@ -60,6 +116,8 @@
     CGFloat topSpace = 0.0f;  //距顶部
     CGFloat textFieldHeight = 44.0f; //输入框高度
     CGFloat labelSize = 20.0f; //输入框图片大小
+    
+    UserModel *account = [UserTool userModel];
     
     //first line
     UIView *firstLine = [[UIView alloc] init];
@@ -100,7 +158,11 @@
     _usernameField.borderStyle = UITextBorderStyleNone;
     _usernameField.backgroundColor = [UIColor clearColor];
     _usernameField.delegate = self;
-    _usernameField.placeholder = @"苏";
+    if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil) {
+        _usernameField.placeholder = @"请完善";
+    }else{
+        _usernameField.placeholder = account.userIDName;
+    }
     _usernameField.font = [UIFont systemFontOfSize:15.f];
     UIView *leftUserView = [[UIView alloc]init];
     leftUserView.size = CGSizeMake(100, 30);
@@ -186,9 +248,12 @@
     _emailField.borderStyle = UITextBorderStyleNone;
     _emailField.backgroundColor = [UIColor clearColor];
     _emailField.delegate = self;
-    _emailField.placeholder = @"suxiaon@126.com";
+    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil) {
+        _emailField.placeholder = @"请完善";
+    }else{
+        _emailField.placeholder = account.email;
+    }
     _emailField.font = [UIFont systemFontOfSize:15.f];
-    _emailField.secureTextEntry = YES;
     
     UIView *leftEmailView = [[UIView alloc]init];
     leftEmailView.size = CGSizeMake(100, 30);
@@ -269,15 +334,18 @@
                                                            constant:0.5f]];
     
     
-    //Email
+    //工会会员号
     _userIDField = [[UITextField alloc] init];
     _userIDField.translatesAutoresizingMaskIntoConstraints = NO;
     _userIDField.borderStyle = UITextBorderStyleNone;
     _userIDField.backgroundColor = [UIColor clearColor];
     _userIDField.delegate = self;
-    _userIDField.placeholder = @"20552544451255559596";
+    if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil) {
+        _userIDField.placeholder = @"请完善";
+    }else{
+        _userIDField.placeholder = account.LabourUnion;
+    }
     _userIDField.font = [UIFont systemFontOfSize:15.f];
-    _userIDField.secureTextEntry = YES;
     
     UIView *leftuserIDView = [[UIView alloc]init];
     leftuserIDView.size = CGSizeMake(100, 30);

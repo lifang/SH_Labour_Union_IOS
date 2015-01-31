@@ -186,6 +186,10 @@ static UINavigationController *maintainNavController = nil;
     self.labourUnionCode = nil;
     self.email = nil;
     self.phoneCode = nil;
+    self.userIDName = nil;
+    UserModel *user = [UserTool userModel];
+    user.password = nil;
+    [UserTool save:user];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

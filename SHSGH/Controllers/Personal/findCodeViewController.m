@@ -9,6 +9,7 @@
 #import "findCodeViewController.h"
 #import "navbarView.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface findCodeViewController ()<UITextFieldDelegate>
 
@@ -597,6 +598,15 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     if (!_authcodeField.text || [_authcodeField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"验证码不能为空!"
@@ -621,7 +631,7 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
     
-        NSString *urls = [NSString stringWithFormat:@"/api/user/findPwd?phone=%@&password=%@&inputCode=%@",_phoneField.text,_passwordField.text,_authcodeField.text];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/findPwd?username=%@&phone=%@&password=%@&inputCode=%@",_usernameField.text,_phoneField.text,_passwordField.text,_authcodeField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
@@ -631,6 +641,12 @@
                 [alertV1 show];
                 [hud hide:YES];
                 SLog(@"%@",result);
+//                注册成功的id是64
+//                2015-01-30 13:30:26.117 SHSGH[7849:100565] 注册成功的手机是1234567888
+//                2015-01-30 13:30:26.117 SHSGH[7849:100565] 注册成功的密码是123456
+//                2015-01-30 13:30:26.117 SHSGH[7849:100565] 注册成功的用户名是hhz123456
+//                2015-01-30 13:30:26.187 SHSGH[7849:100565] 64
+
 //                NSDictionary *dict = [result objectForKey:@"result"];
 //                SLog(@"注册成功的id是%@",[dict objectForKey:@"id"]);
 //                SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
@@ -653,8 +669,8 @@
             //请求失败
             else
             {
-                SLog(@"找回失败!");
-                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"找回失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                NSString *str = [result objectForKey:@"message"];
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:str message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV2 show];
                 [hud hide:YES];
             }
@@ -679,7 +695,7 @@
     if (_phoneField.text) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
-            NSString *urls = [NSString stringWithFormat:@"/api/user/registfcode?phone=%@",_phoneField.text];
+            NSString *urls = [NSString stringWithFormat:@"/api/user/getPhoneCode?phone=%@",_phoneField.text];
             id result = [KRHttpUtil getResultDataByPost:urls param:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //成功

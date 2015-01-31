@@ -12,6 +12,8 @@
 #import "PersonalViewController.h"
 #import "HHZTextView.h"
 #import "QuestionViewController.h"
+#import "UserTool.h"
+#import "UserModel.h"
 
 @interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate>
 

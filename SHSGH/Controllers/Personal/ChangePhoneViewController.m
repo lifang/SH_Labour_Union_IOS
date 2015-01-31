@@ -9,11 +9,13 @@
 #import "ChangePhoneViewController.h"
 #import "navbarView.h"
 #import "AppDelegate.h"
+#import "IsPhone.h"
 
 @interface ChangePhoneViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *oldPhoneField;
 @property (nonatomic, strong) UITextField *authCodeField;
 @property (nonatomic, strong) UITextField *newsPhoneField;
+@property(nonatomic,strong)UIButton *authCode;
 @property(nonatomic,strong)NSString *authCodeM;
 @end
 
@@ -46,6 +48,12 @@
 
 -(void)back
 {
+    
+    if (_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.phone = _phoneNum;
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -104,10 +112,7 @@
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"更换成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
-                NSDictionary *dict = [result objectForKey:@"result"];
-                delegate.phone = nil;
-                delegate.phone = [dict objectForKey:@"phone"];
-                delegate.password = _oldPhoneField.text;
+                delegate.phone = _newsPhoneField.text;
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }
@@ -187,11 +192,12 @@
     UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(-10, 10, 76, 30)];
     [send setBackgroundImage:[UIImage imageNamed:@"authcode"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
-    [send addTarget:self action:@selector(authCode) forControlEvents:UIControlEventTouchUpInside];
+    [send addTarget:self action:@selector(authCodeClick) forControlEvents:UIControlEventTouchUpInside];
     send.titleLabel.tintColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
     [send setTitle:@"验证码" forState:UIControlStateNormal];
     [rightViewFS addSubview:send];
+    _authCode = send;
     rightViewFS.backgroundColor = [UIColor clearColor];
     _oldPhoneField.rightView = rightViewFS;
     _oldPhoneField.rightViewMode = UITextFieldViewModeAlways;
@@ -439,7 +445,7 @@
                                                            constant:0.5f]];
 }
 
--(void)authCode
+-(void)authCodeClick
 {
     SLog(@"发送验证码!");
     if (!_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
@@ -451,8 +457,18 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_authCodeField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";
+    _authCode.enabled = NO;
     if (_oldPhoneField.text) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
@@ -467,14 +483,16 @@
                     UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV1 show];
                     [hud hide:YES];
+                     _authCode.enabled = YES;
                 }
                 //请求失败
                 else
                 {
-                    SLog(@"验证码发送失败!");
-                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    NSString *str = [result objectForKey:@"message"];
+                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:str message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV2 show];
                     [hud hide:YES];
+                    _authCode.enabled = YES;
                 }
             });
         });
