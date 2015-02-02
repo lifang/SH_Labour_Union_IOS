@@ -40,6 +40,7 @@
 @property(nonatomic,strong)NSString *labourUnionCode;
 @property(nonatomic,strong)NSString *phoneCode;
 @property(nonatomic,strong)NSString *userIDName;
+@property(nonatomic,strong)NSString *token;
 
 
 + (AppDelegate *)shareAppDelegate;

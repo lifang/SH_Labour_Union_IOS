@@ -103,7 +103,7 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-        NSString *urls = [NSString stringWithFormat:@"/api/user/changePhone?verify_code=%@&id=%@&phone=%@",_authCodeField.text,delegate.userId,_newsPhoneField.text];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/changePhone?token=%@&verify_code=%@&id=%@&phone=%@",delegate.token, _authCodeField.text,delegate.userId,_newsPhoneField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
@@ -457,7 +457,16 @@
         [alert show];
         return;
     }
-    if (![IsPhone isMobileNumber:_authCodeField.text]) {
+    if (![IsPhone isMobileNumber:_oldPhoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![IsPhone isMobileNumber:_newsPhoneField.text]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"手机号格式不正确!"
                                                        delegate:nil

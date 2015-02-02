@@ -73,7 +73,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
                         UserModel *account = [UserTool userModel];
         SLog(@"------------------%@",account.userID);
-        NSString *urls = [NSString stringWithFormat:@"/api/user/update?id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.userID,_usernameField.text,_emailField.text,_userIDField.text];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?token=%@&id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.token, account.userID,_usernameField.text,_emailField.text,_userIDField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功

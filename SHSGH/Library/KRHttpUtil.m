@@ -376,6 +376,7 @@
     
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSString *res = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
     id result = [self toJson:res];
     if (![data length] == 0)
     {

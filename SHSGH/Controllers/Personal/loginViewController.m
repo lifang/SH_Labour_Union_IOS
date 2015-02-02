@@ -362,9 +362,11 @@
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
                 delegate.username = [dict objectForKey:@"username"];
                 delegate.userId = [dict objectForKey:@"id"];
-                delegate.password = [dict objectForKey:@"password"];
+                delegate.password = _passwordField.text;
                 delegate.phoneCode = [dict objectForKey:@"phoneCode"];
                 delegate.phone = [dict objectForKey:@"phone"];
+                delegate.token = [result objectForKey:@"token"];
+                SLog(@"%@",[result objectForKey:@"token"]);
                 if ([dict objectForKey:@"labourUnionCode"]) {
                     delegate.labourUnionCode = [dict objectForKey:@"labourUnionCode"];
                 }if ([dict objectForKey:@"email"]) {
@@ -382,6 +384,7 @@
                 account.LabourUnion = delegate.labourUnionCode;
                 account.userIDName = delegate.userIDName;
                 account.email = delegate.email;
+                account.token = delegate.token;
                 [UserTool save:account];
                 
                 PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];

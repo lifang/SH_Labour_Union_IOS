@@ -660,20 +660,23 @@
                 SLog(@"注册成功的手机是%@",[dict objectForKey:@"phone"]);
                 SLog(@"注册成功的密码是%@",[dict objectForKey:@"password"]);
                 SLog(@"注册成功的用户名是%@",[dict objectForKey:@"username"]);
+                SLog(@"注册成功的token是%@",[result objectForKey:@"token"]);
                 
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
                  [delegate clearLoginInfo];
                 delegate.username = [dict objectForKey:@"username"];
                 delegate.userId = [dict objectForKey:@"id"];
-                delegate.password = [dict objectForKey:@"password"];
+                delegate.password = _passwordField.text;
                 delegate.phoneCode = [dict objectForKey:@"phoneCode"];
                 delegate.phone = [dict objectForKey:@"phone"];
+                delegate.token = [result objectForKey:@"token"];
                
                 UserModel *account = [[UserModel alloc]init];
                 account.userID = delegate.userId;
                 account.username = delegate.username;
                 account.password = delegate.password;
                 account.phoneNum = delegate.phone;
+                account.token = delegate.token;
                
                 [UserTool save:account];
                 
@@ -689,8 +692,8 @@
             //请求失败
             else
             {
-                SLog(@"注册失败!");
-                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"注册失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                NSString *str = [result objectForKey:@"message"];
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:str message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV2 show];
                 [hud hide:YES];
             }
