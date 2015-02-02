@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "BMapKit.h"
-@interface DituViewController : UIViewController<BMKMapViewDelegate>
+@interface DituViewController : UIViewController<BMKMapViewDelegate,BMKGeoCodeSearchDelegate>
 {
     BMKMapView* _mapView;
     
     double per_lon;
     double per_lat;
+    BMKGeoCodeSearch*_searcher;
     
 }
 @property(nonatomic,strong)CLGeocoder *geocoder;

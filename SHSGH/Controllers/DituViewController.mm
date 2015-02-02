@@ -10,6 +10,8 @@
 #import "navbarView.h"
 #import "BMapKit.h"
 #import "Route ViewController.h"
+
+#import "AppDelegate.h"
 @interface DituViewController ()
 
 @end
@@ -32,6 +34,10 @@
 {
     [_mapView viewWillAppear];
     
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+
+    
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 
     
@@ -44,7 +50,9 @@
         //如果有错误信息，或者是数组中获取的地名元素数量为0，那么说明没有找到
         if (error || placemarks.count==0) {
             //                  self.detailAddressLabel.text=@"你输入的地址没找到，可能在月球上";
-        }else   //  编码成功，找到了具体的位置信息
+        }
+        
+        else   //  编码成功，找到了具体的位置信息
         {
             //打印查看找到的所有的位置信息
             /*
@@ -53,7 +61,10 @@
              63                     country:国家
              64                     postalCode:邮政编码
              65                  */
-            for (CLPlacemark *placemark in placemarks) {
+            for (CLPlacemark *placemark in placemarks)
+            
+            
+            {
                 NSLog(@"name=%@ locality=%@ country=%@ postalCode=%@",placemark.name,placemark.locality,placemark.country,placemark.postalCode);
             }
             
@@ -104,6 +115,11 @@
 {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+
 }
 
 -(void)createui
