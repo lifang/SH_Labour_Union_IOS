@@ -86,6 +86,14 @@
 		935DDF921A75D80500021146 /* registerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF881A75D80500021146 /* registerViewController.m */; };
 		935DDFC71A7606CD00021146 /* HHZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFC61A7606CD00021146 /* HHZTextView.m */; };
 		935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDFCF1A7626BF00021146 /* QuestionViewController.m */; };
+		936287A21A805FC4000E4AE9 /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287A11A805FC4000E4AE9 /* ClassViewController.m */; };
+		936287A51A8068AE000E4AE9 /* DoctorListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287A41A8068AE000E4AE9 /* DoctorListViewController.m */; };
+		936287A81A806A42000E4AE9 /* DoctorsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287A71A806A42000E4AE9 /* DoctorsCell.m */; };
+		936287AB1A809B22000E4AE9 /* DoctorStatusController.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287AA1A809B22000E4AE9 /* DoctorStatusController.m */; };
+		936287AE1A80A77D000E4AE9 /* ClassMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287AD1A80A77D000E4AE9 /* ClassMessageCell.m */; };
+		936287B11A80ACC0000E4AE9 /* DoctorIntroCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287B01A80ACC0000E4AE9 /* DoctorIntroCell.m */; };
+		936287B41A80D323000E4AE9 /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287B31A80D323000E4AE9 /* Province.m */; };
+		936287B71A80DBC2000E4AE9 /* Downtown.m in Sources */ = {isa = PBXBuildFile; fileRef = 936287B61A80DBC2000E4AE9 /* Downtown.m */; };
 		9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 9382C6121A7B9F7B000B8E8B /* IsPhone.m */; };
 		9385B32A1A7A26FC00B2082A /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9385B3291A7A26FC00B2082A /* UserModel.m */; };
 		9385B32D1A7A28E600B2082A /* UserTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9385B32C1A7A28E600B2082A /* UserTool.m */; };
@@ -354,6 +362,22 @@
 		935DDFC61A7606CD00021146 /* HHZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZTextView.m; sourceTree = "<group>"; };
 		935DDFCE1A7626BF00021146 /* QuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionViewController.h; sourceTree = "<group>"; };
 		935DDFCF1A7626BF00021146 /* QuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionViewController.m; sourceTree = "<group>"; };
+		936287A01A805FC4000E4AE9 /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
+		936287A11A805FC4000E4AE9 /* ClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassViewController.m; sourceTree = "<group>"; };
+		936287A31A8068AE000E4AE9 /* DoctorListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorListViewController.h; sourceTree = "<group>"; };
+		936287A41A8068AE000E4AE9 /* DoctorListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorListViewController.m; sourceTree = "<group>"; };
+		936287A61A806A42000E4AE9 /* DoctorsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorsCell.h; sourceTree = "<group>"; };
+		936287A71A806A42000E4AE9 /* DoctorsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorsCell.m; sourceTree = "<group>"; };
+		936287A91A809B22000E4AE9 /* DoctorStatusController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorStatusController.h; sourceTree = "<group>"; };
+		936287AA1A809B22000E4AE9 /* DoctorStatusController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorStatusController.m; sourceTree = "<group>"; };
+		936287AC1A80A77D000E4AE9 /* ClassMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassMessageCell.h; sourceTree = "<group>"; };
+		936287AD1A80A77D000E4AE9 /* ClassMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassMessageCell.m; sourceTree = "<group>"; };
+		936287AF1A80ACC0000E4AE9 /* DoctorIntroCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorIntroCell.h; sourceTree = "<group>"; };
+		936287B01A80ACC0000E4AE9 /* DoctorIntroCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorIntroCell.m; sourceTree = "<group>"; };
+		936287B21A80D323000E4AE9 /* Province.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Province.h; sourceTree = "<group>"; };
+		936287B31A80D323000E4AE9 /* Province.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Province.m; sourceTree = "<group>"; };
+		936287B51A80DBC2000E4AE9 /* Downtown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downtown.h; sourceTree = "<group>"; };
+		936287B61A80DBC2000E4AE9 /* Downtown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Downtown.m; sourceTree = "<group>"; };
 		9382C6111A7B9F7B000B8E8B /* IsPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IsPhone.h; sourceTree = "<group>"; };
 		9382C6121A7B9F7B000B8E8B /* IsPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IsPhone.m; sourceTree = "<group>"; };
 		9385B3281A7A26FC00B2082A /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
@@ -835,6 +859,10 @@
 				9385B32C1A7A28E600B2082A /* UserTool.m */,
 				9382C6111A7B9F7B000B8E8B /* IsPhone.h */,
 				9382C6121A7B9F7B000B8E8B /* IsPhone.m */,
+				936287B21A80D323000E4AE9 /* Province.h */,
+				936287B31A80D323000E4AE9 /* Province.m */,
+				936287B51A80DBC2000E4AE9 /* Downtown.h */,
+				936287B61A80DBC2000E4AE9 /* Downtown.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -978,6 +1006,12 @@
 				93F2B7411A7F717A00AE20DF /* CityCell.m */,
 				93F2B7491A7F956B00AE20DF /* HospitalCell.h */,
 				93F2B74A1A7F956B00AE20DF /* HospitalCell.m */,
+				936287A61A806A42000E4AE9 /* DoctorsCell.h */,
+				936287A71A806A42000E4AE9 /* DoctorsCell.m */,
+				936287AC1A80A77D000E4AE9 /* ClassMessageCell.h */,
+				936287AD1A80A77D000E4AE9 /* ClassMessageCell.m */,
+				936287AF1A80ACC0000E4AE9 /* DoctorIntroCell.h */,
+				936287B01A80ACC0000E4AE9 /* DoctorIntroCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1057,6 +1091,12 @@
 				93F2B7441A7F811100AE20DF /* SearchViewController.m */,
 				93F2B7461A7F942600AE20DF /* ChoiceHospitalViewController.h */,
 				93F2B7471A7F942600AE20DF /* ChoiceHospitalViewController.m */,
+				936287A01A805FC4000E4AE9 /* ClassViewController.h */,
+				936287A11A805FC4000E4AE9 /* ClassViewController.m */,
+				936287A31A8068AE000E4AE9 /* DoctorListViewController.h */,
+				936287A41A8068AE000E4AE9 /* DoctorListViewController.m */,
+				936287A91A809B22000E4AE9 /* DoctorStatusController.h */,
+				936287AA1A809B22000E4AE9 /* DoctorStatusController.m */,
 			);
 			path = Healthy;
 			sourceTree = "<group>";
@@ -1183,18 +1223,23 @@
 				93FC2AA81A771E09004EE5B0 /* MainImage.m in Sources */,
 				93F2B7481A7F942600AE20DF /* ChoiceHospitalViewController.m in Sources */,
 				93C6F0E41A6CF030002C8E4A /* EGOImageView.m in Sources */,
+				936287A21A805FC4000E4AE9 /* ClassViewController.m in Sources */,
 				93C6F0F61A6CF049002C8E4A /* homeBtn.m in Sources */,
 				0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */,
 				0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */,
+				936287B71A80DBC2000E4AE9 /* Downtown.m in Sources */,
 				93C6F0F91A6CF049002C8E4A /* SUNTextField.m in Sources */,
 				93F2B7421A7F717A00AE20DF /* CityCell.m in Sources */,
 				935DDF8C1A75D80500021146 /* loginViewController.m in Sources */,
 				93C6F1111A6CF0B5002C8E4A /* SUNViewController.m in Sources */,
+				936287B41A80D323000E4AE9 /* Province.m in Sources */,
 				93C592D91A708D9700CDF8F7 /* HHZCommonGroup.m in Sources */,
 				93C6F0E21A6CF030002C8E4A /* EGOImageLoadConnection.m in Sources */,
+				936287A51A8068AE000E4AE9 /* DoctorListViewController.m in Sources */,
 				935DDF901A75D80500021146 /* PersonalViewController.m in Sources */,
 				93C6F06C1A6CEF7F002C8E4A /* MainViewController.m in Sources */,
 				9335480E1A733C68009F38D4 /* MJRefreshHeaderView.m in Sources */,
+				936287B11A80ACC0000E4AE9 /* DoctorIntroCell.m in Sources */,
 				0ECFF2321A6F8117007F882E /* SearchRecordViewController.m in Sources */,
 				93F2B73F1A7F62B000AE20DF /* CityChangeViewController.m in Sources */,
 				0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */,
@@ -1209,9 +1254,11 @@
 				0ECE9F681A734B98001C448D /* FAImageView.m in Sources */,
 				935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */,
 				0EC9EB6E1A7F406E008FF6A8 /* LineTableViewCell.m in Sources */,
+				936287AB1A809B22000E4AE9 /* DoctorStatusController.m in Sources */,
 				93C6F0F71A6CF049002C8E4A /* navbarView.m in Sources */,
 				93C592DC1A708D9700CDF8F7 /* HHZCommonSwitchItem.m in Sources */,
 				9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */,
+				936287A81A806A42000E4AE9 /* DoctorsCell.m in Sources */,
 				93C6F0E11A6CF030002C8E4A /* EGOImageButton.m in Sources */,
 				0ECDDA661A772C31006D7102 /* QipaoTableViewCell.m in Sources */,
 				93F2B7391A7F53FA00AE20DF /* cellBtn.m in Sources */,
@@ -1238,6 +1285,7 @@
 				93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */,
 				0ECFF2451A6F9AE0007F882E /* JSONKit.m in Sources */,
 				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
+				936287AE1A80A77D000E4AE9 /* ClassMessageCell.m in Sources */,
 				0ED0FDF01A75FAEC00486C2E /* OrganizationTableViewCell.m in Sources */,
 				0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */,
 				0ED0FDF61A76395000486C2E /* TradedetalViewController.m in Sources */,

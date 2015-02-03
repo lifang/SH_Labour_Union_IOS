@@ -16,6 +16,5 @@
 
 @property(nonatomic,copy)NSString *time;
 
-- (id)initWithStatusDictionary:(NSDictionary *)dict;
 
 @end

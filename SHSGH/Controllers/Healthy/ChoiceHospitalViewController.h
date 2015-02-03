@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol sendHospital <NSObject>
+
+@optional
+-(void)sendHospital:(NSString *)hospital;
+
+@end
 
 @interface ChoiceHospitalViewController : UITableViewController
 
+@property(nonatomic,weak)id<sendHospital> delegate;
+
+@property(nonatomic,strong)NSString *hospital;
 @end

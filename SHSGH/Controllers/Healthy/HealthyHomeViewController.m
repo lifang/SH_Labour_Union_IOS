@@ -16,19 +16,32 @@
 #import "AppDelegate.h"
 #import "SearchViewController.h"
 #import "ChoiceHospitalViewController.h"
+#import "ClassViewController.h"
+#import "DoctorListViewController.h"
 
-@interface HealthyHomeViewController ()<ReuseViewDelegate>
+@interface HealthyHomeViewController ()<ReuseViewDelegate,sendHospital,sendClass,sendCity>
 @property(nonatomic,strong)CityChangeViewController *cityVC;
+@property(nonatomic,strong)UILabel *hospitalLabel;
+@property(nonatomic,strong)UILabel *classLabel;
+@property(nonatomic,strong)NSString *cityName;
 @end
 
 @implementation HealthyHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNav];
     [self initUI];
     CityChangeViewController *cityVC = [[CityChangeViewController alloc]init];
+    cityVC.delegate = self;
     _cityVC = cityVC;
+    [self setupNav];
+}
+
+-(void)sendCity:(NSString *)city
+{
+    self.cityName = city;
+    SLog(@"%@",_cityName);
+    [self setupNav];
 }
 
 
@@ -68,6 +81,7 @@
     [hospitalView.clickBtn addTarget:self action:@selector(hospitalClick) forControlEvents:UIControlEventTouchUpInside];
     hospitalView.leftImg.image = [UIImage imageNamed:@"choseHospital"];
     hospitalView.contentLabel.text = @"请选择医院";
+    _hospitalLabel = hospitalView.contentLabel;
     hospitalView.backgroundColor = sColor(233, 235, 240, 1.0);
     hospitalView.frame = CGRectMake(0, CGRectGetMaxY(firstLine.frame), mainScreenW, cellHeight + 5);
     [self.view addSubview:hospitalView];
@@ -81,7 +95,7 @@
     [classView.clickBtn addTarget:self action:@selector(classClick) forControlEvents:UIControlEventTouchUpInside];
     classView.leftImg.image = [UIImage imageNamed:@"choseKeshi"];
     classView.contentLabel.text = @"请选择科室";
-
+    _classLabel = classView.contentLabel;
     classView.backgroundColor = sColor(233, 235, 240, 1.0);
     classView.frame = CGRectMake(0, CGRectGetMaxY(secondLine.frame), mainScreenW, cellHeight + 5);
     [self.view addSubview:classView];
@@ -126,19 +140,58 @@
 -(void)doctorClick
 {
     SLog(@"点击了查找医生!");
+//    //输入验证
+//    if ([_hospitalLabel.text isEqualToString:@"请选择医院"]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+//                                                        message:@"请先选择医院!"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"确定!"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
+//    if ([_classLabel.text isEqualToString:@"请选择科室"]) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+//                                                        message:@"请选择科室!"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"确定!"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//        return;
+//    }
+    
+    DoctorListViewController *docVC = [[DoctorListViewController alloc]init];
+    [self.navigationController pushViewController:docVC animated:YES];
+
 }
+
 
 -(void)hospitalClick
 {
     SLog(@"点击了选择医院!");
     ChoiceHospitalViewController *choiceHospitalVC = [[ChoiceHospitalViewController alloc]init];
+    choiceHospitalVC.delegate = self;
     [self.navigationController pushViewController:choiceHospitalVC animated:YES];
+}
+
+-(void)sendHospital:(NSString *)hospital
+{
+    _hospitalLabel.text = hospital;
 }
 
 -(void)classClick
 {
     SLog(@"点击了选择科室!");
+    ClassViewController *classVC = [[ClassViewController alloc]init];
+    classVC.delegate = self;
+    [self.navigationController pushViewController:classVC animated:YES];
 }
+
+-(void)sendClass:(NSString *)className
+{
+    _classLabel.text = className;
+}
+
 
 -(void)setupNav
 {
@@ -153,7 +206,7 @@
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeDoctor];
     
-    [buttonL.navButton setTitle:@"上海" forState:UIControlStateNormal];
+    [buttonL.navButton setTitle:_cityName forState:UIControlStateNormal];
     [buttonL.navButton addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.rightBarButtonItem = leftItem;

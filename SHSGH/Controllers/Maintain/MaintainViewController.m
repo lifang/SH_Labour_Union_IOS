@@ -14,6 +14,9 @@
 #import "QuestionViewController.h"
 #import "UserTool.h"
 #import "UserModel.h"
+#import "UserModel.h"
+#import "UserTool.h"
+#import "IsPhone.h"
 
 @interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion>
 
@@ -321,6 +324,82 @@
 -(void)sureClick
 {
     SLog(@"sureClick");
+    //输入验证
+    if (!_nameField.text || [_nameField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"姓名不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"电话不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+        
+    }
+    if (!_titleField.text || [_titleField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"咨询标题不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }if (!_contentField.text || [_contentField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"咨询内容不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"提交中!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@",_nameField.text, _phoneField.text,_titleField.text,_contentField.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"提交成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV1 show];
+                [hud hide:YES];
+                [self.navigationController popViewControllerAnimated:YES];
+                _nameField.text = nil;
+                _phoneField.text = nil;
+                _titleField.text = nil;
+                _contentField.text = nil;
+            }
+            //请求失败
+            else
+            {
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"提交失败!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+                [hud hide:YES];
+            }
+        });
+    });
+
+    
 }
 
 -(void)telClick
@@ -351,11 +430,16 @@
 -(void)selectedTourist
 {
     SLog(@"选择了游客维权");
+    _nameField.text = nil;
+    _phoneField.text = nil;
 }
 
 -(void)selectedmMember
 {
     SLog(@"选择了会员维权");
+    UserModel *account = [UserTool userModel];
+    _nameField.text = account.userIDName;
+    _phoneField.text = account.phoneNum;
 }
 
 -(void)setNavBar

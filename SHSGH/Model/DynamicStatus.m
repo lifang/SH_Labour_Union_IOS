@@ -10,14 +10,5 @@
 
 @implementation DynamicStatus
 
--(id)initWithStatusDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        _title = [NSString stringWithFormat:@"%@",[dict objectForKey:@"title"]];
-        _time = [NSString stringWithFormat:@"%@",[dict objectForKey:@"time"]];
-        _ids = [NSString stringWithFormat:@"%@",[dict objectForKey:@"id"]];
-    }
-    return self;
-}
 
 @end
