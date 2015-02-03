@@ -38,12 +38,12 @@
         addresslable.font=[UIFont systemFontOfSize:15];
         addresslable.textColor=[UIColor grayColor];
         
-        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(140, 30, 20, 20)];
-        
-        logoImageView.image=[UIImage imageNamed:@"tel"];
-        
-        
-        [self addSubview:logoImageView];
+//        logoImageView=[[UIImageView alloc]initWithFrame:CGRectMake(140, 30, 20, 20)];
+//        
+//        logoImageView.image=[UIImage imageNamed:@"tel"];
+//        
+//        
+//        [self addSubview:logoImageView];
 
         
         

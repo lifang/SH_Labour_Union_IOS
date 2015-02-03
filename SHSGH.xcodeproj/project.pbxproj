@@ -14,6 +14,8 @@
 		0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB441A6E4CA100886040 /* ConditionsViewController.m */; };
 		0EC8A5EA1A787EF800FBFD53 /* tuixiu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC8A5E81A787EF800FBFD53 /* tuixiu.png */; };
 		0EC8A5EB1A787EF800FBFD53 /* zaizhi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC8A5E91A787EF800FBFD53 /* zaizhi.png */; };
+		0EC9EB6E1A7F406E008FF6A8 /* LineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9EB6D1A7F406E008FF6A8 /* LineTableViewCell.m */; };
+		0EC9EB711A7F6979008FF6A8 /* MapdetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9EB701A7F6979008FF6A8 /* MapdetalViewController.mm */; };
 		0ECA43891A79F07B00AEA86B /* ListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA43881A79F07B00AEA86B /* ListTableViewCell.m */; };
 		0ECA438C1A79F4C300AEA86B /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA438B1A79F4C300AEA86B /* ListViewController.m */; };
 		0ECA45501A7A107400AEA86B /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0ECA454F1A7A107400AEA86B /* mapapi.bundle */; };
@@ -155,6 +157,10 @@
 		0EC4AB441A6E4CA100886040 /* ConditionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsViewController.m; sourceTree = "<group>"; };
 		0EC8A5E81A787EF800FBFD53 /* tuixiu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuixiu.png; sourceTree = "<group>"; };
 		0EC8A5E91A787EF800FBFD53 /* zaizhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zaizhi.png; sourceTree = "<group>"; };
+		0EC9EB6C1A7F406E008FF6A8 /* LineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTableViewCell.h; sourceTree = "<group>"; };
+		0EC9EB6D1A7F406E008FF6A8 /* LineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineTableViewCell.m; sourceTree = "<group>"; };
+		0EC9EB6F1A7F6979008FF6A8 /* MapdetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapdetalViewController.h; sourceTree = "<group>"; };
+		0EC9EB701A7F6979008FF6A8 /* MapdetalViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapdetalViewController.mm; sourceTree = "<group>"; };
 		0ECA43871A79F07B00AEA86B /* ListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewCell.h; sourceTree = "<group>"; };
 		0ECA43881A79F07B00AEA86B /* ListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewCell.m; sourceTree = "<group>"; };
 		0ECA438A1A79F4C300AEA86B /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
@@ -650,8 +656,12 @@
 				0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */,
 				0ECF8A1C1A7B13C700FCEC91 /* DituViewController.h */,
 				0ECF8A1D1A7B13C700FCEC91 /* DituViewController.mm */,
+				0EC9EB6F1A7F6979008FF6A8 /* MapdetalViewController.h */,
+				0EC9EB701A7F6979008FF6A8 /* MapdetalViewController.mm */,
 				0ECF8A1F1A7B2B0400FCEC91 /* Route ViewController.h */,
 				0ECF8A201A7B2B0400FCEC91 /* Route ViewController.m */,
+				0EC9EB6C1A7F406E008FF6A8 /* LineTableViewCell.h */,
+				0EC9EB6D1A7F406E008FF6A8 /* LineTableViewCell.m */,
 				0ED0FDEE1A75FAEC00486C2E /* OrganizationTableViewCell.h */,
 				0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */,
 			);
@@ -1147,6 +1157,7 @@
 				935DDF8D1A75D80500021146 /* PersonalDoneViewController.m in Sources */,
 				0ECE9F681A734B98001C448D /* FAImageView.m in Sources */,
 				935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */,
+				0EC9EB6E1A7F406E008FF6A8 /* LineTableViewCell.m in Sources */,
 				93C6F0F71A6CF049002C8E4A /* navbarView.m in Sources */,
 				93C592DC1A708D9700CDF8F7 /* HHZCommonSwitchItem.m in Sources */,
 				9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */,
@@ -1159,6 +1170,7 @@
 				93DDD0DC1A78C42D0025EA40 /* IDModel.m in Sources */,
 				0ECDDA691A7737FD006D7102 /* people.m in Sources */,
 				0ECFF2291A6F4865007F882E /* GetresultTableViewCell.m in Sources */,
+				0EC9EB711A7F6979008FF6A8 /* MapdetalViewController.mm in Sources */,
 				93C6F1191A6CF7A8002C8E4A /* UIImage+Extension.m in Sources */,
 				0ECE9F6F1A734B98001C448D /* UIButton+PPiAwesome.m in Sources */,
 				93C6F0E81A6CF030002C8E4A /* UIViewController+MMDrawerController.m in Sources */,

@@ -207,12 +207,54 @@
     cell.addresslable.text=pp.addrstring;
 
     cell.phoonelable.text=pp.phone;
+    
+    UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
+    phonebutton.tag=indexPath.row;
+    
+    phonebutton.frame=CGRectMake(140, 30, 20, 20);
+    
+    [phonebutton setImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
+    
+//    [phonebutton setimage :[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
+    [phonebutton addTarget:self action:@selector(callclick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell addSubview:phonebutton];
+    
+
 
     
     return cell;
     
     
 }
+-(void)callclick:(UIButton*)send
+{
+    
+    UIWebView*callWebview =[[UIWebView alloc] init];
+    people*pephone=  [_allarry objectAtIndex:send.tag];
+    
+    
+    NSString*phone=pephone.phone;
+    
+    
+    
+    
+    
+    NSString *telUrl = [NSString stringWithFormat:@"tel:%@",phone];
+    
+    
+    
+    
+    NSURL *telURL =[NSURL URLWithString:telUrl];// 貌似tel:// 或者 tel: 都行
+    
+    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+    
+    //记得添加到view上
+    
+    [self.view addSubview:callWebview];
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -447,10 +489,10 @@
                 OrganizationdetalViewController*detal=[[OrganizationdetalViewController alloc]init];
                 
                 
-                detal.name=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
                 
                 detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
-                detal.address=[[result objectForKey:@"result"]  objectForKey:@"name"];
+                detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
                 NSLog(@"%@",detal.name);
 
                 
