@@ -11,12 +11,13 @@
 typedef enum{
     navbarViewTypeLeft = 1,
     navbarViewTypeRight = 2,
+    navbarViewTypeDoctor = 3,
 }navbarViewType;
 
 
 @interface navbarView : UIView
 
-@property(nonatomic,weak)UIImageView *lineView;
+@property(nonatomic,weak)UIImageView *arrowImage;
 
 @property(nonatomic,weak)UIButton *navButton;
 

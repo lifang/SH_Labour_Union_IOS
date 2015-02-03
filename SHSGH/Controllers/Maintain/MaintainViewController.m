@@ -15,7 +15,7 @@
 #import "UserTool.h"
 #import "UserModel.h"
 
-@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate>
+@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion>
 
 @property(nonatomic,weak)UIScrollView *contentView;
 
@@ -31,6 +31,8 @@
 @property(nonatomic,strong)UITextField *titleField;
 @property(nonatomic,strong)HHZTextView *contentField;
 
+@property(nonatomic,strong)QuestionViewController *questionVC;
+
 
 @end
 
@@ -40,6 +42,8 @@
     [super viewDidLoad];
     [self setNavBar];
     [self setUpUI];
+    QuestionViewController *questionVC = [[QuestionViewController alloc]init];
+    _questionVC = questionVC;
 }
 
 -(void)setUpUI
@@ -78,7 +82,7 @@
     [segmentView setTitle:@"游客维权区" forSegmentAtIndex:0];
     [segmentView setTitle:@"会员维权区" forSegmentAtIndex:1];
     [segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-//    segmentView.selectedSegmentIndex = 0;
+    segmentView.selectedSegmentIndex = 0;
     [contentView addSubview:segmentView];
     //分隔线
     UIView *lineView = [[UIView alloc]init];
@@ -208,7 +212,7 @@
     questionLabel.text = @"问题类别";
     questionLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_emailField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:questionLabel];
-    //电子邮件输入框
+    //问题输入框
     _questionField = [[UITextField alloc]init];
     UIView *leftV5 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
     _questionField.delegate = self;
@@ -395,8 +399,14 @@
 -(void)rightArrow
 {
     SLog(@"rightArrow");
-    QuestionViewController *questionVC = [[QuestionViewController alloc]init];
-    [self.navigationController pushViewController:questionVC animated:YES];
+
+    _questionVC.delegate = self;
+    [self.navigationController pushViewController:_questionVC animated:YES];
+}
+
+-(void)sendQuestion:(NSString *)question
+{
+    _questionField.text = question;
 }
 
 @end

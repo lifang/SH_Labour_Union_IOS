@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
+@protocol sendQuestion <NSObject>
+
+@optional
+-(void)sendQuestion:(NSString *)question;
+
+@end
+
 typedef void (^aBlock)(NSString *hangyestring);
 @interface QuestionViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
@@ -17,4 +25,5 @@ typedef void (^aBlock)(NSString *hangyestring);
 }
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;
+@property(nonatomic,weak)id<sendQuestion> delegate;
 @end

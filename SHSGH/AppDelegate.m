@@ -31,6 +31,9 @@ static UINavigationController *TradeNavController = nil;
 static MaintainViewController  *maintainController = nil;
 static UINavigationController *maintainNavController = nil;
 
+static HealthyHomeViewController  *healthyController = nil;
+static UINavigationController *healthyNayController = nil;
+
 @interface AppDelegate ()
 
 @end
@@ -136,7 +139,7 @@ static UINavigationController *maintainNavController = nil;
     });
     return dynamicNavController;
 }
-
+//维权
 +(UINavigationController *)shareMaintainController
 {
     static dispatch_once_t onceToken;
@@ -145,6 +148,16 @@ static UINavigationController *maintainNavController = nil;
         maintainNavController = [[UINavigationController alloc] initWithRootViewController:maintainController];
     });
     return maintainNavController;
+}
+//健康
++(UINavigationController *)shareHealthtController
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        healthyController = [[HealthyHomeViewController alloc] init];
+        healthyNayController = [[UINavigationController alloc] initWithRootViewController:healthyController];
+    });
+    return healthyNayController;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

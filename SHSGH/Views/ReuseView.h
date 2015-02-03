@@ -16,5 +16,6 @@
 @interface ReuseView : UIView
 @property (nonatomic, assign) id<ReuseViewDelegate>reuseDelegate;
 - (id)initWithFrame:(CGRect)frame array:(NSMutableArray *)array;
+@property (nonatomic, retain) UIPageControl *pageControl;
 
 @end

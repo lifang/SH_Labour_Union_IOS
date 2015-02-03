@@ -20,6 +20,8 @@
 #import "UserTool.h"
 #import "BMapKit.h"
 #import "OrganizationViewController.h"
+#import "HealthyHomeViewController.h"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     BMKMapManager* _mapManager;
@@ -51,10 +53,13 @@
 + (UINavigationController *)shareMainController;
 + (UINavigationController *)shareMaintainController;
 +(UINavigationController *)shareDynamicController2;
-
++ (UINavigationController *)shareHealthtController;
 + (UINavigationController *)shareDynamicController;
 + (UINavigationController *)shareDynamicController3;
 + (UINavigationController *)shareDynamicController6;
+
+
+
 
 -(void)clearLoginInfo;
 

@@ -107,7 +107,7 @@
     imageView.image = [UIImage imageNamed:@"logo1"];
     CGFloat imageViewW = mainScreenW / 10;
     CGFloat imageViewH = imageViewW;
-    CGFloat imageViewX = mainScreenW / 2 - imageViewW / 2 + CostumViewMargin;
+    CGFloat imageViewX = mainScreenW / 2 - imageViewW / 2 + CostumViewMargin - 1;
     CGFloat imageViewY = CostumViewMargin * 2;
     imageView.frame = CGRectMake(imageViewX, imageViewY, imageViewW, imageViewH);
     [bottomView addSubview:imageView];
@@ -224,12 +224,22 @@
         case 4:
             [self Tradesearch];
             break;
+        case 5:
+            [self setHealthyController];
+            break;
         case 6:
             [self related];
             break;
         default:
             break;
     }
+}
+
+-(void)setHealthyController
+{
+    UINavigationController *healthyNav = [AppDelegate shareHealthtController];
+    
+    [self.mm_drawerController setCenterViewController:healthyNav withCloseAnimation:YES completion:nil];
 }
 -(void)related
 {
@@ -290,7 +300,6 @@
     UINavigationController *dynamicNav = [AppDelegate shareDynamicController];
     
     [self.mm_drawerController setCenterViewController:dynamicNav withCloseAnimation:YES completion:nil];
-    SLog(@"setDynamicController");
 }
 
 -(void)setmiantainController

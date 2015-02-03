@@ -180,9 +180,12 @@
                                            withCloseAnimation:YES completion:nil];
 
         }
-        else if (row == 6) { //维权记录
-            NSLog(@"点击了健康服务");
-            
+        else if (row == 6) { //健康服务
+            if (!_navHealhyViewVC) {
+                self.navHealhyViewVC = [AppDelegate shareHealthtController];
+            }
+            [self.mm_drawerController setCenterViewController:self.navHealhyViewVC
+                                           withCloseAnimation:YES completion:nil];
         }
         else if (row == 7) { //维权记录
             NSLog(@"点击了相关查询");

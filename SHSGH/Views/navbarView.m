@@ -19,6 +19,11 @@
     [self addSubview:navButton];
     self.navButton = navButton;
     
+    UIImageView *arrowImage = [[UIImageView alloc]init];
+    arrowImage.image = [UIImage imageNamed:@"left_barArrow"];
+    [self addSubview:arrowImage];
+    self.arrowImage = arrowImage;
+    
     [self layoutIfNeeded];
     
 }
@@ -56,6 +61,9 @@
             case navbarViewTypeRight:
             self.navButton.frame = CGRectMake(10, 0, 46, 46);
             break;
+            case navbarViewTypeDoctor:
+            self.navButton.frame = CGRectMake(-10, 0, 46, 46);
+            self.arrowImage.frame = CGRectMake(CGRectGetMaxX(_navButton.frame), 20, 13, 10);
         default:
             break;
     }
