@@ -129,6 +129,14 @@
 		93DDD0D91A7889830025EA40 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDD0D81A7889830025EA40 /* DynamicContent.m */; };
 		93DDD0DC1A78C42D0025EA40 /* IDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDD0DB1A78C42D0025EA40 /* IDModel.m */; };
 		93E6AF851A737A940068898D /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E6AF841A737A940068898D /* MaintainViewController.m */; };
+		93F2B7361A7F4C0200AE20DF /* HealthyHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7351A7F4C0200AE20DF /* HealthyHomeViewController.m */; };
+		93F2B7391A7F53FA00AE20DF /* cellBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7381A7F53FA00AE20DF /* cellBtn.m */; };
+		93F2B73C1A7F5C3C00AE20DF /* HHZSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B73B1A7F5C3C00AE20DF /* HHZSearchBar.m */; };
+		93F2B73F1A7F62B000AE20DF /* CityChangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B73E1A7F62B000AE20DF /* CityChangeViewController.m */; };
+		93F2B7421A7F717A00AE20DF /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7411A7F717A00AE20DF /* CityCell.m */; };
+		93F2B7451A7F811100AE20DF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7441A7F811100AE20DF /* SearchViewController.m */; };
+		93F2B7481A7F942600AE20DF /* ChoiceHospitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7471A7F942600AE20DF /* ChoiceHospitalViewController.m */; };
+		93F2B74B1A7F956B00AE20DF /* HospitalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B74A1A7F956B00AE20DF /* HospitalCell.m */; };
 		93FC2AA81A771E09004EE5B0 /* MainImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FC2AA71A771E09004EE5B0 /* MainImage.m */; };
 		93FC2AAB1A778925004EE5B0 /* DynamicImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FC2AAA1A778925004EE5B0 /* DynamicImage.m */; };
 /* End PBXBuildFile section */
@@ -428,6 +436,22 @@
 		93DDD0DB1A78C42D0025EA40 /* IDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDModel.m; sourceTree = "<group>"; };
 		93E6AF831A737A940068898D /* MaintainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaintainViewController.h; sourceTree = "<group>"; };
 		93E6AF841A737A940068898D /* MaintainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintainViewController.m; sourceTree = "<group>"; };
+		93F2B7341A7F4C0200AE20DF /* HealthyHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthyHomeViewController.h; sourceTree = "<group>"; };
+		93F2B7351A7F4C0200AE20DF /* HealthyHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthyHomeViewController.m; sourceTree = "<group>"; };
+		93F2B7371A7F53FA00AE20DF /* cellBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellBtn.h; sourceTree = "<group>"; };
+		93F2B7381A7F53FA00AE20DF /* cellBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellBtn.m; sourceTree = "<group>"; };
+		93F2B73A1A7F5C3C00AE20DF /* HHZSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZSearchBar.h; sourceTree = "<group>"; };
+		93F2B73B1A7F5C3C00AE20DF /* HHZSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZSearchBar.m; sourceTree = "<group>"; };
+		93F2B73D1A7F62B000AE20DF /* CityChangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityChangeViewController.h; sourceTree = "<group>"; };
+		93F2B73E1A7F62B000AE20DF /* CityChangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityChangeViewController.m; sourceTree = "<group>"; };
+		93F2B7401A7F717A00AE20DF /* CityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
+		93F2B7411A7F717A00AE20DF /* CityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
+		93F2B7431A7F811100AE20DF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		93F2B7441A7F811100AE20DF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		93F2B7461A7F942600AE20DF /* ChoiceHospitalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceHospitalViewController.h; sourceTree = "<group>"; };
+		93F2B7471A7F942600AE20DF /* ChoiceHospitalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceHospitalViewController.m; sourceTree = "<group>"; };
+		93F2B7491A7F956B00AE20DF /* HospitalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HospitalCell.h; sourceTree = "<group>"; };
+		93F2B74A1A7F956B00AE20DF /* HospitalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HospitalCell.m; sourceTree = "<group>"; };
 		93FC2AA61A771E09004EE5B0 /* MainImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainImage.h; sourceTree = "<group>"; };
 		93FC2AA71A771E09004EE5B0 /* MainImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainImage.m; sourceTree = "<group>"; };
 		93FC2AA91A778925004EE5B0 /* DynamicImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicImage.h; sourceTree = "<group>"; };
@@ -815,6 +839,7 @@
 		93C6F04D1A6CEF7F002C8E4A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				93F2B7331A7F4C0200AE20DF /* Healthy */,
 				0ED0FDEA1A75E7C900486C2E /* TradeSearch */,
 				0ED0FDE61A75E2B300486C2E /* OrganizationSearch */,
 				93E6AF821A737A7C0068898D /* Maintain */,
@@ -921,6 +946,8 @@
 		93C6F0ED1A6CF049002C8E4A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				93F2B73A1A7F5C3C00AE20DF /* HHZSearchBar.h */,
+				93F2B73B1A7F5C3C00AE20DF /* HHZSearchBar.m */,
 				935DDFC51A7606CD00021146 /* HHZTextView.h */,
 				935DDFC61A7606CD00021146 /* HHZTextView.m */,
 				93C592E01A708E8800CDF8F7 /* HHZCommonCell.h */,
@@ -935,6 +962,12 @@
 				93C6F0F51A6CF049002C8E4A /* SUNTextField.m */,
 				93DDD0D41A7881100025EA40 /* DynamicCell.h */,
 				93DDD0D51A7881100025EA40 /* DynamicCell.m */,
+				93F2B7371A7F53FA00AE20DF /* cellBtn.h */,
+				93F2B7381A7F53FA00AE20DF /* cellBtn.m */,
+				93F2B7401A7F717A00AE20DF /* CityCell.h */,
+				93F2B7411A7F717A00AE20DF /* CityCell.m */,
+				93F2B7491A7F956B00AE20DF /* HospitalCell.h */,
+				93F2B74A1A7F956B00AE20DF /* HospitalCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1001,6 +1034,21 @@
 				935DDFCF1A7626BF00021146 /* QuestionViewController.m */,
 			);
 			path = Maintain;
+			sourceTree = "<group>";
+		};
+		93F2B7331A7F4C0200AE20DF /* Healthy */ = {
+			isa = PBXGroup;
+			children = (
+				93F2B7341A7F4C0200AE20DF /* HealthyHomeViewController.h */,
+				93F2B7351A7F4C0200AE20DF /* HealthyHomeViewController.m */,
+				93F2B73D1A7F62B000AE20DF /* CityChangeViewController.h */,
+				93F2B73E1A7F62B000AE20DF /* CityChangeViewController.m */,
+				93F2B7431A7F811100AE20DF /* SearchViewController.h */,
+				93F2B7441A7F811100AE20DF /* SearchViewController.m */,
+				93F2B7461A7F942600AE20DF /* ChoiceHospitalViewController.h */,
+				93F2B7471A7F942600AE20DF /* ChoiceHospitalViewController.m */,
+			);
+			path = Healthy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1123,11 +1171,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				93FC2AA81A771E09004EE5B0 /* MainImage.m in Sources */,
+				93F2B7481A7F942600AE20DF /* ChoiceHospitalViewController.m in Sources */,
 				93C6F0E41A6CF030002C8E4A /* EGOImageView.m in Sources */,
 				93C6F0F61A6CF049002C8E4A /* homeBtn.m in Sources */,
 				0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */,
 				0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */,
 				93C6F0F91A6CF049002C8E4A /* SUNTextField.m in Sources */,
+				93F2B7421A7F717A00AE20DF /* CityCell.m in Sources */,
 				935DDF8C1A75D80500021146 /* loginViewController.m in Sources */,
 				93C6F1111A6CF0B5002C8E4A /* SUNViewController.m in Sources */,
 				93C592D91A708D9700CDF8F7 /* HHZCommonGroup.m in Sources */,
@@ -1136,6 +1186,7 @@
 				93C6F06C1A6CEF7F002C8E4A /* MainViewController.m in Sources */,
 				9335480E1A733C68009F38D4 /* MJRefreshHeaderView.m in Sources */,
 				0ECFF2321A6F8117007F882E /* SearchRecordViewController.m in Sources */,
+				93F2B73F1A7F62B000AE20DF /* CityChangeViewController.m in Sources */,
 				0ECFF22C1A6F5134007F882E /* JobDetalViewController.m in Sources */,
 				93C6F0F81A6CF049002C8E4A /* ReuseView.m in Sources */,
 				93C6F11A1A6CF7A8002C8E4A /* UIView+Extension.m in Sources */,
@@ -1152,6 +1203,7 @@
 				9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */,
 				93C6F0E11A6CF030002C8E4A /* EGOImageButton.m in Sources */,
 				0ECDDA661A772C31006D7102 /* QipaoTableViewCell.m in Sources */,
+				93F2B7391A7F53FA00AE20DF /* cellBtn.m in Sources */,
 				9335480F1A733C68009F38D4 /* UIScrollView+MJExtension.m in Sources */,
 				0ECE9F6C1A734B98001C448D /* UIFont+FontAwesome.m in Sources */,
 				0ECDDA6E1A779778006D7102 /* JObpp.m in Sources */,
@@ -1160,6 +1212,7 @@
 				0ECDDA691A7737FD006D7102 /* people.m in Sources */,
 				0ECFF2291A6F4865007F882E /* GetresultTableViewCell.m in Sources */,
 				93C6F1191A6CF7A8002C8E4A /* UIImage+Extension.m in Sources */,
+				93F2B7451A7F811100AE20DF /* SearchViewController.m in Sources */,
 				0ECE9F6F1A734B98001C448D /* UIButton+PPiAwesome.m in Sources */,
 				93C6F0E81A6CF030002C8E4A /* UIViewController+MMDrawerController.m in Sources */,
 				9335480D1A733C68009F38D4 /* MJRefreshFooterView.m in Sources */,
@@ -1167,6 +1220,7 @@
 				93DDD0D31A787C370025EA40 /* DynamicStatus.m in Sources */,
 				933548101A733C68009F38D4 /* UIScrollView+MJRefresh.m in Sources */,
 				93C6F0261A6CE747002C8E4A /* AppDelegate.m in Sources */,
+				93F2B7361A7F4C0200AE20DF /* HealthyHomeViewController.m in Sources */,
 				935DDF8B1A75D80500021146 /* findCodeViewController.m in Sources */,
 				935DDF731A75D76E00021146 /* DynamicChildViewController.m in Sources */,
 				93C592E21A708E8800CDF8F7 /* HHZCommonCell.m in Sources */,
@@ -1208,6 +1262,8 @@
 				0ECE9F6A1A734B98001C448D /* README.md in Sources */,
 				935DDF741A75D76E00021146 /* dynamicViewController.m in Sources */,
 				935DDF921A75D80500021146 /* registerViewController.m in Sources */,
+				93F2B74B1A7F956B00AE20DF /* HospitalCell.m in Sources */,
+				93F2B73C1A7F5C3C00AE20DF /* HHZSearchBar.m in Sources */,
 				93C6F10F1A6CF0B5002C8E4A /* SUNTextFieldDemoViewController.m in Sources */,
 				0ECE9F691A734B98001C448D /* NSString+FontAwesome.m in Sources */,
 				93C6F0E51A6CF030002C8E4A /* MMDrawerBarButtonItem.m in Sources */,

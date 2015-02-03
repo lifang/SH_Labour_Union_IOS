@@ -12,6 +12,8 @@
 
 @interface QuestionViewController ()
 
+@property(nonatomic,strong)NSString *questions;
+
 @end
 
 @implementation QuestionViewController
@@ -54,6 +56,8 @@
 
 -(void)backtoMaintain
 {
+    [self.delegate sendQuestion:_questions];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -104,6 +108,8 @@
     if (self.block) {
         block([NSString stringWithFormat:@"%ld",(long)indexPath.row]);
     }
+    
+    _questions = [namearry objectAtIndex:indexPath.row];
     
     [_Questiontable reloadData];
 }
