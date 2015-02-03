@@ -293,15 +293,16 @@
     phonelable.textColor=[UIColor grayColor];
     phonelable.numberOfLines=0;
     [rootimageview addSubview:phonelable];
-    phonelable.text=@"0512-88888888";
+    phonelable.text=peop.phone;
     
     phonelable.userInteractionEnabled=NO;
 
     UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
+    phonebutton.tag=section;
     
     phonebutton.frame=CGRectMake( 220, 50,25, 25);
     [phonebutton setBackgroundImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
-    [phonebutton addTarget:self action:@selector(callclick) forControlEvents:UIControlEventTouchUpInside];
+    [phonebutton addTarget:self action:@selector(callclick:) forControlEvents:UIControlEventTouchUpInside];
     
     [rootimageview addSubview:phonebutton];
     
@@ -381,12 +382,14 @@
     
 }
 
--(void)callclick
+-(void)callclick:(UIButton*)send
 {
+    
     UIWebView*callWebview =[[UIWebView alloc] init];
+  people*pephone=  [_allarry objectAtIndex:send.tag];
     
     
-    NSString*phone=@"110";
+    NSString*phone=pephone.phone;
     
     
     
@@ -621,7 +624,8 @@
                     peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
                    
                     peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
-                    
+                    peo.phone=[[arry objectAtIndex:i] objectForKey:@"tel"];
+
                     NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
 
                     [_allarry addObject:peo];

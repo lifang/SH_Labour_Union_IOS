@@ -30,7 +30,7 @@
     
        
     // Do any additional setup after loading the view.
-    _getresulttable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _getresulttable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
     
     
@@ -130,8 +130,17 @@
      if(indexPath.row==0)
      {
          cell.jobname.text=@"";
+         if(self.jobarry.count==0)
+         {
+             cell.companyname.text=@"暂无此职位";
+
          
-         cell.companyname.text=@"共为您找到125个工作职位";
+         }else
+         {
+             cell.companyname.text=[NSString stringWithFormat:@"共为您找到%d个工作职位",self.jobarry.count ];
+
+         
+         }
          cell.companyname.textColor=HHZColor(99, 27, 28);
          cell.date.text=@"";
      }

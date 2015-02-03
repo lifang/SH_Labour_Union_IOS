@@ -9,6 +9,8 @@
 #import "Route ViewController.h"
 #import "navbarView.h"
 #import "QipaoTableViewCell.h"
+#import "MapdetalViewController.h"
+#import "LineTableViewCell.h"
 @interface Route_ViewController ()
 
 @end
@@ -20,11 +22,13 @@
     self.title=@"查看路线";
     _gryarry=[NSArray arrayWithObjects:@"bus_Gray",@"taxi_Gray",@"walk_Gray", nil];
     _hightarry=[NSArray arrayWithObjects:@"bus-1",@"taxi",@"walk", nil];
+    [_Seatchtable reloadData];
 
     // Do any additional setup after loading the view.
     [ self setnavBar];
     [ self setNavBar];
     [self createui];
+//    NSLog(@"%@",[self.linarry objectAtIndex:0]) ;
     
 }
 
@@ -132,13 +136,13 @@
     
     }
     
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
     
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
-    //    _Seatchtable.rowHeight=40;
+     _Seatchtable.rowHeight=45;
     
 //    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -146,22 +150,12 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 5;
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    if (_flagArray[section])
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return self.linarry.count;
     
     
     
@@ -170,19 +164,39 @@
 {
     static NSString *cellIdentifier = @"Cell";
     
-    QipaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    LineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (!cell)
     {
-        cell = [[QipaoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+        cell = [[LineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
     }
     
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+    
+   cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     
-    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    NSDictionary*dict=[self.linarry objectAtIndex:indexPath.row];
     
-    cell.textLabel.text=@"123";
+    cell.timelable.text=[NSString stringWithFormat:@"%@|", [dict objectForKey:@"time"]];
     
+    cell.distancelable.text=[dict objectForKey:@"distance"];
+    
+    NSArray*arry=[dict objectForKey:@"line"];
+    
+    NSString*string;
+    
+    NSString *lastString = @"";
+    for (NSString *value in arry)
+    {
+        string = [NSString stringWithFormat:@"%@%@  →", lastString, value];
+       
+        lastString = [NSString stringWithFormat:@"%@", string];
+    }
+    
+    NSString *cccc = [lastString substringToIndex:[lastString length] - 1];
+    cell.namelable.text=cccc;
     
     
     return cell;
@@ -190,135 +204,135 @@
     
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 30)];
-    templabel.numberOfLines=0;
-//    people*peop=[_allarry objectAtIndex:indexPath.section];
+//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 30)];
+//    templabel.numberOfLines=0;
+////    people*peop=[_allarry objectAtIndex:indexPath.section];
+////    
+////    templabel.text =peop.about_detail;
 //    
-//    templabel.text =peop.about_detail;
-    
-    templabel.font=[UIFont systemFontOfSize:12];
-    [templabel sizeToFit];
-    
-    
-    return templabel.frame.size.height+30;
-    
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    
-    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    rootimageview.userInteractionEnabled=YES;
-    
-    //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
-    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
-    touchclickimageview.tag=section+1;
-    
-    [rootimageview addSubview:touchclickimageview];
-    
-    [touchclickimageview addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //       [ touchclickimageview addGestureRecognizer:singleTapss];
-       UILabel*namelable=[[UILabel alloc]init];
-    namelable.frame=CGRectMake(10,0, SCREEN_WIDTH-100, 30);
-    
-    namelable.font=[UIFont systemFontOfSize:15];
-    //      requirecontent.textColor=[UIColor grayColor];
-    //    namelable.numberOfLines=0;
-    [rootimageview addSubview:namelable];
-//    namelable.text=peop.namestring;
-    namelable.userInteractionEnabled=NO;
-    
-    UILabel*addresslable=[[UILabel alloc]init];
-    addresslable.frame=CGRectMake(10,30, SCREEN_WIDTH-100, 30);
-    
-    addresslable.font=[UIFont systemFontOfSize:15];
-    addresslable.textColor=[UIColor grayColor];
-    addresslable.numberOfLines=0;
-    [rootimageview addSubview:addresslable];
-//    addresslable.text=peop.addrstring;
-    
-    addresslable.userInteractionEnabled=NO;
-    
- 
-    
-    
-    
-    UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 15, 30, 30);
-    
-    
-    if (_flagArray[section])
-    {   [UIView beginAnimations:nil context:nil];
-        
-        [UIView setAnimationDuration:0.5];
-        
-        [searchButton setImage:[UIImage imageNamed:@"unwind_Gray"] forState:UIControlStateNormal];
-        
-        [UIView commitAnimations];
-        
-        
-    }
-    else
-    {
-        [UIView beginAnimations:nil context:nil];
-        
-        [UIView setAnimationDuration:0.5];
-        
-        [searchButton setImage:[UIImage imageNamed:@"right_dark"] forState:UIControlStateNormal];
-        
-        [UIView commitAnimations];
-    }
-    
-    
-    
-    
-    [rootimageview addSubview:searchButton];
-    
-    
-    //    searchButton.userInteractionEnabled=NO;
-    
-    [searchButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    searchButton.tag=1+section;
-    return rootimageview;
-    
-    
-    
-}
--(void)detalButtonclick:(UIButton*)send
-
-{
-    
-    UIButton *button=(UIButton *)send;
-    
-    //根据按钮的tag值找到所找按钮所在的区
-    int section=button.tag-1.0;
-    
-    //取反  如果布尔数组中的值是yes=>>no.no=>>yes
-    _flagArray[section]=!_flagArray[section];
-    
-    //让表重新加载(刷新整个表)
-    //[_tableView reloadData];
-    
-    //先根据要刷新的区号，创建一个索引集
-    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:section];
-    
-    //刷新指定的区
-    [_Seatchtable reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
-    
-    
-    
-    
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    
-    return 60;
-    
-    
-}
+//    templabel.font=[UIFont systemFontOfSize:12];
+//    [templabel sizeToFit];
+//    
+//    
+//    return templabel.frame.size.height+30;
+//    
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    
+//    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+//    rootimageview.userInteractionEnabled=YES;
+//    
+//    //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
+//    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+//    touchclickimageview.tag=section+1;
+//    
+//    [rootimageview addSubview:touchclickimageview];
+//    
+//    [touchclickimageview addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    
+//    //       [ touchclickimageview addGestureRecognizer:singleTapss];
+//       UILabel*namelable=[[UILabel alloc]init];
+//    namelable.frame=CGRectMake(10,0, SCREEN_WIDTH-100, 30);
+//    
+//    namelable.font=[UIFont systemFontOfSize:15];
+//    //      requirecontent.textColor=[UIColor grayColor];
+//    //    namelable.numberOfLines=0;
+//    [rootimageview addSubview:namelable];
+////    namelable.text=peop.namestring;
+//    namelable.userInteractionEnabled=NO;
+//    
+//    UILabel*addresslable=[[UILabel alloc]init];
+//    addresslable.frame=CGRectMake(10,30, SCREEN_WIDTH-100, 30);
+//    
+//    addresslable.font=[UIFont systemFontOfSize:15];
+//    addresslable.textColor=[UIColor grayColor];
+//    addresslable.numberOfLines=0;
+//    [rootimageview addSubview:addresslable];
+////    addresslable.text=peop.addrstring;
+//    
+//    addresslable.userInteractionEnabled=NO;
+//    
+// 
+//    
+//    
+//    
+//    UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
+//    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 15, 30, 30);
+//    
+//    
+//    if (_flagArray[section])
+//    {   [UIView beginAnimations:nil context:nil];
+//        
+//        [UIView setAnimationDuration:0.5];
+//        
+//        [searchButton setImage:[UIImage imageNamed:@"unwind_Gray"] forState:UIControlStateNormal];
+//        
+//        [UIView commitAnimations];
+//        
+//        
+//    }
+//    else
+//    {
+//        [UIView beginAnimations:nil context:nil];
+//        
+//        [UIView setAnimationDuration:0.5];
+//        
+//        [searchButton setImage:[UIImage imageNamed:@"right_dark"] forState:UIControlStateNormal];
+//        
+//        [UIView commitAnimations];
+//    }
+//    
+//    
+//    
+//    
+//    [rootimageview addSubview:searchButton];
+//    
+//    
+//    //    searchButton.userInteractionEnabled=NO;
+//    
+//    [searchButton addTarget:self action:@selector(detalButtonclick:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    searchButton.tag=1+section;
+//    return rootimageview;
+//    
+//    
+//    
+//}
+//-(void)detalButtonclick:(UIButton*)send
+//
+//{
+//    
+//    UIButton *button=(UIButton *)send;
+//    
+//    //根据按钮的tag值找到所找按钮所在的区
+//    int section=button.tag-1.0;
+//    
+//    //取反  如果布尔数组中的值是yes=>>no.no=>>yes
+//    _flagArray[section]=!_flagArray[section];
+//    
+//    //让表重新加载(刷新整个表)
+//    //[_tableView reloadData];
+//    
+//    //先根据要刷新的区号，创建一个索引集
+//    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:section];
+//    
+//    //刷新指定的区
+//    [_Seatchtable reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+//    
+//    
+//    
+//    
+//}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    
+//    return 60;
+//    
+//    
+//}
 -(void)luxianclicks:(UIButton*)send
 {
     
@@ -331,10 +345,61 @@
     _seletedIndex=current;
     UIButton *currentButton = (UIButton *)[self.view viewWithTag:(current )];
     [currentButton setImage:[UIImage imageNamed:[_hightarry objectAtIndex:current-1]] forState:UIControlStateNormal];
+    
+    if(current==1)
+    {
+    
+        _Seatchtable.hidden=NO;
+        
+    
+    
+    }
+    if(current==2)
+    {
+        
+        _Seatchtable.hidden=YES;
+        
+        MapdetalViewController*map=[[MapdetalViewController alloc]init];
+        map.coreld=self.coreld;
+        ;
+        
+        map.awhichway=2;
+        
+        [self.navigationController pushViewController:map animated:YES];
+        
+    }
 
+    if(current==3)
+    {
+        
+        _Seatchtable.hidden=YES;
+        
+        MapdetalViewController*map=[[MapdetalViewController alloc]init];
+        map.coreld=self.coreld;
+        ;
+        
+        map.awhichway=1;
+        
+        [self.navigationController pushViewController:map animated:YES];
+        
+    }
+    
+
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    MapdetalViewController*map=[[MapdetalViewController alloc]init];
+    map.coreld=self.coreld;
+    map.bline=indexPath.row;
+
+    map.awhichway=3;
+    
+    [self.navigationController pushViewController:map animated:YES];
+    
+    
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -87,7 +87,7 @@
         
     }
     // Do any additional setup after loading the view.
-      _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+      _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
     _conditarry=[[NSMutableArray alloc]init];
     
@@ -359,10 +359,16 @@
     {
         if(indexPath.row==6)
         {
-        JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-        
-        
-        [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:6];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+             str1=[arry objectAtIndex:1];
+            [self date];
+            
+//        JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//        
+//        
+//        [self.navigationController pushViewController:jobdetal animated:YES];
         }
         
     }
@@ -373,17 +379,27 @@
     {
         if(indexPath.row==6)
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-            
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:6];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+            str1=[arry objectAtIndex:1];
+            [self date];
+//            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//            
+//            
+//            [self.navigationController pushViewController:jobdetal animated:YES];
         }
         if(indexPath.row==7)
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-            
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:7];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+            str1=[arry objectAtIndex:1];
+            [self date];
+//            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//            
+//            
+//            [self.navigationController pushViewController:jobdetal animated:YES];
         }
         
     }
@@ -392,24 +408,39 @@
     {
         if(indexPath.row==6)
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-            
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:6];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+            str1=[arry objectAtIndex:1];
+            [self date];
+//            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//            
+//            
+//            [self.navigationController pushViewController:jobdetal animated:YES];
         }
         if(indexPath.row==7)
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-            
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:7];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+            str1=[arry objectAtIndex:1];
+            [self date];
+//            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//            
+//            
+//            [self.navigationController pushViewController:jobdetal animated:YES];
         }
         if(indexPath.row==8)
         {
-            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
-            
-            
-            [self.navigationController pushViewController:jobdetal animated:YES];
+            NSString*getstring=[namearry objectAtIndex:8];
+            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+            str1=[arry objectAtIndex:0];
+            str1=[arry objectAtIndex:1];
+            [self date];
+//            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//            
+//            
+//            [self.navigationController pushViewController:jobdetal animated:YES];
         }
         
     }

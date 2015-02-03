@@ -10,6 +10,7 @@
 #import "navbarView.h"
 #import "BMapKit.h"
 #import "Route ViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #import "AppDelegate.h"
 @interface DituViewController ()
@@ -17,6 +18,61 @@
 @end
 
 @implementation DituViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    [_mapView viewWillAppear];
+    _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    
+    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    
+    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+    //指定最小距离更新(米)，默认：kCLDistanceFilterNone
+    [BMKLocationService setLocationDistanceFilter:100.f];
+    
+    
+    //初始化BMKLocationService
+    _locService = [[BMKLocationService alloc]init];
+    _locService.delegate = self;
+    //启动LocationService
+    [_locService startUserLocationService];
+    
+    
+    //发起正向地理编码检索
+    
+    _searchers =[[BMKGeoCodeSearch alloc]init];
+    _searchers.delegate = self;
+    BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
+    geoCodeSearchOption.city= @"北京";
+    geoCodeSearchOption.address = @"海淀区上地10街10号";
+    BOOL flag = [_searchers geoCode:geoCodeSearchOption];
+    if(flag)
+    {
+        NSLog(@"geo检索发送成功");
+    }
+    else
+    {
+        NSLog(@"geo检索发送失败");
+    }
+    
+}
+- (void) viewDidAppear:(BOOL)animated {
+    // 添加一个PointAnnotation
+    BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+    CLLocationCoordinate2D coor;
+    coor.latitude = per_lat;
+    coor.longitude = per_lon;
+    annotation.coordinate = coor;
+    annotation.title = @"这里是北京";
+    [_mapView setCenterCoordinate:coor];
+    
+    
+    
+    [_mapView addAnnotation:annotation];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,97 +84,198 @@
     
     [self createui];
     
+    NSLog(@"%f",corld.latitude);
+
+    
     // Do any additional setup after loading the view.
 }
--(void)viewWillAppear:(BOOL)animated
+
+//实现相关delegate 处理位置信息更新
+//处理方向变更信息
+- (void)didUpdateUserHeading:(BMKUserLocation *)userLocation
 {
-    [_mapView viewWillAppear];
+    //NSLog(@"heading is %@",userLocation.heading);
+}
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+   
+    _searcher = [[BMKRouteSearch alloc]init];
+    _searcher.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
-
+    //发起检索
     
-    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-
+    BMKPlanNode* start = [[BMKPlanNode alloc]init];
+    start.pt=userLocation.location.coordinate;
+    corld=userLocation.location.coordinate;
+    BMKPlanNode* end = [[BMKPlanNode alloc]init];
+    end.name = @"邻瑞广场";
     
-    NSString *address=@"独墅村";
-    
-  
-    
-    //说明：调用下面的方法开始编码，不管编码是成功还是失败都会调用block中的方法
-    [self.geocoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
-        //如果有错误信息，或者是数组中获取的地名元素数量为0，那么说明没有找到
-        if (error || placemarks.count==0) {
-            //                  self.detailAddressLabel.text=@"你输入的地址没找到，可能在月球上";
-        }
+    BMKTransitRoutePlanOption *transitRouteSearchOption = [[BMKTransitRoutePlanOption alloc]init];
+    transitRouteSearchOption.city= @"苏州";
+    transitRouteSearchOption.from = start;
+    transitRouteSearchOption.to = end;
+    BOOL flag = [_searcher transitSearch:transitRouteSearchOption];
+    if(flag)
+    {
         
-        else   //  编码成功，找到了具体的位置信息
+        
+    }
+    else
+    {
+        
+        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        
+    }
+    
+
+    
+    
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
+#pragma mark - BMKRouteSearchDelegate
+-(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
+                     errorCode:(BMKSearchErrorCode)error
+{
+    if (error == BMK_SEARCH_NO_ERROR)
+        
+    {
+
+        
+        for(int i=0;i<result.routes.count;i++)
         {
-            //打印查看找到的所有的位置信息
-            /*
-             61                     name:名称
-             62                     locality:城市
-             63                     country:国家
-             64                     postalCode:邮政编码
-             65                  */
-            for (CLPlacemark *placemark in placemarks)
+            
+            BMKTransitRouteLine* plan = (BMKTransitRouteLine*)[result.routes objectAtIndex:i ];
+
+        
+        NSLog(@"----%@%d", plan.terminal.title,plan.duration.minutes);
+        NSMutableDictionary*dict=[[NSMutableDictionary alloc]init];
+        
+        NSMutableArray*arry=[[NSMutableArray alloc]initWithCapacity:0];
+        
+        for(int i=0;i<plan.steps.count;i++)
+        {
             
             
+            BMKTransitStep*step=(BMKTransitStep*)[plan.steps objectAtIndex:i ];
+            
+            
+            step.stepType=BMK_BUSLINE;
+            
+            
+            
+            if([self isBlankString:step.vehicleInfo.title])
             {
-                NSLog(@"name=%@ locality=%@ country=%@ postalCode=%@",placemark.name,placemark.locality,placemark.country,placemark.postalCode);
+            
+            
+            }else
+            {
+                [arry addObject:step.vehicleInfo.title];
+
+            
             }
             
-            //取出获取的地理信息数组中的第一个显示在界面上
-            CLPlacemark *firstPlacemark=[placemarks firstObject];
-            //详细地址名称
-            //                                 self.detailAddressLabel.text=firstPlacemark.name;
-            CLLocationDegrees latitude=firstPlacemark.location.coordinate.latitude;
-            
-           
-            per_lat=latitude ;
-            
-            //经度
-            CLLocationDegrees longitude=firstPlacemark.location.coordinate.longitude;
-            //                         NSLog(@"name=%@ locality=%@ country=%@ postalCode=%@",placemark.name,placemark.locality,placemark.country,placemark.postalCode);
-            per_lon= longitude ;
+          
 
         }
-    }];
-    
+            [dict setValue:arry forKey:@"line"];
+             [dict setValue:[NSString stringWithFormat:@"%.1f公里",plan.distance/1000.0] forKey:@"distance"];
+            
+            if([self isBlankString:[NSString stringWithFormat:@"%d",plan.duration.minutes]])
+            {
+            
+                [dict setValue:[NSString stringWithFormat:@"%d小时",plan.duration.hours] forKey:@"time"];
 
-}
-- (void) viewDidAppear:(BOOL)animated {
-    // 添加一个PointAnnotation
-    BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-    CLLocationCoordinate2D coor;
-    coor.latitude = per_lat;
-    coor.longitude = per_lon;
-    annotation.coordinate = coor;
-    annotation.title = @"这里是北京";
-    [_mapView setCenterCoordinate:coor];
-
-    
-    
-    [_mapView addAnnotation:annotation];
-}
-- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
-{
-    if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
-        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
-        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
-        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
-        return newAnnotationView;
+            
+            }
+            if([self isBlankString:[NSString stringWithFormat:@"%d",plan.duration.hours]])
+            {
+                
+                [dict setValue:[NSString stringWithFormat:@"%d分钟",plan.duration.minutes] forKey:@"time"];
+                
+                
+            }
+            else
+            {
+             [dict setValue:[NSString stringWithFormat:@"%d小时%d分钟",plan.duration.hours,plan.duration.minutes] forKey:@"time"];
+            
+            
+            }
+            
+            [_linebusarry addObject:dict];
+            
+            
+            
+            
     }
-    return nil;
+
 }
+
+    
+}
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR)
+    {
+        per_lon=result.location.longitude;
+        per_lat=result.location.latitude;
+
+        NSLog(@"----%f",result.location.latitude);
+
+        
+        //在此处理正常结果
+    }
+    else {
+        NSLog(@"抱歉，未找到结果");
+    }
+}
+//- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
+//{
+//    if ([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+//        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+//        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+//        newAnnotationView.animatesDrop = YES;// 设置该标注点动画显示
+//        return newAnnotationView;
+//    }
+//    return nil;
+//}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
+    
+     _searchers.delegate = nil;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 
-    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
 
 }
 
@@ -126,7 +283,7 @@
 {
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-124)];
     [self.view  addSubview: _mapView];
-    _mapView.zoomLevel = 7;
+    _mapView.zoomLevel = 11;
 
     UIView*backview=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-124, SCREEN_WIDTH, 60)];
     backview.backgroundColor=[UIColor whiteColor];
@@ -178,6 +335,10 @@
 -(void)luxianclick
 {
     Route_ViewController*route=[[Route_ViewController alloc]init];
+    route.coreld=corld;
+    
+    route.linarry=_linebusarry;
+    
     [self.navigationController pushViewController:route animated:YES];
     
 

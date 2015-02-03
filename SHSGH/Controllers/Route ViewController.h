@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMapKit.h"
 
 @interface Route_ViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
@@ -21,5 +22,7 @@
 
 
 }
+@property(nonatomic,strong)NSArray*linarry;
+@property(nonatomic,assign)CLLocationCoordinate2D coreld;
 
 @end
