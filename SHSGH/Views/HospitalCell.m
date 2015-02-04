@@ -15,7 +15,7 @@
     static NSString *ID = @"city";
     HospitalCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        cell = [[HospitalCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[HospitalCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     }
     return cell;
 }
@@ -27,7 +27,10 @@
         self.textLabel.font = [UIFont boldSystemFontOfSize:15];
         self.textLabel.textColor = sColor(51, 51, 51, 1.0);
         self.detailTextLabel.textColor = sColor(124, 124, 124, 1.0);
-        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        UIImageView *imageV = [[UIImageView alloc]init];
+        imageV.image = [UIImage imageNamed:@"right_view"];
+        self.accessoryView = imageV;
         
         //取出cell默认的背景颜色
 //        self.backgroundColor = sColor(220, 220, 220, 1.0);
@@ -41,8 +44,9 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textLabel.frame = CGRectMake(0, 0, mainViewW * 0.7, self.frame.size.height);
+    self.textLabel.frame = CGRectMake(20, 0, mainViewW * 0.4, self.frame.size.height);
     self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + CostumViewMargin, 0, mainViewW * 0.3, self.frame.size.height);
+    self.accessoryView.frame = CGRectMake(CGRectGetMaxX(self.detailTextLabel.frame) + 8 * CostumViewMargin, 8, 28,28 );
 }
 
 

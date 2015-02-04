@@ -14,7 +14,7 @@
 @interface DynamicChildViewController ()<UIScrollViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *contentView;
-
+@property(nonatomic,strong)UIWebView *webView;
 
 @property(nonatomic,strong)NSString *topLabelStr;
 @property(nonatomic,strong)NSString *timeStr;
@@ -76,24 +76,41 @@
                 _timeStr = timeS;
                 NSString *contentS = [contentDic objectForKey:@"content"];
                 _contentStr = contentS;
-                
-//                如果用webView
-//                UIWebView *webView = [[UIWebView alloc]init];
-//                webView.frame = CGRectMake(0, 0, 400,600);
-//                [webView loadHTMLString:_contentStr baseURL:nil];
-//                [self.view addSubview:webView];
-//                
-                
-                [self setupContentView];
+
+//                [self setupContentView];
+                [self setupWebView];
             }
             //请求失败
             else
             {
                 SLog(@"请求失败!");
-                [self setupContentView];
+//                [self setupContentView];
+                [self setupWebView];
             }
         });
     });
+}
+
+-(void)setupWebView
+{
+    UIWebView *webView = [[UIWebView alloc]init];
+    webView.frame = CGRectMake(0, 0, mainScreenW,mainScreenH);
+    NSURL *url = [NSURL URLWithString:@"http://www.sh12351.org"];
+    [webView loadHTMLString:_contentStr baseURL:url];
+    self.webView = webView;
+    [self.view addSubview:webView];
+    
+    //创建回到顶部
+    UIImageView *backTopView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"back_top"]];
+    backTopView.userInteractionEnabled = YES;
+    backTopView.frame = CGRectMake(mainScreenW - 60, mainScreenH - 140, 40, 40);
+    UIButton *backTopBtn = [[UIButton alloc]init];
+    backTopBtn.backgroundColor = [UIColor clearColor];
+    backTopBtn.frame = backTopView.bounds;
+    [backTopBtn addTarget:self action:@selector(backTop) forControlEvents:UIControlEventTouchUpInside];
+    [backTopView addSubview:backTopBtn];
+    [webView addSubview:backTopView];
+
 }
 
 -(void)setupContentView
@@ -165,7 +182,8 @@
 -(void)backTop
 {
     [UIView animateWithDuration:0.3 animations:^{
-        self.contentView.contentOffset = CGPointMake(0, 0);
+//        _webView.contentScaleFactor = CGPointMake(0, 0);
+        _webView.scrollView.contentOffset = CGPointMake(0, 0);
     }];
     SLog(@"back");
 }

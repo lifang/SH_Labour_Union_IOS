@@ -30,8 +30,6 @@
         self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.textColor = sColor(51, 51, 51, 1.0);
         
-        //取出cell默认的背景颜色
-        self.backgroundColor = sColor(220, 220, 220, 1.0);
         UIView *view = [[UIView alloc]init];
         view.backgroundColor = [UIColor whiteColor];
         self.selectedBackgroundView = view;

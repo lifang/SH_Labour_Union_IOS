@@ -1,20 +1,20 @@
 //
-//  ChoiceHospitalViewController.m
+//  ClassViewController.m
 //  SHSGH
 //
-//  Created by lihongliang on 15/2/2.
+//  Created by lihongliang on 15/2/3.
 //  Copyright (c) 2015年 comdo. All rights reserved.
 //
 
-#import "ChoiceHospitalViewController.h"
-#import "HospitalCell.h"
+#import "ClassViewController.h"
 #import "navbarView.h"
+#import "HospitalCell.h"
 
-@interface ChoiceHospitalViewController ()
+@interface ClassViewController ()
 
 @end
 
-@implementation ChoiceHospitalViewController
+@implementation ClassViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,25 +37,22 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return 5;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HospitalCell *cell = [HospitalCell cellWithTableView:tableView];
-    cell.textLabel.text = @"上海长征医院";
-    cell.detailTextLabel.text = @"三级甲等";
-    _hospital = cell.textLabel.text;
+    cell.textLabel.text = @"普外一科";
+    _className = cell.textLabel.text;
+    cell.detailTextLabel.text = @"5人";
     return cell;
 }
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate sendHospital:_hospital];
+    [self.delegate sendClass:_className];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

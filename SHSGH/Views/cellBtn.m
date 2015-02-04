@@ -27,7 +27,7 @@
     UILabel *contentLabel = [[UILabel alloc]init];
     contentLabel.textAlignment = NSTextAlignmentLeft;
     contentLabel.textColor = sColor(144, 144, 144, 1.0);
-    contentLabel.font = [UIFont boldSystemFontOfSize:18];
+    contentLabel.font = [UIFont boldSystemFontOfSize:17];
     _contentLabel = contentLabel;
     [self addSubview:contentLabel];
     UIImageView *rightImg = [[UIImageView alloc]init];
@@ -47,7 +47,7 @@
     [super layoutSubviews];
     
     _leftImg.frame = CGRectMake(CostumViewMargin * 3, 10, 33, 33);
-    _contentLabel.frame = CGRectMake(CGRectGetMaxX(_leftImg.frame) + 3 * CostumViewMargin, 14, 90, 30);
+    _contentLabel.frame = CGRectMake(CGRectGetMaxX(_leftImg.frame) + 3 * CostumViewMargin, 14, 180, 30);
     _rightImg.frame = CGRectMake(mainViewW - 22 - 2 * CostumViewMargin, 12, 16, 30);
     _clickBtn.frame = self.bounds;
 }

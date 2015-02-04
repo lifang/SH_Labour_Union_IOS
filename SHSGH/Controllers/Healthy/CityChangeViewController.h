@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol sendCity <NSObject>
+
+@optional
+-(void)sendCity:(NSString *)city;
+@end
+
 @interface CityChangeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)UITableView *leftTableView;
 
 @property(nonatomic,strong)UITableView *rightTableView;
+
+@property(nonatomic,weak)id<sendCity> delegate;
 
 @end
