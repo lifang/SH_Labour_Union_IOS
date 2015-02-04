@@ -112,7 +112,7 @@
         end.name = @"邻瑞广场";
         
         BMKTransitRoutePlanOption *transitRouteSearchOption = [[BMKTransitRoutePlanOption alloc]init];
-        transitRouteSearchOption.city= @"苏州";
+        transitRouteSearchOption.city= self.city;
         transitRouteSearchOption.from = start;
         transitRouteSearchOption.to = end;
         BOOL flag = [_searcher transitSearch:transitRouteSearchOption];
@@ -147,7 +147,7 @@
         BMKPlanNode* start = [[BMKPlanNode alloc]init];
         start.pt=self.coreld;
         BMKPlanNode* end = [[BMKPlanNode alloc]init];
-        end.name = @"邻瑞广场";
+        end.name = @"莲花新村五区";
         
         BMKDrivingRoutePlanOption *transitRouteSearchOptions = [[BMKDrivingRoutePlanOption alloc]init];
         transitRouteSearchOptions.from = start;

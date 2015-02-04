@@ -12,7 +12,9 @@
 {
     
     UITableView*_Conditionstable;
-    
+    NSInteger changeA;
+    NSMutableArray*_newallarry;
+
     
 }
 

@@ -23,6 +23,8 @@
     NSString*str1;
       NSString*str2;
       NSString*str3;
+    NSString*str4textfield;
+
 }
 
 @end

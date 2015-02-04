@@ -24,5 +24,6 @@
 }
 @property(nonatomic,strong)NSArray*linarry;
 @property(nonatomic,assign)CLLocationCoordinate2D coreld;
+@property(nonatomic,strong)NSString *city;
 
 @end

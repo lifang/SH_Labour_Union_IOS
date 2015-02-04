@@ -22,6 +22,8 @@
     BMKGeoCodeSearch*_searchers;
     
 }
+@property(nonatomic,strong)NSString *city;
+
 @property(nonatomic,strong)CLGeocoder *geocoder;
 @property(nonatomic,assign)NSInteger  awhichway;
 @property(nonatomic,assign)NSInteger  bline;

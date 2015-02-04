@@ -9,6 +9,8 @@
 #import "SearchRecordViewController.h"
 #import "JobDetalViewController.h"
 #import "navbarView.h"
+#import "SearchRestulViewController.h"
+#import "JObpp.h"
 @interface SearchRecordViewController ()
 
 @end
@@ -26,7 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-   
+    _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
+
     
     self.title=@"搜索记录";
     
@@ -98,7 +101,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return self.recortarry.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,10 +115,51 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         
     }
+    NSString*addstring;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+       
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {
+        addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+        
+    }
     
-    cell.textLabel.text=@"网页设计师";
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
+    {
+        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"]];
+        
+    }
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
+    {
+        addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"]];
+        }
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
+    {
+        addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"]];
+    
+    }
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {
+        addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+        
+    }
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {
+        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+        
+    }
+    
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {
+        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+        
+    }
+    
+
+    
+
+    cell.textLabel.text=addstring;
     //    seariamgeview.tag=indexPath.row;
        cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
@@ -126,14 +170,117 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+    changeA=indexPath.row;
+    
+    [self date];
     
     
-    [self.navigationController pushViewController:jobdetal animated:YES];
+//    JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//    
+//    
+//    [self.navigationController pushViewController:jobdetal animated:YES];
     
     
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
 
+-(void)date
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+      
+
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",@"",[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"],[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"],@""];
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+                    
+                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_newallarry addObject:peo];
+                    
+                }
+                
+                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+                
+                seach.conditionsname=@"搜索结果";
+                seach.jobarry=_newallarry;
+                NSLog(@"%@",seach.jobarry);
+                [self.navigationController pushViewController:seach animated:YES];
+                
+                
+            }
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
+    });
+}
 
 
 - (void)didReceiveMemoryWarning {

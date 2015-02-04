@@ -116,7 +116,7 @@
         
         [imageview setContentMode:UIViewContentModeScaleAspectFill];
         
-        imageview.image=[UIImage imageNamed:@"btn-l"];
+        imageview.image=[UIImage imageNamed:@"defaultimages"];
         
         imageview.frame = CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, 200);
         
@@ -175,15 +175,17 @@
     
     
     
-    UIButton*addressbutton=[[UIButton alloc] initWithFrame:CGRectMake(10, linelable1.frame.origin.y+8,SCREEN_WIDTH-20, 30)];
+    UILabel*addressbutton=[[UILabel alloc] initWithFrame:CGRectMake(10, linelable1.frame.origin.y+8,SCREEN_WIDTH-20, 20)];
     
     [bigscroll addSubview:addressbutton];
-    addressbutton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
+    addressbutton.font = [UIFont systemFontOfSize: 16.0];
+    addressbutton.text=self.address;
+    addressbutton.textColor=[UIColor grayColor];
     
     
-    addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [addressbutton setTitle:[NSString stringWithFormat:@"%@",self.address] forState:UIControlStateNormal];
-    [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    [addressbutton setTitle:[NSString stringWithFormat:@"%@",self.address] forState:UIControlStateNormal];
+//    [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     
     
@@ -216,7 +218,7 @@
     
     UIImageView *llogoimageview = [[UIImageView alloc]init];
     
-    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 30, 30);
+    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 20, 20);
     llogoimageview.image=[UIImage imageNamed:@"jieshao"];
     
     [bigscroll addSubview:llogoimageview];
@@ -226,7 +228,7 @@
     
     
     UILabel*llogolable=[[UILabel alloc]init];
-    llogolable.frame=CGRectMake(50, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 30);
+    llogolable.frame=CGRectMake(40, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 20);
     
     //    llogolable.font=[UIFont systemFontOfSize:15];
     //    requirecontent.textColor=[UIColor grayColor];

@@ -20,6 +20,12 @@
 @implementation DituViewController
 -(void)viewWillAppear:(BOOL)animated
 {
+   
+    NSLog(@"%@成功",self.city);
+
+    
+    
+    
     [_mapView viewWillAppear];
     _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
     
@@ -28,7 +34,8 @@
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-    
+    _mapView.zoomLevel = 14;
+
     [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     //指定最小距离更新(米)，默认：kCLDistanceFilterNone
     [BMKLocationService setLocationDistanceFilter:100.f];
@@ -45,9 +52,19 @@
     
     _searchers =[[BMKGeoCodeSearch alloc]init];
     _searchers.delegate = self;
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
     BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-    geoCodeSearchOption.city= @"北京";
-    geoCodeSearchOption.address = @"海淀区上地10街10号";
+    geoCodeSearchOption.city= self.city;
+    geoCodeSearchOption.address = @"江苏省苏州工业园西华林街88号";
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
     {
@@ -61,18 +78,7 @@
 }
 - (void) viewDidAppear:(BOOL)animated {
     // 添加一个PointAnnotation
-    BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-    CLLocationCoordinate2D coor;
-    coor.latitude = per_lat;
-    coor.longitude = per_lon;
-    annotation.coordinate = coor;
-    annotation.title = @"这里是北京";
-    [_mapView setCenterCoordinate:coor];
-    
-    
-    
-    [_mapView addAnnotation:annotation];
-}
+   }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -85,7 +91,6 @@
     [self createui];
     
     NSLog(@"%f",corld.latitude);
-
     
     // Do any additional setup after loading the view.
 }
@@ -103,16 +108,20 @@
     _searcher = [[BMKRouteSearch alloc]init];
     _searcher.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     
+    
+       
+    
+    
     //发起检索
     
     BMKPlanNode* start = [[BMKPlanNode alloc]init];
     start.pt=userLocation.location.coordinate;
     corld=userLocation.location.coordinate;
     BMKPlanNode* end = [[BMKPlanNode alloc]init];
-    end.name = @"邻瑞广场";
+    end.name = @"莲花新村五区";
     
     BMKTransitRoutePlanOption *transitRouteSearchOption = [[BMKTransitRoutePlanOption alloc]init];
-    transitRouteSearchOption.city= @"苏州";
+    transitRouteSearchOption.city= self.city;
     transitRouteSearchOption.from = start;
     transitRouteSearchOption.to = end;
     BOOL flag = [_searcher transitSearch:transitRouteSearchOption];
@@ -247,6 +256,21 @@
         per_lon=result.location.longitude;
         per_lat=result.location.latitude;
 
+        
+        
+        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+        CLLocationCoordinate2D coor;
+        coor.latitude = per_lat;
+        coor.longitude = per_lon;
+        annotation.coordinate = coor;
+        annotation.title = @"这里是哈哈";
+        [_mapView setCenterCoordinate:coor];
+        
+        
+        
+        [_mapView addAnnotation:annotation];
+        
+
         NSLog(@"----%f",result.location.latitude);
 
         
@@ -336,6 +360,7 @@
 {
     Route_ViewController*route=[[Route_ViewController alloc]init];
     route.coreld=corld;
+    route.city=self.city;
     
     route.linarry=_linebusarry;
     

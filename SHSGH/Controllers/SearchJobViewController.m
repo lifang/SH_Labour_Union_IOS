@@ -1,3 +1,7 @@
+
+
+
+
 //
 //  SearchJobViewController.m
 //  SHSGH
@@ -24,8 +28,7 @@
 
 @implementation SearchJobViewController
 - (void)viewWillAppear:(BOOL)animated
-{
-     NSLog(@"%@%@%@",str1,str3,str2);
+{  NSLog(@"%@",str4textfield);     NSLog(@"%@%@%@",str1,str3,str2);
     namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        最新职位", nil];
     
 
@@ -40,11 +43,66 @@
     
     for(NSInteger i=0;i<recordarry.count;i++)
     {
-        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==NO)
+        {
+         NSString*addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"],[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
         
-        [namearry insertObject:addstring atIndex:6];
+        }
         
-        [_Seatchtable reloadData];
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+            [namearry insertObject:addstring atIndex:6];
+            
+            [_Seatchtable reloadData];
+
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
+            
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+            [namearry insertObject:addstring atIndex:6];
+            
+            [_Seatchtable reloadData];
+
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
+            
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"13"],[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+            
+            
+        }
+       
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i] objectForKey:@"12"],[[recordarry objectAtIndex:i] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+            
+            
+        }
+
+       
 
     
     }
@@ -54,12 +112,84 @@
         for(NSInteger i=0;i<3;i++)
     {
         
-        NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex: recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]];
         
         
-        [namearry insertObject:addstring atIndex:6];
         
-        [_Seatchtable reloadData];
+        
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            
+           
+
+        }
+        
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
+            
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"]];
+            [namearry insertObject:addstring atIndex:6];
+
+            [_Seatchtable reloadData];
+
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
+
+        }
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+
+
+        }
+
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+            
+            
+        }
+
+        
+        
+        
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1  ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"14"]]==NO)
+        {
+            NSString*addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"],[[recordarry objectAtIndex:recordarry.count-i-1  ] objectForKey:@"14"]];
+            [namearry insertObject:addstring atIndex:6];
+            [_Seatchtable reloadData];
+            
+            
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        [_Seatchtable reloadData];
         
         
     }
@@ -150,6 +280,7 @@
         searchrootview.layer.cornerRadius=15;
         
         _searchfield.placeholder=@"请输入关键字/职位/公司/地点 ";
+        _searchfield.text=str4textfield;
         _searchfield.delegate=self;
         CALayer *layer=[searchrootview layer];
         //是否设置边框以及是否可见
@@ -202,6 +333,13 @@
         UIImageView*adviceiamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 25, 25)];
         [cell addSubview: adviceiamgeview];
         adviceiamgeview.image=[UIImage imageNamed:@"position"];
+        
+    }
+    
+    if(5<indexPath.row&&indexPath.row<namearry.count-1)
+    {
+    
+        cell.textLabel.textColor=[UIColor grayColor];
         
     }
     if(indexPath.row==0||indexPath.row==4)
@@ -360,9 +498,8 @@
         if(indexPath.row==6)
         {
             NSString*getstring=[namearry objectAtIndex:6];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-             str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+
             [self date];
             
 //        JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
@@ -380,9 +517,8 @@
         if(indexPath.row==6)
         {
             NSString*getstring=[namearry objectAtIndex:6];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-            str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+
             [self date];
 //            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
 //            
@@ -392,9 +528,8 @@
         if(indexPath.row==7)
         {
             NSString*getstring=[namearry objectAtIndex:7];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-            str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+
             [self date];
 //            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
 //            
@@ -409,9 +544,11 @@
         if(indexPath.row==6)
         {
             NSString*getstring=[namearry objectAtIndex:6];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-            str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+            
+//            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
+//            str1=[arry objectAtIndex:0];
+//            str2=[arry objectAtIndex:1];
             [self date];
 //            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
 //            
@@ -421,9 +558,8 @@
         if(indexPath.row==7)
         {
             NSString*getstring=[namearry objectAtIndex:7];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-            str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+
             [self date];
 //            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
 //            
@@ -433,9 +569,8 @@
         if(indexPath.row==8)
         {
             NSString*getstring=[namearry objectAtIndex:8];
-            NSArray*arry=[getstring componentsSeparatedByString:@"+"];
-            str1=[arry objectAtIndex:0];
-            str1=[arry objectAtIndex:1];
+            str4textfield=getstring;
+
             [self date];
 //            JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
 //            
@@ -461,7 +596,7 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",_searchfield.text,str1,str2,str3];
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",str4textfield,str1,str2,str3];
         
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
@@ -504,12 +639,13 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";
                 }
-
+                
+                
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
               
                 
@@ -621,7 +757,7 @@
 -(void)searchButtonclick
 {
 
-    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES&&[self isBlankString:_searchfield.text]==YES)
+    if([self isBlankString:str1]==YES&&[self isBlankString:str2]==YES&&[self isBlankString:str3]==YES&&[self isBlankString:str4textfield]==YES)
     {
         [self showMessage:@"请选择查询条件" viewHeight:SCREEN_HEIGHT/2-80];
         return;
@@ -645,14 +781,28 @@
     
     }
     NSMutableDictionary*dict=[[NSMutableDictionary alloc]init];
+    if([self isBlankString: str1]==NO)
+    {
     [dict setValue:str1 forKey:@"12"];
-    [dict setValue:str2 forKey:@"13"];
+    }
+    if([self isBlankString: str2]==NO)
+    {
+        [dict setValue:[NSString stringWithFormat:@"%@",str2] forKey:@"13"];
+    }
+    if([self isBlankString: str4textfield]==NO)
+    {
+        [dict setValue:[NSString stringWithFormat:@"%@",str4textfield] forKey:@"14"];
+    }
     
+  
+    
+
     [recordsarry addObject:dict];
     
     [userDefaults setObject:recordsarry forKey:@"record"];
     [userDefaults synchronize];
     
+    str4textfield=@"";
 
      str1=@"";
     
@@ -660,6 +810,15 @@
     
 
     
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField;           // became first responder
+
+{
+
+
+    str4textfield=_searchfield.text;
+    
+
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

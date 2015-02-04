@@ -85,7 +85,11 @@
     {
         [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
         
+        _Seatchtable.footerPullToRefreshText = @"已经为您加载了全部数据亲";
+        _Seatchtable.footerReleaseToRefreshText = @"已经为您加载了全部数据亲";
+        _Seatchtable.footerRefreshingText = @"已经为您加载了全部数据亲";
         
+        [_Seatchtable footerEndRefreshing];
         
     }
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

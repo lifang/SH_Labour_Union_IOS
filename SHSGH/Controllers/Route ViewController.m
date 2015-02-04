@@ -361,7 +361,8 @@
         
         MapdetalViewController*map=[[MapdetalViewController alloc]init];
         map.coreld=self.coreld;
-        ;
+        map.city=self.city;
+        
         
         map.awhichway=2;
         
@@ -376,7 +377,8 @@
         
         MapdetalViewController*map=[[MapdetalViewController alloc]init];
         map.coreld=self.coreld;
-        ;
+        map.city=self.city;
+
         
         map.awhichway=1;
         
@@ -392,7 +394,8 @@
     MapdetalViewController*map=[[MapdetalViewController alloc]init];
     map.coreld=self.coreld;
     map.bline=indexPath.row;
-
+    map.city=self.city;
+    
     map.awhichway=3;
     
     [self.navigationController pushViewController:map animated:YES];

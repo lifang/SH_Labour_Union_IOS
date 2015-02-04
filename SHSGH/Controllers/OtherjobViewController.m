@@ -59,7 +59,7 @@
         NSString *urls =  [NSString stringWithFormat:@"/api/job/findOtherJobById?id=%@",self.otherids];
 
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
+        NSLog(@"ppppppppp地对地导弹%@",self.otherids);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -88,6 +88,7 @@
                 }
                 
                
+                [_Conditionstable reloadData];
                 
                 
                 
@@ -154,7 +155,8 @@
                 
                 jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
                 jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
-                
+                jobdetal.chanageA=9;
+
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];
                 
@@ -285,14 +287,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
+//    JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
     JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
-    jobdetal.chanageA=9;
     
     getids=jobp.jobid;
     [self date];
     
-    [self.navigationController pushViewController:jobdetal animated:YES];
+//    [self.navigationController pushViewController:jobdetal animated:YES];
     
     
 }
