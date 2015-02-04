@@ -272,7 +272,7 @@
 
                 jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
                 jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
-                jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_id"]];
+                jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"id"]];
 
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];

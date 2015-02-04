@@ -36,7 +36,8 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
     UIWebView*requirecontent=[[UIWebView alloc]init];
-    
+   requirecontent.backgroundColor=[UIColor whiteColor];
+
     [requirecontent loadHTMLString:self.contentstring baseURL:nil];
     
     //        simpleintroducetlable.numberOfLines=0;

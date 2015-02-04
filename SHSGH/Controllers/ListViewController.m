@@ -45,7 +45,7 @@
         //设置定位精度
         _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
         //定位频率,每隔多少米定位一次
-        CLLocationDistance distance=10.0;//十米定位一次
+        CLLocationDistance distance=100.0;//十米定位一次
         _locationManager.distanceFilter=distance;
         //启动跟踪定位
         [_locationManager startUpdatingLocation];
@@ -88,11 +88,46 @@
     per_lon=[NSString stringWithFormat:@"%f",coordinate.longitude];
     
     per_lat=[NSString stringWithFormat:@"%f",coordinate.latitude];
+    
+    
+    _searchers =[[BMKGeoCodeSearch alloc]init];
+    _searchers.delegate = self;
+    
+    
+    CLLocationCoordinate2D pt =coordinate;
+    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[
+                                                            BMKReverseGeoCodeOption alloc]init];
+    reverseGeoCodeSearchOption.reverseGeoPoint = pt;
+    BOOL flagf = [_searchers reverseGeoCode:reverseGeoCodeSearchOption];
+    if(flagf)
+    {
+        NSLog(@"反geo检索发送成功");
+    }
+    else
+    {
+        NSLog(@"反geo检索发送失败");
+    }
+    
+
     [self date];
 
     NSLog(@"经度：%f,纬度：%f,海拔：%f,航向：%f,行走速度：%f",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
     //如果不需要实时定位，使用完即使关闭定位服务
     [_locationManager stopUpdatingLocation];
+}
+-(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:
+(BMKReverseGeoCodeResult *)result
+                        errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR)
+        
+    {
+        city=result.addressDetail.city;
+        
+        NSLog(@"%@",result.addressDetail.city);
+    }
+    else {
+        NSLog(@"抱歉，未找到结果");
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -135,6 +170,7 @@
 {
     DituViewController*ditu=[[DituViewController alloc]init];
     
+    ditu.city=city;
     
     [self.navigationController pushViewController:ditu animated:YES];
     

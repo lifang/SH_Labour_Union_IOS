@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "BMapKit.h"
-@interface ListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate>
+@interface ListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate>
 {
     
     UITableView*_Seatchtable;
     NSArray*namearry;
     NSMutableArray*_allarry;
-    
+    BMKGeoCodeSearch*_searchers;
+
     UITextField*_searchfield;
     NSString*urls;
     BOOL _isReloadingAllData;
@@ -23,7 +24,8 @@
     NSInteger firstA;
     NSString*per_lon;
     NSString*per_lat;
-
+    NSString*city;
+    
     CLLocationManager* _locationManager;
 
     

@@ -61,7 +61,7 @@
     
     UILabel*jobname=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH/2, 30)];
     [bigscrollow addSubview:jobname];
-    jobname.text=[NSString stringWithFormat:@"%@ (%@  )",self.zhiweiname,self.peoplenumber];
+    jobname.text=[NSString stringWithFormat:@"%@ (%@)",self.zhiweiname,self.peoplenumber];
 //    UILabel*discuss=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-70, 50, 60, 10)];
 //    discuss.font=[UIFont systemFontOfSize:15];
 //    discuss.textColor=[UIColor redColor];

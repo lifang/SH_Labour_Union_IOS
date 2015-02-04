@@ -17,6 +17,8 @@
 #import "MJRefresh.h"
 #import "MJRefreshFooterView.h"
 #import "people.h"
+#import "EGOImageView.h"
+
 @interface TradeViewController ()
 
 @end
@@ -216,7 +218,7 @@
     
    
    
-    cell.logoImageView.frame=CGRectMake(0, -5, SCREEN_WIDTH, cell.namelable.frame.size.height+20);
+    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+20);
     
     
     
@@ -256,14 +258,23 @@
     
     
 //       [ touchclickimageview addGestureRecognizer:singleTapss];
-    UIImageView *logoimageview = [[UIImageView alloc]init];
+    EGOImageView *logoimageview = [[EGOImageView alloc]init];
     
-    logoimageview.frame = CGRectMake(10, 10, 80, 80);
-    logoimageview.image=[UIImage imageNamed:@"structure"];
+    logoimageview.frame = CGRectMake(10, 10, 80, 100);
+    
+
+//    logoimageview.image=[UIImage imageNamed:@"structure"];
     
     [rootimageview addSubview:logoimageview];
     logoimageview.userInteractionEnabled=NO;
     people*peop=[_allarry objectAtIndex:section];
+    
+//    EGOImageView *imageView = [[EGOImageView alloc]init];
+    
+    
+    NSURL *imageUrl = [NSURL URLWithString:peop.images];
+    logoimageview.imageURL = imageUrl;
+//    [logoimageview  sd_setImageWithURL:[NSURL URLWithString:peop.images] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
 
     UILabel*namelable=[[UILabel alloc]init];
     namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 20);
@@ -619,6 +630,8 @@
 
                     
                     }
+                    peo.images=[[arry objectAtIndex:i] objectForKey:@"logo"];
+
                     
                     peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
                     peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
@@ -644,9 +657,13 @@
                 if(_allarry.count==totalCount)
                 {
                     [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+                    _Seatchtable.footerPullToRefreshText = @"已经为您加载了全部数据亲";
+                    _Seatchtable.footerReleaseToRefreshText = @"已经为您加载了全部数据亲";
+                    _Seatchtable.footerRefreshingText = @"已经为您加载了全部数据亲";
                     
-                    
-                    
+                    [_Seatchtable footerEndRefreshing];
+//                    _Seatchtable.footerHidden = YES;
+
                 }
 
               
