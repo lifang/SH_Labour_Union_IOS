@@ -22,4 +22,7 @@
 
 @property(nonatomic,weak)id<sendCity> delegate;
 
+@property(nonatomic,strong)NSString *province;
+@property(nonatomic,strong)NSString *downtown;
+
 @end

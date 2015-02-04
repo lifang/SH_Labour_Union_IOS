@@ -20,7 +20,7 @@
 #import "MainImage.h"
 #import "EGOImageView.h"
 
-@interface MainViewController ()<ReuseViewDelegate>
+@interface MainViewController ()<ReuseViewDelegate,EGOImageViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray *imageArray;
 
@@ -351,6 +351,7 @@
     int ids = (int)imageView.view.tag - 101;
     EGOImageView *bigV = [[EGOImageView alloc]init];
     bigV.userInteractionEnabled = YES;
+    bigV.delegate = self;
     bigV.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_bigArray[ids]]];
     bigV.backgroundColor = [UIColor clearColor];
     bigV.frame = CGRectMake(0, 0, mainScreenW, mainScreenH);
@@ -379,4 +380,10 @@
         [hud hide:YES afterDelay:2];
     }
 }
+
+#pragma mark -
+- (void)imageViewLoadedImage:(EGOImageView*)imageView {
+    NSLog(@"%@",NSStringFromCGSize(imageView.image.size));
+}
+
 @end

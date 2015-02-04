@@ -47,7 +47,7 @@
     [super layoutSubviews];
     
     _leftImg.frame = CGRectMake(CostumViewMargin * 3, 10, 33, 33);
-    _contentLabel.frame = CGRectMake(CGRectGetMaxX(_leftImg.frame) + 3 * CostumViewMargin, 14, 180, 30);
+    _contentLabel.frame = CGRectMake(CGRectGetMaxX(_leftImg.frame) + 3 * CostumViewMargin, 14, mainViewW * 0.7, 30);
     _rightImg.frame = CGRectMake(mainViewW - 22 - 2 * CostumViewMargin, 12, 16, 30);
     _clickBtn.frame = self.bounds;
 }

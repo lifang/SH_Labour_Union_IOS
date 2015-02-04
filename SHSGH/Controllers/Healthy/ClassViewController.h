@@ -11,7 +11,7 @@
 @protocol sendClass <NSObject>
 
 @optional
--(void)sendClass:(NSString *)className;
+-(void)sendClass:(NSString *)className WithDeptid:(NSString *)deptid;
 
 @end
 
@@ -19,4 +19,6 @@
 @property(nonatomic,weak)id<sendClass> delegate;
 
 @property(nonatomic,strong)NSString *className;
+@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *hospitalid;
 @end

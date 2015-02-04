@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMapKit.h"
 
-@interface HealthyHomeViewController : UIViewController
+@interface HealthyHomeViewController : UIViewController<CLLocationManagerDelegate,BMKGeoCodeSearchDelegate>
+{
+    NSMutableArray*_allarry;
+    BMKGeoCodeSearch*_searchers;
+    NSString*cityLocateName;
+    NSString*provinceLocateName;
+    CLLocationManager* _locationManager;
+    NSString*per_lon;
+    NSString*per_lat;
+}
 
 @end

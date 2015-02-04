@@ -102,6 +102,7 @@
     _usernameField.delegate = self;
     _usernameField.placeholder = @"请输入用户名";
     _usernameField.font = [UIFont systemFontOfSize:15.f];
+    _usernameField.returnKeyType = UIReturnKeyDone;
     UIView *nameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
     nameImageView.image = [UIImage imageNamed:@"accounts"];
@@ -689,6 +690,15 @@
         [alert show];
         return;
     }
+    if (![IsPhone isMobileNumber:_phoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"手机号格式不正确!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";
     
@@ -719,5 +729,11 @@
         });
         
     }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
 }
 @end

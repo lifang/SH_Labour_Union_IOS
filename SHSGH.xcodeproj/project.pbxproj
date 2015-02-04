@@ -72,6 +72,9 @@
 		9335480F1A733C68009F38D4 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 933548051A733C68009F38D4 /* UIScrollView+MJExtension.m */; };
 		933548101A733C68009F38D4 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 933548071A733C68009F38D4 /* UIScrollView+MJRefresh.m */; };
 		933548111A733C68009F38D4 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 933548091A733C68009F38D4 /* UIView+MJExtension.m */; };
+		934074841A81B7A100C3916B /* HospitalStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074831A81B7A100C3916B /* HospitalStatus.m */; };
+		934074871A81C0D000C3916B /* ClassStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074861A81C0D000C3916B /* ClassStatus.m */; };
+		9340748A1A81F01900C3916B /* DoctorStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074891A81F01900C3916B /* DoctorStatus.m */; };
 		9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */; };
 		935DDF731A75D76E00021146 /* DynamicChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF701A75D76E00021146 /* DynamicChildViewController.m */; };
 		935DDF741A75D76E00021146 /* dynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF721A75D76E00021146 /* dynamicViewController.m */; };
@@ -334,6 +337,12 @@
 		933548071A733C68009F38D4 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		933548081A733C68009F38D4 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		933548091A733C68009F38D4 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		934074821A81B7A100C3916B /* HospitalStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HospitalStatus.h; sourceTree = "<group>"; };
+		934074831A81B7A100C3916B /* HospitalStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HospitalStatus.m; sourceTree = "<group>"; };
+		934074851A81C0D000C3916B /* ClassStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassStatus.h; sourceTree = "<group>"; };
+		934074861A81C0D000C3916B /* ClassStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassStatus.m; sourceTree = "<group>"; };
+		934074881A81F01900C3916B /* DoctorStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoctorStatus.h; sourceTree = "<group>"; };
+		934074891A81F01900C3916B /* DoctorStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorStatus.m; sourceTree = "<group>"; };
 		9345FAD11A720AFF00426E82 /* HHZNoArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZNoArrowItem.h; sourceTree = "<group>"; };
 		9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZNoArrowItem.m; sourceTree = "<group>"; };
 		935DDF6F1A75D76E00021146 /* DynamicChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicChildViewController.h; sourceTree = "<group>"; };
@@ -866,6 +875,12 @@
 				936287B31A80D323000E4AE9 /* Province.m */,
 				936287B51A80DBC2000E4AE9 /* Downtown.h */,
 				936287B61A80DBC2000E4AE9 /* Downtown.m */,
+				934074821A81B7A100C3916B /* HospitalStatus.h */,
+				934074831A81B7A100C3916B /* HospitalStatus.m */,
+				934074851A81C0D000C3916B /* ClassStatus.h */,
+				934074861A81C0D000C3916B /* ClassStatus.m */,
+				934074881A81F01900C3916B /* DoctorStatus.h */,
+				934074891A81F01900C3916B /* DoctorStatus.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1153,7 +1168,6 @@
 				TargetAttributes = {
 					93C6F01C1A6CE747002C8E4A = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 63FVWL9TD6;
 					};
 					93C6F0351A6CE747002C8E4A = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1299,6 +1313,7 @@
 				0ECFF23A1A6F9871007F882E /* DetalsocialViewController.m in Sources */,
 				0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */,
 				935DDF8F1A75D80500021146 /* PersonalManagerViewController.m in Sources */,
+				934074841A81B7A100C3916B /* HospitalStatus.m in Sources */,
 				9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */,
 				0ECE9F5B1A734B7C001C448D /* PPiFlatSegmentedControl.m in Sources */,
 				0ECFF2481A6F9AE0007F882E /* Reachability.m in Sources */,
@@ -1315,6 +1330,7 @@
 				0ECF8A211A7B2B0400FCEC91 /* Route ViewController.m in Sources */,
 				935DDF911A75D80500021146 /* RegisterDoneViewController.m in Sources */,
 				0ECFF2361A6F8776007F882E /* RelatedViewController.m in Sources */,
+				9340748A1A81F01900C3916B /* DoctorStatus.m in Sources */,
 				93C592DB1A708D9700CDF8F7 /* HHZCommonLabelItem.m in Sources */,
 				0ECA438C1A79F4C300AEA86B /* ListViewController.m in Sources */,
 				0ED0FDE91A75E30300486C2E /* OrganizationViewController.m in Sources */,
@@ -1328,6 +1344,7 @@
 				935DDF921A75D80500021146 /* registerViewController.m in Sources */,
 				93F2B74B1A7F956B00AE20DF /* HospitalCell.m in Sources */,
 				93F2B73C1A7F5C3C00AE20DF /* HHZSearchBar.m in Sources */,
+				934074871A81C0D000C3916B /* ClassStatus.m in Sources */,
 				93C6F10F1A6CF0B5002C8E4A /* SUNTextFieldDemoViewController.m in Sources */,
 				0ECE9F691A734B98001C448D /* NSString+FontAwesome.m in Sources */,
 				93C6F0E51A6CF030002C8E4A /* MMDrawerBarButtonItem.m in Sources */,
@@ -1467,7 +1484,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a0b30dff-afe9-48d4-aac7-8f51583f4c38";
 			};
 			name = Debug;
 		};
@@ -1488,7 +1505,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a0b30dff-afe9-48d4-aac7-8f51583f4c38";
 			};
 			name = Release;
 		};
@@ -1542,7 +1559,7 @@
 				93C6F03F1A6CE747002C8E4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		93C6F0401A6CE747002C8E4A /* Build configuration list for PBXNativeTarget "SHSGH" */ = {
 			isa = XCConfigurationList;
@@ -1551,7 +1568,7 @@
 				93C6F0421A6CE747002C8E4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		93C6F0431A6CE747002C8E4A /* Build configuration list for PBXNativeTarget "SHSGHTests" */ = {
 			isa = XCConfigurationList;
@@ -1560,7 +1577,7 @@
 				93C6F0451A6CE747002C8E4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
