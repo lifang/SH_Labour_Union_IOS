@@ -133,7 +133,7 @@
     else
     {
         
-        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+//        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
         
         
     }
@@ -164,7 +164,8 @@
     if (error == BMK_SEARCH_NO_ERROR)
         
     {
-
+        [_linebusarry removeAllObjects];
+        
         
         for(int i=0;i<result.routes.count;i++)
         {
@@ -269,6 +270,7 @@
         
         
         [_mapView addAnnotation:annotation];
+        annotation=nil;
         
 
         NSLog(@"----%f",result.location.latitude);
@@ -294,6 +296,10 @@
 {
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
+    _mapView=nil;
+    _searchers=nil;
+    _locService=nil;
+    _locService.delegate=nil;
     
      _searchers.delegate = nil;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -317,16 +323,18 @@
     [_mapView addSubview:backview];
     UILabel*namelab=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREEN_HEIGHT-120, 30)];
     [backview addSubview:namelab];
-    namelab.text=@"风格";
+    namelab.text=self.name;
+    namelab.font=[UIFont systemFontOfSize:13];
     
     
     UILabel*addresslab=[[UILabel alloc]initWithFrame:CGRectMake(10, 30, SCREEN_HEIGHT-120, 20)];
     [backview addSubview:addresslab];
 
-    addresslab.text=@"风格dfgr";
+    addresslab.text=self.address;
     addresslab.textColor=[UIColor grayColor];
     
-    
+    addresslab.font=[UIFont systemFontOfSize:12];
+
     
     UIButton*addrbutton=[[UIButton alloc]init];
     
@@ -361,7 +369,9 @@
     Route_ViewController*route=[[Route_ViewController alloc]init];
     route.coreld=corld;
     route.city=self.city;
-    
+    route.address=self.address;
+    route.name=self.name;
+
     route.linarry=_linebusarry;
     
     [self.navigationController pushViewController:route animated:YES];

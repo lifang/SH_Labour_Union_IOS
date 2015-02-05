@@ -8,8 +8,10 @@
 
 #import "OrganizationdetalViewController.h"
 #import "navbarView.h"
-
+#import "EGOImageView.h"
 #import "DituViewController.h"
+#import "UIImageView+WebCache.h"
+
 @interface OrganizationdetalViewController ()
 
 @end
@@ -21,7 +23,34 @@
     // Do any additional setup after loading the view.
     self.title=@"机构详情";
     [self   createui];
+    _locationManager = [[CLLocationManager alloc]init];
+    if (![CLLocationManager locationServicesEnabled]) {
+        [self showMessage:@"定位服务当前可能尚未打开，请设置打开" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        return;
+    }
     
+    //如果没有授权则请求用户授权
+    if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
+        
+    {
+        if(iOS7)
+        {
+            [_locationManager requestWhenInUseAuthorization];
+        }
+    }
+    else {
+        //设置代理
+        _locationManager.delegate=self;
+        //设置定位精度
+        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        //定位频率,每隔多少米定位一次
+        CLLocationDistance distance=100.0;//十米定位一次
+        _locationManager.distanceFilter=distance;
+        //启动跟踪定位
+        [_locationManager startUpdatingLocation];
+    }
+
     _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
 
     
@@ -44,6 +73,69 @@
     
     [ self setnavBar];
     [ self setNavBar];
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+    CLLocation *location=[locations firstObject];//取出第一个位置
+    CLLocationCoordinate2D coordinate=location.coordinate;//位置坐标
+    
+    
+    per_lon=[NSString stringWithFormat:@"%f",coordinate.longitude];
+    
+    per_lat=[NSString stringWithFormat:@"%f",coordinate.latitude];
+    
+    
+    _searchers =[[BMKGeoCodeSearch alloc]init];
+    _searchers.delegate = self;
+    
+    
+    CLLocationCoordinate2D pt =coordinate;
+    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[
+                                                            BMKReverseGeoCodeOption alloc]init];
+    reverseGeoCodeSearchOption.reverseGeoPoint = pt;
+    BOOL flagf = [_searchers reverseGeoCode:reverseGeoCodeSearchOption];
+    if(flagf)
+    {
+        NSLog(@"反geo检索发送成功");
+    }
+    else
+    {
+        NSLog(@"反geo检索发送失败");
+    }
+    
+    
+  
+    
+    NSLog(@"经度：%f,纬度：%f,海拔：%f,航向：%f,行走速度：%f",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
+    //如果不需要实时定位，使用完即使关闭定位服务
+    [_locationManager stopUpdatingLocation];
+}
+-(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:
+(BMKReverseGeoCodeResult *)result
+                        errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR)
+        
+    {
+        city=result.addressDetail.city;
+        
+        NSLog(@"%@",result.addressDetail.city);
+    }
+    else {
+        NSLog(@"抱歉，未找到结果");
+    }
 }
 -(void)createui
 {
@@ -72,13 +164,13 @@
     {
         UIImageView *imageview = [[UIImageView alloc]init];
 //        NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
-//        [imageview sd_setImageWithURL:[NSURL URLWithString:urlstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
-//        //
+        [imageview sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+        //
         
         [imageview setContentMode:UIViewContentModeScaleAspectFill];
         
-       imageview.image=[UIImage imageNamed:@"btn-l"];
-        
+//        imageview.placeholderImage=[UIImage imageNamed:@"defaultimages"];
+
         imageview.frame = CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, 200);
         
         [_scrool addSubview:imageview];
@@ -114,8 +206,20 @@
     timelable.textColor=[UIColor grayColor];
     timelable.numberOfLines=0;
     [bigscroll addSubview:timelable];
-    timelable.text=@"08:22-12:58";
     
+    if([self isBlankString:self.time] )
+    {
+        timelable.text=@"办公时间:  08:22-12:58";
+
+    
+    }
+    else
+    {
+    
+        timelable.text=[NSString stringWithFormat:@"办公时间:  %@",self.time];
+        
+    
+    }
    
     UILabel*phonelable=[[UILabel alloc]init];
     phonelable.frame=CGRectMake(10, timelable.frame.size.height+timelable.frame.origin.y, SCREEN_WIDTH-60, 20);
@@ -124,7 +228,7 @@
     phonelable.textColor=[UIColor grayColor];
     phonelable.numberOfLines=0;
     [bigscroll addSubview:phonelable];
-    phonelable.text=[NSString stringWithFormat:@"联系电话:    %@",self.tel];
+    phonelable.text=[NSString stringWithFormat:@"联系电话:  %@",self.tel];
 
     UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -144,7 +248,7 @@
     
     
     
-    UIButton*addressbutton=[[UIButton alloc] initWithFrame:CGRectMake(0, linelable1.frame.origin.y+10,SCREEN_WIDTH, 30)];
+    UIButton*addressbutton=[[UIButton alloc] initWithFrame:CGRectMake(0, linelable1.frame.origin.y+10,SCREEN_WIDTH, 20)];
     
     [bigscroll addSubview:addressbutton];
     addressbutton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
@@ -159,7 +263,7 @@
     
     UIImageView *nextimageview = [[UIImageView alloc]init];
     
-    nextimageview.frame = CGRectMake(SCREEN_WIDTH-40, linelable1.frame.size.height+linelable1.frame.origin.y+13, 15, 20);
+    nextimageview.frame = CGRectMake(SCREEN_WIDTH-40, linelable1.frame.size.height+linelable1.frame.origin.y+10, 10, 15);
     nextimageview.image=[UIImage imageNamed:@"particular_Gray"];
     
     [bigscroll addSubview:nextimageview];
@@ -169,7 +273,7 @@
     
     UIImageView *dituimageview = [[UIImageView alloc]init];
     
-    dituimageview.frame = CGRectMake(10, 5, 20, 20);
+    dituimageview.frame = CGRectMake(10, 0, 20, 20);
     dituimageview.image=[UIImage imageNamed:@"ditu"];
     
     [addressbutton addSubview:dituimageview];
@@ -186,7 +290,7 @@
     
     UIImageView *llogoimageview = [[UIImageView alloc]init];
     
-    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 30, 30);
+    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 20, 20);
     llogoimageview.image=[UIImage imageNamed:@"jieshao"];
     
     [bigscroll addSubview:llogoimageview];
@@ -196,7 +300,7 @@
     
     
     UILabel*llogolable=[[UILabel alloc]init];
-    llogolable.frame=CGRectMake(50, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 30);
+    llogolable.frame=CGRectMake(35, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 20);
     
 //    llogolable.font=[UIFont systemFontOfSize:15];
     //    requirecontent.textColor=[UIColor grayColor];
@@ -218,7 +322,7 @@
     requirecontent.textColor=[UIColor grayColor];
     requirecontent.numberOfLines=0;
     [bigscroll addSubview:requirecontent];
-    requirecontent.text=@"任职要求：都刚好合适的话他还是身体是他说他是如何谁认识他是搞糊涂人士同时也会是符合人体还是事故发生突然";
+    requirecontent.text=@"   暂无介绍";
     
     [requirecontent sizeToFit];
     
@@ -229,11 +333,27 @@
 
 
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 -(void)dituclick
 {
 
     DituViewController*ditu=[[DituViewController alloc]init];
-    
+    ditu.address=self.address;
+    ditu.name=self.name;
+
+    ditu.city=city;
     
     [self.navigationController pushViewController:ditu animated:YES];
 

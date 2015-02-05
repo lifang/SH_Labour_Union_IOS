@@ -19,9 +19,13 @@
     NSArray*_hightarry;
     NSInteger     _seletedIndex;
     BOOL _flagArray[100];
-
+    UIView*rootview;
+    
 
 }
+@property(nonatomic,strong)NSString *address;
+@property(nonatomic,strong)NSString *name;
+
 @property(nonatomic,strong)NSArray*linarry;
 @property(nonatomic,assign)CLLocationCoordinate2D coreld;
 @property(nonatomic,strong)NSString *city;

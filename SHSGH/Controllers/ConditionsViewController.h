@@ -18,7 +18,7 @@ typedef void (^aBlock)(NSString *hangyestring);
     NSMutableArray*_allarry;
 
     BOOL _isReloadingAllData;
-
+//    MBProgressHUD*HUD;
 }
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;

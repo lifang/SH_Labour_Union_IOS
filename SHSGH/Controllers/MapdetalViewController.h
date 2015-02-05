@@ -10,7 +10,7 @@
 #import "BMapKit.h"
 @interface MapdetalViewController : UIViewController<BMKMapViewDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,BMKLocationServiceDelegate>
 {
-    BMKMapView* _mapView;
+    BMKMapView* _mapViews;
     BMKRouteSearch*_searcher;
     
     double per_lon;

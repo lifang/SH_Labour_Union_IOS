@@ -96,9 +96,9 @@
 -(void)createui
 {
      //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     
-    _helptable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+    _helptable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     [self.view addSubview:_helptable];
     
     [self.view addSubview:_Seatchtable];

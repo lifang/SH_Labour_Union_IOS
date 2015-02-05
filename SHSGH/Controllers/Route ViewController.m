@@ -16,18 +16,34 @@
 @end
 
 @implementation Route_ViewController
-
+-(void)viewWillAppear:(BOOL)animated
+{
+   
+    if(self.linarry.count==0)
+    {
+        
+        [self showMessage:@"无合适路线" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        
+    }
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title=@"查看路线";
+   
+    _seletedIndex=1;
+    
     _gryarry=[NSArray arrayWithObjects:@"bus_Gray",@"taxi_Gray",@"walk_Gray", nil];
     _hightarry=[NSArray arrayWithObjects:@"bus-1",@"taxi",@"walk", nil];
+    [self createui];
     [_Seatchtable reloadData];
+   
 
     // Do any additional setup after loading the view.
     [ self setnavBar];
     [ self setNavBar];
-    [self createui];
+  
 //    NSLog(@"%@",[self.linarry objectAtIndex:0]) ;
     
 }
@@ -91,15 +107,15 @@
     
     
     
-    UILabel*addresslab=[[UILabel alloc]initWithFrame:CGRectMake(40, 50, 140, 30)];
+    UILabel*addresslab=[[UILabel alloc]initWithFrame:CGRectMake(40, 50, SCREEN_WIDTH-80, 30)];
     [backview addSubview:addresslab];
     
-    addresslab.text=@"学而好机构";
+    addresslab.text=self.name;
     addresslab.textColor=[UIColor grayColor];
     addresslab.font=[UIFont systemFontOfSize:15];
 
     
-    _seletedIndex=1;
+  
     
     
     for(NSInteger i=0;i<3;i++)
@@ -136,6 +152,49 @@
     
     }
     
+   rootview=[[UIView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    
+    [self.view addSubview:rootview];
+    rootview.backgroundColor=[UIColor whiteColor];
+    
+  
+    rootview.hidden=YES;
+    
+    
+    
+    UIButton*addressbutton=[[UIButton alloc] initWithFrame:CGRectMake(0, 10,SCREEN_WIDTH, 30)];
+    
+    [rootview addSubview:addressbutton];
+    addressbutton.titleLabel.font = [UIFont systemFontOfSize: 16.0];
+//    [addressbutton addTarget:self action:@selector(dituclick) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [addressbutton setTitle:[NSString stringWithFormat:@"   当前位置  →%@",self.address] forState:UIControlStateNormal];
+    [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    
+    
+//    UIImageView *nextimageview = [[UIImageView alloc]init];
+//    
+//    nextimageview.frame = CGRectMake(SCREEN_WIDTH-40, 13, 15, 20);
+//    nextimageview.image=[UIImage imageNamed:@"particular_Gray"];
+//    
+//    [rootview addSubview:nextimageview];
+    
+    
+    
+    
+    
+    
+    
+    UILabel*linelable2=[[UILabel alloc]init];
+    linelable2.frame=CGRectMake(0, addressbutton.frame.size.height+addressbutton.frame.origin.y+10, SCREEN_WIDTH, 1);
+    linelable2.backgroundColor=[UIColor colorWithWhite:0.8 alpha:1];
+    [rootview addSubview:linelable2];
+    
+
+    
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
     
@@ -151,6 +210,20 @@
     
 }
 
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -358,7 +431,8 @@
     {
         
         _Seatchtable.hidden=YES;
-        
+        rootview.hidden=NO;
+
         MapdetalViewController*map=[[MapdetalViewController alloc]init];
         map.coreld=self.coreld;
         map.city=self.city;

@@ -19,15 +19,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     
     
 
     self.title=self.conditionsname;
-    [self createui];
     
+ 
+
+    [self createui];
+       [self date];
   
-[self date];
     // Do any additional setup after loading the view.
     _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
@@ -135,13 +138,16 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";
                 }
-
+                
+                
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
                 
                 
                 

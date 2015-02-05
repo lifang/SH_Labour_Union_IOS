@@ -140,7 +140,7 @@
                           
                       }];
     
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-104) style: UITableViewStylePlain];
     
     
     [self.view addSubview:_Seatchtable];
@@ -494,7 +494,8 @@
                 
                 
                 detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
-                
+                detal.time=[[result objectForKey:@"result"]  objectForKey:@"worktime"];
+
                 detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
                 detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
                 NSLog(@"%@",detal.name);
