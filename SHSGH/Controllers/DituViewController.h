@@ -23,6 +23,8 @@
     
 }
 @property(nonatomic,strong)NSString *city;
+@property(nonatomic,strong)NSString *address;
+@property(nonatomic,strong)NSString *name;
 
 @property(nonatomic,strong)CLGeocoder *geocoder;
 @property(nonatomic,assign)NSInteger  awhichway;

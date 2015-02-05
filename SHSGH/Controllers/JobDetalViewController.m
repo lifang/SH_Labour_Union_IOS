@@ -44,6 +44,7 @@
 
 -(void)createui
 {
+    
     if(iOS7)
     {
         self.navigationController.navigationBar.barTintColor=HHZColor(110, 0, 0);
@@ -84,6 +85,16 @@
     address.font=[UIFont systemFontOfSize:15];
     address.textColor=[UIColor grayColor];
     [bigscrollow addSubview:address];
+    NSLog(@"%@",self.area);
+
+    if([self isBlankString:self.area]==NO)
+    {
+        
+    self.area=@"";
+        
+    
+    }
+     NSLog(@"%hhd",[self isBlankString:self.area]);
     address.text=[NSString stringWithFormat:@"上海  %@",self.area];
 
     UILabel*require=[[UILabel alloc]initWithFrame:CGRectMake(20, 80, SCREEN_WIDTH-20, 30)];
@@ -97,6 +108,15 @@
       requirecontent.textColor=[UIColor grayColor];
      requirecontent.numberOfLines=0;
     [bigscrollow addSubview:requirecontent];
+    
+    
+    if([self isBlankString:self.require]==NO)
+    {
+        self.require=@"暂无要求";
+        
+        
+        
+    }
     requirecontent.text=self.require;
 
     [requirecontent sizeToFit];
@@ -135,6 +155,15 @@
       coompamycontent.textColor=[UIColor grayColor];
     [bigscrollow addSubview:coompamycontent];
     coompamycontent.numberOfLines=0;
+    
+    
+    if([self isBlankString:self.companyintroduce]==NO)
+    {
+        self.companyintroduce=@"暂无介绍";
+        
+        
+        
+    }
     coompamycontent.text=self.companyintroduce;
     [coompamycontent sizeToFit];
     
@@ -181,6 +210,19 @@
     
     
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 -(void)otherclick
 {
     OtherjobViewController*otherview=[[OtherjobViewController alloc]init];

@@ -10,6 +10,7 @@
 #import "navbarView.h"
 #import "ListViewController.h"
 #import "BMapKit.h"
+#import "UIImageView+WebCache.h"
 
 
 @interface TradedetalViewController ()
@@ -21,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"商户详情";
+    self.title=@"商家详情";
     [self   createui];
     
     _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
@@ -110,13 +111,13 @@
     for (int i = 0 ; i < 3 ; i ++ )
     {
         UIImageView *imageview = [[UIImageView alloc]init];
-        //        NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
-        //        [imageview sd_setImageWithURL:[NSURL URLWithString:urlstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
-        //        //
+//                NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
+                [imageview sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+                //
         
         [imageview setContentMode:UIViewContentModeScaleAspectFill];
         
-        imageview.image=[UIImage imageNamed:@"defaultimages"];
+      
         
         imageview.frame = CGRectMake(i*SCREEN_WIDTH, 0, SCREEN_WIDTH, 200);
         

@@ -408,8 +408,6 @@
     {
         ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"行业类别";
-        
-     [self.navigationController pushViewController:searchviewcontroller animated:YES];
         searchviewcontroller.block=^(NSString*hangyestring){
             
             str1=hangyestring;
@@ -418,6 +416,8 @@
             
         };
 
+     [self.navigationController pushViewController:searchviewcontroller animated:YES];
+        
     }
     
      //  首选工作区域

@@ -17,13 +17,15 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [_mapView viewWillAppear];
+    [super viewWillAppear:animated];
+
+    [_mapViews viewWillAppear];
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
-    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+    _mapViews.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
     
 //    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
 //    //指定最小距离更新(米)，默认：kCLDistanceFilterNone
@@ -71,9 +73,14 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [_mapView viewWillDisappear];
-    _mapView.delegate = nil; // 不用时，置nil
-    
+    [super viewWillDisappear:animated];
+    [_mapViews viewWillDisappear];
+
+    _mapViews.delegate = nil; // 不用时，置nil
+    _mapViews=nil;
+    _searcher=nil;
+    _locService=nil;
+    _locService.delegate=nil;
     _searchers.delegate = nil;
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
@@ -86,11 +93,11 @@
     [super viewDidLoad];
     [ self setnavBar];
     [ self setNavBar];
-    _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
-    [self.view  addSubview: _mapView];
-    _mapView.zoomLevel = 14;
+    _mapViews = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+    [self.view  addSubview: _mapViews];
+    _mapViews.zoomLevel = 14;
     [self  clickwhichway];
-    [_mapView setCenterCoordinate:self.coreld];
+    [_mapViews setCenterCoordinate:self.coreld];
 
     // Do any additional setup after loading the view.
 }
@@ -130,7 +137,8 @@
         }
         
         
-
+        start = nil;end=nil;
+        transitRouteSearchOption = nil;
     
     
     }
@@ -167,7 +175,8 @@
         }
         
         
-        
+        start = nil;end=nil;
+        transitRouteSearchOptions = nil;
         
         
     }
@@ -204,7 +213,8 @@
         }
         
         
-        
+        start = nil;end=nil;
+        transitRouteSearchOptions = nil;
         
         
     }
@@ -248,7 +258,7 @@
         BMKTransitRouteLine* planl = (BMKTransitRouteLine*)[result.routes objectAtIndex: self.bline];
         
       
-            int size = [planl.steps count];
+            NSInteger size = [planl.steps count];
             int planPointCounts = 0;
             for (int i = 0; i < size; i++) {
                 BMKTransitStep* transitStep = [planl.steps objectAtIndex:i];
@@ -259,20 +269,26 @@
                     NSLog(@"----%f",planl.starting.location.latitude);
                     
                     
-                    [_mapView addAnnotation:item]; // 添加起点标注
+                    [_mapViews addAnnotation:item]; // 添加起点标注
+                    
+                    item=nil;
+
                 }else if(i==size-1){
                     BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
                     item.coordinate = planl.terminal.location;
                     item.title = @"终点";
                     //                item.type = 1;
-                    [_mapView addAnnotation:item]; // 添加起点标注
+                    [_mapViews addAnnotation:item]; // 添加起点标注
+                    item=nil;
+
                 }
                 BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
                 item.coordinate = transitStep.entrace.location;
                 item.title = transitStep.instruction;
                 //            item.type = 3;
-                [_mapView addAnnotation:item];
-                
+                [_mapViews addAnnotation:item];
+                item=nil;
+
                 //轨迹点总数累计
                 planPointCounts += transitStep.pointsCount;
             }
@@ -290,7 +306,7 @@
             }
             // 通过points构建BMKPolyline
             BMKPolyline* polyLine = [BMKPolyline polylineWithPoints:temppoints count:planPointCounts];
-            [_mapView addOverlay:polyLine]; // 添加路线overlay
+            [_mapViews addOverlay:polyLine]; // 添加路线overlay
             delete []temppoints;
         }
     
@@ -302,7 +318,7 @@
     if (error == BMK_SEARCH_NO_ERROR) {
         BMKDrivingRouteLine* plan = (BMKDrivingRouteLine*)[result.routes objectAtIndex:0];
         // 计算路线方案中的路段数目
-        int size = [plan.steps count];
+        NSInteger size = [plan.steps count];
         int planPointCounts = 0;
         for (int i = 0; i < size; i++) {
             BMKDrivingStep* transitStep = [plan.steps objectAtIndex:i];
@@ -310,7 +326,7 @@
                 BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
                 item.coordinate = plan.starting.location;
                 item.title = @"起点";
-                [_mapView addAnnotation:item]; // 添加起点标注
+                [_mapViews addAnnotation:item]; // 添加起点标注
                 item=nil;
                 
             }else if(i==size-1){
@@ -318,14 +334,14 @@
                 item.coordinate = plan.terminal.location;
                 item.title = @"终点";
 
-                [_mapView addAnnotation:item]; // 添加起点标注
+                [_mapViews addAnnotation:item]; // 添加起点标注
                 item=nil;
             }
             //添加annotation节点
             BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
             item.coordinate = transitStep.entrace.location;
             item.title = transitStep.entraceInstruction;
-            [_mapView addAnnotation:item];
+            [_mapViews addAnnotation:item];
             item=nil;
             //轨迹点总数累计
             planPointCounts += transitStep.pointsCount;
@@ -337,7 +353,7 @@
                 item = [[BMKPointAnnotation alloc]init];
                 item.coordinate = tempNode.pt;
                 item.title = tempNode.name;
-                [_mapView addAnnotation:item];
+                [_mapViews addAnnotation:item];
                 item=nil;
             }
         }
@@ -355,7 +371,7 @@
         }
         // 通过points构建BMKPolyline
         BMKPolyline* polyLine = [BMKPolyline polylineWithPoints:temppoints count:planPointCounts];
-        [_mapView addOverlay:polyLine]; // 添加路线overlay
+        [_mapViews addOverlay:polyLine]; // 添加路线overlay
         delete []temppoints;
         
         
@@ -364,13 +380,13 @@
 
 - (void)onGetWalkingRouteResult:(BMKRouteSearch*)searcher result:(BMKWalkingRouteResult*)result errorCode:(BMKSearchErrorCode)error
 {
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:array];
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:array];
     if (error == BMK_SEARCH_NO_ERROR) {
         BMKWalkingRouteLine* plan = (BMKWalkingRouteLine*)[result.routes objectAtIndex:0];
-        int size = [plan.steps count];
+        NSInteger size = [plan.steps count];
         int planPointCounts = 0;
         for (int i = 0; i < size; i++) {
             
@@ -379,21 +395,21 @@
                 BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
                 item.coordinate = plan.starting.location;
                 item.title = @"起点";
-                [_mapView addAnnotation:item]; // 添加起点标注
+                [_mapViews addAnnotation:item]; // 添加起点标注
                 item=nil;
                 
             }else if(i==size-1){
                 BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
                 item.coordinate = plan.terminal.location;
                 item.title = @"终点";
-                [_mapView addAnnotation:item]; // 添加起点标注
+                [_mapViews addAnnotation:item]; // 添加起点标注
                 item=nil;
             }
             //添加annotation节点
             BMKPointAnnotation* item = [[BMKPointAnnotation alloc]init];
             item.coordinate = transitStep.entrace.location;
             item.title = transitStep.entraceInstruction;
-            [_mapView addAnnotation:item];
+            [_mapViews addAnnotation:item];
             item=nil;
             //轨迹点总数累计
             planPointCounts += transitStep.pointsCount;
@@ -412,7 +428,7 @@
         }
         // 通过points构建BMKPolyline
         BMKPolyline* polyLine = [BMKPolyline polylineWithPoints:temppoints count:planPointCounts];
-        [_mapView addOverlay:polyLine]; // 添加路线overlay
+        [_mapViews addOverlay:polyLine]; // 添加路线overlay
         delete []temppoints;
     }
 }
@@ -434,6 +450,14 @@
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    _mapViews.delegate = nil; // 不用时，置nil
+    _mapViews=nil;
+    _searcher=nil;
+    
+    _searchers.delegate = nil;
+
+    
     // Dispose of any resources that can be recreated.
 }
 -(void)setNavBar
@@ -451,7 +475,15 @@
 }
 -(void)gobackclick
 {
+    _locService=nil;
+    _locService.delegate=nil;
+
+    _mapViews.delegate = nil; // 不用时，置nil
+    _mapViews=nil;
+    _searcher=nil;
     
+    _searchers.delegate = nil;
+
     
     [self.navigationController popViewControllerAnimated:YES];
     

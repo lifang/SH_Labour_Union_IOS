@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface OrganizationdetalViewController : UIViewController<UIScrollViewDelegate>
+#import "BMapKit.h"
+@interface OrganizationdetalViewController : UIViewController<UIScrollViewDelegate,BMKGeoCodeSearchDelegate,CLLocationManagerDelegate>
 
 
 {
+    BMKGeoCodeSearch*_searchers;
+    NSString*per_lon;
+    NSString*per_lat;
+    NSString*city;
+    
+    CLLocationManager* _locationManager;
     UIScrollView*_scrool;
     UIPageControl *_page;
     UIScrollView*bigscroll;
@@ -20,6 +26,7 @@
 }
 
 
+@property(nonatomic,strong)NSString*time;
 
 @property(nonatomic,strong)NSString*name;
 @property(nonatomic,strong)NSString*address;

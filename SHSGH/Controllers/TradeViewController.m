@@ -18,6 +18,7 @@
 #import "MJRefreshFooterView.h"
 #import "people.h"
 #import "EGOImageView.h"
+#import "UIImageView+WebCache.h"
 
 @interface TradeViewController ()
 
@@ -104,6 +105,9 @@
                           
                           if(segmentIndex==0)
                           {
+                              _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+                              _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+                              _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
                               [_allarry removeAllObjects];
                               firstA=1002;
                               _isReloadingAllData = YES;
@@ -116,6 +120,9 @@
                           
                           else
                           {
+                              _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+                              _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+                              _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
                               firstA=1003;
 
                               _isReloadingAllData = YES;
@@ -159,7 +166,7 @@
     //    [segmentedControl setSelectedSegmentIndex:0];
     //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
     //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStyleGrouped];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-104) style: UITableViewStyleGrouped];
     
 
     [self.view addSubview:_Seatchtable];
@@ -258,8 +265,8 @@
     
     
 //       [ touchclickimageview addGestureRecognizer:singleTapss];
-    EGOImageView *logoimageview = [[EGOImageView alloc]init];
-    
+    UIImageView *logoimageview = [[UIImageView alloc]init];
+
     logoimageview.frame = CGRectMake(10, 10, 80, 100);
     
 
@@ -273,7 +280,10 @@
     
     
     NSURL *imageUrl = [NSURL URLWithString:peop.images];
-    logoimageview.imageURL = imageUrl;
+    
+    [logoimageview sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+
+    
 //    [logoimageview  sd_setImageWithURL:[NSURL URLWithString:peop.images] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
 
     UILabel*namelable=[[UILabel alloc]init];
@@ -619,17 +629,33 @@
                     {
                         peo.about=@"";
                         
-                    peo.about_detail=@"";
                         
                     
                     }
                     else
                     {
                         peo.about=[[arry objectAtIndex:i] objectForKey:@"about"];
-                        peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
 
                     
                     }
+                    
+                    
+                    
+                    if([[[arry objectAtIndex:i] objectForKey:@"about_detail"] isKindOfClass:[NSNull class]])
+                    {
+                        
+                         
+                        peo.about_detail=@"";
+                        
+                        
+                    }
+                    else
+                    {
+                        peo.about_detail=[[arry objectAtIndex:i] objectForKey:@"about_detail"];
+                        
+                        
+                    }
+
                     peo.images=[[arry objectAtIndex:i] objectForKey:@"logo"];
 
                     
