@@ -241,6 +241,7 @@
     
     [self.mm_drawerController setCenterViewController:healthyNav withCloseAnimation:YES completion:nil];
 }
+// 相关查询
 -(void)related
 {
     UINavigationController *dynamicNav = [AppDelegate shareDynamicController6];

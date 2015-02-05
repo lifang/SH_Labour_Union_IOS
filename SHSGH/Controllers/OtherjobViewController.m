@@ -37,7 +37,8 @@
     _Conditionstable.dataSource=self;
     _Conditionstable.rowHeight=40;
     
-    
+    _Conditionstable.tableFooterView = [[UIView alloc]init];
+
     
 //       _Conditionstable.separatorStyle=UITableViewCellSeparatorStyleNone;
     

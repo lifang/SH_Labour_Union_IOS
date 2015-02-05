@@ -45,12 +45,12 @@
     
     if(iOS7)
     {
-        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, SCREEN_HEIGHT-80);
+        requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-80);
         
     }
     else
     {
-        requirecontent.frame=CGRectMake(10, 10, SCREEN_WIDTH-20, SCREEN_HEIGHT);
+        requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT);
         
 
     

@@ -408,9 +408,13 @@
     {
         ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"行业类别";
-        searchviewcontroller.block=^(NSString*hangyestring){
+        searchviewcontroller.recordint=a;
+        
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
             
             str1=hangyestring;
+            a=A;
+            
             
             
             
@@ -426,12 +430,13 @@
     if(indexPath.row==2)
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"首选工作区域";
-        
+        searchviewcontroller.recordint=b;
+
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
             
             str2=hangyestring;
-            
+             b=A;
             
         };
 
@@ -443,13 +448,14 @@
     if(indexPath.row==3)
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"次选工作区域";
-        
+        searchviewcontroller.recordint=c;
+
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
             
             str3=hangyestring;
             
-           
+            c=A;
             
         };
 

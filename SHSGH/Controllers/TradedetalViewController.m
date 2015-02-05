@@ -303,7 +303,7 @@
     
     
     UILabel*linelable6=[[UILabel alloc]init];
-    linelable6.frame=CGRectMake(0, addressbutton.frame.size.height+addressbutton.frame.origin.y+10, SCREEN_WIDTH, 1);
+    linelable6.frame=CGRectMake(0, otherbutton.frame.size.height+otherbutton.frame.origin.y+10, SCREEN_WIDTH, 1);
     linelable6.backgroundColor=[UIColor colorWithWhite:0.8 alpha:1];
     [bigscroll addSubview:linelable6];
     
@@ -385,6 +385,8 @@
     UILabel*lab=[[UILabel alloc]initWithFrame:CGRectMake(0, 7, 60, 30)];
     lab.text=@"地图列表";
     [buttonR addSubview:lab];
+    lab.backgroundColor=[UIColor clearColor];
+
     lab.font=[UIFont systemFontOfSize:12];
     lab.textColor=[UIColor whiteColor];
     

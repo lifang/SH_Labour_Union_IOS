@@ -170,7 +170,21 @@
     
     
     addressbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [addressbutton setTitle:[NSString stringWithFormat:@"   当前位置  →%@",self.address] forState:UIControlStateNormal];
+    if([self  isBlankString:self.address])
+    {
+    
+        [addressbutton setTitle:[NSString stringWithFormat:@"   当前位置  → 暂无目的地"] forState:UIControlStateNormal];
+
+    
+    }
+    else
+    {
+    
+        [addressbutton setTitle:[NSString stringWithFormat:@"   当前位置  →%@",self.address] forState:UIControlStateNormal];
+
+    
+    
+    }
     [addressbutton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     
@@ -197,7 +211,8 @@
     
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
-    
+    _Seatchtable.tableFooterView = [[UIView alloc]init];
+
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
@@ -209,6 +224,19 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+- (BOOL) isBlankString:(NSString *)string {
+    if (string == nil || string == NULL) {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
+        return YES;
+    }
+    return NO;
+}
+
 
 - (void)showMessage:(NSString*)message viewHeight:(float)height;
 {
@@ -436,7 +464,8 @@
         MapdetalViewController*map=[[MapdetalViewController alloc]init];
         map.coreld=self.coreld;
         map.city=self.city;
-        
+        map.name=self.name;
+
         
         map.awhichway=2;
         
@@ -453,7 +482,8 @@
         map.coreld=self.coreld;
         map.city=self.city;
 
-        
+        map.name=self.name;
+
         map.awhichway=1;
         
         [self.navigationController pushViewController:map animated:YES];
@@ -469,6 +499,7 @@
     map.coreld=self.coreld;
     map.bline=indexPath.row;
     map.city=self.city;
+    map.name=self.name;
     
     map.awhichway=3;
     

@@ -82,6 +82,9 @@
     _locService=nil;
     _locService.delegate=nil;
     _searchers.delegate = nil;
+    
+  
+    
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
@@ -116,7 +119,7 @@
         BMKPlanNode* start = [[BMKPlanNode alloc]init];
         start.pt=self.coreld;
         BMKPlanNode* end = [[BMKPlanNode alloc]init];
-        end.name = @"邻瑞广场";
+        end.name = self.name;
         
         BMKTransitRoutePlanOption *transitRouteSearchOption = [[BMKTransitRoutePlanOption alloc]init];
         transitRouteSearchOption.city= self.city;
@@ -155,7 +158,7 @@
         BMKPlanNode* start = [[BMKPlanNode alloc]init];
         start.pt=self.coreld;
         BMKPlanNode* end = [[BMKPlanNode alloc]init];
-        end.name = @"莲花新村五区";
+        end.name = self.name;
         
         BMKDrivingRoutePlanOption *transitRouteSearchOptions = [[BMKDrivingRoutePlanOption alloc]init];
         transitRouteSearchOptions.from = start;
@@ -193,7 +196,7 @@
         BMKPlanNode* start = [[BMKPlanNode alloc]init];
         start.pt=self.coreld;
         BMKPlanNode* end = [[BMKPlanNode alloc]init];
-        end.name = @"邻瑞广场";
+        end.name = self.name;
         
         BMKWalkingRoutePlanOption *transitRouteSearchOptions = [[BMKWalkingRoutePlanOption alloc]init];
         transitRouteSearchOptions.from = start;
@@ -229,9 +232,9 @@
     
 }
 #pragma mark - 标注
-- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
-{
-}
+//- (void)mapView:(BMKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+//{
+//}
 
 - (BMKOverlayView*)mapView:(BMKMapView *)map viewForOverlay:(id<BMKOverlay>)overlay
 {
@@ -251,6 +254,10 @@
 -(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
                      errorCode:(BMKSearchErrorCode)error
 {
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:array];
     if (error == BMK_SEARCH_NO_ERROR)
         
     {
@@ -314,6 +321,11 @@
 }
 - (void)onGetDrivingRouteResult:(BMKRouteSearch*)searcher result:(BMKDrivingRouteResult*)result errorCode:(BMKSearchErrorCode)error
 {
+    
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:array];
   
     if (error == BMK_SEARCH_NO_ERROR) {
         BMKDrivingRouteLine* plan = (BMKDrivingRouteLine*)[result.routes objectAtIndex:0];
@@ -451,11 +463,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-    _mapViews.delegate = nil; // 不用时，置nil
-    _mapViews=nil;
-    _searcher=nil;
-    
-    _searchers.delegate = nil;
+    if ([self.view window] == nil){
+        _mapViews.delegate = nil; // 不用时，置nil
+        _mapViews=nil;
+        _searcher=nil;
+        
+        _searchers.delegate = nil;
+        self.view = nil;
+    }
+
+   
 
     
     // Dispose of any resources that can be recreated.
@@ -468,6 +485,9 @@
     [buttonL.navButton addTarget:self action:@selector(gobackclick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
+   
+    
+    
 }
 -(void)setnavBar
 {
