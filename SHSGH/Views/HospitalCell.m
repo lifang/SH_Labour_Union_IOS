@@ -24,10 +24,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         //设置标题的字体
-        self.textLabel.font = [UIFont boldSystemFontOfSize:15];
+        self.textLabel.font = [UIFont boldSystemFontOfSize:14];
         self.textLabel.textColor = sColor(51, 51, 51, 1.0);
         self.detailTextLabel.textColor = sColor(124, 124, 124, 1.0);
-        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:13];
+        self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
         UIImageView *imageV = [[UIImageView alloc]init];
         imageV.image = [UIImage imageNamed:@"right_view"];
         self.accessoryView = imageV;
@@ -44,9 +45,9 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textLabel.frame = CGRectMake(20, 0, mainViewW * 0.4, self.frame.size.height);
-    self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + CostumViewMargin, 0, mainViewW * 0.3, self.frame.size.height);
-    self.accessoryView.frame = CGRectMake(CGRectGetMaxX(self.detailTextLabel.frame) + 8 * CostumViewMargin, 8, 28,28 );
+    self.textLabel.frame = CGRectMake(20, 0, mainViewW * 0.5, self.frame.size.height);
+    self.detailTextLabel.frame = CGRectMake(mainViewW * 0.6, 0, mainViewW * 0.3, self.frame.size.height);
+    self.accessoryView.frame = CGRectMake(mainViewW - 45, 8, 28,28 );
 }
 
 

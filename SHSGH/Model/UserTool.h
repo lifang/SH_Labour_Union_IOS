@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class UserModel;
+#import "UserModel.h"
 @interface UserTool : NSObject
 //存储帐号信息
 +(void)save:(UserModel *)account;

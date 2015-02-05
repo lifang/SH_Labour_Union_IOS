@@ -20,6 +20,11 @@
 
 @property(nonatomic,strong)NSMutableArray *downtownArray;
 
+@property(nonatomic,assign)NSInteger provinceIndex;
+@property(nonatomic,assign)NSInteger downtownIndex;
+@property(nonatomic,strong)NSString *procityID;
+
+
 @end
 
 @implementation CityChangeViewController
@@ -54,6 +59,7 @@
     [self loadData];
     [self setupNavBar];
     [self initUI];
+    
 }
 
 -(void)loadData
@@ -78,15 +84,57 @@
 //                    NSArray *children = [cityInfo objectForKey:@"childrens"];
                 }
                 [self.leftTableView reloadData];
-                SLog(@"省数组为+++++++++++++++++++%@",_provinceArray);
+                
+                [self findIndexPath];
+
+                NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
+                [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
+                [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
             }
             else {
                 SLog(@"请求失败!");
-              
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
             }
         });
     });
+}
 
+-(void)findIndexPath
+{
+    for (int i = 0; i < _provinceArray.count; i++) {
+        Province *pro = [_provinceArray objectAtIndex:i];
+        if ([pro.city_name isEqualToString:_province]) {
+            SLog(@"%d",i);
+            self.provinceIndex = i;
+            SLog(@"%@",pro.city_area_id);
+            self.procityID = pro.city_area_id;
+            break;
+        }
+    }
+    [self cityForProvinceID:_procityID];
+    [self.rightTableView reloadData];
+    
+    
+    NSArray *cityArray = nil;
+    for (NSDictionary *provinceInfo in _dataArray) {
+        NSString *province_id = [NSString stringWithFormat:@"%@",[provinceInfo objectForKey:@"city_area_id"]];
+        if ([province_id isEqualToString:_procityID]) {
+            cityArray = [provinceInfo objectForKey:@"childrens"];
+            break;
+        }
+    }
+    SLog(@"*********************%@",cityArray);
+    
+    for (int i = 0; i < cityArray.count; i++) {
+        if ([[[cityArray objectAtIndex:i] objectForKey:@"area_name"]isEqualToString:_downtown]) {
+            SLog(@"市的位置-------------------- %d",i);
+            self.downtownIndex = i;
+            break;
+        }
+    }
+    
 }
 
 -(UITableView *)leftTableView
@@ -150,7 +198,9 @@
         return _provinceArray.count;
     }
     else{
+
     return _downtownArray.count;
+    
     }
 }
 
@@ -167,7 +217,6 @@
         cell.textLabel.text = downtown.area_name;
         cell.backgroundColor = sColor(236, 236, 236, 1.0);
     }
-    
     return cell;
 }
 
@@ -191,6 +240,7 @@
         SLog(@"%@",provice.city_area_id);
         [self cityForProvinceID:provice.city_area_id];
         [self.rightTableView reloadData];
+        
     }
 }
 
