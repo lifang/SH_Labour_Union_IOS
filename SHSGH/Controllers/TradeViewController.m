@@ -19,6 +19,7 @@
 #import "people.h"
 #import "EGOImageView.h"
 #import "UIImageView+WebCache.h"
+#import "MJRefresh.h"
 
 @interface TradeViewController ()
 
@@ -30,6 +31,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    
+    
+    
+  
+    
+    MJRefreshFooterView *footer = [MJRefreshFooterView footer];
+  
+    [footer endRefreshing];
+    
+    
+    
+    
+    
+    
+    
     firstA=1002;
     
     _isReloadingAllData = YES;
@@ -38,7 +54,6 @@
     [self setnavBar];
     [self createui];
     [self left];
-    [self date];
     [self setupRefresh];
 }
 
@@ -61,17 +76,15 @@
     
 }
 
-//下拉刷新加载更多微博数据
+//下拉刷新加载更多数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     _isReloadingAllData=YES;
     [_allarry removeAllObjects];
 
     [self date];
     
         
-//    });
 }
 
 //上拉刷新加载更多微博数据
@@ -530,7 +543,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
                 TradedetalViewController*detal=[[TradedetalViewController alloc]init];
                 
                 
-                detal.ids=[NSString stringWithFormat:@"%d",changeA];
+                detal.ids=[NSString stringWithFormat:@"%ld",(long)changeA];
                 
                 
                 
@@ -679,9 +692,9 @@ _Seatchtable.separatorColor=[UIColor clearColor];
                 {
                     
                     [_Seatchtable reloadData];
+                   
                     [_Seatchtable headerEndRefreshing];
                     [_Seatchtable footerEndRefreshing];
-
                 }
                 if(_allarry.count==totalCount)
                 {
@@ -689,8 +702,9 @@ _Seatchtable.separatorColor=[UIColor clearColor];
                     _Seatchtable.footerPullToRefreshText = @"已经为您加载了全部数据亲";
                     _Seatchtable.footerReleaseToRefreshText = @"已经为您加载了全部数据亲";
                     _Seatchtable.footerRefreshingText = @"已经为您加载了全部数据亲";
-                    
-                    [_Seatchtable footerEndRefreshing];
+//                   _Seatchtable.footerRefreshing=NO ;
+//                   [_Seatchtable footerEndRefreshing];
+
 //                    _Seatchtable.footerHidden = YES;
 
                 }

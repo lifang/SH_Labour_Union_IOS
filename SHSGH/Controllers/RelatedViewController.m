@@ -25,7 +25,7 @@
     _isReloadingAllData = YES;
     _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
  urls =@"/api/news/findLaws";
-    [self date];
+//    [self date];
     
     // Do any additional setup after loading the view.
     
@@ -72,6 +72,16 @@
 //上拉刷新加载更多微博数据
 -(void)loadMoreStatuses
 {
+    
+    
+    if( changeint==798)
+    {
+      
+        
+        urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
+    
+    }
+    
     _isReloadingAllData=NO;
     
     if(_newallarry.count<totalCount)
@@ -80,13 +90,7 @@
         
     }
     
-    if(_newallarry.count==totalCount)
-    {
-        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
-        
-        
-        
-    }
+  
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     //        [_Seatchtable footerEndRefreshing];
     //
@@ -129,6 +133,7 @@
                                                        {
                                                            changeint=798;
                                                            
+                                                           urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
 
                                                            
                                                            [_newallarry removeAllObjects];
@@ -146,6 +151,7 @@
                                                        else if(segmentIndex==1)
                                                        {
                                                                 changeint=790;
+                                                           urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
 
                                                            
                                                            _isReloadingAllData = YES;
@@ -265,6 +271,7 @@
     searchrootview.layer.cornerRadius=18;
     
     _searchfield.placeholder=@"请输入关键字 ";
+       _searchfield.text= str4textfield;
     _searchfield.delegate=self;
     CALayer *layer=[searchrootview layer];
     //是否设置边框以及是否可见
@@ -501,7 +508,12 @@
 
 -(void)searchButtonclick
 {
-    urls =[NSString stringWithFormat:@"/api/news/findLaws?title=%@",_searchfield.text];
+    _isReloadingAllData = YES;
+    changeint=7980;
+    
+    [_newallarry removeAllObjects];
+
+    urls =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",_searchfield.text,_newallarry.count/10+1];
     [self date];
     
 
@@ -509,9 +521,22 @@
 }
 -(void)helpButtonclick
 {
-    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@",(long)tuizaiA,_searchfield.text];
+     changeint=7970;
+    [_newallarry removeAllObjects];
+    _isReloadingAllData = YES;
+
+    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
     [self date];
     
+    
+    
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField;           // became first responder
+
+{
+    
+    
+    str4textfield=_searchfield.text;
     
     
 }
@@ -530,17 +555,17 @@
 //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 //        [params setObject:@"5" forKey:@"limit"];
         
-        if(changeint==798)
-        {
-
-            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
-
-        }
-        else
-        {
-            urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
-
-        }
+//        if(changeint==798)
+//        {
+//
+//            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",1];
+//
+//        }
+//        else
+//        {
+//            urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+//
+//        }
         
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
           
@@ -600,7 +625,13 @@
 
                 
                 }
-
+                if(_newallarry.count==totalCount)
+                {
+                    [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+                    
+                    
+                    
+                }
                 
             }
             else
@@ -613,7 +644,18 @@
 
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                
-                
+                if(changeint==798)
+                {
+                    [_Seatchtable reloadData];
+                    
+                }
+                else
+                {
+                    [_helptable reloadData];
+                    
+                    
+                }
+
                 
             }
         });

@@ -30,7 +30,7 @@
  
 
     [self createui];
-       [self date];
+    
   
     // Do any additional setup after loading the view.
     _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
@@ -44,7 +44,7 @@
     _Conditionstable.dataSource=self;
     _Conditionstable.rowHeight=40;
     
-    
+     [self date];
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
