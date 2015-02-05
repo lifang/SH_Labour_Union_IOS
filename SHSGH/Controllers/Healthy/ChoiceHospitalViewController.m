@@ -24,8 +24,6 @@
 
 @implementation ChoiceHospitalViewController
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setStyle];
@@ -55,7 +53,7 @@
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
     [self loadData];
-     self.page = -1;
+     self.page = 0;
 }
 
 -(void)loadMoreStatuses
@@ -125,7 +123,6 @@
                     [self.hospitalStatusArray addObject:status];
                 }
                 [self.tableView headerEndRefreshing];
-                SLog(@"%@",_hospitalStatusArray);
                 [self.tableView reloadData];
            }
             else {

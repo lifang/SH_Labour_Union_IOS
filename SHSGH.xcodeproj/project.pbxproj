@@ -158,6 +158,7 @@
 		93DDD0D61A7881100025EA40 /* DynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDD0D51A7881100025EA40 /* DynamicCell.m */; };
 		93DDD0D91A7889830025EA40 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDD0D81A7889830025EA40 /* DynamicContent.m */; };
 		93DDD0DC1A78C42D0025EA40 /* IDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 93DDD0DB1A78C42D0025EA40 /* IDModel.m */; };
+		93E451C21A83766600611B49 /* HaobaiHealthyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E451C11A83766600611B49 /* HaobaiHealthyController.m */; };
 		93E6AF851A737A940068898D /* MaintainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E6AF841A737A940068898D /* MaintainViewController.m */; };
 		93F2B7361A7F4C0200AE20DF /* HealthyHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7351A7F4C0200AE20DF /* HealthyHomeViewController.m */; };
 		93F2B7391A7F53FA00AE20DF /* cellBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 93F2B7381A7F53FA00AE20DF /* cellBtn.m */; };
@@ -524,6 +525,8 @@
 		93DDD0D81A7889830025EA40 /* DynamicContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicContent.m; sourceTree = "<group>"; };
 		93DDD0DA1A78C42D0025EA40 /* IDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDModel.h; sourceTree = "<group>"; };
 		93DDD0DB1A78C42D0025EA40 /* IDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDModel.m; sourceTree = "<group>"; };
+		93E451C01A83766600611B49 /* HaobaiHealthyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HaobaiHealthyController.h; sourceTree = "<group>"; };
+		93E451C11A83766600611B49 /* HaobaiHealthyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HaobaiHealthyController.m; sourceTree = "<group>"; };
 		93E6AF831A737A940068898D /* MaintainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaintainViewController.h; sourceTree = "<group>"; };
 		93E6AF841A737A940068898D /* MaintainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintainViewController.m; sourceTree = "<group>"; };
 		93F2B7341A7F4C0200AE20DF /* HealthyHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthyHomeViewController.h; sourceTree = "<group>"; };
@@ -1205,6 +1208,8 @@
 				936287A41A8068AE000E4AE9 /* DoctorListViewController.m */,
 				936287A91A809B22000E4AE9 /* DoctorStatusController.h */,
 				936287AA1A809B22000E4AE9 /* DoctorStatusController.m */,
+				93E451C01A83766600611B49 /* HaobaiHealthyController.h */,
+				93E451C11A83766600611B49 /* HaobaiHealthyController.m */,
 			);
 			path = Healthy;
 			sourceTree = "<group>";
@@ -1415,6 +1420,7 @@
 				0ECFF23A1A6F9871007F882E /* DetalsocialViewController.m in Sources */,
 				0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */,
 				935DDF8F1A75D80500021146 /* PersonalManagerViewController.m in Sources */,
+				93E451C21A83766600611B49 /* HaobaiHealthyController.m in Sources */,
 				934074841A81B7A100C3916B /* HospitalStatus.m in Sources */,
 				9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */,
 				0ECE9F5B1A734B7C001C448D /* PPiFlatSegmentedControl.m in Sources */,

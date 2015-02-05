@@ -16,25 +16,19 @@
 
 @property(nonatomic,strong)NSMutableArray *classArray;
 
+@property(nonatomic,strong)NSMutableArray *loadMoreArray;
+
 @property(nonatomic,assign)int page;
 
 @end
 
 @implementation ClassViewController
 
--(NSMutableArray *)classArray
-{
-    if (!_classArray) {
-        _classArray = [NSMutableArray array];
-    }
-    return _classArray;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setStyle];
-//    [self setupRefresh];
-     [self loadData];
+    [self setupRefresh];
     [self setNavBar];
 }
 -(void)setupRefresh
@@ -59,7 +53,7 @@
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
     [self loadData];
-    self.page = -1;
+    self.page = 0;
 }
 
 -(void)setStyle
@@ -68,6 +62,43 @@
     UIView *view = [[UIView alloc]init];
     view.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = view;
+}
+
+-(void)loadMoreStatuses
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UserModel *account = [UserTool userModel];
+        _page++;
+        NSString *pages = [NSString stringWithFormat:@"%d",_page];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,pages,[NSString stringWithFormat:@"%d",_cpid],_hospitalid];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                SLog(@"%@",result);
+                _loadMoreArray = [NSMutableArray array];
+                NSArray *classesArray = [result objectForKey:@"result"];
+                for (int i = 0; i < classesArray.count; i++) {
+                    ClassStatus *classes = [[ClassStatus alloc]init];
+                    classes.cpid = (int)[[classesArray objectAtIndex:i] objectForKey:@"cpid"];
+                    classes.deptid = [[classesArray objectAtIndex:i] objectForKey:@"deptid"];
+                    classes.deptnum = [[classesArray objectAtIndex:i] objectForKey:@"deptnum"];
+                    classes.deptname = [[classesArray objectAtIndex:i] objectForKey:@"deptname"];
+                    [_loadMoreArray addObject:classes];
+                }
+                [_classArray addObjectsFromArray:_loadMoreArray];
+                [self.tableView reloadData];
+                [self.tableView footerEndRefreshing];
+            }
+            else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        });
+    });
+
 }
 
 -(void)loadData
@@ -81,6 +112,7 @@
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
                 SLog(@"%@",result);
+                _classArray = [NSMutableArray array];
                 NSArray *classesArray = [result objectForKey:@"result"];
                 for (int i = 0; i < classesArray.count; i++) {
                     ClassStatus *classes = [[ClassStatus alloc]init];
@@ -91,6 +123,7 @@
                     [self.classArray addObject:classes];
                 }
                [self.tableView reloadData];
+               [self.tableView headerEndRefreshing];
             }
             else {
                 
