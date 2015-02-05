@@ -259,27 +259,29 @@
 -(void)doctorClick
 {
     SLog(@"点击了查找医生!");
-//    //输入验证
-//    if ([_hospitalLabel.text isEqualToString:@"请选择医院"]) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-//                                                        message:@"请先选择医院!"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"确定!"
-//                                              otherButtonTitles:nil];
-//        [alert show];
-//        return;
-//    }
-//    if ([_classLabel.text isEqualToString:@"请选择科室"]) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-//                                                        message:@"请选择科室!"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"确定!"
-//                                              otherButtonTitles:nil];
-//        [alert show];
-//        return;
-//    }
+    //输入验证
+    if ([_hospitalLabel.text isEqualToString:@"请选择医院"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"请先选择医院!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if ([_classLabel.text isEqualToString:@"请选择科室"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"请选择科室!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     
     DoctorListViewController *docVC = [[DoctorListViewController alloc]init];
+    docVC.hospitalname = _hospitalLabel.text;
+    docVC.classname = _classLabel.text;
     docVC.cpid = _cpid;
     docVC.deptid = _deptid;
     docVC.hospitalid = _hospitalid;
@@ -379,8 +381,5 @@
     //    self.bigView = bigV;
     SLog(@"点击了图片!");
 }
-
-
-
 
 @end

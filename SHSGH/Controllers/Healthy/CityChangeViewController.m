@@ -56,12 +56,21 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self setStyle];
     [self loadData];
     [self setupNavBar];
     [self initUI];
     
 }
-
+-(void)setStyle
+{
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    self.leftTableView.tableFooterView = view;
+    UIView *view1 = [[UIView alloc]init];
+    view1.backgroundColor = [UIColor clearColor];
+    self.rightTableView.tableFooterView = view1;
+}
 -(void)loadData
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -85,12 +94,15 @@
                 }
                 [self.leftTableView reloadData];
                 
-                [self findIndexPath];
-
-                NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
-                [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
-                [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                if (_province) {
+                    [self findIndexPath];
+                    
+                    NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
+                    [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                    NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
+                    [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                }
+               
             }
             else {
                 SLog(@"请求失败!");
@@ -272,6 +284,16 @@
     }
 
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
 
 @end

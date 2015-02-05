@@ -16,6 +16,8 @@
 
 @property(nonatomic,strong)NSMutableArray *classArray;
 
+@property(nonatomic,assign)int page;
+
 @end
 
 @implementation ClassViewController
@@ -30,8 +32,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setStyle];
+//    [self setupRefresh];
+     [self loadData];
     [self setNavBar];
+}
+-(void)setupRefresh
+{
+    //下拉
+    [self.tableView addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [self.tableView headerBeginRefreshing];
+    //上拉
+    [self.tableView addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    self.tableView.headerPullToRefreshText = @"下拉可以刷新了";
+    self.tableView.headerReleaseToRefreshText = @"松开马上刷新了";
+    self.tableView.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    self.tableView.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
     [self loadData];
+    self.page = -1;
+}
+
+-(void)setStyle
+{
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = view;
 }
 
 -(void)loadData
@@ -104,5 +140,15 @@
     [self.delegate sendClass:class.deptname WithDeptid:class.deptid];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
 @end
