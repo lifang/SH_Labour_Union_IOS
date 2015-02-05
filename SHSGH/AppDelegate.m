@@ -89,7 +89,7 @@ static UINavigationController *healthyNayController = nil;
     return mainNavController;
 }
 
-
+// 相关查询
 +(UINavigationController *)shareDynamicController6{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -98,7 +98,7 @@ static UINavigationController *healthyNayController = nil;
     });
     return relatedNavController;
 }
-
+// 机构查询
 
 +(UINavigationController *)shareDynamicController2{
     static dispatch_once_t onceToken;
@@ -109,7 +109,7 @@ static UINavigationController *healthyNayController = nil;
     return OrganizationNavController;
 }
 
-
+// 商户查询
 
 +(UINavigationController *)shareDynamicController4{
     static dispatch_once_t onceToken;
@@ -119,7 +119,7 @@ static UINavigationController *healthyNayController = nil;
     });
     return TradeNavController;
 }
-
+// 岗位查询
 
 +(UINavigationController *)shareDynamicController3{
     static dispatch_once_t onceToken;

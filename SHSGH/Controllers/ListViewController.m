@@ -76,7 +76,8 @@
     _Seatchtable.rowHeight=70;
     self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
     
-    
+    _Seatchtable.tableFooterView = [[UIView alloc]init];
+
    
    
     [ self setnavBar];
@@ -100,8 +101,7 @@
     
     
     CLLocationCoordinate2D pt =coordinate;
-    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[
-                                                            BMKReverseGeoCodeOption alloc]init];
+    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc]init];
     reverseGeoCodeSearchOption.reverseGeoPoint = pt;
     BOOL flagf = [_searchers reverseGeoCode:reverseGeoCodeSearchOption];
     if(flagf)
@@ -174,7 +174,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DituViewController*ditu=[[DituViewController alloc]init];
-    people*pp=[_allarry objectAtIndex:indexPath.row];
+//    people*pp=[_allarry objectAtIndex:indexPath.row];
    
 //    ditu.name=pp.namestring;
 //    ditu.address=pp.addrstring;

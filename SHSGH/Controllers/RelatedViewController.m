@@ -180,10 +180,10 @@
    
     segmentedControl.color=[UIColor whiteColor];
     segmentedControl.borderWidth=0.5;
-    segmentedControl.borderColor=[UIColor grayColor];
+    segmentedControl.borderColor=[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
     segmentedControl.selectedColor=[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
     segmentedControl.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                NSForegroundColorAttributeName:[UIColor blackColor]};
+                                NSForegroundColorAttributeName:[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1]};
     segmentedControl.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
                                         NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:segmentedControl];
@@ -365,7 +365,8 @@
         
         UILabel*tuixiulable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4+15, 50, 50, 30)];
         [rootimageview addSubview:tuixiulable];
-        
+        tuixiulable.backgroundColor=[UIColor clearColor];
+
  tuixiulable.text=@"退休";
 
         //        CALayer *layers=[searchButton layer];
@@ -401,6 +402,7 @@
         UILabel*zaizhilable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-30-SCREEN_WIDTH/4, 50, 40, 30)];
         [rootimageview addSubview:zaizhilable];
         zaizhilable.text=@"在职";
+        zaizhilable.backgroundColor=[UIColor clearColor];
 
         //        CALayer *layers=[searchButton layer];
         //        //是否设置边框以及是否可见

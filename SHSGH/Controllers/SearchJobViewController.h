@@ -20,6 +20,11 @@
     NSMutableArray*_newallarry;
 
     NSMutableArray*_conditarry;
+    
+    NSInteger a;
+    NSInteger b;
+    NSInteger c;
+
     NSString*str1;
       NSString*str2;
       NSString*str3;

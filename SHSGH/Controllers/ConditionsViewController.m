@@ -22,7 +22,8 @@
     
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     
-    
+    imagearry=[[NSMutableArray alloc]initWithCapacity:0];
+
 
     self.title=self.conditionsname;
     
@@ -35,7 +36,8 @@
     _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
     
-    
+    _Conditionstable.tableFooterView = [[UIView alloc]init];
+
     
     [self.view addSubview:_Conditionstable];
     _Conditionstable.delegate=self;
@@ -96,7 +98,8 @@
                       
             if ([[result objectForKey:@"code"] integerValue]==0)
             {
-               
+                [imagearry removeAllObjects];
+                
                 NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
                 
                 for(int i=0;i<arry.count;i++)
@@ -131,6 +134,9 @@
                     
                     
                 }
+                
+                [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+
                 [_Conditionstable reloadData];
                 
             }
@@ -286,10 +292,9 @@
 //   UIImageVieConditionsTableViewCellw*clickimageview=(UIImageView*)[self.view viewWithTag:indexPath.row];
   
 //        clickimageview.image=[UIImage imageNamed:@"dui"];
-//    [imagearry removeAllObjects];
+   [imagearry removeAllObjects];
     
   
-    imagearry=[[NSMutableArray alloc]initWithCapacity:0];
     for(NSInteger i=0;i<_allarry.count;i++)
     {
         [imagearry addObject:@""];
@@ -311,7 +316,7 @@
 //        else{
         
         
-            block([NSString stringWithFormat:@"%@",pname.namestring]);
+            block([NSString stringWithFormat:@"%@",pname.namestring],indexPath.row);
 
 //        }
 

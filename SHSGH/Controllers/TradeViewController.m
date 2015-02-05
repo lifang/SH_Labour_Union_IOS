@@ -148,10 +148,10 @@
     
     segmentedControl.color=[UIColor whiteColor];
     segmentedControl.borderWidth=0.5;
-    segmentedControl.borderColor=[UIColor grayColor];
+    segmentedControl.borderColor=[UIColor colorWithRed:160.0/255 green:30.0/255 blue:30.0/255 alpha:1];
     segmentedControl.selectedColor=[UIColor colorWithRed:160.0/255 green:30.0/255 blue:30.0/255 alpha:1];
     segmentedControl.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                      NSForegroundColorAttributeName:[UIColor blackColor]};
+                                      NSForegroundColorAttributeName:[UIColor colorWithRed:160.0/255 green:30.0/255 blue:30.0/255 alpha:1]};
     segmentedControl.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
                                               NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:segmentedControl];
@@ -166,18 +166,19 @@
     //    [segmentedControl setSelectedSegmentIndex:0];
     //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
     //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-104) style: UITableViewStyleGrouped];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     
 
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
 //    _Seatchtable.rowHeight=40;
-    
-    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _Seatchtable.backgroundColor=[UIColor whiteColor];
 
+    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
+_Seatchtable.separatorColor=[UIColor clearColor];
     
-    //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
+       _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -223,9 +224,10 @@
     
     [cell.namelable sizeToFit];
     
+    cell.backgroundColor=[UIColor clearColor];
+    
    
-   
-    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+20);
+    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+31);
     
     
     
@@ -236,7 +238,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 55)];
+    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 30)];
     templabel.numberOfLines=0;
     people*peop=[_allarry objectAtIndex:indexPath.section];
 
@@ -254,6 +256,7 @@
     
     UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
     rootimageview.userInteractionEnabled=YES;
+    rootimageview.backgroundColor=[UIColor whiteColor];
     
 //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
     UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
@@ -318,14 +321,7 @@
     
     phonelable.userInteractionEnabled=NO;
 
-    UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
-    phonebutton.tag=section;
-    
-    phonebutton.frame=CGRectMake( 220, 50,25, 25);
-    [phonebutton setBackgroundImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
-    [phonebutton addTarget:self action:@selector(callclick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [rootimageview addSubview:phonebutton];
+   
     
 
     
@@ -341,7 +337,14 @@
     
     contentlable.userInteractionEnabled=NO;
 
+    UIButton*phonebutton=[UIButton buttonWithType:UIButtonTypeCustom];
+    phonebutton.tag=section;
     
+    phonebutton.frame=CGRectMake( 220, 50,25, 25);
+    [phonebutton setBackgroundImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
+    [phonebutton addTarget:self action:@selector(callclick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [rootimageview addSubview:phonebutton];
     
     UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
     searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 80, 30, 30);
@@ -627,7 +630,7 @@
                     people*peo=[[people alloc]init];
                     if([[[arry objectAtIndex:i] objectForKey:@"about"] isKindOfClass:[NSNull class]])
                     {
-                        peo.about=@"";
+                        peo.about=@"正在加紧制作中";
                         
                         
                     
@@ -645,7 +648,7 @@
                     {
                         
                          
-                        peo.about_detail=@"";
+                        peo.about_detail=@"正在加紧制作中";
                         
                         
                     }

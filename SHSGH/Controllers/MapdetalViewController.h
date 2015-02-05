@@ -23,6 +23,7 @@
     
 }
 @property(nonatomic,strong)NSString *city;
+@property(nonatomic,strong)NSString *name;
 
 @property(nonatomic,assign)CLLocationCoordinate2D coreld;
 @property(nonatomic,assign)NSInteger  awhichway;

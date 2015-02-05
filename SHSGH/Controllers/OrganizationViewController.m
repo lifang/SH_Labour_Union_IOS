@@ -154,10 +154,10 @@
     
     segmentedControl.color=[UIColor whiteColor];
     segmentedControl.borderWidth=0.5;
-    segmentedControl.borderColor=[UIColor grayColor];
+    segmentedControl.borderColor=[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
     segmentedControl.selectedColor=[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1];
     segmentedControl.textAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                      NSForegroundColorAttributeName:[UIColor blackColor]};
+                                      NSForegroundColorAttributeName:[UIColor colorWithRed:238.0/255 green:160.0/255 blue:20.0/255 alpha:1]};
     segmentedControl.selectedTextAttributes=@{NSFontAttributeName:[UIFont systemFontOfSize:13],
                                               NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.view addSubview:segmentedControl];

@@ -64,7 +64,7 @@
     
     BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
     geoCodeSearchOption.city= self.city;
-    geoCodeSearchOption.address = @"江苏省苏州工业园西华林街88号";
+    geoCodeSearchOption.address = self.address;
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
     {
@@ -118,7 +118,7 @@
     start.pt=userLocation.location.coordinate;
     corld=userLocation.location.coordinate;
     BMKPlanNode* end = [[BMKPlanNode alloc]init];
-    end.name = @"莲花新村五区";
+    end.name = self.name;
     
     BMKTransitRoutePlanOption *transitRouteSearchOption = [[BMKTransitRoutePlanOption alloc]init];
     transitRouteSearchOption.city= self.city;
@@ -161,6 +161,11 @@
 -(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
                      errorCode:(BMKSearchErrorCode)error
 {
+    
+    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+    [_mapView removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:array];
     if (error == BMK_SEARCH_NO_ERROR)
         
     {
@@ -264,7 +269,7 @@
         coor.latitude = per_lat;
         coor.longitude = per_lon;
         annotation.coordinate = coor;
-        annotation.title = @"这里是哈哈";
+        annotation.title = self.name;
         [_mapView setCenterCoordinate:coor];
         
         
@@ -366,6 +371,10 @@
 }
 -(void)luxianclick
 {
+   
+    
+    
+    
     Route_ViewController*route=[[Route_ViewController alloc]init];
     route.coreld=corld;
     route.city=self.city;
