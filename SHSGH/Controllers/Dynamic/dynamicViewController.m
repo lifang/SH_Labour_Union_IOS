@@ -46,7 +46,7 @@
     [self setNavBar];
     [self setupRefresh];
     [self loadImageDate];
-    self.page = 0;
+    
 }
 
 -(void)setupRefresh
@@ -110,10 +110,10 @@
 //下拉刷新加载更多微博数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
+    self.page = 0;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"1" forKey:@"offset"];
-        
+        [params setObject:@"0" forKey:@"offset"];
         NSString *urls =@"/api/news/findNews";
         id result = [KRHttpUtil getResultDataByPost:urls param:params];
         
@@ -147,12 +147,11 @@
 -(void)loadMoreStatuses
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         self.page++;
         NSString *pages = [NSString stringWithFormat:@"%d",self.page];
-        [params setObject:pages forKey:@"offset"];
-        NSString *urls =@"/api/news/findNews";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        SLog(@"%@",pages);
+        NSString *urls =[NSString stringWithFormat:@"/api/news/findNews?offset=%@",pages];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功

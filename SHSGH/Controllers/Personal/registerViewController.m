@@ -449,6 +449,7 @@
     _authcodeField.backgroundColor = [UIColor whiteColor];
     _authcodeField.delegate = self;
     _authcodeField.placeholder = @"请输入验证码";
+    _authcodeField.returnKeyType = UIReturnKeyDone;
     _authcodeField.font = [UIFont systemFontOfSize:15.f];
     UIView *_authcodeFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *_authcodeFieldImageView = [[UIImageView alloc]initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];

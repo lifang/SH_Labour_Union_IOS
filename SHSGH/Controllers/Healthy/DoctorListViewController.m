@@ -25,14 +25,25 @@
 
 @implementation DoctorListViewController
 
+-(NSMutableArray *)doctorArray
+{
+    if (!_doctorArray) {
+        _doctorArray = [NSMutableArray array];
+    }
+    return _doctorArray;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = view;
     
     [self setNavBar];
     
     [self loadData];
     
-    SLog(@"%@ %d %@",_hospitalid,_cpid,_deptid);
 }
 
 -(void)loadData
@@ -56,6 +67,7 @@
                     doctors.docname = [[doctorsArray objectAtIndex:i] objectForKey:@"docname"];
                     [self.doctorArray addObject:doctors];
                 }
+                SLog(@"%@",_doctorArray);
                 [self.tableView reloadData];
             }
             else {
@@ -87,28 +99,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 10;
+    return _doctorArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DoctorsCell *cell = [DoctorsCell cellWithTableView:tableView];
-//    DoctorStatus *doctors = [_doctorArray objectAtIndex:indexPath.row];
-//    cell.textLabel.text = doctors.docname;
-//    cell.positionLabel.text = doctors.doclevel;
-//    cell.classLabel.text = ;
-//    cell.hospitalLabel.text = ;
-    
+    DoctorStatus *doctors = [_doctorArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = doctors.docname;
+    cell.positionLabel.text = doctors.doclevel;
+    cell.classLabel.text = _classname;
+    cell.detailTextLabel.text = _hospitalname;
     cell.imageView.image = [UIImage imageNamed:@"doctor_ placeholder"];
-    cell.textLabel.text = @"胡志前";
-    cell.detailTextLabel.text = @"上海长征医院";
-    cell.positionLabel.text = @"主任医师";
-    cell.classLabel.text = @"普外一科";
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DoctorStatusController *doctorVC = [[DoctorStatusController alloc]init];
-    [self.navigationController pushViewController:doctorVC animated:YES];
+//    DoctorStatusController *doctorVC = [[DoctorStatusController alloc]init];
+//    [self.navigationController pushViewController:doctorVC animated:YES];
 }
 
 

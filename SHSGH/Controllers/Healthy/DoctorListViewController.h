@@ -14,4 +14,7 @@
 @property(nonatomic,strong)NSString *deptid;
 @property(nonatomic,strong)NSString *hospitalid;
 
+@property(nonatomic,strong)NSString *hospitalname;
+@property(nonatomic,strong)NSString *classname;
+
 @end

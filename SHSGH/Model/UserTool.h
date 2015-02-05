@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "UserModel.h"
+#define kLastestPath @"lasteseUserInfo"
+#define kLastestFile @"lastestUser"
 @interface UserTool : NSObject
 //存储帐号信息
 +(void)save:(UserModel *)account;

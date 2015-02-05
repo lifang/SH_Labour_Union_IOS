@@ -33,7 +33,7 @@
         self.textLabel.font = [UIFont boldSystemFontOfSize:15];
         self.textLabel.textColor = [UIColor blackColor];
         self.detailTextLabel.textColor = sColor(124, 124, 124, 1.0);
-        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:14];
+        self.detailTextLabel.font = [UIFont boldSystemFontOfSize:12];
         self.detailTextLabel.textAlignment = NSTextAlignmentLeft;
         UIButton *rightBtn = [[UIButton alloc]init];
         self.btnStatus = YES;
@@ -87,7 +87,7 @@
     [super layoutSubviews];
     self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) +3 * CostumViewMargin, self.imageView.frame.origin.y - 2 * CostumViewMargin, 50, 30);
     self.accessoryView.frame = CGRectMake(mainViewW - 70 - 6 *CostumViewMargin, CGRectGetMaxY(self.textLabel.frame) - 2 *CostumViewMargin, 70, 27);
-    self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + 3 * CostumViewMargin, CGRectGetMaxY(self.textLabel.frame) - 2 * CostumViewMargin, 100, 28);
+    self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + 3 * CostumViewMargin, CGRectGetMaxY(self.textLabel.frame) - 2 * CostumViewMargin, 150, 28);
     self.positionLabel.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + CostumViewMargin, self.textLabel.frame.origin.y + 2, 90, 28);
     self.classLabel.frame = CGRectMake(self.textLabel.frame.origin.x,CGRectGetMaxY(self.detailTextLabel.frame) - 2.5 * CostumViewMargin , 60, 28);
 }

@@ -432,6 +432,7 @@
     //输入验证码
     _authcodeField = [[UITextField alloc]init];
     _authcodeField.translatesAutoresizingMaskIntoConstraints = NO;
+    _authcodeField.returnKeyType = UIReturnKeyDone;
     _authcodeField.borderStyle = UITextBorderStyleNone;
     _authcodeField.backgroundColor = [UIColor whiteColor];
     _authcodeField.delegate = self;
