@@ -25,7 +25,9 @@
     NSString*detalstring;
     BOOL changeimage;
     NSInteger totalCount;
-
+    NSString*str4textfield;
+    NSString*stringurl;
+    
     PPiFlatSegmentedControl *segmentedControl;
     
 }
