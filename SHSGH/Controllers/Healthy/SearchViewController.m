@@ -58,7 +58,7 @@
     [self initUI];
     [self loadHospitalData];
     [self setupRefresh];
-    self.page = 0;
+    
 }
 
 -(void)setupRefresh
@@ -82,6 +82,7 @@
 
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
+    self.page = 0;
     if (_segmentView.selectedSegmentIndex == 0) {
         [self loadHospitalData];
     }
@@ -91,18 +92,18 @@
     }
 }
 
-//-(void)loadMoreStatuses
-//{
-//    if (_segmentView.selectedSegmentIndex == 0) {
-//        [_hospitalArray removeAllObjects];
-//        [self loadMoreHospitalData];
-//    }
-//    else
-//    {
-//        [_doctorsArray removeAllObjects];
-//        [self loadMoreDoctorData];
-//    }
-//}
+
+
+-(void)loadMoreStatuses
+{
+    if (_segmentView.selectedSegmentIndex == 0) {
+        [self loadMoreHospitalData];
+    }
+    else
+    {
+        [self loadMoreDoctorData];
+    }
+}
 
 -(void)loadMoreHospitalData
 {
@@ -142,7 +143,38 @@
 
 -(void)loadMoreDoctorData
 {
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        _page++;
+        NSString *pages = [NSString stringWithFormat:@"%d",_page];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?offset=%@",pages];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                _loadMoreDoctorArray = [NSMutableArray array];
+                NSArray *doctorsArray = [result objectForKey:@"result"];
+                for (int i = 0; i < doctorsArray.count; i++) {
+                    DoctorStatus *doctors = [[DoctorStatus alloc]init];
+                    doctors.cpid = (int)[[doctorsArray objectAtIndex:i] objectForKey:@"cpid"];
+                    doctors.docid = (int)[[doctorsArray objectAtIndex:i] objectForKey:@"docid"];
+                    doctors.docimageurl = [[doctorsArray objectAtIndex:i] objectForKey:@"docimageurl"];
+                    doctors.doclevel = [[doctorsArray objectAtIndex:i] objectForKey:@"doclevel"];
+                    doctors.docname = [[doctorsArray objectAtIndex:i] objectForKey:@"docname"];
+                    [_loadMoreDoctorArray addObject:doctors];
+                }
+                [_doctorsArray addObjectsFromArray:_loadMoreDoctorArray];
+                [self.tableView reloadData];
+                [self.tableView footerEndRefreshing];
+            }
+            else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        });
+    });
+
 }
 
 -(void)loadHospitalData
@@ -181,8 +213,8 @@
 -(void)loadDoctorData
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@&keyword=%@",account.phoneNum,@"0",@"2",@"1025133",@"7025988",_searchBar.text];
+//        UserModel *account = [UserTool userModel];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@",_searchBar.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -256,18 +288,91 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     SLog(@"点击了搜索!");
-    [self.tableView headerBeginRefreshing];
     if (_segmentView.selectedSegmentIndex == 0) {
-        [self loadHospitalData];
+        [self searchHospital];
     }
     else{
-        [self loadDoctorData];
+        [self searchDoctor];
     }
     
     [self resignKeyBoardInView:self.view];
     searchBar.text = nil;
 }
 
+-(void)searchHospital
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在查找!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        UserModel *account = [UserTool userModel];
+        NSString *str = [_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=1&phone=%@",str,account.phoneNum];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        SLog(@"%@",result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                _hospitalArray = [NSMutableArray array];
+                NSArray *hospitalArray = [result objectForKey:@"result"];
+                for (int i = 0; i < hospitalArray.count; i++) {
+                    HospitalStatus *status = [[HospitalStatus alloc]init];
+                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
+                    status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
+                    status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
+                    [self.hospitalArray addObject:status];
+                }
+                [hud hide:YES];
+                [self.tableView reloadData];
+            }
+            else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        });
+    });
+    
+}
+
+-(void)searchDoctor
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    hud.labelText = @"正在查找!";
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@",_searchBar.text];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        SLog(@"%@",result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==0)
+            {
+                _doctorsArray = [NSMutableArray array];
+                NSArray *doctorsArray = [result objectForKey:@"result"];
+                for (int i = 0; i < doctorsArray.count; i++) {
+                    DoctorStatus *doctors = [[DoctorStatus alloc]init];
+                    doctors.cpid = (int)[[doctorsArray objectAtIndex:i] objectForKey:@"cpid"];
+                    doctors.docid = (int)[[doctorsArray objectAtIndex:i] objectForKey:@"docid"];
+                    doctors.docimageurl = [[doctorsArray objectAtIndex:i] objectForKey:@"docimageurl"];
+                    doctors.doclevel = [[doctorsArray objectAtIndex:i] objectForKey:@"doclevel"];
+                    doctors.docname = [[doctorsArray objectAtIndex:i] objectForKey:@"docname"];
+                    [self.doctorsArray addObject:doctors];
+                }
+                [self.tableView reloadData];
+                [hud hide:YES];
+            }
+            else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        });
+    });
+
+}
 #pragma mark - 键盘消失
 - (void)resignKeyBoardInView:(UIView *)view
 {

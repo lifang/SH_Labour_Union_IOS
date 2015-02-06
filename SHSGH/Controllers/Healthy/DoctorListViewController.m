@@ -12,6 +12,7 @@
 #import "DoctorStatusController.h"
 #import "UserTool.h"
 #import "DoctorStatus.h"
+#import "HaobaiHealthyController.h"
 
 @interface DoctorListViewController ()
 
@@ -114,8 +115,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    DoctorStatusController *doctorVC = [[DoctorStatusController alloc]init];
-//    [self.navigationController pushViewController:doctorVC animated:YES];
+    HaobaiHealthyController *haobaiVC = [[HaobaiHealthyController alloc]init];
+    [self.navigationController pushViewController:haobaiVC animated:YES];
 }
 
 
