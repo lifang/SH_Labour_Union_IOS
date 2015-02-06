@@ -79,7 +79,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _imageArray = [NSMutableArray array];
@@ -107,10 +107,10 @@
     });
 }
 
-//下拉刷新加载更多微博数据
+//下拉刷新数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
-    self.page = 0;
+    self.page = 1;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setObject:@"0" forKey:@"offset"];
@@ -119,7 +119,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _listArray = [NSMutableArray array];
@@ -138,6 +138,9 @@
             else {
                 SLog(@"请求失败!");
                 [self.tableView headerEndRefreshing];
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"网络连接失败,请检查网络!" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
             }
         });
     });
@@ -155,7 +158,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _loadMoreArray = [NSMutableArray array];
@@ -184,7 +187,8 @@
 
 -(void)setNavBar
 {
-     self.title = @"区县新闻";
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.title = @"区县新闻";
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [UIColor whiteColor],
                                 NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
@@ -283,6 +287,18 @@
      dynamicChildVC.page = imageId;
      [self.navigationController pushViewController:dynamicChildVC animated:YES];
      SLog(@"图片的ID-----------%d",imageId);
- }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
 
 @end

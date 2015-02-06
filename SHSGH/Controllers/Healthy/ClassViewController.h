@@ -21,4 +21,5 @@
 @property(nonatomic,strong)NSString *className;
 @property(nonatomic,assign)int cpid;
 @property(nonatomic,strong)NSString *hospitalid;
+@property(nonatomic,assign)BOOL selected;
 @end

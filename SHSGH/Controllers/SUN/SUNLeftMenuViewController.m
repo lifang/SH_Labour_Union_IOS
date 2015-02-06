@@ -37,7 +37,9 @@
 
 - (void)setupUI
 {
-    self.tableViewLeft.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableViewLeft.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    UIView *view = [[UIView alloc]init];
+    self.tableViewLeft.tableFooterView = view;
 
 }
 
@@ -56,7 +58,6 @@
     [super viewWillAppear:animated];
     
 }
-
 
 #pragma mark - 表格视图数据源代理方法
 
@@ -204,6 +205,18 @@
         }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 #pragma mark - 销毁内存方法

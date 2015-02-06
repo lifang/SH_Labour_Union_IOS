@@ -311,6 +311,7 @@
 {
     SLog(@"点击了选择科室!");
     ClassViewController *classVC = [[ClassViewController alloc]init];
+    classVC.selected = YES;
     classVC.hospitalid = _hospitalid;
     classVC.cpid = _cpid;
     classVC.delegate = self;

@@ -11,7 +11,7 @@
 #import "EGOImageView.h"
 #import "DynamicContent.h"
 
-@interface DynamicChildViewController ()<UIScrollViewDelegate>
+@interface DynamicChildViewController ()<UIScrollViewDelegate,UIWebViewDelegate>
 
 @property(nonatomic,strong)UIScrollView *contentView;
 @property(nonatomic,strong)UIWebView *webView;
@@ -66,7 +66,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSDictionary *contentDic = [result objectForKey:@"result"];
                 SLog(@"***************%@",contentDic);
@@ -94,6 +94,7 @@
 -(void)setupWebView
 {
     UIWebView *webView = [[UIWebView alloc]init];
+    webView.delegate = self;
     webView.frame = CGRectMake(0, 0, mainScreenW,mainScreenH);
     NSURL *url = [NSURL URLWithString:@"http://www.sh12351.org"];
     [webView loadHTMLString:_contentStr baseURL:url];
@@ -112,6 +113,17 @@
     [webView addSubview:backTopView];
 
 }
+
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    webView.scrollView.contentSize = CGSizeMake(0, webView.scrollView.contentSize.height);
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    webView.scrollView.contentSize = CGSizeMake(0, webView.scrollView.contentSize.height);
+}
+
 
 -(void)setupContentView
 {

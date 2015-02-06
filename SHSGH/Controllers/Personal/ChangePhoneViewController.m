@@ -107,7 +107,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"更换成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
@@ -485,7 +485,7 @@
             id result = [KRHttpUtil getResultDataByPost:urls param:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //成功
-                if ([[result objectForKey:@"code"] integerValue]==0)
+                if ([[result objectForKey:@"code"] integerValue]==1)
                 {
                     NSString *AuthId = [result objectForKey:@"result"];
                     _authCodeM = AuthId;

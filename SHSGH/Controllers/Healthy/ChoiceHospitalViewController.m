@@ -66,7 +66,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 _loadMoreArray = [NSMutableArray array];
                 NSArray *hospitalArray = [result objectForKey:@"result"];
@@ -110,7 +110,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 _hospitalStatusArray = [NSMutableArray array];
                 NSArray *hospitalArray = [result objectForKey:@"result"];

@@ -18,7 +18,7 @@
 #import "UserTool.h"
 #import "IsPhone.h"
 
-@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion>
+@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion,UIScrollViewDelegate>
 
 @property(nonatomic,weak)UIScrollView *contentView;
 
@@ -55,6 +55,7 @@
     UIScrollView *contentView = [[UIScrollView alloc]init];
     contentView.frame = self.view.bounds;
     contentView.backgroundColor = sColor(236, 236, 236, 1.0);
+    contentView.delegate = self;
     //顶部View
     UIView *topView = [[UIView alloc]init];
     topView.backgroundColor = sColor(245, 241, 201, 1.0);
@@ -283,6 +284,7 @@
     _contentField = [[HHZTextView alloc]init];
     _contentField.placehoder = @"请输入您要咨询的内容";
     _contentField.delegate = self;
+    _contentField.returnKeyType = UIReturnKeyDone;
     _contentField.layer.cornerRadius = 2;
     _contentField.layer.masksToBounds = YES;
     _contentField.backgroundColor = [UIColor whiteColor];
@@ -374,11 +376,15 @@
     hud.labelText = @"提交中!";
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@",_nameField.text, _phoneField.text,_titleField.text,_contentField.text];
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSString *name = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *title = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *content = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@",name, _phoneField.text,title,content];
+        NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"提交成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
@@ -408,6 +414,58 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://8008808888"]];
 }
 
+#pragma mark - 键盘消失
+- (void)resignKeyBoardInView:(UIView *)view
+{
+    for (UIView *v in view.subviews) {
+        if ([v.subviews count] > 0) {
+            [self resignKeyBoardInView:v];
+        }
+        
+        if ([v isKindOfClass:[UISearchBar class]] || [v isKindOfClass:[UITextField class]]) {
+            [v resignFirstResponder];
+        }
+    }
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self resignKeyBoardInView:self.view];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    CGRect frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y - 160, textView.frame.size.width, textView.frame.size.height);
+    SLog(@"%@",NSStringFromCGRect(frame));
+    int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+    NSTimeInterval animationDuration = 0.30f;
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    if (offset > 0) {
+        self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+        [UIView commitAnimations];
+    }
+}
+
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+      self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
 
 
 -(void)segmentAction:(UISegmentedControl *)Seg
@@ -438,8 +496,13 @@
 {
     SLog(@"选择了会员维权");
     UserModel *account = [UserTool userModel];
-    _nameField.text = account.userIDName;
-    _phoneField.text = account.phoneNum;
+    if ([account.userIDName isKindOfClass:[NSNull class]]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请先登录!" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+        _nameField.text = account.userIDName;
+        _phoneField.text = account.phoneNum;
 }
 
 -(void)setNavBar

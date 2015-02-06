@@ -87,30 +87,40 @@
 -(void)setupGroup0
 {
     UserModel *account = [UserTool userModel];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     //1创建组
     HHZCommonGroup *group0 = [HHZCommonGroup group];
     [self.groups addObject:group0];
     
     //2.设置组所有行的数据
     HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
-    if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil) {
+    if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||delegate.userIDName == nil) {
          userName.subtitle = @"请完善";
+        if (account.userIDName) {
+            userName.subtitle = account.userIDName;
+        }
     }else{
-        userName.subtitle = account.userIDName;
+        userName.subtitle = delegate.userIDName;
     }
     
     HHZNoArrowItem *emailNum = [HHZNoArrowItem itemWithTitle:@"Email"];
-    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil) {
+    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||delegate.email == nil) {
         emailNum.subtitle = @"请完善";
+        if (![account.email isKindOfClass:[NSNull class]]) {
+            emailNum.subtitle = account.email;
+        }
     }else{
-        emailNum.subtitle = account.email;
+        emailNum.subtitle = delegate.email;
     }
     
     HHZNoArrowItem *LabourUnion = [HHZNoArrowItem itemWithTitle:@"工会会员号"];
-    if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil) {
+    if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil||delegate.labourUnionCode == nil) {
         LabourUnion.subtitle = @"请完善";
+        if (![account.LabourUnion isKindOfClass:[NSNull class]]) {
+            LabourUnion.subtitle = account.LabourUnion;
+        }
     }else{
-        LabourUnion.subtitle = account.LabourUnion;
+        LabourUnion.subtitle = delegate.labourUnionCode;
     }
     
     group0.items = @[userName,emailNum,LabourUnion];
@@ -165,7 +175,6 @@
 
     }
 }
-
 
 
 @end

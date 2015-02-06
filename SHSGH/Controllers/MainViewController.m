@@ -319,7 +319,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _imageArray = [NSMutableArray array];

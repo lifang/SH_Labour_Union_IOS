@@ -384,7 +384,7 @@
     }
     else
     {
-        NSLog(@"there is no data!!!");
+        NSLog(@"There is no data");
     }
     return result;
 }
