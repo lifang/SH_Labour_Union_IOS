@@ -222,6 +222,8 @@
     _conditarry=[[NSMutableArray alloc]init];
     
     
+  
+    
     
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
@@ -234,6 +236,18 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+-(void)viewDidLayoutSubviews {
+    
+    if ([_Seatchtable respondsToSelector:@selector(setSeparatorInset:)]) {
+        [_Seatchtable setSeparatorInset:UIEdgeInsetsZero];
+        
+    }
+    if ([_Seatchtable respondsToSelector:@selector(setLayoutMargins:)])  {
+        [_Seatchtable setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
+}
+
 -(void)setnavBar
 {
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, NavTitle_FONT(NavTitle_FONTSIZE),NSFontAttributeName,nil]];
@@ -258,6 +272,13 @@
 //    }
   
     
+    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
     
         cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
 
@@ -602,16 +623,23 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",str4textfield,str1,str2,str3];
+        NSString *strUrll = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+        NSString *strUrll1 = [str1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll2 = [str2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll3 = [str3 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",strUrll,strUrll1,strUrll2,strUrll3];
+        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 
                 
@@ -681,7 +709,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 [_newallarry removeAllObjects];
                 

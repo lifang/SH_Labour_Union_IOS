@@ -135,6 +135,8 @@
     }
     else {
         NSLog(@"抱歉，未找到结果");
+        NSLog(@"%@",result.addressDetail.city);
+
     }
 }
 -(void)createui

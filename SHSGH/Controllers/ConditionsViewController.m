@@ -96,7 +96,7 @@
             [HUD removeFromSuperview];
             
                       
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 [imagearry removeAllObjects];
                 

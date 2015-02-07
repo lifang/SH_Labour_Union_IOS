@@ -61,6 +61,43 @@
 //下拉刷新加载更多微博数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
+    
+    
+    [_newallarry removeAllObjects];
+
+    if( changeint==798)
+    {
+        
+        
+        urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
+        
+    }
+    
+   else if(changeint==7980)
+        
+    {
+        
+        NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        
+        NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
+        
+        
+        urls = [urlsgg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        
+        
+    }
+
+    else
+    {
+    
+     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+    
+    }
+
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     _isReloadingAllData=YES;
     [self date];
@@ -81,8 +118,34 @@
         urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
     
     }
+    if(changeint==7980)
+        
+    {
     
+        NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        
+        NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
+        
+        
+        urls = [urlsgg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    
+    
+    
+    }
     _isReloadingAllData=NO;
+    
+    if(_newallarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        [_Seatchtable footerEndRefreshing];
+        
+        return;
+        
+    }
+
     
     if(_newallarry.count<totalCount)
     {
@@ -236,14 +299,20 @@
     
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    if(_newallarry.count!=0)
+    {
+   
+        JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
+        
+        
+        cell.textLabel.text=[NSString stringWithFormat:@"%@",jobp.jobname];
+        
 
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    JObpp*jobp=[_newallarry objectAtIndex:indexPath.row];
-    NSLog(@"tttt%@",jobp.jobname);
-
-    cell.textLabel.text=[NSString stringWithFormat:@"%@",jobp.jobname];
     
- 
+    }
+    
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     
     
     return cell;
@@ -271,7 +340,7 @@
     searchrootview.layer.cornerRadius=18;
     
     _searchfield.placeholder=@"请输入关键字 ";
-       _searchfield.text= str4textfield;
+//       _searchfield.text= str4textfield;
     _searchfield.delegate=self;
     CALayer *layer=[searchrootview layer];
     //是否设置边框以及是否可见
@@ -512,8 +581,16 @@
     changeint=7980;
     
     [_newallarry removeAllObjects];
+    NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
 
-    urls =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",_searchfield.text,_newallarry.count/10+1];
+   NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
+    
+    
+    urls = [urlsgg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    
     [self date];
     
 
@@ -536,7 +613,7 @@
 {
     
     
-    str4textfield=_searchfield.text;
+    str4textfield=textField.text;
     
     
 }
@@ -545,13 +622,14 @@
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-    [self.view addSubview:HUD];
+//    [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
 //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
 //        [params setObject:@"5" forKey:@"limit"];
         
@@ -567,8 +645,9 @@
 //
 //        }
         
+//        NSString *strUrl = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-          
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -579,7 +658,7 @@
             [_Seatchtable footerEndRefreshing];
             
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 if (_isReloadingAllData)
                     
@@ -595,10 +674,11 @@
                     
                     JObpp*peo=[[JObpp alloc]init];
                     
-                    if(changeint==798)
+                    if(changeint==798||changeint==7980)
                     {peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
                     peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"title"]];
-                    
+                        NSLog(@"ppppppppp地对地导弹%@",peo.jobname);
+
                     
                     [_newallarry addObject:peo];
                     }else
@@ -614,17 +694,10 @@
                 }
                 totalCount = [[result  objectForKey:@"total"] integerValue];
 
-                 if(changeint==798)
-                 {
-                     [_Seatchtable reloadData];
-
-                 }
-                else
-                {
-                    [_helptable reloadData];
-
+                [_Seatchtable reloadData];
+              
+                [_helptable reloadData];
                 
-                }
                 if(_newallarry.count==totalCount)
                 {
                     [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
@@ -644,17 +717,15 @@
 
                     [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                
-                if(changeint==798)
-                {
+              
                     [_Seatchtable reloadData];
                     
-                }
-                else
-                {
+               
+             
                     [_helptable reloadData];
                     
                     
-                }
+            
 
                 
             }
@@ -680,6 +751,7 @@
         }
         else
         {
+     
             detalstring=[NSString stringWithFormat:@"/api/mutualAid/findById?id=%ld",(long)A];
 
         }
@@ -691,7 +763,7 @@
             NSLog(@"ppppppppp地对地导弹%@",result);
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 
                 

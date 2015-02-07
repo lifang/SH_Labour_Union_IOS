@@ -19,7 +19,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"%@",self.recortarry);
+    if(self.recortarry.count==0)
+    {
     
+        [self showMessage:@"暂无记录" viewHeight:SCREEN_HEIGHT/2-80];
+
+    
+    
+    
+    }
    
     
     
@@ -233,7 +241,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 
                 

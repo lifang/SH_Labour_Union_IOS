@@ -17,6 +17,7 @@
 
 @end
 
+
 @implementation DituViewController
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -34,7 +35,6 @@
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
-    _mapView.zoomLevel = 14;
 
     [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     //指定最小距离更新(米)，默认：kCLDistanceFilterNone
@@ -63,7 +63,7 @@
     
     
     BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-    geoCodeSearchOption.city= self.city;
+    geoCodeSearchOption.city= @"上海市";
     geoCodeSearchOption.address = self.address;
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
@@ -162,10 +162,7 @@
                      errorCode:(BMKSearchErrorCode)error
 {
     
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:array];
+   
     if (error == BMK_SEARCH_NO_ERROR)
         
     {
@@ -266,15 +263,19 @@
         
         BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
         CLLocationCoordinate2D coor;
+        
+        
+      
         coor.latitude = per_lat;
         coor.longitude = per_lon;
         annotation.coordinate = coor;
         annotation.title = self.name;
-        [_mapView setCenterCoordinate:coor];
         
         
         
         [_mapView addAnnotation:annotation];
+        [_mapView setCenterCoordinate:coor];
+
         annotation=nil;
         
 
@@ -299,6 +300,10 @@
 //}
 -(void)viewWillDisappear:(BOOL)animated
 {
+    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
+    [_mapView removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:array];
     [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
     _mapView=nil;

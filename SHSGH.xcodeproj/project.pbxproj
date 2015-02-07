@@ -80,6 +80,7 @@
 		0ED0FDF01A75FAEC00486C2E /* OrganizationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDEF1A75FAEC00486C2E /* OrganizationTableViewCell.m */; };
 		0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */; };
 		0ED0FDF61A76395000486C2E /* TradedetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF51A76395000486C2E /* TradedetalViewController.m */; };
+		0ED5D2E81A84BBB000EC08F1 /* defimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED5D2E71A84BBB000EC08F1 /* defimage.png */; };
 		9335480A1A733C68009F38D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 933547FA1A733C68009F38D4 /* MJRefresh.bundle */; };
 		9335480B1A733C68009F38D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FD1A733C68009F38D4 /* MJRefreshBaseView.m */; };
 		9335480C1A733C68009F38D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FF1A733C68009F38D4 /* MJRefreshConst.m */; };
@@ -371,6 +372,7 @@
 		0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationdetalViewController.m; sourceTree = "<group>"; };
 		0ED0FDF41A76395000486C2E /* TradedetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradedetalViewController.h; sourceTree = "<group>"; };
 		0ED0FDF51A76395000486C2E /* TradedetalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradedetalViewController.m; sourceTree = "<group>"; };
+		0ED5D2E71A84BBB000EC08F1 /* defimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defimage.png; sourceTree = "<group>"; };
 		933547FA1A733C68009F38D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		933547FB1A733C68009F38D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		933547FC1A733C68009F38D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -732,6 +734,7 @@
 		0ECDDA5B1A772814006D7102 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0ED5D2E71A84BBB000EC08F1 /* defimage.png */,
 				0ECF8A221A7B432E00FCEC91 /* luxian.png */,
 				0ECD91071A80CD5100CF36FB /* defaultimages.png */,
 				0EC8A5E81A787EF800FBFD53 /* tuixiu.png */,
@@ -1297,6 +1300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0ECE9F6E1A734B98001C448D /* fontawesome-webfont.ttf in Resources */,
+				0ED5D2E81A84BBB000EC08F1 /* defimage.png in Resources */,
 				0E416A191A78FD8800A66EDD /* jieshao.png in Resources */,
 				93C6F0EB1A6CF030002C8E4A /* red_line_and_shadow@2x.png in Resources */,
 				0ECA45501A7A107400AEA86B /* mapapi.bundle in Resources */,
@@ -1584,6 +1588,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
@@ -1605,6 +1610,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";

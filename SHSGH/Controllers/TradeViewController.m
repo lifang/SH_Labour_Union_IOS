@@ -20,7 +20,6 @@
 #import "EGOImageView.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
-
 @interface TradeViewController ()
 
 @end
@@ -36,9 +35,7 @@
     
   
     
-    MJRefreshFooterView *footer = [MJRefreshFooterView footer];
-  
-    [footer endRefreshing];
+ 
     
     
     
@@ -59,6 +56,9 @@
 
 -(void)setupRefresh
 {
+    
+    _Seatchtable.userInteractionEnabled=YES;
+    
     //下拉
     [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
     [_Seatchtable headerBeginRefreshing];
@@ -91,6 +91,14 @@
 -(void)loadMoreStatuses
 {
     _isReloadingAllData=NO;
+    if(_allarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        [_Seatchtable footerEndRefreshing];
+
+        return;
+        
+    }
     
     if(_allarry.count<totalCount)
     {
@@ -118,6 +126,17 @@
                           
                           if(segmentIndex==0)
                           {
+                              
+                              for(int i=0;i<100;i++)
+                              {
+                                  _flagArray[i]=NO;
+                                  
+
+                              
+                              
+                              
+                              }
+
                               _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
                               _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
                               _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
@@ -133,6 +152,16 @@
                           
                           else
                           {
+                              for(int i=0;i<100;i++)
+                              {
+                                  _flagArray[i]=NO;
+                                  
+                                  
+                                  
+                                  
+                                  
+                              }
+
                               _Seatchtable.footerPullToRefreshText = @"上拉可以加载更多数据了";
                               _Seatchtable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
                               _Seatchtable.footerRefreshingText = @">.< 正在努力加载中!";
@@ -234,13 +263,14 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     
     cell.namelable.text=peop.about_detail;
     cell.namelable.numberOfLines=0;
-    
+    cell.namelable.font=[UIFont systemFontOfSize:15];
+
     [cell.namelable sizeToFit];
     
     cell.backgroundColor=[UIColor clearColor];
     
    
-    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+31);
+    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+15);
     
     
     
@@ -261,7 +291,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     [templabel sizeToFit];
     
     
-        return templabel.frame.size.height+30;
+        return templabel.frame.size.height+15;
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -291,13 +321,13 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     [rootimageview addSubview:logoimageview];
     logoimageview.userInteractionEnabled=NO;
     people*peop=[_allarry objectAtIndex:section];
-    
-//    EGOImageView *imageView = [[EGOImageView alloc]init];
+//    [logoimageview setContentMode:UIViewContentModeScaleAspectFill];
+
     
     
     NSURL *imageUrl = [NSURL URLWithString:peop.images];
     
-    [logoimageview sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+    [logoimageview sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"defimage"]];
 
     
 //    [logoimageview  sd_setImageWithURL:[NSURL URLWithString:peop.images] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
@@ -361,7 +391,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     
     UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
     searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 80, 30, 30);
-
+    
     
     if (_flagArray[section])
     {   [UIView beginAnimations:nil context:nil];
@@ -535,7 +565,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
             [_Seatchtable footerEndRefreshing];
             
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 //                NSArray*arry=[result objectForKey:@"result"] ;
                 
@@ -593,7 +623,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-    [self.view addSubview:HUD];
+//    [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];
@@ -626,9 +656,12 @@ _Seatchtable.separatorColor=[UIColor clearColor];
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-          
+            [_Seatchtable headerEndRefreshing];
+            [_Seatchtable footerEndRefreshing];
+            
 
-            if ([[result objectForKey:@"code"] integerValue]==0)
+
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 if (_isReloadingAllData)
                     
@@ -689,12 +722,9 @@ _Seatchtable.separatorColor=[UIColor clearColor];
                 totalCount = [[result objectForKey:@"total"] integerValue];
                 
                 if (_allarry.count!=0)
-                {
-                    
-                    [_Seatchtable reloadData];
+                {                     [_Seatchtable reloadData];
                    
-                    [_Seatchtable headerEndRefreshing];
-                    [_Seatchtable footerEndRefreshing];
+                   
                 }
                 if(_allarry.count==totalCount)
                 {
@@ -707,6 +737,10 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 
 //                    _Seatchtable.footerHidden = YES;
 
+                    
+                    [_Seatchtable footerEndRefreshing];
+                    
+                    [_Seatchtable reloadData];
                 }
 
               

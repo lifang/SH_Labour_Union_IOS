@@ -220,7 +220,7 @@
             [_Seatchtable footerEndRefreshing];
             
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
              
                 NSArray* arry= [[NSArray alloc]initWithArray:[[result objectForKey:@"result"] objectForKey:@"content"]];

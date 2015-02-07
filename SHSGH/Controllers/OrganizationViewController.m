@@ -75,6 +75,14 @@
 {
     _isReloadingAllData=NO;
     
+    if(_allarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        [_Seatchtable footerEndRefreshing];
+        
+        return;
+        
+    }
     if(_allarry.count<totalCount)
     {
         [self date];
@@ -373,7 +381,7 @@
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-    [self.view addSubview:HUD];
+//    [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];
@@ -404,7 +412,7 @@
             [_Seatchtable footerEndRefreshing];
             
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 if (_isReloadingAllData)
                     
@@ -485,7 +493,7 @@
             [_Seatchtable footerEndRefreshing];
             
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
 //                NSArray*arry=[result objectForKey:@"result"] ;
                 

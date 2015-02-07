@@ -252,7 +252,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD removeFromSuperview];
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 
                 
@@ -285,12 +285,13 @@
             
             else
             {
-                NSString *reason = @"请求超时或者网络环境较差!";
+                NSString *reason = [result objectForKey:@"message"];
                 if (![KRHttpUtil checkString:reason])
                 {
                     reason = @"请求超时或者网络环境较差!";
                 }
-
+                
+                
                 [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
                 
                 
