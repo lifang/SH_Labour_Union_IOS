@@ -71,30 +71,28 @@
     hud.labelText = @"完善中!";
  
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                        UserModel *account = [UserTool userModel];
-        SLog(@"------------------%@",account.userID);
-        NSString *urls = [NSString stringWithFormat:@"/api/user/update?token=%@&id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.token, account.userID,_usernameField.text,_emailField.text,_userIDField.text];
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        UserModel *account = [UserTool userModel];
+        NSString *nickName = [_usernameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urls = [NSString stringWithFormat:@"/api/user/update?token=%@&id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.token, account.userID,nickName,_emailField.text,_userIDField.text];
+        NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        id result = [KRHttpUtil getResultDataByPost:str param:nil];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"完善成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 [hud hide:YES];
                 if (![_usernameField.text isEqualToString:@""]) {
-                    account.userIDName = _usernameField.text;
-                    [UserTool save:account];
+                    delegate.userIDName = _usernameField.text;
                 }
                 if (![_emailField.text isEqualToString:@""]) {
-                     account.email = _emailField.text;
-                    [UserTool save:account];
+                     delegate.email = _emailField.text;
                 }
                 if (![_userIDField.text isEqualToString:@""]) {
-                    account.LabourUnion = _userIDField.text;
-                    [UserTool save:account];
+                    delegate.labourUnionCode = _userIDField.text;
                 }
-                
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }

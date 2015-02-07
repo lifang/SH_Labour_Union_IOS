@@ -26,6 +26,7 @@
     btnLabel.textAlignment = NSTextAlignmentCenter;
     btnLabel.font = [UIFont systemFontOfSize:17];
     btnLabel.textColor = [UIColor whiteColor];
+    btnLabel.backgroundColor = [UIColor clearColor];
     [self addSubview:btnLabel];
     self.btnLabel = btnLabel;
     

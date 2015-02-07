@@ -11,6 +11,7 @@
 #import "HospitalCell.h"
 #import "UserTool.h"
 #import "ClassStatus.h"
+#import "HaobaiHealthyController.h"
 
 @interface ClassViewController ()
 
@@ -74,7 +75,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 SLog(@"%@",result);
                 _loadMoreArray = [NSMutableArray array];
@@ -109,7 +110,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 SLog(@"%@",result);
                 _classArray = [NSMutableArray array];
@@ -139,7 +140,7 @@
 
 -(void)setNavBar
 {
-    self.title = @"医院列表";
+    self.title = @"科室列表";
     self.view.backgroundColor = mainScreenColor;
     
     navbarView *leftView = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
@@ -169,9 +170,15 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.selected == NO) {
+        HaobaiHealthyController *haobaiVC = [[HaobaiHealthyController alloc]init];
+        [self.navigationController pushViewController:haobaiVC animated:YES];
+    }
+    else{
     ClassStatus *class = [_classArray objectAtIndex:indexPath.row];
     [self.delegate sendClass:class.deptname WithDeptid:class.deptid];
     [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {

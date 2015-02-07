@@ -78,7 +78,7 @@
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if ([[result objectForKey:@"code"] integerValue]==0)
+            if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *cityArray = [result objectForKey:@"result"];
                 self.dataArray = cityArray;
@@ -94,15 +94,13 @@
                 }
                 [self.leftTableView reloadData];
                 
-                if (_province) {
+                if (_province&&_downtown&&_provinceArray) {
                     [self findIndexPath];
-                    
                     NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
                     [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
                     NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
                     [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
                 }
-               
             }
             else {
                 SLog(@"请求失败!");
