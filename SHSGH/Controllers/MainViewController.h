@@ -11,7 +11,22 @@
 #import "dynamicViewController.h"
 
 @interface MainViewController : UIViewController
-
+{NSTimer*_scrollcententtimer;
+    
+    
+    UILabel*lab;
+    UILabel*lab1;
+    UILabel*lab2;
+    int k;  int j;
+    int m;
+    int n;
+    
+    int w;
+    UIImageView*vieiamge;
+    
+    int i;
+    
+}
 @property(nonatomic,strong)SUNViewController *drawerController;
 
 @end

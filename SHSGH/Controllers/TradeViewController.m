@@ -320,7 +320,14 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     
     [rootimageview addSubview:logoimageview];
     logoimageview.userInteractionEnabled=NO;
-    people*peop=[_allarry objectAtIndex:section];
+    people*peop;
+    if(_allarry.count!=0)
+    {
+    
+        peop=[_allarry objectAtIndex:section];
+
+    
+    }
 //    [logoimageview setContentMode:UIViewContentModeScaleAspectFill];
 
     
@@ -335,7 +342,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     UILabel*namelable=[[UILabel alloc]init];
     namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 20);
     
-    namelable.font=[UIFont systemFontOfSize:13];
+    namelable.font=[UIFont systemFontOfSize:12];
 //      requirecontent.textColor=[UIColor grayColor];
 //    namelable.numberOfLines=0;
     [rootimageview addSubview:namelable];
@@ -580,7 +587,21 @@ _Seatchtable.separatorColor=[UIColor clearColor];
                 detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
                 
                 detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
-                detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                
+                if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"addr"]])
+                {
+                
+                 detal.address=@"暂无地址";
+                    
+                
+                }
+                else
+                {
+                
+                    detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+
+                
+                }
                 detal.about=[[result objectForKey:@"result"]  objectForKey:@"about"];
 
                 
@@ -707,8 +728,21 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 
                     peo.images=[[arry objectAtIndex:i] objectForKey:@"logo"];
 
-                    
-                    peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
+                    if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"addr"]])
+                    {
+                        
+                       peo.addrstring=@"暂无地址";
+                        
+                        
+                    }
+                    else
+                    {
+                        
+                        peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
+                        
+                        
+                    }
+
                     peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
                    
                     peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];

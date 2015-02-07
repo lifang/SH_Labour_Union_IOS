@@ -180,6 +180,7 @@
     
     [bigscroll addSubview:addressbutton];
     addressbutton.font = [UIFont systemFontOfSize: 16.0];
+    
     addressbutton.text=self.address;
     addressbutton.textColor=[UIColor grayColor];
     
