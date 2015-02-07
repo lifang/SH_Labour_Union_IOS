@@ -37,6 +37,8 @@
 
 @property(nonatomic,assign)int page;
 
+@property(nonatomic,strong)ReuseView *reuseViewscrollView;
+
 @end
 
 @implementation dynamicViewController
@@ -75,13 +77,14 @@
         [params setObject:@"1" forKey:@"offset"];
 
         NSString *urls =@"/api/news/findTopNews";
-        id result = [KRHttpUtil getResultDataByPost:urls param:params];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
+                SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~%ld",imageeArray.count);
                 _imageArray = [NSMutableArray array];
                 _idArray = [NSMutableArray array];
                 for (int i = 0; i < imageeArray.count; i++) {
@@ -244,10 +247,11 @@
 -(void)setScrollView
 {
     CGFloat scrollViewH = 140;
-    ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,0, mainScreenW, scrollViewH) array:_imageArray];
-    scrollView.reuseDelegate = self;
-    
-    self.tableView.tableHeaderView = scrollView;
+    [_imageArray removeLastObject];
+    ReuseView *reuseViewscrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,0, mainScreenW, scrollViewH) array:_imageArray];
+    reuseViewscrollView.reuseDelegate = self;
+    self.tableView.tableHeaderView = reuseViewscrollView;
+    self.reuseViewscrollView = reuseViewscrollView;
 }
 
 #pragma mark - Table view data source
@@ -300,5 +304,6 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
+
 
 @end

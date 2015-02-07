@@ -20,7 +20,7 @@
 #import "MainImage.h"
 #import "EGOImageView.h"
 
-@interface MainViewController ()<ReuseViewDelegate,EGOImageViewDelegate>
+@interface MainViewController ()<ReuseViewDelegate,EGOImageViewDelegate,ImageScrollViewDelegate>
 
 @property(nonatomic,strong)NSMutableArray *imageArray;
 
@@ -29,6 +29,8 @@
 @property(nonatomic,strong)EGOImageView *bigView;
 
 @property(nonatomic,strong)UIButton *clickBtn;
+
+@property(nonatomic,strong)ReuseView *reuseScrollView;
 
 @end
 
@@ -61,6 +63,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadImageDate];
+    [self initAndLayoutUI];
 
 }
 
@@ -90,6 +93,7 @@
     ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,topViewY + topViewH + CostumViewMargin, mainScreenW, scrollViewH) array:_imageArray];
     CGFloat scrollViewY = topViewY + topViewH + CostumViewMargin;
     scrollView.reuseDelegate = self;
+    self.reuseScrollView = scrollView;
     [self.view addSubview:scrollView];
     
     //创建底部的工具按钮
@@ -113,6 +117,7 @@
     [bottomView addSubview:imageView];
     
     UILabel *bottomL = [[UILabel alloc]init];
+    bottomL.backgroundColor = [UIColor clearColor];
     bottomL.textAlignment = NSTextAlignmentCenter;
     bottomL.font = [UIFont boldSystemFontOfSize:17];
     bottomL.text = @"首页";
@@ -121,6 +126,9 @@
     CGFloat bottomLH = imageViewH;
     CGFloat bottomLX = imageViewX - 5;
     CGFloat bottomLY = imageViewY + imageViewH - CostumViewMargin;
+    if (mainScreenH <= 480) {
+        bottomLY = imageViewY + imageViewH - CostumViewMargin - 5;
+    }
     bottomL.frame = CGRectMake(bottomLX, bottomLY, bottomLW, bottomLH);
     [bottomView addSubview:bottomL];
     
@@ -344,21 +352,38 @@
 #pragma mark - ScrollView didSelect
 -(void)handleTop:(UITapGestureRecognizer *)imageView
 {
-    UIButton *mainClick = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, mainScreenH)];
-    [mainClick addTarget:self action:@selector(clickedBtn) forControlEvents:UIControlEventTouchUpInside];
-    [mainClick becomeFirstResponder];
-    self.clickBtn = mainClick;
-    
+//    UIButton *mainClick = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, mainScreenH)];
+//    [mainClick addTarget:self action:@selector(clickedBtn) forControlEvents:UIControlEventTouchUpInside];
+//    [mainClick becomeFirstResponder];
+//    self.clickBtn = mainClick;
+//    
     int ids = (int)imageView.view.tag - 101;
     EGOImageView *bigV = [[EGOImageView alloc]init];
     bigV.userInteractionEnabled = YES;
     bigV.delegate = self;
     bigV.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_bigArray[ids]]];
     bigV.backgroundColor = [UIColor clearColor];
-    bigV.frame = CGRectMake(0, 0, mainScreenW, mainScreenH);
-    [self.view addSubview:bigV];
-    [self.view addSubview:mainClick];
-     self.bigView = bigV;
+    self.bigView = bigV;
+    
+    [self.view bringSubviewToFront:self.scrollPanel];
+    self.scrollPanel.alpha = 1.0;
+    
+    UIImageView *imageViews = (UIImageView *)[imageView view];
+    self.currentIndex = imageViews.tag;
+    
+    CGRect convertRect = [[imageViews superview] convertRect:imageViews.frame toView:self.view];
+    CGPoint contentOffset = self.imagesScrollView.contentOffset;
+    contentOffset.x = (self.currentIndex - 1) * self.view.bounds.size.width;
+    self.imagesScrollView.contentOffset = contentOffset;
+    
+    [self addImageScrollViewForController:self];
+    
+    ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:(CGRect){contentOffset,self.imagesScrollView.bounds.size}];
+    [imagescroll setContentWithFrame:convertRect];
+    [imagescroll setImage:_bigView.image];
+    [self.imagesScrollView addSubview:imagescroll];
+    imagescroll.tapDelegate = self;
+    [self performSelector:@selector(setOriginFrame:) withObject:imagescroll afterDelay:0.1f];
 }
 
 -(void)clickedBtn
@@ -386,5 +411,68 @@
 - (void)imageViewLoadedImage:(EGOImageView*)imageView {
     NSLog(@"%@",NSStringFromCGSize(imageView.image.size));
 }
+
+#pragma mark - 图片放大
+#pragma mark - UI
+
+- (void)initAndLayoutUI {
+    _scrollPanel = [[UIView alloc] initWithFrame:self.view.bounds];
+    _scrollPanel.backgroundColor = [UIColor clearColor];
+    _scrollPanel.alpha = 0;
+    [self.view addSubview:_scrollPanel];
+    
+    CGRect rect = _scrollPanel.bounds;
+    rect.origin.y = -64;
+    rect.size.height += 64;
+    _markView = [[UIView alloc] initWithFrame:rect];
+    _markView.backgroundColor = [UIColor blackColor];
+    _markView.alpha = 0.0;
+    [_scrollPanel addSubview:_markView];
+    
+    _imagesScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    [_scrollPanel addSubview:_imagesScrollView];
+    _imagesScrollView.pagingEnabled = YES;
+    _imagesScrollView.delegate = self;
+}
+
+#pragma mark - 大图
+
+- (void)addImageScrollViewForController:(UIViewController *)controller {
+    [self.imagesScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    for (int i = 1; i <= self.totalPage; i++) {
+        if (i == self.currentIndex) {
+            continue;
+        }
+        UIImageView *imageView = (UIImageView *)[_reuseScrollView viewWithTag:i];
+        CGRect convertRect = [[imageView superview] convertRect:imageView.frame toView:self.view];
+        ImageScrollView *imagescroll = [[ImageScrollView alloc] initWithFrame:(CGRect){(i - 1) * self.imagesScrollView.bounds.size.width,0,self.imagesScrollView.bounds.size}];
+        [imagescroll setContentWithFrame:convertRect];
+        [imagescroll setImage:imageView.image];
+        [self.imagesScrollView addSubview:imagescroll];
+        imagescroll.tapDelegate = (id<ImageScrollViewDelegate>)controller;
+        [imagescroll setAnimationRect];
+    }
+}
+
+- (void)setOriginFrame:(ImageScrollView *)sender {
+    self.pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.currentIndex,self.totalPage];
+    [UIView animateWithDuration:0.4 animations:^{
+        [sender setAnimationRect];
+        self.markView.alpha = 1.0;
+    }];
+}
+
+#pragma mark - ImageScrollViewDelegate
+
+- (void)tapImageViewWithObject:(ImageScrollView *)sender {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.markView.alpha = 0;
+        [sender rechangeInitRdct];
+    } completion:^(BOOL finished) {
+        self.scrollPanel.alpha = 0;
+    }];
+}
+
 
 @end

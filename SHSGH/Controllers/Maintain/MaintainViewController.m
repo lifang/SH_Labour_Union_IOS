@@ -17,6 +17,7 @@
 #import "UserModel.h"
 #import "UserTool.h"
 #import "IsPhone.h"
+#import "loginViewController.h"
 
 @interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion,UIScrollViewDelegate>
 
@@ -377,9 +378,11 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *name = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *title = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *content = [_nameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@",name, _phoneField.text,title,content];
+        NSString *title = [_titleField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *content = [_contentField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *email = [_emailField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *address = [_addressField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@&address=%@&email=%@",name, _phoneField.text,title,content,address,email];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -394,6 +397,8 @@
                 _phoneField.text = nil;
                 _titleField.text = nil;
                 _contentField.text = nil;
+                _emailField.text = nil;
+                _addressField.text = nil;
             }
             //请求失败
             else
@@ -455,7 +460,7 @@
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
-      self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+      self.view.frame =CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -496,10 +501,9 @@
 {
     SLog(@"选择了会员维权");
     UserModel *account = [UserTool userModel];
-    if ([account.userIDName isKindOfClass:[NSNull class]]) {
-        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请先登录!" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alertView show];
-        return;
+    if (account.userIDName == nil) {
+        loginViewController *loginVC = [[loginViewController alloc]init];
+        [self.navigationController pushViewController:loginVC animated:YES];
     }
         _nameField.text = account.userIDName;
         _phoneField.text = account.phoneNum;

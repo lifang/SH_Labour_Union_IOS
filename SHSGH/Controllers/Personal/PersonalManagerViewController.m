@@ -29,6 +29,7 @@
 @implementation PersonalManagerViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
     [self setNavBar];
     
@@ -36,12 +37,15 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     [self setupGroups];
 }
 
 -(void)setNavBar
 {
+    if (mainScreenH<=480) {
+        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    }
     self.title = @"个人中心";
     self.tableView.backgroundColor = sColor(236, 236, 236, 1.0);
     
@@ -88,6 +92,8 @@
 {
     UserModel *account = [UserTool userModel];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    SLog(@"%@",account.userIDName);
+    SLog(@"%@",delegate.userIDName);
     //1创建组
     HHZCommonGroup *group0 = [HHZCommonGroup group];
     [self.groups addObject:group0];
@@ -96,7 +102,7 @@
     HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
     if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||delegate.userIDName == nil) {
          userName.subtitle = @"请完善";
-        if (account.userIDName) {
+        if (![account.userIDName isKindOfClass:[NSNull class]]) {
             userName.subtitle = account.userIDName;
         }
     }else{
@@ -124,7 +130,7 @@
     }
     
     group0.items = @[userName,emailNum,LabourUnion];
-    
+    [self.tableView reloadData];
 }
 
 -(void)setupGroup1
@@ -133,9 +139,13 @@
     HHZCommonGroup *group1 = [HHZCommonGroup group];
     [self.groups addObject:group1];
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    UserModel *account = [UserTool userModel];
     //2.设置组所有行的数据
     HHZCommonArrowItem *aboutUs = [HHZCommonArrowItem itemWithTitle:@"修改密码"];
-    NSMutableString *password = (NSMutableString *)delegate.password;
+    NSMutableString *password = (NSMutableString *)account.password;
+    if (delegate.password) {
+        password = (NSMutableString *)delegate.password;
+    }
     NSMutableString *star = [[NSMutableString alloc]init];
     for (int i = 0; i < password.length; i++) {
         [star appendString:@"*"];
@@ -144,12 +154,16 @@
     aboutUs.subtitle = passwordStr;
     
     HHZCommonArrowItem *versionsUp = [HHZCommonArrowItem itemWithTitle:@"绑定手机"];
-    NSMutableString *phone = (NSMutableString *)delegate.phone;
+    NSMutableString *phone = (NSMutableString *)account.phoneNum;
+    if (delegate.phone) {
+        phone = (NSMutableString *)delegate.phone;
+    }
     NSString *stars = @"****";
      NSString *phoneStr = [phone stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:stars];
     versionsUp.subtitle = phoneStr;
     
     group1.items = @[aboutUs,versionsUp];
+    [self.tableView reloadData];
 }
 
 

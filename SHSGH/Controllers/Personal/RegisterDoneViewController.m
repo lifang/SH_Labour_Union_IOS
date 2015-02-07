@@ -80,6 +80,7 @@
     [topView addSubview:imageV];
     
     UILabel *topLabel = [[UILabel alloc]init];
+    topLabel.backgroundColor = [UIColor clearColor];
     topLabel.font = [UIFont systemFontOfSize:15];
     topLabel.text = @"恭喜您,注册成功。";
     topLabel.textColor = sColor(75, 75, 75, 1.0);
@@ -87,6 +88,7 @@
     [topView addSubview:topLabel];
     
     UILabel *bottomLabel = [[UILabel alloc]init];
+    bottomLabel.backgroundColor = [UIColor clearColor];
     bottomLabel.font = [UIFont systemFontOfSize:12];
     bottomLabel.text = @"完善以下信息将获得更多权益与信息!";
     bottomLabel.textColor = sColor(179, 179, 179, 1.0);

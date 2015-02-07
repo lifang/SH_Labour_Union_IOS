@@ -71,7 +71,7 @@
         UserModel *account = [UserTool userModel];
         _page++;
         NSString *pages = [NSString stringWithFormat:@"%d",_page];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,pages,[NSString stringWithFormat:@"%d",_cpid],_hospitalid];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,pages,[NSString stringWithFormat:@"%@",_cpid],_hospitalid];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -82,7 +82,7 @@
                 NSArray *classesArray = [result objectForKey:@"result"];
                 for (int i = 0; i < classesArray.count; i++) {
                     ClassStatus *classes = [[ClassStatus alloc]init];
-                    classes.cpid = (int)[[classesArray objectAtIndex:i] objectForKey:@"cpid"];
+                    classes.cpid = [[classesArray objectAtIndex:i] objectForKey:@"cpid"];
                     classes.deptid = [[classesArray objectAtIndex:i] objectForKey:@"deptid"];
                     classes.deptnum = [[classesArray objectAtIndex:i] objectForKey:@"deptnum"];
                     classes.deptname = [[classesArray objectAtIndex:i] objectForKey:@"deptname"];
@@ -106,7 +106,7 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,@"0",[NSString stringWithFormat:@"%d",_cpid],_hospitalid];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,@"0",[NSString stringWithFormat:@"%@",_cpid],_hospitalid];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -117,7 +117,7 @@
                 NSArray *classesArray = [result objectForKey:@"result"];
                 for (int i = 0; i < classesArray.count; i++) {
                     ClassStatus *classes = [[ClassStatus alloc]init];
-                    classes.cpid = (int)[[classesArray objectAtIndex:i] objectForKey:@"cpid"];
+                    classes.cpid = [[classesArray objectAtIndex:i] objectForKey:@"cpid"];
                     classes.deptid = [[classesArray objectAtIndex:i] objectForKey:@"deptid"];
                     classes.deptnum = [[classesArray objectAtIndex:i] objectForKey:@"deptnum"];
                     classes.deptname = [[classesArray objectAtIndex:i] objectForKey:@"deptname"];

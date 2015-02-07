@@ -283,7 +283,7 @@
     _passwordSureField.leftView = passwordSureView;
     _passwordSureField.leftViewMode = UITextFieldViewModeAlways;
     _passwordSureField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _passwordSureField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _passwordSureField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_passwordSureField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordSureField
                                                           attribute:NSLayoutAttributeTop
@@ -367,7 +367,7 @@
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [send addTarget:self action:@selector(authcode) forControlEvents:UIControlEventTouchUpInside];
-    send.titleLabel.tintColor = [UIColor whiteColor];
+//    send.titleLabel.tintColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
     [send setTitle:@"验证码" forState:UIControlStateNormal];
     [rightViewFS addSubview:send];
@@ -377,7 +377,7 @@
     _phoneField.leftView = _phoneFieldView;
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _phoneField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _phoneField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_phoneField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_phoneField
                                                           attribute:NSLayoutAttributeTop
@@ -458,7 +458,7 @@
     _authcodeField.leftView = _authcodeFieldView;
     _authcodeField.leftViewMode = UITextFieldViewModeAlways;
     _authcodeField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _authcodeField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _authcodeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_authcodeField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authcodeField
                                                           attribute:NSLayoutAttributeTop

@@ -81,6 +81,7 @@
 		0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */; };
 		0ED0FDF61A76395000486C2E /* TradedetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF51A76395000486C2E /* TradedetalViewController.m */; };
 		0ED5D2E81A84BBB000EC08F1 /* defimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED5D2E71A84BBB000EC08F1 /* defimage.png */; };
+		9321E4951A85F76B00ECE71A /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321E4941A85F76B00ECE71A /* ImageScrollView.m */; };
 		9335480A1A733C68009F38D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 933547FA1A733C68009F38D4 /* MJRefresh.bundle */; };
 		9335480B1A733C68009F38D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FD1A733C68009F38D4 /* MJRefreshBaseView.m */; };
 		9335480C1A733C68009F38D4 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FF1A733C68009F38D4 /* MJRefreshConst.m */; };
@@ -373,6 +374,8 @@
 		0ED0FDF41A76395000486C2E /* TradedetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradedetalViewController.h; sourceTree = "<group>"; };
 		0ED0FDF51A76395000486C2E /* TradedetalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradedetalViewController.m; sourceTree = "<group>"; };
 		0ED5D2E71A84BBB000EC08F1 /* defimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defimage.png; sourceTree = "<group>"; };
+		9321E4931A85F76B00ECE71A /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
+		9321E4941A85F76B00ECE71A /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
 		933547FA1A733C68009F38D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		933547FB1A733C68009F38D4 /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		933547FC1A733C68009F38D4 /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -949,6 +952,8 @@
 		93C6F0481A6CE991002C8E4A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9321E4931A85F76B00ECE71A /* ImageScrollView.h */,
+				9321E4941A85F76B00ECE71A /* ImageScrollView.m */,
 				93C592CD1A708D9700CDF8F7 /* Common */,
 				93FC2AA61A771E09004EE5B0 /* MainImage.h */,
 				93FC2AA71A771E09004EE5B0 /* MainImage.m */,
@@ -1375,6 +1380,7 @@
 				0EC4AB3F1A6DFC0600886040 /* SearchRestulTableViewCell.m in Sources */,
 				935DDF8D1A75D80500021146 /* PersonalDoneViewController.m in Sources */,
 				0ECE9F681A734B98001C448D /* FAImageView.m in Sources */,
+				9321E4951A85F76B00ECE71A /* ImageScrollView.m in Sources */,
 				935DDFD01A7626BF00021146 /* QuestionViewController.m in Sources */,
 				0EC9EB6E1A7F406E008FF6A8 /* LineTableViewCell.m in Sources */,
 				936287AB1A809B22000E4AE9 /* DoctorStatusController.m in Sources */,

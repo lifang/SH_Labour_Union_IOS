@@ -32,7 +32,7 @@
 -(void)setNavBar
 {
     self.title = @"个人信息管理";
-    self.view.backgroundColor = sColor(236, 236, 236, 1.0);
+    self.view.backgroundColor = mainScreenColor;
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
@@ -166,6 +166,7 @@
     leftUserView.size = CGSizeMake(100, 30);
     
     UILabel *leftUser = [[UILabel alloc]init];
+    leftUser.backgroundColor = [UIColor clearColor];
     leftUser.textAlignment = NSTextAlignmentCenter;
     leftUser.frame = CGRectMake(0, 5, 70, labelSize);
     leftUser.text = @"会员名";
@@ -257,6 +258,7 @@
     leftEmailView.size = CGSizeMake(100, 30);
     
     UILabel *leftEmail = [[UILabel alloc]init];
+    leftEmail.backgroundColor = [UIColor clearColor];
     leftEmail.textAlignment = NSTextAlignmentCenter;
     leftEmail.frame = CGRectMake(0, 5, 70, labelSize);
     leftEmail.text = @"Email";
@@ -349,6 +351,7 @@
     leftuserIDView.size = CGSizeMake(100, 30);
     
     UILabel *leftUserID = [[UILabel alloc]init];
+    leftUserID.backgroundColor = [UIColor clearColor];
     leftUserID.textAlignment = NSTextAlignmentRight;
     leftUserID.frame = CGRectMake(0, 5, 90, labelSize);
     leftUserID.text = @"工会会员号";
