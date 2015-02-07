@@ -30,7 +30,7 @@
 -(void)setNavBar
 {
     self.title = @"更换手机";
-    self.view.backgroundColor = sColor(236, 236, 236, 1.0);
+    self.view.backgroundColor = mainScreenColor;
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
     [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
@@ -181,6 +181,7 @@
     leftoldPhoneView.size = CGSizeMake(100, 30);
     
     UILabel *leftoldPhone = [[UILabel alloc]init];
+    leftoldPhone.backgroundColor = [UIColor clearColor];
     leftoldPhone.textAlignment = NSTextAlignmentRight;
     leftoldPhone.frame = CGRectMake(0, 5, 90, labelSize);
     leftoldPhone.text = @"原手机号码";
@@ -193,7 +194,7 @@
     [send setBackgroundImage:[UIImage imageNamed:@"authcode"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [send addTarget:self action:@selector(authCodeClick) forControlEvents:UIControlEventTouchUpInside];
-    send.titleLabel.tintColor = [UIColor whiteColor];
+    send.titleLabel.textColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
     [send setTitle:@"验证码" forState:UIControlStateNormal];
     [rightViewFS addSubview:send];
@@ -282,6 +283,7 @@
     leftauthCodeView.size = CGSizeMake(100, 30);
     
     UILabel *leftauthCode = [[UILabel alloc]init];
+    leftauthCode.backgroundColor = [UIColor clearColor];
     leftauthCode.textAlignment = NSTextAlignmentCenter;
     leftauthCode.frame = CGRectMake(0, 5, 70, labelSize);
     leftauthCode.text = @"验证码";
@@ -369,6 +371,7 @@
     leftewPhoneView.size = CGSizeMake(100, 30);
     
     UILabel *leftnewPhone = [[UILabel alloc]init];
+    leftnewPhone.backgroundColor = [UIColor clearColor];
     leftnewPhone.textAlignment = NSTextAlignmentRight;
     leftnewPhone.frame = CGRectMake(0, 5, 90, labelSize);
     leftnewPhone.text = @"新手机号码";

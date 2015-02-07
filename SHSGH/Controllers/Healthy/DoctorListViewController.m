@@ -51,7 +51,9 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",@"2",@"1025133",@"7025988"];
+        NSString *str = [NSString stringWithFormat:@"%@",_cpid];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",str,_hospitalid,_deptid];
+        NSString *urlss =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",@"2",@"22808",@"53453"];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             

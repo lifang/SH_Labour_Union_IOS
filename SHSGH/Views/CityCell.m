@@ -32,6 +32,9 @@
         
         UIView *view = [[UIView alloc]init];
         view.backgroundColor = [UIColor whiteColor];
+        if (mainScreenH<=480) {
+            view.backgroundColor = [UIColor lightGrayColor];
+        }
         self.selectedBackgroundView = view;
     }
     return self;

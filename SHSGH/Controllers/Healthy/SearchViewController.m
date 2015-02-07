@@ -189,7 +189,7 @@
                 NSArray *hospitalArray = [result objectForKey:@"result"];
                 for (int i = 0; i < hospitalArray.count; i++) {
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -225,7 +225,7 @@
                 for (int i = 0; i < hospitalArray.count; i++) {
                     _loadMoreHospitalArray = [NSMutableArray array];
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -285,7 +285,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@",account.phoneNum,@"0",_searchBar.text];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@",account.phoneNum,@"0"];
+        if (_searchBar.text!=nil) {
+            urls = [NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@",account.phoneNum,@"0",_searchBar.text];
+        }
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -295,7 +298,7 @@
                 NSArray *hospitalArray = [result objectForKey:@"result"];
                 for (int i = 0; i < hospitalArray.count; i++) {
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -318,7 +321,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //        UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@",_searchBar.text];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?"];
+        if (_searchBar.text!=nil) {
+            urls = [NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@",_searchBar.text];
+        }
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -412,7 +418,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
         
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=1&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=0&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -423,7 +429,7 @@
                 NSArray *hospitalArray = [result objectForKey:@"result"];
                 for (int i = 0; i < hospitalArray.count; i++) {
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -449,7 +455,7 @@
     self.searchPage = 1;
     UserModel *account = [UserTool userModel];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=1&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=0&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         SLog(@"%@",result);

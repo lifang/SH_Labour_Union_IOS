@@ -19,7 +19,7 @@
 @property(nonatomic,weak)id<sendClass> delegate;
 
 @property(nonatomic,strong)NSString *className;
-@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *hospitalid;
 @property(nonatomic,assign)BOOL selected;
 @end

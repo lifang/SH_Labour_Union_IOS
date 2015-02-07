@@ -24,7 +24,7 @@
 @property(nonatomic,strong)UILabel *hospitalLabel;
 @property(nonatomic,strong)UILabel *classLabel;
 @property(nonatomic,strong)NSString *cityName;
-@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *hospitalid;
 @property(nonatomic,strong)NSString *deptid;
 @end
@@ -169,9 +169,9 @@
     //广告条
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"http://www.szlh.gov.cn/uploadfiles/201210/20121008103709702.jpg",@"http://imgs.focus.cn/upload/news/7140/a_71399601.jpg", nil];
     ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, 160) array:arr];
-    scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-    scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
-    scrollView.reuseDelegate = self;
+//    scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+//    scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
+//    scrollView.reuseDelegate = self;
     [self.view addSubview:scrollView];
     
     CGFloat cellHeight = 50.f;
@@ -200,6 +200,7 @@
     [hospitalView.clickBtn addTarget:self action:@selector(hospitalClick) forControlEvents:UIControlEventTouchUpInside];
     hospitalView.leftImg.image = [UIImage imageNamed:@"choseHospital"];
     hospitalView.contentLabel.text = @"请选择医院";
+    hospitalView.contentLabel.backgroundColor = [UIColor clearColor];
     _hospitalLabel = hospitalView.contentLabel;
     hospitalView.backgroundColor = sColor(233, 235, 240, 1.0);
     hospitalView.frame = CGRectMake(0, CGRectGetMaxY(firstLine.frame), mainScreenW, cellHeight + 5);
@@ -214,6 +215,7 @@
     [classView.clickBtn addTarget:self action:@selector(classClick) forControlEvents:UIControlEventTouchUpInside];
     classView.leftImg.image = [UIImage imageNamed:@"choseKeshi"];
     classView.contentLabel.text = @"请选择科室";
+    classView.contentLabel.backgroundColor = [UIColor clearColor];
     _classLabel = classView.contentLabel;
     classView.backgroundColor = sColor(233, 235, 240, 1.0);
     classView.frame = CGRectMake(0, CGRectGetMaxY(secondLine.frame), mainScreenW, cellHeight + 5);
@@ -298,13 +300,13 @@
     [self.navigationController pushViewController:choiceHospitalVC animated:YES];
 }
 
--(void)sendHospital:(NSString *)hospital WithCpid:(int)cpid WithHospitalid:(NSString *)hospitalid
+-(void)sendHospital:(NSString *)hospital WithCpid:(NSString *)cpid WithHospitalid:(NSString *)hospitalid
 {
     _hospitalLabel.text = hospital;
     self.cpid = cpid;
     self.hospitalid = hospitalid;
     
-    SLog(@"%d  %@",_cpid,_hospitalid);
+    SLog(@"%@  %@",_cpid,_hospitalid);
 }
 
 -(void)classClick
@@ -334,7 +336,7 @@
                                 NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"doctor_BG-1"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"doctor_BG@2x(1)-1"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeDoctor];
     [buttonL.navButton setTitle:_cityName forState:UIControlStateNormal];

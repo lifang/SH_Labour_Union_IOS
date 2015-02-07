@@ -19,7 +19,6 @@
 // #define BASEURL_PUBLIC            @"http://180.166.148.170:8080"
 
 
-
 #define BASEURL_PUBLICs @ "http://data.i-xiangce.com:8088/clientServer/mobile/"
 #define CLOUD_ALBUM_DOWNLOAD_URL  @"http://admin.i-xitie.com:8088/cloudalbum/website/checkvision/"
 //#define BASEURL_PUBLIC           @"http://58.211.5.34:8080/clientServer/mobile/"

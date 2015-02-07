@@ -13,6 +13,6 @@
 @property(nonatomic,strong)NSString *hospitalid;
 @property(nonatomic,strong)NSString *hospitalleve;
 @property(nonatomic,strong)NSString *hospitalname;
-@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *cpid;
 
 @end

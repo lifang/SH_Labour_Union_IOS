@@ -181,6 +181,7 @@
     leftoldPasswordView.size = CGSizeMake(100, 30);
     
     UILabel *leftoldPassword = [[UILabel alloc]init];
+    leftoldPassword.backgroundColor = [UIColor clearColor];
     leftoldPassword.textAlignment = NSTextAlignmentCenter;
     leftoldPassword.frame = CGRectMake(0, 5, 90, labelSize);
     leftoldPassword.text = @"原始密码";
@@ -269,6 +270,7 @@
     leftnewPasswordView.size = CGSizeMake(100, 30);
     
     UILabel *leftnewPassword = [[UILabel alloc]init];
+    leftnewPassword.backgroundColor = [UIColor clearColor];
     leftnewPassword.textAlignment = NSTextAlignmentCenter;
     leftnewPassword.frame = CGRectMake(4, 5, 70, labelSize);
     leftnewPassword.text = @"新密码";
@@ -358,6 +360,7 @@
     lefturePasswordView.size = CGSizeMake(100, 30);
     
     UILabel *leftsurePassword = [[UILabel alloc]init];
+    leftsurePassword.backgroundColor = [UIColor clearColor];
     leftsurePassword.textAlignment = NSTextAlignmentRight;
     leftsurePassword.frame = CGRectMake(0, 5, 90, labelSize);
     leftsurePassword.text = @"确认新密码";

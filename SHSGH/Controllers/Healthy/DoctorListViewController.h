@@ -10,7 +10,7 @@
 
 @interface DoctorListViewController : UITableViewController
 
-@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *deptid;
 @property(nonatomic,strong)NSString *hospitalid;
 

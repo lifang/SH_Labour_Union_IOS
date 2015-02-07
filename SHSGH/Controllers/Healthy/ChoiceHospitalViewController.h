@@ -10,7 +10,7 @@
 @protocol sendHospital <NSObject>
 
 @optional
--(void)sendHospital:(NSString *)hospital WithCpid:(int)cpid WithHospitalid:(NSString *)hospitalid;
+-(void)sendHospital:(NSString *)hospital WithCpid:(NSString *)cpid WithHospitalid:(NSString *)hospitalid;
 
 @end
 

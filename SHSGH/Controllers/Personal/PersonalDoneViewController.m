@@ -42,7 +42,7 @@
     self.tableView.backgroundColor = sColor(236, 236, 236, 1.0);
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
-    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
     [buttonL.navButton addTarget:self action:@selector(backtoDynamic) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -61,6 +61,7 @@
     UILabel *topLabel = [[UILabel alloc]init];
     topLabel.font = [UIFont systemFontOfSize:15];
     topLabel.text = @"请完善个人信息";
+    topLabel.backgroundColor = [UIColor clearColor];
     topLabel.textColor = sColor(75, 75, 75, 1.0);
     topLabel.frame = CGRectMake(CGRectGetMaxX(leftView.frame) + 2 *CostumViewMargin, CGRectGetMinY(leftView.frame) - CostumViewMargin, 130, 30);
     [topView addSubview:topLabel];
@@ -68,6 +69,7 @@
     UILabel *bottomLabel = [[UILabel alloc]init];
     bottomLabel.font = [UIFont systemFontOfSize:12];
     bottomLabel.text = @"我的个人信息";
+    bottomLabel.backgroundColor = [UIColor clearColor];
     bottomLabel.textColor = sColor(179, 179, 179, 1.0);
     bottomLabel.frame = CGRectMake(topLabel.frame.origin.x, CGRectGetMaxY(topLabel.frame) - 2 * CostumViewMargin, 200, 26);
     [topView addSubview:bottomLabel];

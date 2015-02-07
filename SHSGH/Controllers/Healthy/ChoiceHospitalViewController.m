@@ -72,7 +72,7 @@
                 NSArray *hospitalArray = [result objectForKey:@"result"];
                 for (int i = 0; i < hospitalArray.count; i++) {
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [NSString stringWithFormat:@"%@",[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"]];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -109,14 +109,14 @@
         NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@",account.phoneNum,@"0"];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+            SLog(@"~~~~~~~~~~~~~~~~~~%@",result);
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 _hospitalStatusArray = [NSMutableArray array];
                 NSArray *hospitalArray = [result objectForKey:@"result"];
                 for (int i = 0; i < hospitalArray.count; i++) {
                     HospitalStatus *status = [[HospitalStatus alloc]init];
-                    status.cpid = (int)[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"];
+                    status.cpid = [NSString stringWithFormat:@"%d",[[[hospitalArray objectAtIndex:i] objectForKey:@"cpid"] intValue]];
                     status.hospitalid =[[hospitalArray objectAtIndex:i] objectForKey:@"hospitalid"];
                     status.hospitalleve = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalleve"];
                     status.hospitalname = [[hospitalArray objectAtIndex:i] objectForKey:@"hospitalname"];
@@ -170,6 +170,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HospitalStatus *status = [_hospitalStatusArray objectAtIndex:indexPath.row];
+    SLog(@"~~~~~~~~~~~~~%@",status.cpid);
+    SLog(@"~~~~~~~~~~~~~%@",status.hospitalid);
     [self.delegate sendHospital:status.hospitalname WithCpid:status.cpid WithHospitalid:status.hospitalid];
     [self.navigationController popViewControllerAnimated:YES];
 }

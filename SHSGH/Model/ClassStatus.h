@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ClassStatus : NSObject
-@property(nonatomic,assign)int cpid;
+@property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *deptid;
 @property(nonatomic,strong)NSString *deptnum;
 @property(nonatomic,strong)NSString *deptname;

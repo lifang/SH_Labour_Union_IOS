@@ -35,7 +35,9 @@
     self.tableView.sectionFooterHeight = 10;
     self.tableView.sectionHeaderHeight = 0;
     //方法2：调整tableView上部很大的空隙   （方法1在Cell里）
+    
     self.tableView.contentInset = UIEdgeInsetsMake(10 - 35, 0, 0, 0);
+    
 
 }
 

@@ -207,6 +207,8 @@ static UINavigationController *healthyNayController = nil;
     UserModel *user = [UserTool userModel];
     user.password = nil;
     user.token = nil;
+    user.userIDName = nil;
+    user.phoneNum=nil;
     [UserTool save:user];
 }
 
