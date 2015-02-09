@@ -102,8 +102,7 @@
                 SLog(@"%@",_imageArray);
                 [self setScrollView];
             }
-            if ([[result objectForKey:@"code"] boolValue]) {
-                SLog(@"请求失败!");
+            else {
                 [self setScrollView];
             }
         });
@@ -223,11 +222,11 @@
 -(void)toUser
 {
     UserModel *account = [UserTool userModel];
+    SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~%@",account.password);
     if (account.password) {
         PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
         personDoneVC.userName = account.username;
         personDoneVC.userPasswd = account.password;
-        
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
         delegate.username = account.username;
         delegate.password = account.password;
@@ -235,11 +234,11 @@
         delegate.email = account.email;
         delegate.labourUnionCode = account.LabourUnion;
         self.dynamicNav = [AppDelegate shareDynamicController];
-        [self.dynamicNav pushViewController:personDoneVC animated:YES];
+        [_dynamicNav pushViewController:personDoneVC animated:YES];
     }else{
     PersonalViewController *personVC = [[PersonalViewController alloc]init];
     self.dynamicNav = [AppDelegate shareDynamicController];
-    [self.dynamicNav pushViewController:personVC animated:YES];
+    [_dynamicNav pushViewController:personVC animated:YES];
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 
 @interface DoctorsCell : UITableViewCell
 +(instancetype)cellWithTableView:(UITableView *)tableView;
@@ -20,4 +21,8 @@
 @property (strong, nonatomic) UILabel *classLabel;
 
 @property(nonatomic,assign)BOOL btnStatus;
+
+@property(nonatomic,strong)EGOImageView *egoImage;
+
+-(void)setImageWithUrl:(NSString *)imageURL;
 @end

@@ -12,6 +12,7 @@
 #import "UserTool.h"
 #import "ClassStatus.h"
 #import "HaobaiHealthyController.h"
+#import "AppDelegate.h"
 
 @interface ClassViewController ()
 
@@ -69,9 +70,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
         _page++;
         NSString *pages = [NSString stringWithFormat:@"%d",_page];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,pages,[NSString stringWithFormat:@"%@",_cpid],_hospitalid];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@&locate=%@",account.phoneNum,pages,[NSString stringWithFormat:@"%@",_cpid],_hospitalid,delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -106,7 +108,8 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@",account.phoneNum,@"0",[NSString stringWithFormat:@"%@",_cpid],_hospitalid];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findSection?phone=%@&offset=%@&cpid=%@&hospitalid=%@&locate=%@",account.phoneNum,@"0",[NSString stringWithFormat:@"%@",_cpid],_hospitalid,delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -125,6 +128,10 @@
                 }
                [self.tableView reloadData];
                [self.tableView headerEndRefreshing];
+                if (_classArray.count==0) {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"亲,这个城市还没有科室!!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
             }
             else {
                 

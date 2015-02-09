@@ -11,7 +11,7 @@
 @protocol sendCity <NSObject>
 
 @optional
--(void)sendCity:(NSString *)city;
+-(void)sendCity:(NSString *)city WithArea_id:(NSString *)area_id;
 @end
 
 @interface CityChangeViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
@@ -24,5 +24,10 @@
 
 @property(nonatomic,strong)NSString *province;
 @property(nonatomic,strong)NSString *downtown;
+@property(nonatomic,strong)NSString *cityZero;
+
+@property(nonatomic,strong)NSMutableArray *provinceArray;
+
+@property(nonatomic,strong)NSMutableArray *downtownArray;
 
 @end

@@ -11,6 +11,7 @@
 #import "navbarView.h"
 #import "UserTool.h"
 #import "HospitalStatus.h"
+#import "AppDelegate.h"
 
 @interface ChoiceHospitalViewController ()
 
@@ -60,9 +61,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
         _page ++;
         NSString *pages = [NSString stringWithFormat:@"%d",_page];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@",account.phoneNum,pages];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&locate=%@",account.phoneNum,pages,delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -106,7 +108,8 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@",account.phoneNum,@"0"];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&locate=%@",account.phoneNum,@"0",delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             SLog(@"~~~~~~~~~~~~~~~~~~%@",result);
@@ -124,6 +127,10 @@
                 }
                 [self.tableView headerEndRefreshing];
                 [self.tableView reloadData];
+                if (_hospitalStatusArray.count == 0) {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"亲,这些城市还没有医院!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
            }
             else {
             

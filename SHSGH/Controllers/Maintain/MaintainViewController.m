@@ -560,6 +560,7 @@
         delegate.labourUnionCode = account.LabourUnion;
         [self.maintainNav pushViewController:personDownVC animated:YES];
     }else{
+        self.maintainNav = [AppDelegate shareMaintainController];
         PersonalViewController *personVC = [[PersonalViewController alloc]init];
         [self.maintainNav pushViewController:personVC animated:YES];
     }

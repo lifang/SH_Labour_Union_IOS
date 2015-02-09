@@ -44,6 +44,9 @@
 @property(nonatomic,strong)NSString *userIDName;
 @property(nonatomic,strong)NSString *token;
 
+@property(nonatomic,strong)NSString *area_id;
+@property(nonatomic,strong)NSString *province_name;
+
 
 + (AppDelegate *)shareAppDelegate;
 

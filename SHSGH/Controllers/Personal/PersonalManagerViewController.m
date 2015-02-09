@@ -102,7 +102,7 @@
     HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
     if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||delegate.userIDName == nil) {
          userName.subtitle = @"请完善";
-        if (![account.userIDName isKindOfClass:[NSNull class]]) {
+        if (![account.userIDName isKindOfClass:[NSNull class]]&&account.userIDName!=nil) {
             userName.subtitle = account.userIDName;
         }
     }else{

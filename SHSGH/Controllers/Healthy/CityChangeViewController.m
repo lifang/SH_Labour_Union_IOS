@@ -11,14 +11,11 @@
 #import "CityCell.h"
 #import "Province.h"
 #import "Downtown.h"
+#import "AppDelegate.h"
 
 @interface CityChangeViewController ()
 
 @property(nonatomic,strong)NSArray *dataArray;
-
-@property(nonatomic,strong)NSMutableArray *provinceArray;
-
-@property(nonatomic,strong)NSMutableArray *downtownArray;
 
 @property(nonatomic,assign)NSInteger provinceIndex;
 @property(nonatomic,assign)NSInteger downtownIndex;
@@ -98,8 +95,17 @@
                     [self findIndexPath];
                     NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
                     [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                    NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
-                    [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                    if (_downtownArray.count!=0) {
+                        NSIndexPath *right = [NSIndexPath indexPathForRow:_downtownIndex inSection:0];
+                        [self.rightTableView selectRowAtIndexPath:right animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                    }
+                    Province *province = [_provinceArray objectAtIndex:_provinceIndex];
+                    [self.delegate sendCity:province.city_name WithArea_id:province.city_area_id];
+                    if (_downtownArray!=0) {
+                        Downtown *downtown = [_downtownArray objectAtIndex:_downtownIndex];
+                        SLog(@"~~~~~~~~~~~~~~~~~~%@",downtown.area_id);
+                        [self.delegate sendCity:downtown.area_name WithArea_id:downtown.area_id];
+                    }
                 }
             }
             else {
@@ -240,17 +246,24 @@
     if (tableView.tag == 1002) {
         SLog(@"点击了右边!");
         Downtown *downtown = [_downtownArray objectAtIndex:indexPath.row];
-        SLog(@"%@",downtown.area_name);
-        SLog(@"~~~~~~~~~~~~~~~~~~~~~~~%@",downtown.area_id);
-        [self.delegate sendCity:downtown.area_name];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.area_id = downtown.area_id;
+        [self.delegate sendCity:downtown.area_name WithArea_id:downtown.area_id];
         [self.navigationController popViewControllerAnimated:YES];
     }
     else{
         SLog(@"点击了左边!");
         Province *provice = [_provinceArray objectAtIndex:indexPath.row];
         SLog(@"%@",provice.city_area_id);
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.area_id = provice.city_area_id;
+        delegate.province_name = provice.city_name;
         [self cityForProvinceID:provice.city_area_id];
         [self.rightTableView reloadData];
+        if (_downtownArray.count == 0) {
+            [self.delegate sendCity:provice.city_name WithArea_id:provice.city_area_id];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     }
 }

@@ -14,6 +14,7 @@
 #import "ClassViewController.h"
 #import "DoctorListViewController.h"
 #import "HaobaiHealthyController.h"
+#import "AppDelegate.h"
 
 @interface SearchViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 
@@ -39,6 +40,7 @@
 @property(nonatomic,strong)NSMutableArray *searchDoctorArray;
 @property(nonatomic,strong)NSMutableArray *loadMoreSearchHospitalArray;
 @property(nonatomic,strong)NSMutableArray *loadMoreSearchDoctorArray;
+@property(nonatomic,strong)NSMutableArray *searchLoadDoctorDataArray;
 
 @property(nonatomic,assign)int searchIdex;
 
@@ -46,7 +48,13 @@
 @end
 
 @implementation SearchViewController
-
+-(NSMutableArray *)searchLoadDoctorDataArray
+{
+    if (!_searchLoadDoctorDataArray) {
+        _searchLoadDoctorDataArray = [NSMutableArray array];
+    }
+    return _searchLoadDoctorDataArray;
+}
 
 
 -(UITableView *)tableView
@@ -133,10 +141,11 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在查找!";
     UserModel *account = [UserTool userModel];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     _searchPage++;
     NSString *pages = [NSString stringWithFormat:@"%d",_searchPage];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=%@&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],pages,account.phoneNum];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=%@&phone=%@&locate=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],pages,account.phoneNum,delegate.area_id];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         SLog(@"%@",result);
@@ -144,6 +153,7 @@
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
+                self.doctorsArray = [NSMutableArray array];
                 _loadMoreSearchDoctorArray = [NSMutableArray array];
                 NSArray *doctorsArray = [result objectForKey:@"result"];
                 for (int i = 0; i < doctorsArray.count; i++) {
@@ -155,7 +165,8 @@
                     doctors.docname = [[doctorsArray objectAtIndex:i] objectForKey:@"docname"];
                     [_loadMoreSearchDoctorArray addObject:doctors];
                 }
-                [self.doctorsArray addObjectsFromArray:_loadMoreSearchDoctorArray];
+                _doctorsArray = _searchLoadDoctorDataArray;
+                [_doctorsArray addObjectsFromArray:_loadMoreSearchDoctorArray];
                 [self.tableView reloadData];
                 [self.tableView footerEndRefreshing];
                 [hud hide:YES];
@@ -174,11 +185,12 @@
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"正在查找!";
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     _searchPage++;
      NSString *pages = [NSString stringWithFormat:@"%d",_searchPage];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=%@&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],pages,account.phoneNum];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=%@&phone=%@&locate=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],pages,account.phoneNum,delegate.area_id];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -213,9 +225,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
         _page++;
         NSString *pages = [NSString stringWithFormat:@"%d",_page];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@",account.phoneNum,pages,_searchBar.text];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@&locate=%@",account.phoneNum,pages,_searchBar.text,delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -250,7 +263,8 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         _page++;
         NSString *pages = [NSString stringWithFormat:@"%d",_page];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?offset=%@",pages];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?offset=%@&locate=%@",pages,delegate.area_id];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -285,9 +299,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@",account.phoneNum,@"0"];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&locate=%@",account.phoneNum,@"0",delegate.area_id];
         if (_searchBar.text!=nil) {
-            urls = [NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@",account.phoneNum,@"0",_searchBar.text];
+            urls = [NSString stringWithFormat:@"/api/health/findHospital?phone=%@&offset=%@&keyword=%@&locate=%@",account.phoneNum,@"0",_searchBar.text,delegate.area_id];
         }
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -321,9 +336,10 @@
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
 //        UserModel *account = [UserTool userModel];
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?"];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?locate=%@",delegate.area_id];
         if (_searchBar.text!=nil) {
-            urls = [NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@",_searchBar.text];
+            urls = [NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&locate=%@",_searchBar.text,delegate.area_id];
         }
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -474,6 +490,7 @@
                     doctors.docname = [[doctorsArray objectAtIndex:i] objectForKey:@"docname"];
                     [self.doctorsArray addObject:doctors];
                 }
+                self.searchLoadDoctorDataArray = _doctorsArray;
                 [self.tableView reloadData];
                 [self.tableView headerEndRefreshing];
                 [hud hide:YES];

@@ -66,11 +66,11 @@
     topLabel.font = [UIFont systemFontOfSize:15];
     topLabel.text = @"请完善个人信息";
     UserModel *account = [UserTool userModel];
-    if (![account.userIDName isKindOfClass:[NSNull class]]||account.userIDName!=nil) {
+    if (![account.userIDName isKindOfClass:[NSNull class]]&&account.userIDName!=nil) {
         topLabel.text = account.userIDName;
     }
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    if (delegate.userIDName) {
+    if (![delegate.userIDName isKindOfClass:[NSNull class]]&&delegate.userIDName!=nil) {
         topLabel.text = delegate.userIDName;
     }
     topLabel.backgroundColor = [UIColor clearColor];

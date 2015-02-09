@@ -53,7 +53,7 @@
         UserModel *account = [UserTool userModel];
         NSString *str = [NSString stringWithFormat:@"%@",_cpid];
         NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",str,_hospitalid,_deptid];
-        NSString *urlss =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",@"2",@"22808",@"53453"];
+//        NSString *urlss =[NSString stringWithFormat:@"/api/health/findDoctorByDeptId?phone=%@&offset=%@&cpid=%@&hospitalid=%@&deptid=%@",account.phoneNum,@"0",@"2",@"22808",@"53453"];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -72,6 +72,10 @@
                 }
                 SLog(@"%@",_doctorArray);
                 [self.tableView reloadData];
+                if (_doctorArray.count==0) {
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"亲,这里没有医生数据!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alert show];
+                }
             }
             else {
                 
@@ -112,7 +116,7 @@
     cell.positionLabel.text = doctors.doclevel;
     cell.classLabel.text = _classname;
     cell.detailTextLabel.text = _hospitalname;
-    cell.imageView.image = [UIImage imageNamed:@"doctor_ placeholder"];
+    [cell setImageWithUrl:doctors.docimageurl];
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

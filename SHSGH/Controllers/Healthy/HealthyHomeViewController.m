@@ -18,6 +18,8 @@
 #import "ChoiceHospitalViewController.h"
 #import "ClassViewController.h"
 #import "DoctorListViewController.h"
+#import "Province.h"
+#import "Downtown.h"
 
 @interface HealthyHomeViewController ()<ReuseViewDelegate,sendHospital,sendClass,sendCity>
 @property(nonatomic,strong)CityChangeViewController *cityVC;
@@ -27,9 +29,29 @@
 @property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *hospitalid;
 @property(nonatomic,strong)NSString *deptid;
+@property(nonatomic,strong)NSString *cityArea_Id;
+
+@property(nonatomic,strong)NSMutableArray *provinceArray;
+@property(nonatomic,strong)NSMutableArray *downtownArray;
 @end
 
 @implementation HealthyHomeViewController
+
+-(NSMutableArray *)provinceArray
+{
+    if (!_provinceArray) {
+        _provinceArray = [NSMutableArray array];
+    }
+    return _provinceArray;
+}
+
+-(NSMutableArray *)downtownArray
+{
+    if (!_downtownArray) {
+        _downtownArray = [NSMutableArray array];
+    }
+    return _downtownArray;
+}
 
 -(CityChangeViewController *)cityVC
 {
@@ -41,22 +63,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadData];
     [self initUI];
     self.cityVC.delegate = self;
     [self setupNav];
 }
 
--(void)sendCity:(NSString *)city
+
+-(void)sendCity:(NSString *)city WithArea_id:(NSString *)area_id
 {
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    delegate.area_id = area_id;
     self.cityName = city;
-    SLog(@"%@",_cityName);
+    self.cityArea_Id = area_id;
     [self setupNav];
 }
+
+
 
 #pragma mark - 自动定位
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
+    [self sendCity:_cityName WithArea_id:_cityArea_Id];
     
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     [_allarry removeAllObjects];
@@ -75,6 +106,18 @@
         {
             [_locationManager requestWhenInUseAuthorization];
         }
+        //设置代理
+        _locationManager.delegate=self;
+        //设置定位精度
+        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        //定位频率,每隔多少米定位一次
+        CLLocationDistance distance=100.0;//十米定位一次
+        _locationManager.distanceFilter=distance;
+        if (!_cityName) {
+            //启动跟踪定位
+            [_locationManager startUpdatingLocation];
+        }
+
     }
     else {
         //设置代理
@@ -92,6 +135,65 @@
     }
     
 }
+
+-(void)loadData
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =@"/api/health/findAllCity";
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                NSArray *cityArray = [result objectForKey:@"result"];
+                
+                for (int i = 0; i < cityArray.count; i++) {
+                    NSDictionary *cityInfo = [cityArray objectAtIndex:i];
+                    Province *province = [[Province alloc]init];
+                    province.city_name = [cityInfo objectForKey:@"city_name"];
+                    province.city_area_id = [NSString stringWithFormat:@"%@",[cityInfo objectForKey:@"city_area_id"]];
+                    [self.provinceArray addObject:province];
+                    NSArray *children = [cityInfo objectForKey:@"childrens"];
+                    for (int i=0; i<children.count; i++) {
+                        NSDictionary *downDic = [children objectAtIndex:i];
+                        Downtown *downtown = [[Downtown alloc]init];
+                        downtown.area_id = [downDic objectForKey:@"area_id"];
+                        downtown.area_name = [downDic objectForKey:@"area_name"];
+                        [self.downtownArray addObject:downtown];
+                    }
+                }
+                SLog(@"~~~~~~~~~~~~~%ld",_provinceArray.count);
+                SLog(@"~~~~~~~~~~~~%ld",_downtownArray.count);
+                [self searchCityID];
+            }
+            else {
+                SLog(@"请求失败!");
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        });
+    });
+}
+
+-(void)searchCityID
+{
+    for (int i = 0; i<_provinceArray.count;i++) {
+        Province *pro = [_provinceArray objectAtIndex:i];
+        if ([pro.city_name isEqualToString:@"河北省"]) {
+            AppDelegate *delegate = [AppDelegate shareAppDelegate];
+            delegate.area_id = pro.city_area_id;
+        }
+    }
+    
+    for (int i = 0; i<_downtownArray.count; i++) {
+        Downtown *dow = [_downtownArray objectAtIndex:i];
+        if ([dow.area_name isEqualToString:@"苏州市"]) {
+            AppDelegate *delegate = [AppDelegate shareAppDelegate];
+            delegate.area_id = dow.area_id;
+        }
+    }
+}
+
 
 - (void)showMessage:(NSString*)message viewHeight:(float)height;
 {
@@ -169,9 +271,9 @@
     //广告条
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"http://www.szlh.gov.cn/uploadfiles/201210/20121008103709702.jpg",@"http://imgs.focus.cn/upload/news/7140/a_71399601.jpg", nil];
     ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, 160) array:arr];
-//    scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
-//    scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
-//    scrollView.reuseDelegate = self;
+    scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
+    scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
+    scrollView.reuseDelegate = self;
     [self.view addSubview:scrollView];
     
     CGFloat cellHeight = 50.f;
@@ -254,6 +356,8 @@
 
 -(void)cityClick
 {
+    _classLabel.text = @"请输入科室";
+    _hospitalLabel.text = @"请输入医院";
     SLog(@"点击了切换城市!");
     [self.navigationController pushViewController:_cityVC animated:YES];
 }
@@ -288,6 +392,9 @@
     docVC.deptid = _deptid;
     docVC.hospitalid = _hospitalid;
     [self.navigationController pushViewController:docVC animated:YES];
+    
+    _classLabel.text = @"请输入科室";
+    _hospitalLabel.text = @"请输入医院";
 
 }
 
@@ -311,6 +418,13 @@
 
 -(void)classClick
 {
+    if (!_hospitalid) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请先选择医院!" delegate:nil cancelButtonTitle:@"确定!" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+                                
+    }
+    
     SLog(@"点击了选择科室!");
     ClassViewController *classVC = [[ClassViewController alloc]init];
     classVC.selected = YES;
@@ -356,6 +470,8 @@
 -(void)rightClick
 {
     SLog(@"选择地点!");
+    _cityVC.provinceArray = _provinceArray;
+    _cityVC.cityZero = _cityName;
     [self.navigationController pushViewController:_cityVC animated:YES];
 }
 

@@ -481,11 +481,6 @@
 #pragma mark - ScrollView didSelect
 -(void)handleTop:(UITapGestureRecognizer *)imageView
 {
-//    UIButton *mainClick = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, mainScreenH)];
-//    [mainClick addTarget:self action:@selector(clickedBtn) forControlEvents:UIControlEventTouchUpInside];
-//    [mainClick becomeFirstResponder];
-//    self.clickBtn = mainClick;
-//    
     int ids = (int)imageView.view.tag - 101;
     EGOImageView *bigV = [[EGOImageView alloc]init];
     bigV.userInteractionEnabled = YES;
@@ -493,7 +488,12 @@
     bigV.imageURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@",_bigArray[ids]]];
     bigV.backgroundColor = [UIColor clearColor];
     self.bigView = bigV;
-    
+    SLog(@"%@",_bigView.image);
+    if ([_bigView.image isKindOfClass:[NSNull class]]||_bigView.image==nil) {
+        SLog(@"图片未加载出来!");
+        return;
+    }
+    else{
     [self.view bringSubviewToFront:self.scrollPanel];
     self.scrollPanel.alpha = 1.0;
     
@@ -513,13 +513,11 @@
     [self.imagesScrollView addSubview:imagescroll];
     imagescroll.tapDelegate = self;
     [self performSelector:@selector(setOriginFrame:) withObject:imagescroll afterDelay:0.1f];
+    }
 }
 
--(void)clickedBtn
-{
-    [self.bigView removeFromSuperview];
-    [self.clickBtn removeFromSuperview];
-}
+
+
 
 - (void)showMessage:(NSString*)message viewHeight:(float)height;
 {
@@ -536,10 +534,10 @@
     }
 }
 
-#pragma mark -
-- (void)imageViewLoadedImage:(EGOImageView*)imageView {
-    NSLog(@"%@",NSStringFromCGSize(imageView.image.size));
-}
+//#pragma mark - EGO
+//- (void)imageViewLoadedImage:(EGOImageView*)imageView {
+//    NSLog(@"%@",NSStringFromCGSize(imageView.image.size));
+//}
 
 #pragma mark - 图片放大
 #pragma mark - UI
