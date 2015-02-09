@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     changeint=798;
+    ff=5;
+
     _isReloadingAllData = YES;
     _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
  urls =@"/api/news/findLaws";
@@ -42,6 +44,7 @@
 -(void)setupRefresh
 {
     //下拉
+    
     [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
     [_Seatchtable headerBeginRefreshing];
     //上拉
@@ -118,7 +121,7 @@
         urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%lu",_newallarry.count/10+1];
     
     }
-    if(changeint==7980)
+  else  if(changeint==7980)
         
     {
     
@@ -135,13 +138,30 @@
     
     
     }
+ else   if(changeint==7970)
+    {
+    
+        urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
+
+    
+    
+    }
+    else
+    {
+     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+    
+    
+    }
+    
+    
     _isReloadingAllData=NO;
     
     if(_newallarry.count==totalCount)
     {
         [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
         [_Seatchtable footerEndRefreshing];
-        
+        [_helptable footerEndRefreshing];
+
         return;
         
     }
@@ -195,6 +215,7 @@
                                                        if(segmentIndex==0)
                                                        {
                                                            changeint=798;
+                                                           ff=5;
                                                            
                                                            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
 
@@ -212,7 +233,8 @@
 
                                                        }
                                                        else if(segmentIndex==1)
-                                                       {
+                                                       {ff=9;
+                                                           
                                                                 changeint=790;
                                                            urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
 
@@ -220,9 +242,10 @@
                                                            _isReloadingAllData = YES;
                                                            [_newallarry removeAllObjects];
                                                            
+                                                           [self   setupRefreshs];
                                                            
                                                            
-                                                           [self date];
+//                                                           [self date];
 
                                                            _Seatchtable.hidden=YES;
                                                            _helptable.hidden=NO;
@@ -272,6 +295,26 @@
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
 }
+-(void)setupRefreshs
+{
+    //下拉
+    
+    [_helptable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_helptable headerBeginRefreshing];
+    //上拉
+    [_helptable addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _helptable.headerPullToRefreshText = @"下拉可以刷新了";
+    _helptable.headerReleaseToRefreshText = @"松开马上刷新了";
+    _helptable.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    _helptable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _helptable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _helptable.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -656,6 +699,8 @@
             
             [_Seatchtable headerEndRefreshing];
             [_Seatchtable footerEndRefreshing];
+            [_helptable headerEndRefreshing];
+            [_helptable footerEndRefreshing];
             
             
             if ([[result objectForKey:@"code"] integerValue]==1)
@@ -745,7 +790,7 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         //        [params setObject:@"5" forKey:@"limit"];
-        if(changeint==798)
+        if(changeint==798||changeint==7980)
         {
         detalstring=[NSString stringWithFormat:@"/api/news/findLawsById?id=%ld",(long)A];
         }
@@ -768,7 +813,7 @@
                 
                 
                 DetalsocialViewController*detal=[[DetalsocialViewController alloc]init];
-                if(changeint==798)
+                if(changeint==798||changeint==7980)
                 {
                     detal.contentstring=[[result objectForKey:@"result"] objectForKey:@"content"];
                     detal.titles=[[result objectForKey:@"result"] objectForKey:@"title"];
@@ -780,6 +825,7 @@
                     detal.titles=[[result objectForKey:@"result"] objectForKey:@"name"];
 
                 }
+                detal.a=ff;
                 
                 
                 [self.navigationController pushViewController:detal animated:YES];

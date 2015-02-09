@@ -130,38 +130,131 @@
        
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
     {
-        addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+        {
+            addstring=[NSString stringWithFormat:@"%@+%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+        }else
+        {
+            addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+        
+        }
+        
         
     }
     
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
     {
-        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"]];
+        
+        
+        
+        
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+        {
+            addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"]];
+
+            
+        }else
+        {
+            addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"]];
+
+            
+            
+        }
         
     }
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
     {
-        addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"]];
+      
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+        {
+            addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"]];
+ 
+            
+        }else
+        {
+            addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"]];
+
+            
+            
         }
+        
+        
+       
+    }
+    
+    
+    
+    
+    
+    
+    
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
     {
+        
+        
+        
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+    {
+        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"]];
+
+        
+    }else
+    {
         addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"]];
+
+        
+        
+    }
     
     }
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
     {
+        addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"]];
+
+        
+    }else
+    {
+        
         addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+    }
         
     }
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
     {
+        addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+    }else
+    {
+        
         addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+    }
         
     }
     
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
+    {if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
     {
+        addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+
+        
+    }else
+    {
+        
         addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
+ 
+        
+    }
         
     }
     

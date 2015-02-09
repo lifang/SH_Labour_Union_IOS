@@ -15,7 +15,7 @@
     UITableView*_helptable;
     NSArray*namearry;
     BOOL _isReloadingAllData;
-
+    NSInteger ff;
     UITextField*_searchfield;
     NSMutableArray*_newallarry;
     NSString *urls;

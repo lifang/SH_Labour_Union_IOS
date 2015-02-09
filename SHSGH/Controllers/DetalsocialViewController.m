@@ -8,6 +8,8 @@
 
 #import "DetalsocialViewController.h"
 #import "navbarView.h"
+#import "UIImageView+WebCache.h"
+
 @interface DetalsocialViewController ()
 
 @end
@@ -35,35 +37,55 @@
 
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor whiteColor];
-    UIWebView*requirecontent=[[UIWebView alloc]init];
-   requirecontent.backgroundColor=[UIColor whiteColor];
-
-    [requirecontent loadHTMLString:self.contentstring baseURL:nil];
     
-    //        simpleintroducetlable.numberOfLines=0;
-    [requirecontent sizeToFit];
-    
-    if(iOS7)
+    if(self.a==5)
     {
-        requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-80);
+    
         
+        UIWebView*requirecontent=[[UIWebView alloc]init];
+        requirecontent.backgroundColor=[UIColor whiteColor];
+        
+        [requirecontent loadHTMLString:self.contentstring baseURL:nil];
+        
+        //        simpleintroducetlable.numberOfLines=0;
+        [requirecontent sizeToFit];
+        
+        if(iOS7)
+        {
+            requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-80);
+            
+        }
+        else
+        {
+            requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT);
+            
+            
+            
+        }
+        //    requirecontent.textColor=[UIColor grayColor];
+        [self.view addSubview:requirecontent];
+        //    requirecontent.text=self.contentstring;
+        NSLog(@"=======%@",self.contentstring);
+        //    requirecontent.numberOfLines=0;
+        
+        
+        
+        [requirecontent sizeToFit];
+
+    
+    
     }
     else
     {
-        requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT);
+    
+        UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        [self.view addSubview:iamge];
+        [iamge  sd_setImageWithURL:[NSURL URLWithString:self.contentstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
         
 
     
+    
     }
-//    requirecontent.textColor=[UIColor grayColor];
-    [self.view addSubview:requirecontent];
-//    requirecontent.text=self.contentstring;
-    NSLog(@"=======%@",self.contentstring);
-//    requirecontent.numberOfLines=0;
-
-    
-    
-   [requirecontent sizeToFit];
     
     
     [ self setnavBar];
