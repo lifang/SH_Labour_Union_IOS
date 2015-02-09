@@ -802,6 +802,26 @@
     
     
 
+    
+    
+    if([self isBlankString:str1]==YES)
+    {
+        str1=@"";
+        
+        
+    }if([self isBlankString:str2]==YES)
+    {
+        str2=@"";
+        
+        
+    }
+    if([self isBlankString:str4textfield]==YES)
+    {
+        str4textfield=@"";
+        
+        
+    }
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     recordarry=[userDefaults objectForKey:@"record"];
@@ -867,6 +887,10 @@
     {
     
          str1=@"";
+        
+        
+        
+        
          str2=@"";
          str4textfield=@"";
 

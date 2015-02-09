@@ -104,7 +104,7 @@
     lab2.alpha=0;
     
     lab2.text=@"gegrsgsdfhserhtsegjghjdgjygdjyjhrs";
-    _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
+    _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
     
 }
 
@@ -336,7 +336,7 @@
     downViewR.frame = CGRectMake(downViewRX, downViewRY, downViewW, downViewH);
     [self.view addSubview:downViewR];
     [self.view bringSubviewToFront:bottomView];
-//    [self kaijidonghua];
+//  [self kaijidonghua];
 //    [vieiamge sendSubviewToBack:self.view];
 
 
