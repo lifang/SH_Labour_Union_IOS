@@ -14,12 +14,19 @@
     UITableView*_getresulttable;
     NSMutableArray*_allarry;
     NSMutableArray*_newallarry;
+    NSMutableArray*_jobarry;
     
     NSString*getids;
     
    }
 
 @property(nonatomic,strong)NSString*conditionsname;
+
+@property(nonatomic,strong)NSString*stri1;
+@property(nonatomic,strong)NSString*stri2;
+@property(nonatomic,strong)NSString*stri3;
+@property(nonatomic,strong)NSString*str4;
+
 @property(nonatomic,strong)NSArray*jobarry;
 
 @end

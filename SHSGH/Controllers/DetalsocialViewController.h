@@ -11,5 +11,6 @@
 @interface DetalsocialViewController : UIViewController
 @property(nonatomic,strong)NSString*contentstring;
 @property(nonatomic,strong)NSString*titles;
+@property(nonatomic,assign) int  a;
 
 @end

@@ -20,7 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _jobarry=[[NSMutableArray alloc]initWithCapacity:0];
+
+ 
     // Do any additional setup after loading the view.
+    
+    
+    [self dates];
+    
       self.title=self.conditionsname;
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     _newallarry=[[NSMutableArray alloc]initWithCapacity:0];
@@ -101,7 +108,7 @@
 {
     if([self.conditionsname isEqualToString:@"搜索结果"])
     {
-        return self.jobarry.count+1;
+        return _jobarry.count+1;
 
     
     }
@@ -109,7 +116,7 @@
     {
     
     
-        return self.jobarry.count;
+        return _jobarry.count;
 }
     
     
@@ -138,7 +145,7 @@
          
          }else
          {
-             cell.companyname.text=[NSString stringWithFormat:@"共为您找到%d个工作职位",self.jobarry.count ];
+             cell.companyname.text=[NSString stringWithFormat:@"共为您找到%d个工作职位",_jobarry.count ];
 
          
          }
@@ -147,7 +154,7 @@
      }
         else
         {
-            JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row-1];
+            JObpp*jobp=[_jobarry objectAtIndex:indexPath.row-1];
             
             
             cell.jobname.text=jobp.jobname;
@@ -164,7 +171,7 @@
         
         
         
-        JObpp*jobp=[self.jobarry objectAtIndex:indexPath.row];
+        JObpp*jobp=[_jobarry objectAtIndex:indexPath.row];
         
         
     cell.jobname.text=jobp.jobname;
@@ -226,6 +233,96 @@
     
 }
 #pragma mark - 获取网络数据
+
+
+
+-(void)dates
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    
+
+    
+
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *strUrll = [self.str4 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSString *strUrll1 = [self.stri1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll2 = [self.stri2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll3 = [self.stri3 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSLog(@",,,,,,,,,,%@",self.stri1);
+        
+        
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",strUrll,strUrll1,strUrll2,strUrll3];
+        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+    
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            
+            
+            [HUD removeFromSuperview];
+            
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+                    
+                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_jobarry addObject:peo];
+                    
+                }
+                
+                [_getresulttable reloadData];
+                
+            }
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+            
+            
+            
+                    });
+    });
+}
 
 -(void)date
 {

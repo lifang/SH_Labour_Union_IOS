@@ -36,14 +36,7 @@
     }
     
     //如果没有授权则请求用户授权
-    if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
-        
-    {
-        if(iOS7)
-        {
-            [_locationManager requestWhenInUseAuthorization];
-         }
-    }
+  
     else {
         //设置代理
         _locationManager.delegate=self;
@@ -138,7 +131,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 2;
+    return _allarry.count;
     
     
 }
@@ -158,11 +151,11 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//    people*pp=[_allarry objectAtIndex:indexPath.row];
-//    
-//    cell.namelable.text=pp.namestring;
-//    
-//    cell.addresslable.text=pp.addrstring;
+    people*pp=[_allarry objectAtIndex:indexPath.row];
+    
+    cell.namelable.text=pp.namestring;
+    
+    cell.addresslable.text=pp.addrstring;
     
    
     
@@ -174,10 +167,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DituViewController*ditu=[[DituViewController alloc]init];
-//    people*pp=[_allarry objectAtIndex:indexPath.row];
+    people*pp=[_allarry objectAtIndex:indexPath.row];
    
-//    ditu.name=pp.namestring;
-//    ditu.address=pp.addrstring;
+    ditu.name=pp.namestring;
+    ditu.address=pp.addrstring;
 
     ditu.city=city;
     
@@ -217,13 +210,13 @@
             [HUD removeFromSuperview];
             
             [_Seatchtable headerEndRefreshing];
-            [_Seatchtable footerEndRefreshing];
+            [_Seatchtable footerEndRefreshing]; 
             
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
              
-                NSArray* arry= [[NSArray alloc]initWithArray:[[result objectForKey:@"result"] objectForKey:@"content"]];
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
                 
                 for(int i=0;i<arry.count;i++)
                 {
@@ -239,7 +232,7 @@
                     [_allarry addObject:peo];
                     
                 }
-                totalCount = [[[result objectForKey:@"result"] objectForKey:@"total"] integerValue];
+//                totalCount = [[[result objectForKey:@"result"] objectForKey:@"total"] integerValue];
                 
                 if (_allarry.count!=0)
                 {
