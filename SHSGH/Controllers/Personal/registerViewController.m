@@ -704,7 +704,6 @@
 }
 -(void)authcode
 {
-    
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"手机号不能为空!"
@@ -724,6 +723,7 @@
         return;
         
     }
+    [_phoneField resignFirstResponder];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";
     if (_phoneField.text) {

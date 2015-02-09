@@ -16,6 +16,7 @@
 #import "navbarView.h"
 #import "PersonalManagerViewController.h"
 #import "AppDelegate.h"
+#import "UserTool.h"
 
 @interface PersonalDoneViewController () <UIAlertViewDelegate>
 
@@ -29,10 +30,14 @@
     
     [self setNavBar];
     
-    [self setupHeaderView];
-    
     [self setupGroups];
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setupHeaderView];
 }
 
 
@@ -57,10 +62,17 @@
     UIImageView *leftView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"complete"]];
     leftView.frame = CGRectMake(20, 40, 34, 36);
     [topView addSubview:leftView];
-    
     UILabel *topLabel = [[UILabel alloc]init];
     topLabel.font = [UIFont systemFontOfSize:15];
     topLabel.text = @"请完善个人信息";
+    UserModel *account = [UserTool userModel];
+    if (![account.userIDName isKindOfClass:[NSNull class]]||account.userIDName!=nil) {
+        topLabel.text = account.userIDName;
+    }
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    if (delegate.userIDName) {
+        topLabel.text = delegate.userIDName;
+    }
     topLabel.backgroundColor = [UIColor clearColor];
     topLabel.textColor = sColor(75, 75, 75, 1.0);
     topLabel.frame = CGRectMake(CGRectGetMaxX(leftView.frame) + 2 *CostumViewMargin, CGRectGetMinY(leftView.frame) - CostumViewMargin, 130, 30);

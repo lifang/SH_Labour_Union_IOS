@@ -18,6 +18,7 @@
 #import "UserTool.h"
 #import "IsPhone.h"
 #import "loginViewController.h"
+#import "PersonalDoneViewController.h"
 
 @interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion,UIScrollViewDelegate>
 
@@ -70,6 +71,7 @@
     [topView addSubview:leftImage];
     //顶部View 右边公告Lable
     UILabel *rightLabel = [[UILabel alloc]init];
+    rightLabel.backgroundColor = [UIColor clearColor];
     NSString *rightLabelText = @"此服务提供广大职工向工会提出自己的疑问,相关问题将在后续第一时间答复。";
     rightLabel.text = rightLabelText;
     rightLabel.font = [UIFont systemFontOfSize:12];
@@ -107,6 +109,7 @@
     [contentView addSubview:nameLabel];
     //红色星星
     UILabel *redStar1 = [[UILabel alloc]init];
+    redStar1.backgroundColor = [UIColor clearColor];
     redStar1.frame = CGRectMake(CGRectGetMaxX(nameLabel.frame) + CostumViewMargin, nameLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
     redStar1.textColor = sColor(227, 15, 46, 1.0);
     redStar1.text = @"*";
@@ -140,6 +143,7 @@
     [contentView addSubview:phoneLabel];
     //红色星星
     UILabel *redStar2 = [[UILabel alloc]init];
+    redStar2.backgroundColor = [UIColor clearColor];
     redStar2.frame = CGRectMake(CGRectGetMaxX(phoneLabel.frame) + CostumViewMargin, phoneLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
     redStar2.textColor = sColor(227, 15, 46, 1.0);
     redStar2.text = @"*";
@@ -541,9 +545,25 @@
 }
 -(void)toUser
 {
-    PersonalViewController *personVC = [[PersonalViewController alloc]init];
-    self.maintainNav = [AppDelegate shareMaintainController];
-    [self.maintainNav pushViewController:personVC animated:YES];
+    UserModel *account = [UserTool userModel];
+    if (account.password) {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        personDoneVC.userName = account.username;
+        personDoneVC.userPasswd = account.password;
+        PersonalDoneViewController *personDownVC = [[PersonalDoneViewController alloc]init];
+        self.maintainNav = [AppDelegate shareMaintainController];
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.username = account.username;
+        delegate.password = account.password;
+        delegate.phone = account.phoneNum;
+        delegate.email = account.email;
+        delegate.labourUnionCode = account.LabourUnion;
+        [self.maintainNav pushViewController:personDownVC animated:YES];
+    }else{
+        PersonalViewController *personVC = [[PersonalViewController alloc]init];
+        [self.maintainNav pushViewController:personVC animated:YES];
+    }
+    
     SLog(@"toUser");
 }
 
