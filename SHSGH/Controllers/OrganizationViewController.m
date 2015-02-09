@@ -61,7 +61,8 @@
 
 //下拉刷新加载更多微博数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
-{
+{                    [_allarry removeAllObjects];
+
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     _isReloadingAllData=YES;
     [self date];
@@ -89,17 +90,17 @@
         
     }
     
-    if(_allarry.count==totalCount)
-    {
-        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
-        
-        _Seatchtable.footerPullToRefreshText = @"已经为您加载了全部数据亲";
-        _Seatchtable.footerReleaseToRefreshText = @"已经为您加载了全部数据亲";
-        _Seatchtable.footerRefreshingText = @"已经为您加载了全部数据亲";
-        
-        [_Seatchtable footerEndRefreshing];
-        
-    }
+//    if(_allarry.count==totalCount)
+//    {
+//        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+//        
+//        _Seatchtable.footerPullToRefreshText = @"已经为您加载了全部数据亲";
+//        _Seatchtable.footerReleaseToRefreshText = @"已经为您加载了全部数据亲";
+//        _Seatchtable.footerRefreshingText = @"已经为您加载了全部数据亲";
+//        
+//        [_Seatchtable footerEndRefreshing];
+//        
+//    }
     //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
     //        [_Seatchtable footerEndRefreshing];
     //        
@@ -212,7 +213,14 @@
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    people*pp=[_allarry objectAtIndex:indexPath.row];
+    people*pp;
+    
+    if(_allarry.count!=0)
+    {
+        pp=[_allarry objectAtIndex:indexPath.row];
+
+    
+    }
     
     cell.namelable.text=pp.namestring;
     

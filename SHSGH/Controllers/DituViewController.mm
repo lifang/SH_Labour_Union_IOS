@@ -63,8 +63,11 @@
     
     
     BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-    geoCodeSearchOption.city= @"上海市";
+    geoCodeSearchOption.city= self.city;
     geoCodeSearchOption.address = self.address;
+    NSLog(@"geo检索发送成功%@",self.address);
+
+    
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
     {
@@ -104,6 +107,7 @@
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
+    
    
     _searcher = [[BMKRouteSearch alloc]init];
     _searcher.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
@@ -127,7 +131,9 @@
     BOOL flag = [_searcher transitSearch:transitRouteSearchOption];
     if(flag)
     {
-        
+        NSLog(@"%@",self.name);
+        NSLog(@"%@",self.name);
+
         
     }
     else

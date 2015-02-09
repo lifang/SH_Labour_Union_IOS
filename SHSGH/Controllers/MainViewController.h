@@ -17,7 +17,22 @@ static float rightSpace = 15.f;
 static float imageScale = 0.59f;  //图片高宽比
 
 @interface MainViewController : UIViewController
-
+{NSTimer*_scrollcententtimer;
+    
+    
+    UILabel*lab;
+    UILabel*lab1;
+    UILabel*lab2;
+    int k;  int j;
+    int m;
+    int n;
+    
+    int w;
+    UIImageView*vieiamge;
+    
+    int i;
+    
+}
 @property(nonatomic,strong)SUNViewController *drawerController;
 //点击看大图
 @property (nonatomic, strong) UIScrollView *imagesScrollView;

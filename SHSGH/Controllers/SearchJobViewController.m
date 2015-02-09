@@ -43,6 +43,7 @@
     
     for(NSInteger i=0;i<recordarry.count;i++)
     {
+        
         if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"14"]]==NO)
         {
          NSString*addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"],[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
@@ -111,8 +112,6 @@
     {
         for(NSInteger i=0;i<3;i++)
     {
-        
-        
         
         
         
@@ -803,10 +802,31 @@
     
     
 
+    
+    
+    if([self isBlankString:str1]==YES)
+    {
+        str1=@"";
+        
+        
+    }if([self isBlankString:str2]==YES)
+    {
+        str2=@"";
+        
+        
+    }
+    if([self isBlankString:str4textfield]==YES)
+    {
+        str4textfield=@"";
+        
+        
+    }
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     recordarry=[userDefaults objectForKey:@"record"];
     NSMutableArray*recordsarry=[NSMutableArray arrayWithCapacity:0];
+    
     for(int i=0;i<recordarry.count;i++)
     {
         [recordsarry addObject:[recordarry objectAtIndex:i]];
@@ -815,6 +835,7 @@
     
     }
     NSMutableDictionary*dict=[[NSMutableDictionary alloc]init];
+    
     if([self isBlankString: str1]==NO)
     {
     [dict setValue:str1 forKey:@"12"];
@@ -828,10 +849,73 @@
         [dict setValue:[NSString stringWithFormat:@"%@",str4textfield] forKey:@"14"];
     }
     
-  
-    
+    for(int i=0;i<recordsarry.count;i++)
+    {
+        
+        NSString*sttgg=[[recordarry objectAtIndex:i ] objectForKey:@"12"];
 
-    [recordsarry addObject:dict];
+        NSString*sttgg1=[[recordarry objectAtIndex:i] objectForKey:@"13"];
+        
+        NSString*sttgg2=[[recordarry objectAtIndex:i] objectForKey:@"14"];
+        
+        if([self isBlankString:sttgg]==YES)
+        {
+            sttgg=@"";
+            
+        
+        }if([self isBlankString:sttgg1]==YES)
+        {
+            sttgg1=@"";
+            
+            
+        }
+        if([self isBlankString:sttgg2]==YES)
+        {
+            sttgg2=@"";
+            
+            
+        }
+        
+
+        
+        
+        NSString*addstring=[NSString stringWithFormat:@"%@%@%@",sttgg,sttgg1,sttgg2];
+        
+
+    
+    if([[NSString stringWithFormat:@"%@%@%@",str1,str2,str4textfield] isEqualToString:addstring])
+    {
+    
+         str1=@"";
+        
+        
+        
+        
+         str2=@"";
+         str4textfield=@"";
+
+    
+    }
+        
+    }
+   
+   
+    if([self isBlankString:str1 ]==YES&&[self isBlankString:str2 ]==YES&&[self isBlankString:str4textfield ]==YES)
+    {
+    
+    
+    }
+    else
+    {
+    
+        [recordsarry addObject:dict];
+
+    
+    }
+        
+    
+ 
+
     
     [userDefaults setObject:recordsarry forKey:@"record"];
     [userDefaults synchronize];

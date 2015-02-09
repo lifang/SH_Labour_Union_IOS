@@ -115,7 +115,7 @@
     {
       
         
-        urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
+        urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%lu",_newallarry.count/10+1];
     
     }
     if(changeint==7980)
@@ -126,7 +126,7 @@
         
         
         
-        NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
+        NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%lu",strUrll1,_newallarry.count/10+1];
         
         
         urls = [urlsgg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

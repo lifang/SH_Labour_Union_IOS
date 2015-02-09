@@ -83,7 +83,10 @@
     _locService.delegate=nil;
     _searchers.delegate = nil;
     
-  
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    array = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:array];
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];

@@ -183,6 +183,9 @@ static UINavigationController *healthyNayController = nil;
         block = [MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:2.0];
         block(drawerController,drawerSide,percentVisible);
     }];
+    
+    
+    
     self.window.rootViewController = drawerController;
     self.DrawerController = drawerController;
     [self.window makeKeyAndVisible];

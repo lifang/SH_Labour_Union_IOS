@@ -66,6 +66,131 @@
     [self initAndLayoutUI];
 
 }
+-(void)kaijidonghua
+{
+
+    NSLog(@"ergegesgr");
+    
+
+    
+    vieiamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    vieiamge.image=[UIImage imageNamed:@"1136-1"];
+
+    [self.view addSubview:vieiamge];
+    
+    // Do any additional setup after loading the view.
+    m=10;
+    n=10;
+    w=10;
+    
+    lab=[[UILabel alloc]initWithFrame:CGRectMake(100, 200, 200, 30)];
+    [vieiamge addSubview:lab];
+    
+    lab.alpha=0;
+    
+    lab.text=@"gegrsgsdfhserhtsehrs";
+    lab1=[[UILabel alloc]initWithFrame:CGRectMake(100, 250, 200, 30)];
+    [vieiamge addSubview:lab1];
+    
+    lab1.alpha=0;
+    
+    lab1.text=@"gegrsgsdfhserhtsegjghjdgjygdjyjhrs";
+    
+    
+    
+    lab2=[[UILabel alloc]initWithFrame:CGRectMake(100, 290, 200, 30)];
+    [vieiamge addSubview:lab2];
+    
+    lab2.alpha=0;
+    
+    lab2.text=@"gegrsgsdfhserhtsegjghjdgjygdjyjhrs";
+    _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
+    
+}
+
+
+
+-(void)scrollcententtimerhandle
+{
+    i++;
+    
+    
+    
+    lab.alpha=i/10.0;
+    
+    if(i>10)
+    {
+        i=10;
+        
+        
+        j++;
+        
+        
+        lab1.alpha=j/10.0;
+        
+        
+    }
+    
+    
+    if(j>10)
+    {
+        j=10;
+        
+        
+        k++;
+        
+        
+        lab2.alpha=k/10.0;
+        
+        
+    }
+    
+    if(k>10)
+    {
+        k=10;
+        m--;
+        
+        lab.alpha=m/10.0;
+        
+        
+    }
+    if(m<0)
+    {
+        m=0;
+        
+        n--;
+        
+        lab1.alpha=n/10.0;
+        
+        
+        
+    }
+    
+    if(n<0)
+    {n=0;
+        
+        w--;
+        
+        lab2.alpha=w/10.0;
+        
+        
+        
+    }
+    if(w<0)
+    {
+//        vieiamge=nil;
+
+//        [vieiamge removeFromSuperview];
+        vieiamge.hidden=YES;
+        
+        w=0;
+        
+    }
+    
+    
+    
+    
+}
 
 -(void)setupCustomView
 {
@@ -211,6 +336,10 @@
     downViewR.frame = CGRectMake(downViewRX, downViewRY, downViewW, downViewH);
     [self.view addSubview:downViewR];
     [self.view bringSubviewToFront:bottomView];
+//  [self kaijidonghua];
+//    [vieiamge sendSubviewToBack:self.view];
+
+
 }
 
 -(void)btnClick:(homeBtn *)centerView
@@ -321,7 +450,7 @@
 
 -(void)loadImageDate
 {
-    [self setupCustomView];
+//    [self setupCustomView];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *urls =@"/api/activity/findAll";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];

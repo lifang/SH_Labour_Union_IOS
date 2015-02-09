@@ -368,7 +368,7 @@
     UIWebView*callWebview =[[UIWebView alloc] init];
     
     
-    NSString*phone=@"110";
+    NSString*phone=self.tel;
     
     
     
