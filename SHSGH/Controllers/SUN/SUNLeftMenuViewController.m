@@ -18,6 +18,7 @@
 #import "MaintainViewController.h"
 #import "TradeViewController.h"
 #import "OrganizationViewController.h"
+#import "RelatedDownloadViewController.h"
 @interface SUNLeftMenuViewController ()
 
 @end
@@ -68,7 +69,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,10 +114,11 @@
             cell.textLabel.text = @"相关查询";
             cell.imageView.image = [UIImage resizedImage:@"left_btn8"];
         }
-        else if (row == 7) {
+        else if (row == 8) {
             cell.textLabel.text = @"相关下载";
             cell.imageView.image = [UIImage resizedImage:@"left_btn9"];
         }
+        
         
     }
     
@@ -201,6 +203,12 @@
         }
         else if (row == 8) { //维权记录
             NSLog(@"点击了相关下载");
+            if (!_navDownloadViewVC) {
+                self.navDownloadViewVC = [AppDelegate shareRelatedDownloadViewController];
+            }
+            [self.mm_drawerController setCenterViewController:self.navDownloadViewVC
+                                           withCloseAnimation:YES completion:nil];
+
             
         }
     }

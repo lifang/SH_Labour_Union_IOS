@@ -32,7 +32,10 @@ static MaintainViewController  *maintainController = nil;
 static UINavigationController *maintainNavController = nil;
 
 static HealthyHomeViewController  *healthyController = nil;
-static UINavigationController *healthyNayController = nil;
+static UINavigationController *healthyNavController = nil;
+
+static RelatedDownloadViewController *relatedDownloadController = nil;
+static UINavigationController *relatedDownloadNavController = nil;
 
 @interface AppDelegate ()
 
@@ -66,6 +69,15 @@ static UINavigationController *healthyNayController = nil;
         maintainNavController = nil;
         maintainController = nil;
     }
+    if (healthyNavController) {
+        healthyNavController = nil;
+        healthyController = nil;
+    }
+    if (relatedDownloadNavController) {
+        relatedDownloadNavController = nil;
+        relatedDownloadController = nil;
+    }
+    
 }
 
 + (AppDelegate *)shareAppDelegate;
@@ -77,6 +89,17 @@ static UINavigationController *healthyNayController = nil;
 -(SUNLeftMenuViewController *)leftVC
 {
     return _leftVC;
+}
+
+//相关下载
++(UINavigationController *)shareRelatedDownloadViewController
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        relatedDownloadController = [[RelatedDownloadViewController alloc] init];
+        relatedDownloadNavController = [[UINavigationController alloc] initWithRootViewController:relatedDownloadController];
+    });
+    return relatedDownloadNavController;
 }
 
 //首页
@@ -155,9 +178,9 @@ static UINavigationController *healthyNayController = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         healthyController = [[HealthyHomeViewController alloc] init];
-        healthyNayController = [[UINavigationController alloc] initWithRootViewController:healthyController];
+        healthyNavController = [[UINavigationController alloc] initWithRootViewController:healthyController];
     });
-    return healthyNayController;
+    return healthyNavController;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

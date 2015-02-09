@@ -21,5 +21,6 @@
 @property (nonatomic, strong) IBOutlet UINavigationController *navMainViewVC;
 @property (nonatomic, strong) IBOutlet UINavigationController *navMaintainViewVC;
 @property (nonatomic, strong) IBOutlet UINavigationController *navHealhyViewVC;
+@property (nonatomic, strong) IBOutlet UINavigationController *navDownloadViewVC;
 
 @end

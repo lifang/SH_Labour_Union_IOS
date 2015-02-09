@@ -95,6 +95,7 @@
 		934074871A81C0D000C3916B /* ClassStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074861A81C0D000C3916B /* ClassStatus.m */; };
 		9340748A1A81F01900C3916B /* DoctorStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074891A81F01900C3916B /* DoctorStatus.m */; };
 		9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */; };
+		934994F21A88C4FF006398D8 /* RelatedDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */; };
 		935DDF731A75D76E00021146 /* DynamicChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF701A75D76E00021146 /* DynamicChildViewController.m */; };
 		935DDF741A75D76E00021146 /* dynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF721A75D76E00021146 /* dynamicViewController.m */; };
 		935DDF891A75D80500021146 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF761A75D80500021146 /* ChangePasswordViewController.m */; };
@@ -402,6 +403,8 @@
 		934074891A81F01900C3916B /* DoctorStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoctorStatus.m; sourceTree = "<group>"; };
 		9345FAD11A720AFF00426E82 /* HHZNoArrowItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHZNoArrowItem.h; sourceTree = "<group>"; };
 		9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZNoArrowItem.m; sourceTree = "<group>"; };
+		934994F01A88C4FF006398D8 /* RelatedDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelatedDownloadViewController.h; sourceTree = "<group>"; };
+		934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelatedDownloadViewController.m; sourceTree = "<group>"; };
 		935DDF6F1A75D76E00021146 /* DynamicChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicChildViewController.h; sourceTree = "<group>"; };
 		935DDF701A75D76E00021146 /* DynamicChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicChildViewController.m; sourceTree = "<group>"; };
 		935DDF711A75D76E00021146 /* dynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicViewController.h; sourceTree = "<group>"; };
@@ -1012,6 +1015,8 @@
 				93C6F0551A6CEF7F002C8E4A /* MainViewController.m */,
 				93C592DD1A708DF400CDF8F7 /* HHZCommonViewController.h */,
 				93C592DE1A708DF400CDF8F7 /* HHZCommonViewController.m */,
+				934994F01A88C4FF006398D8 /* RelatedDownloadViewController.h */,
+				934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1432,6 +1437,7 @@
 				933548111A733C68009F38D4 /* UIView+MJExtension.m in Sources */,
 				93C6F1091A6CF0B5002C8E4A /* SUNLeftMenuViewController.m in Sources */,
 				0ECFF23A1A6F9871007F882E /* DetalsocialViewController.m in Sources */,
+				934994F21A88C4FF006398D8 /* RelatedDownloadViewController.m in Sources */,
 				0EC4AB451A6E4CA100886040 /* ConditionsViewController.m in Sources */,
 				935DDF8F1A75D80500021146 /* PersonalManagerViewController.m in Sources */,
 				93E451C21A83766600611B49 /* HaobaiHealthyController.m in Sources */,

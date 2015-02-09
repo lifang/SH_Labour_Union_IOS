@@ -246,7 +246,7 @@
 -(void)setScrollView
 {
     CGFloat scrollViewH = 140;
-    [_imageArray removeLastObject];
+//    [_imageArray removeLastObject];
     ReuseView *reuseViewscrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0,0, mainScreenW, scrollViewH) array:_imageArray];
     reuseViewscrollView.reuseDelegate = self;
     self.tableView.tableHeaderView = reuseViewscrollView;

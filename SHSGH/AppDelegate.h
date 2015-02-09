@@ -21,6 +21,7 @@
 #import "BMapKit.h"
 #import "OrganizationViewController.h"
 #import "HealthyHomeViewController.h"
+#import "RelatedDownloadViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -60,7 +61,7 @@
 + (UINavigationController *)shareDynamicController;
 + (UINavigationController *)shareDynamicController3;
 + (UINavigationController *)shareDynamicController6;
-
++ (UINavigationController *)shareRelatedDownloadViewController;
 
 
 
