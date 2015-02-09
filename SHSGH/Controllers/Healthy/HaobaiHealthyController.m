@@ -85,7 +85,7 @@
 -(void)rightViewClick
 {
     SLog(@"点击了右边Btn--------");
-    NSString *str = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%d",436957167];
+    NSString *str = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%d",954760803];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 

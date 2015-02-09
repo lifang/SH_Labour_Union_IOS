@@ -420,7 +420,7 @@
 -(void)telClick
 {
     SLog(@"telClick");
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://8008808888"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://021-12351"]];
 }
 
 #pragma mark - 键盘消失

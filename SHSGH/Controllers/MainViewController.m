@@ -367,9 +367,17 @@
         case 6:
             [self related];
             break;
+            case 7:
+            [self setRelateDownLoadController];
         default:
             break;
     }
+}
+
+-(void)setRelateDownLoadController
+{
+    UINavigationController *relateDownloadNav = [AppDelegate shareRelatedDownloadViewController];
+     [self.mm_drawerController setCenterViewController:relateDownloadNav withCloseAnimation:YES completion:nil];
 }
 
 -(void)setHealthyController

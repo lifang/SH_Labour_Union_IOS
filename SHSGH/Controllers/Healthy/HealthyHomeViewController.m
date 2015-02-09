@@ -67,6 +67,8 @@
     [self initUI];
     self.cityVC.delegate = self;
     [self setupNav];
+    
+    SLog(@"&&&&&&&&&&&&&&&&&&%@",_hospitalid);
 }
 
 
@@ -80,14 +82,15 @@
 }
 
 
-
 #pragma mark - 自动定位
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    
-    [self sendCity:_cityName WithArea_id:_cityArea_Id];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    if (delegate.area_id==nil) {
+        [self sendCity:_cityName WithArea_id:_cityArea_Id];
+    }
     
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     [_allarry removeAllObjects];
@@ -418,13 +421,15 @@
 
 -(void)classClick
 {
-    if (!_hospitalid) {
+    SLog(@"点击class((((((((((((((((((((((%@",_cpid);
+    SLog(@"点击class((((((((((((((((((((((%@",_hospitalid);
+    
+    if (_hospitalid==nil) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请先选择医院!" delegate:nil cancelButtonTitle:@"确定!" otherButtonTitles:nil, nil];
         [alertView show];
         return;
                                 
     }
-    
     SLog(@"点击了选择科室!");
     ClassViewController *classVC = [[ClassViewController alloc]init];
     classVC.selected = YES;

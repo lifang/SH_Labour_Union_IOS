@@ -32,6 +32,7 @@
     [self setStyle];
     [self setupRefresh];
     [self setNavBar];
+     SLog(@"点击class((((((((((((((((((((((%@",_hospitalid);
 }
 -(void)setupRefresh
 {
