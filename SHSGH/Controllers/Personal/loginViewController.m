@@ -16,7 +16,7 @@
 #import "UserModel.h"
 #import "UserTool.h"
 
-@interface loginViewController ()<UITextFieldDelegate>
+@interface loginViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UITextField *usernameField;
 @property (nonatomic, strong) UITextField *passwordField;
@@ -356,7 +356,7 @@
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSDictionary *dict = [result objectForKey:@"result"];
-                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"登录成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"登录成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
                 
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
@@ -386,9 +386,7 @@
                 account.email = delegate.email;
                 account.token = delegate.token;
                 [UserTool save:account];
-                
-                PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
-                [self.navigationController pushViewController:personDoneVC animated:YES];
+            
             }
             //请求失败
             else
@@ -416,6 +414,15 @@
     [self.navigationController pushViewController:findVC animated:YES];
     
     NSLog(@"忘记密码!");
+}
+
+#pragma mark - AlertView
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0) {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        [self.navigationController pushViewController:personDoneVC animated:YES];
+    }
 }
 
 @end

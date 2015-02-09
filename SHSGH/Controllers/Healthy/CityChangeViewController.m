@@ -241,6 +241,7 @@
         SLog(@"点击了右边!");
         Downtown *downtown = [_downtownArray objectAtIndex:indexPath.row];
         SLog(@"%@",downtown.area_name);
+        SLog(@"~~~~~~~~~~~~~~~~~~~~~~~%@",downtown.area_id);
         [self.delegate sendCity:downtown.area_name];
         [self.navigationController popViewControllerAnimated:YES];
     }
