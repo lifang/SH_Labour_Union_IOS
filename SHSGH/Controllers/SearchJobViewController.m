@@ -279,7 +279,7 @@
             else
             {
                 
-                addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"],[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
+                addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"14"]];
             }
 
             
@@ -290,7 +290,8 @@
             
             [namearry insertObject:addstring atIndex:6];
             
-           
+            [_Seatchtable reloadData];
+
 
         }
         
@@ -312,7 +313,7 @@
             
             else
             {
-                addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+                addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]];
                 
                 
                 
@@ -498,7 +499,7 @@
         
         
         
-        
+
         
         
         
@@ -829,8 +830,12 @@
 
     if(indexPath.row==namearry.count-1)
     {
-        [self newjobdate];
-
+        SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+        
+        seach.conditionsname=@"最新职位";
+        NSLog(@"%@",seach.jobarry);
+        [self.navigationController pushViewController:seach animated:YES];
+        
             }
     
     //  搜索记录1
@@ -949,76 +954,6 @@
 }
 #pragma mark - 获取网络数据
 
--(void)newjobdate
-{
-    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
-    
-    [self.view addSubview:HUD];
-    
-    HUD.labelText = @"正在加载...";
-    [HUD show:YES];
-    
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =@"/api/job/findNewJob";
-        
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD removeFromSuperview];
-            
-            if ([[result objectForKey:@"code"] integerValue]==1)
-            {
-                [_newallarry removeAllObjects];
-                
-                
-                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
-                
-                for(int i=0;i<arry.count;i++)
-                {
-                    
-                    JObpp*peo=[[JObpp alloc]init];
-                    
-                    
-                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
-                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
-                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
-
-//                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
-                    
-                    [_newallarry addObject:peo];
-                    
-                }
-
-                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
-                
-                seach.conditionsname=@"最新职位";
-                seach.jobarry=_newallarry;
-                NSLog(@"%@",seach.jobarry);
-                [self.navigationController pushViewController:seach animated:YES];
-                
-
-                
-            }
-            
-            else
-            {
-                NSString *reason = @"请求超时或者网络环境较差!";
-                if (![KRHttpUtil checkString:reason])
-                {
-                    reason = @"请求超时或者网络环境较差!";
-                }
-
-                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                
-                
-                
-            }
-        });
-    });
-}
 
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {

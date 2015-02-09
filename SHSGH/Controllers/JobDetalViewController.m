@@ -60,7 +60,7 @@
     UIScrollView*bigscrollow=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.view addSubview:bigscrollow];
     
-    UILabel*jobname=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH/2, 30)];
+    UILabel*jobname=[[UILabel alloc]initWithFrame:CGRectMake(20, 0, SCREEN_WIDTH-40, 30)];
     [bigscrollow addSubview:jobname];
     jobname.text=[NSString stringWithFormat:@"%@ (%@)",self.zhiweiname,self.peoplenumber];
 //    UILabel*discuss=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-70, 50, 60, 10)];

@@ -17,7 +17,7 @@
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define BASEURL_PUBLIC            @"http://192.168.0.250:7070/shanghaiunion"
 // #define BASEURL_PUBLIC            @"http://180.166.148.170:8080"
-
+//#define BASEURL_PUBLIC            @"http://192.168.0.206:8080/shanghaiunion"
 
 #define BASEURL_PUBLICs @ "http://data.i-xiangce.com:8088/clientServer/mobile/"
 #define CLOUD_ALBUM_DOWNLOAD_URL  @"http://admin.i-xitie.com:8088/cloudalbum/website/checkvision/"

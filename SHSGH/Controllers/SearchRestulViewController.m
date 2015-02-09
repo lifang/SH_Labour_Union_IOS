@@ -24,9 +24,19 @@
 
  
     // Do any additional setup after loading the view.
+    if([self.conditionsname isEqualToString:@"最新职位"])
+    {
+        [self newjobdate];
+        
     
+    }
+    else
+    {
+        [self dates];
+
     
-    [self dates];
+    }
+    
     
       self.title=self.conditionsname;
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
@@ -257,11 +267,85 @@
         NSString *strUrll1 = [self.stri1 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *strUrll2 = [self.stri2 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *strUrll3 = [self.stri3 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
+        NSLog(@",,,,,,,,,1,%@",self.str4);
+        NSLog(@",,,,,,,,,,%@",self.stri2);
+        NSLog(@",,,,,,,,2,,%@",self.stri3);
+
         NSLog(@",,,,,,,,,,%@",self.stri1);
+        NSString*sttt1;
         
         
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",strUrll,strUrll1,strUrll2,strUrll3];
+          NSString*sttt2;
+          NSString*sttt3;
+          NSString*sttt4;
+        if( [self isBlankString: strUrll1]==YES)
+        {
+        
+            sttt1=@"";
+
+        
+        }
+        else
+        {
+        
+            sttt1=[NSString stringWithFormat:@"&job_type=%@",strUrll1];
+            
+        
+        
+        }
+        
+        
+        if( [self isBlankString: strUrll2]==YES)
+        {
+            
+            sttt2=@"";
+
+            
+        }
+        else
+        {
+            
+            sttt2=[NSString stringWithFormat:@"&Job_locate1=%@",strUrll2];
+            
+            
+            
+        }
+        if( [self isBlankString: strUrll3]==YES)
+        {
+            
+            sttt3=@"";
+
+            
+        }
+        else
+        {
+            
+            sttt3=[NSString stringWithFormat:@"&Job_locate2=%@",strUrll3];
+            
+            
+            
+        }
+
+        if( [self isBlankString: strUrll]==YES)
+        {
+            
+            sttt4=@"";
+            
+            
+        }
+        else
+        {
+            
+            sttt4=[NSString stringWithFormat:@"&q=%@",strUrll];
+            
+            
+            
+        }
+
+        
+        
+        
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?%@%@%@%@&offset=1",sttt4,sttt1,sttt2,sttt3];
         NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
@@ -279,6 +363,7 @@
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
+                [_jobarry removeAllObjects];
                 
                 
                 NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
@@ -321,6 +406,70 @@
             
             
                     });
+    });
+}
+-(void)newjobdate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =@"/api/job/findNewJob";
+        
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSLog(@"ppppppppp地对地导弹%@",result);
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                [_jobarry removeAllObjects];
+                
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    JObpp*peo=[[JObpp alloc]init];
+                    
+                    
+                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+                    
+                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+                    
+                    [_jobarry addObject:peo];
+                    
+                }
+                
+                [_getresulttable reloadData];
+          
+                
+            }
+            
+            else
+            {
+                NSString *reason = @"请求超时或者网络环境较差!";
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+            }
+        });
     });
 }
 

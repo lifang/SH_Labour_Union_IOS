@@ -135,7 +135,7 @@
                     
                 }
                 
-                [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+//                [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
 
                 [_Conditionstable reloadData];
                 
