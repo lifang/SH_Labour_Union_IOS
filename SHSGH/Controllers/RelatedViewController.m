@@ -97,7 +97,7 @@
     else
     {
     
-     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?offset=%u",_newallarry.count/10+1];
     
     }
 
@@ -148,7 +148,7 @@
     }
     else
     {
-     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+     urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?offset=%u",_newallarry.count/10+1];
     
     
     }
@@ -234,18 +234,17 @@
                                                        }
                                                        else if(segmentIndex==1)
                                                        {ff=9;
-                                                           
+                                                           [_newallarry removeAllObjects];
+
                                                                 changeint=790;
-                                                           urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+                                                           urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?offset=%u",_newallarry.count/10+1];
 
                                                            
                                                            _isReloadingAllData = YES;
-                                                           [_newallarry removeAllObjects];
                                                            
                                                            [self   setupRefreshs];
                                                            
                                                            
-//                                                           [self date];
 
                                                            _Seatchtable.hidden=YES;
                                                            _helptable.hidden=NO;
@@ -575,6 +574,7 @@
 }
 -(void)tuixiuButtonclick
 {
+    
     tuizaiA=0;
     changeimage=NO;
     [_helptable reloadData];
@@ -582,6 +582,7 @@
 }
 -(void)zaizhiButtonclick
 {
+    
     tuizaiA=1;
     changeimage=YES;
     [_helptable reloadData];
@@ -690,7 +691,10 @@
         
 //        NSString *strUrl = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        NSString*headerDatadgdgfgf= [urls stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+        
+        id result = [KRHttpUtil getResultDataByPost:headerDatadgdgfgf param:nil];
         
         
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -86,16 +86,25 @@
     address.textColor=[UIColor grayColor];
     [bigscrollow addSubview:address];
     NSLog(@"%@",self.area);
+    NSString*uy=self.area;
+    
 
-    if([self isBlankString:self.area]==NO)
+    if( [self isBlankString:self.area]==YES)
     {
         
     self.area=@"";
-        
+        address.text=[NSString stringWithFormat:@"上海 "];
+
+    
+    }
+    else
+    {
+    
+        address.text=[NSString stringWithFormat:@"上海  %@",self.area];
+
     
     }
      NSLog(@"%hhd",[self isBlankString:self.area]);
-    address.text=[NSString stringWithFormat:@"上海  %@",self.area];
 
     UILabel*require=[[UILabel alloc]initWithFrame:CGRectMake(20, 80, SCREEN_WIDTH-20, 30)];
     require.font=[UIFont systemFontOfSize:15];
@@ -110,7 +119,7 @@
     [bigscrollow addSubview:requirecontent];
     
     
-    if([self isBlankString:self.require]==NO)
+    if([self isBlankString:self.require])
     {
         self.require=@"暂无要求";
         
@@ -157,7 +166,7 @@
     coompamycontent.numberOfLines=0;
     
     
-    if([self isBlankString:self.companyintroduce]==NO)
+    if([self isBlankString:self.companyintroduce]==YES)
     {
         self.companyintroduce=@"暂无介绍";
         

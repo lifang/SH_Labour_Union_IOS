@@ -42,10 +42,27 @@
     {
     
         
+        
+     
+        NSURL *url = [NSURL URLWithString:@"http://www.sh12351.org"];
+//        NSString *str1 = [NSString stringWithFormat:@"<h4 align='left'>%@</h4><hr />",_topLabelStr];
+//        NSString *str2 = [NSString stringWithFormat:@"%@%@",str1,_contentStr];
+//        [webView loadHTMLString:str2 baseURL:url];
+//        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         UIWebView*requirecontent=[[UIWebView alloc]init];
         requirecontent.backgroundColor=[UIColor whiteColor];
         
-        [requirecontent loadHTMLString:self.contentstring baseURL:nil];
+        [requirecontent loadHTMLString:self.contentstring baseURL:url];
         
         //        simpleintroducetlable.numberOfLines=0;
         [requirecontent sizeToFit];

@@ -346,7 +346,10 @@
         
         
         NSString *urls =[NSString stringWithFormat:@"/api/job/search?%@%@%@%@&offset=1",sttt4,sttt1,sttt2,sttt3];
-        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+      NSString*headerDatadgdgfgf= [urls stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+        NSString *strUrld = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
@@ -511,21 +514,81 @@
                 jobdetal.zhiweiname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_name"]];
                 
                 jobdetal.peoplenumber=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"rs"]];
+                
+                if([[[result objectForKey:@"result"] objectForKey:@"locate"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                 jobdetal.area=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
+                    
+                    
+                }
+                if([[[result objectForKey:@"result"] objectForKey:@"lxfs"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.contact=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+                    
+                    
+                }
 
-                jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
 
-                jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+
                 jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
+                
+                
+                if([[[result objectForKey:@"result"] objectForKey:@"unit_about"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.companyintroduce=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
+                    
+                    
+                }
+                if([[[result objectForKey:@"result"] objectForKey:@"job_about"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.require=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+                    
+                    
+                }
 
-                jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
-                jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+
+
                 jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"id"]];
 
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];
 
+                NSLog(@"%@", jobdetal.require);
                 
-                
+                NSLog(@"%@", jobdetal.companyintroduce);
+
                 
             }
             

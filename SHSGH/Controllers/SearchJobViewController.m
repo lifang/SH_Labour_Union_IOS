@@ -33,7 +33,24 @@
     
     NSLog(@"%@",str4textfield);     NSLog(@"%@%@%@",str1,str3,str2);
     namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        最新职位", nil];
+    if([self isBlankString: str1]==NO)
+    {
     
+        [namearry replaceObjectAtIndex:1 withObject:str1];
+        
+    }
+    if([self isBlankString: str2]==NO)
+    {
+        
+        [namearry replaceObjectAtIndex:2 withObject:str2];
+        
+    }
+    if([self isBlankString: str3]==NO)
+    {
+        
+        [namearry replaceObjectAtIndex:3 withObject:str3];
+        
+    }
 
     recordarry=[NSMutableArray  arrayWithCapacity:0];
    
@@ -264,6 +281,37 @@
         for(NSInteger i=0;i<3;i++)
     {
         
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
+        {
+            
+            NSString*addstring;
+            
+            if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"15"]]==NO)
+            {
+                addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"15"]];
+                
+                
+                [namearry insertObject:addstring atIndex:6];
+                
+                [_Seatchtable reloadData];
+
+                
+            }
+            else
+            {
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
         
         
         if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==NO)
@@ -747,14 +795,16 @@
         ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"行业类别";
         searchviewcontroller.recordint=a;
-        
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.GG=recordA;
+
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A ,NSInteger B){
             
             str1=hangyestring;
             a=A;
             
             
-            
+            recordA=B;
+
             
         };
 
@@ -769,13 +819,15 @@
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"首选工作区域";
         searchviewcontroller.recordint=b;
+        searchviewcontroller.GG=recordB;
 
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A,NSInteger B){
             
             str2=hangyestring;
              b=A;
-            
+            recordB=B;
+
         };
 
     }
@@ -787,13 +839,15 @@
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"次选工作区域";
         searchviewcontroller.recordint=c;
+        searchviewcontroller.GG=recordC;
 
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A,NSInteger B){
             
             str3=hangyestring;
             
             c=A;
+            recordC=B;
             
         };
 
@@ -910,10 +964,10 @@
             seach.conditionsname=@"搜索结果";
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
+            seach.str4=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"];
             [self.navigationController pushViewController:seach animated:YES];
 
         }
@@ -936,14 +990,15 @@
             SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
             
             seach.conditionsname=@"搜索结果";
+         
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
+            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
             [self.navigationController pushViewController:seach animated:YES];
-
+   NSLog(@"%@",seach.stri1);
         }
         
     }

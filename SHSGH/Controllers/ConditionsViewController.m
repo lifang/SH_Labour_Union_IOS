@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    NSLog(@"%d",B);
     
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     
@@ -135,7 +136,49 @@
                     
                 }
                 
-//                [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+                
+                
+                if([self.conditionsname isEqualToString:@"行业类别"])
+                {
+                    
+                    if(self.GG==1024)
+                    {
+                        
+                        [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+                        
+                    }
+
+                }
+                
+                else if([self.conditionsname isEqualToString:@"首选工作区域"])
+                {
+                    if(self.GG==1025)
+                    {
+                        
+                        [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+                        
+                    }
+
+                    
+                }
+                else
+                {
+                    
+                    
+                    if(self.GG==1026)
+                    {
+                        
+                        [imagearry replaceObjectAtIndex:self.recordint withObject:@"dui"];
+                        
+                    }
+                }
+                
+
+                
+                
+                
+               
+                
 
                 [_Conditionstable reloadData];
                 
@@ -293,6 +336,7 @@
   
 //        clickimageview.image=[UIImage imageNamed:@"dui"];
    [imagearry removeAllObjects];
+    B=1024;
     
   
     for(NSInteger i=0;i<_allarry.count;i++)
@@ -306,8 +350,41 @@
     
     people*pname=[_allarry objectAtIndex:indexPath.row];
     
+    
+    
+    
+    
+    
+    
+    
+    if([self.conditionsname isEqualToString:@"行业类别"])
+    {
+       
+        B=1024;
+        
+ 
+        
+    }
+    
+    else if([self.conditionsname isEqualToString:@"首选工作区域"])
+    {
+       B =1025;
 
-    if (self.block) {
+        
+    }
+    else
+    {
+        
+        B =1026;
+
+        
+    }
+
+    
+    
+
+    if (self.block)
+    {
 //        if([self.conditionsname isEqualToString:@"行业类别"])
 //        {
 //           block([NSString stringWithFormat:@"%d",pname.ids]);
@@ -316,7 +393,7 @@
 //        else{
         
         
-            block([NSString stringWithFormat:@"%@",pname.namestring],indexPath.row);
+            block([NSString stringWithFormat:@"%@",pname.namestring],indexPath.row,B);
 
 //        }
 

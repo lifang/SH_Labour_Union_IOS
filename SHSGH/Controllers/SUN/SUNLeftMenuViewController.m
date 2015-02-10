@@ -147,15 +147,15 @@
             [self.mm_drawerController setCenterViewController:self.navCommonComponentVC
                                            withCloseAnimation:YES completion:nil];
         }else if (row == 2) { //维权记录
-            if (!self.navMaintainViewVC) {
-            NSLog(@"点击了维权登记");
+            if (!self.navMaintainViewVC)
+            {
             self.navMaintainViewVC = [AppDelegate shareMaintainController];
             }
             [self.mm_drawerController setCenterViewController:self.navMaintainViewVC
                                            withCloseAnimation:YES completion:nil];
         }
         else if (row == 3)
-        { //维权记录
+        { 
             
             
             OrganizationViewController *slideSwitchWVC = [[OrganizationViewController alloc]init];

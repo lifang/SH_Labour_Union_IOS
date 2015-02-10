@@ -25,6 +25,13 @@
     NSInteger b;
     NSInteger c;
 
+    
+    NSInteger recordA;
+    NSInteger recordB;
+    NSInteger recordC;
+    
+    
+    
     NSString*str1;
       NSString*str2;
       NSString*str3;
