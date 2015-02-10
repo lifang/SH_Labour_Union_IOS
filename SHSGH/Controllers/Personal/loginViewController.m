@@ -43,7 +43,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
-    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [buttonL.navButton setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
     [buttonL.navButton addTarget:self action:@selector(backtoPerson) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -358,7 +358,7 @@
                 NSDictionary *dict = [result objectForKey:@"result"];
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"登录成功" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                 [alertV1 show];
-                
+                SLog(@"`********************%@",dict);
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
                 delegate.username = [dict objectForKey:@"username"];
                 delegate.userId = [dict objectForKey:@"id"];
@@ -366,7 +366,6 @@
                 delegate.phoneCode = [dict objectForKey:@"phoneCode"];
                 delegate.phone = [dict objectForKey:@"phone"];
                 delegate.token = [result objectForKey:@"token"];
-                SLog(@"%@",[result objectForKey:@"token"]);
                 if ([dict objectForKey:@"labourUnionCode"]) {
                     delegate.labourUnionCode = [dict objectForKey:@"labourUnionCode"];
                 }if ([dict objectForKey:@"email"]) {
