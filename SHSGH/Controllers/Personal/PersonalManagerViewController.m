@@ -103,31 +103,57 @@
     if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||delegate.userIDName == nil) {
          userName.subtitle = @"请完善";
         if (![account.userIDName isKindOfClass:[NSNull class]]&&account.userIDName!=nil) {
+            if ([account.userIDName isEqualToString:@"(null)"]) {
+                userName.subtitle = @"请完善";
+            }else{
             userName.subtitle = account.userIDName;
+            }
         }
     }else{
+        if ([delegate.userIDName isEqualToString:@"(null)"]) {
+            userName.subtitle = @"请完善";
+        }else{
         userName.subtitle = delegate.userIDName;
+        }
     }
     
     HHZNoArrowItem *emailNum = [HHZNoArrowItem itemWithTitle:@"Email"];
-    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||delegate.email == nil) {
+    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||delegate.email == nil||![delegate.email isKindOfClass:[NSNull class]]) {
         emailNum.subtitle = @"请完善";
-        if (![account.email isKindOfClass:[NSNull class]]) {
+        if (![account.email isKindOfClass:[NSNull class]]&&account.email!=nil) {
+            if ([account.email isEqualToString:@"(null)"]) {
+                emailNum.subtitle = @"请完善";
+            }else{
             emailNum.subtitle = account.email;
+            }
         }
     }else{
+        if ([delegate.email isEqualToString:@"(null)"]) {
+            delegate.email = @"请完善";
+        }else{
         emailNum.subtitle = delegate.email;
+        }
     }
     
     HHZNoArrowItem *LabourUnion = [HHZNoArrowItem itemWithTitle:@"工会会员号"];
     if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil||delegate.labourUnionCode == nil) {
         LabourUnion.subtitle = @"请完善";
-        if (![account.LabourUnion isKindOfClass:[NSNull class]]) {
+        if (![account.LabourUnion isKindOfClass:[NSNull class]]&&account.LabourUnion!=nil) {
+            if ([account.LabourUnion isEqualToString:@"(null)"]) {
+                LabourUnion.subtitle = @"请完善";
+            }else{
             LabourUnion.subtitle = account.LabourUnion;
+            }
         }
     }else{
+        if ([delegate.labourUnionCode isEqualToString:@"(null)"]) {
+            LabourUnion.subtitle = @"请完善";
+        }else {
+            SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%@",delegate.labourUnionCode);
         LabourUnion.subtitle = delegate.labourUnionCode;
+        }
     }
+    
     
     group0.items = @[userName,emailNum,LabourUnion];
     [self.tableView reloadData];

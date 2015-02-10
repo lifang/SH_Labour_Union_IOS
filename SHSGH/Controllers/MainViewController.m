@@ -56,6 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initAndLayoutUI];
     _bigView = [[EGOImageView alloc]init];
     _clickBtn = [[UIButton alloc]init];
     
@@ -63,8 +64,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadImageDate];
-    [self initAndLayoutUI];
-
 }
 -(void)kaijidonghua
 {

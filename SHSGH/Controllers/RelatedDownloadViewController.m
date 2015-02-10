@@ -25,7 +25,7 @@
 -(void)setWebView
 {
     UIWebView *webView = [[UIWebView alloc]init];
-    webView.frame = CGRectMake(0, 0, mainScreenW, mainScreenH);
+    webView.frame = CGRectMake(0, 0, mainScreenW, mainScreenH - 64);
     NSString *str = [NSString stringWithFormat:@"%@/api/download/ioslist",MAIN_URL];
     NSURL *url = [NSURL URLWithString:str];
     NSURLRequest *requset = [NSURLRequest requestWithURL:url];
