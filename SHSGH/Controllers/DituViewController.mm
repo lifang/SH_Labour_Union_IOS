@@ -167,7 +167,8 @@
 -(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
                      errorCode:(BMKSearchErrorCode)error
 {
-    
+    NSLog(@"----%@",result.routes);
+
    
     if (error == BMK_SEARCH_NO_ERROR)
         

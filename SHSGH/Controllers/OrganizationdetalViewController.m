@@ -31,14 +31,14 @@
     }
     
     //如果没有授权则请求用户授权
-    if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
-        
-    {
-        if(iOS7)
-        {
-            [_locationManager requestWhenInUseAuthorization];
-        }
-    }
+//    if ([CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
+//        
+//    {
+//        if(iOS7)
+//        {
+//            [_locationManager requestWhenInUseAuthorization];
+//        }
+//    }
     else {
         //设置代理
         _locationManager.delegate=self;

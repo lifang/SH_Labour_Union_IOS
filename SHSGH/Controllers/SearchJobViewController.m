@@ -1070,7 +1070,18 @@
     seach.stri1=str1;
     seach.stri2=str2;
     seach.stri3=str3;
-    seach.str4=str4textfield;
+    
+    
+    
+    NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+
+    
+    
+    
+    seach.str4=strUrll1;
     [self.navigationController pushViewController:seach animated:YES];
     
 
