@@ -346,9 +346,9 @@
 //登录
 -(void)signIn:(id)sender
 {
+    [_passwordField resignFirstResponder];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
        
-        
         NSString *urls = [NSString stringWithFormat:@"/api/user/login?username=%@&password=%@",_usernameField.text,_passwordField.text];
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{

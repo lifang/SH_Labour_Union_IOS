@@ -91,69 +91,44 @@
 -(void)setupGroup0
 {
     UserModel *account = [UserTool userModel];
+    SLog(@"完善后----------%@",account.userIDName);
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    SLog(@"%@",account.userIDName);
-    SLog(@"%@",delegate.userIDName);
     //1创建组
     HHZCommonGroup *group0 = [HHZCommonGroup group];
     [self.groups addObject:group0];
     
     //2.设置组所有行的数据
     HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
-    if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||delegate.userIDName == nil) {
-         userName.subtitle = @"请完善";
-        if (![account.userIDName isKindOfClass:[NSNull class]]&&account.userIDName!=nil) {
-            if ([account.userIDName isEqualToString:@"(null)"]) {
-                userName.subtitle = @"请完善";
-            }else{
-            userName.subtitle = account.userIDName;
-            }
-        }
-    }else{
-        if ([delegate.userIDName isEqualToString:@"(null)"]) {
-            userName.subtitle = @"请完善";
-        }else{
-        userName.subtitle = delegate.userIDName;
-        }
+    if ([account.userIDName isEqualToString:@"(null)"]||account.userIDName==nil) {
+        userName.subtitle = @"请完善";
     }
-    
+    else{
+        userName.subtitle = account.userIDName;
+    }
+    if (delegate.userIDName) {
+        userName.subtitle = delegate.userIDName;
+    }
     HHZNoArrowItem *emailNum = [HHZNoArrowItem itemWithTitle:@"Email"];
-    if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||delegate.email == nil||![delegate.email isKindOfClass:[NSNull class]]) {
+    if ([account.email isEqualToString:@"(null)"]||account.email==nil) {
         emailNum.subtitle = @"请完善";
-        if (![account.email isKindOfClass:[NSNull class]]&&account.email!=nil) {
-            if ([account.email isEqualToString:@"(null)"]) {
-                emailNum.subtitle = @"请完善";
-            }else{
-            emailNum.subtitle = account.email;
-            }
-        }
-    }else{
-        if ([delegate.email isEqualToString:@"(null)"]) {
-            delegate.email = @"请完善";
-        }else{
+    }
+    else{
+        emailNum.subtitle = account.email;
+    }
+    if (delegate.email) {
         emailNum.subtitle = delegate.email;
-        }
     }
     
     HHZNoArrowItem *LabourUnion = [HHZNoArrowItem itemWithTitle:@"工会会员号"];
-    if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil||delegate.labourUnionCode == nil) {
+    if ([account.LabourUnion isEqualToString:@"(null)"]||account.LabourUnion==nil) {
         LabourUnion.subtitle = @"请完善";
-        if (![account.LabourUnion isKindOfClass:[NSNull class]]&&account.LabourUnion!=nil) {
-            if ([account.LabourUnion isEqualToString:@"(null)"]) {
-                LabourUnion.subtitle = @"请完善";
-            }else{
-            LabourUnion.subtitle = account.LabourUnion;
-            }
-        }
-    }else{
-        if ([delegate.labourUnionCode isEqualToString:@"(null)"]) {
-            LabourUnion.subtitle = @"请完善";
-        }else {
-            SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%@",delegate.labourUnionCode);
-        LabourUnion.subtitle = delegate.labourUnionCode;
-        }
     }
-    
+    else{
+        LabourUnion.subtitle = account.LabourUnion;
+    }
+    if (delegate.labourUnionCode) {
+        LabourUnion.subtitle = delegate.labourUnionCode;
+    }
     
     group0.items = @[userName,emailNum,LabourUnion];
     [self.tableView reloadData];

@@ -450,6 +450,9 @@
 -(void)textViewDidBeginEditing:(UITextView *)textView
 {
     CGRect frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y - 160, textView.frame.size.width, textView.frame.size.height);
+    if (mainScreenH<=480) {
+         frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y-220, textView.frame.size.width, textView.frame.size.height);
+    }
     SLog(@"%@",NSStringFromCGRect(frame));
     int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
     NSTimeInterval animationDuration = 0.30f;
@@ -465,6 +468,9 @@
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
       self.view.frame =CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height);
+    if (mainScreenH<=480) {
+        self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    }
 }
 
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

@@ -123,6 +123,15 @@
 //                    account.LabourUnion = _userIDField.text;
 //                    [UserTool save:account];
                 }
+                
+                SLog(@"Email================%@",[[result objectForKey:@"result"] objectForKey:@"email"]);
+                account.email = [[result objectForKey:@"result"] objectForKey:@"email"];
+                account.userIDName = [[result objectForKey:@"result"] objectForKey:@"nickName"];
+                account.username = [[result objectForKey:@"result"] objectForKey:@"username"];
+                account.password = delegate.password;
+                account.LabourUnion = [[result objectForKey:@"result"] objectForKey:@"labourUnionCode"];
+                [UserTool save:account];
+                SLog(@"完善成功----------%@",account.userIDName);
                 [self.navigationController popViewControllerAnimated:YES];
             }
             //请求失败
