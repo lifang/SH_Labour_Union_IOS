@@ -38,5 +38,6 @@
     NSString*str4textfield;
 
 }
+@property(nonatomic,strong)UINavigationController *dynamicNav;
 
 @end

@@ -585,7 +585,7 @@
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];
 
-                NSLog(@"%@", jobdetal.require);
+                NSLog(@"hhhhhh%@", jobdetal.contact);
                 
                 NSLog(@"%@", jobdetal.companyintroduce);
 
