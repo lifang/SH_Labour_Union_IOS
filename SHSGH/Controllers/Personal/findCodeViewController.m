@@ -42,7 +42,7 @@
     self.view.backgroundColor = mainScreenColor;
     
     navbarView *leftView = [[navbarView alloc]initWithNavType:navbarViewTypeLeft];
-    [leftView.navButton setImage:[UIImage imageNamed:@"back_btn_white@2x"] forState:UIControlStateNormal];
+    [leftView.navButton setImage:[UIImage imageNamed:@"back_btn_white"] forState:UIControlStateNormal];
     [leftView.navButton addTarget:self action:@selector(backNavBar) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithCustomView:leftView];
     self.navigationItem.leftBarButtonItem = leftBtn;

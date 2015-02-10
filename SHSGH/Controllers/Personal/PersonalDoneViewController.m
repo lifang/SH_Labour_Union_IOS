@@ -67,11 +67,19 @@
     topLabel.text = @"请完善个人信息";
     UserModel *account = [UserTool userModel];
     if (![account.userIDName isKindOfClass:[NSNull class]]&&account.userIDName!=nil) {
+        if ([account.userIDName isEqualToString:@"(null)"]) {
+            topLabel.text = @"请完善个人信息";
+        }else{
         topLabel.text = account.userIDName;
+        }
     }
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     if (![delegate.userIDName isKindOfClass:[NSNull class]]&&delegate.userIDName!=nil) {
+        if ([delegate.userIDName isEqualToString:@"(null)"]) {
+            topLabel.text = @"请完善个人信息";
+        }else{
         topLabel.text = delegate.userIDName;
+        }
     }
     topLabel.backgroundColor = [UIColor clearColor];
     topLabel.textColor = sColor(75, 75, 75, 1.0);
