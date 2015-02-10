@@ -274,7 +274,14 @@
     
     changeA=indexPath.row;
     
-    [self date];
+    SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+    
+    seach.conditionsname=@"搜索结果";
+    seach.stri1=[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"];
+    seach.stri2=[[self.recortarry objectAtIndex:changeA ] objectForKey:@"13"];
+    seach.stri3=[[self.recortarry objectAtIndex:changeA ] objectForKey:@"15"];
+    seach.str4=[[self.recortarry objectAtIndex:changeA ] objectForKey:@"14"];
+    [self.navigationController pushViewController:seach animated:YES];
     
     
 //    JobDetalViewController*jobdetal=[[JobDetalViewController alloc]init];
@@ -323,11 +330,41 @@
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         
-      
+                       NSLog(@"ppppppppp地对地导弹%@",self.recortarry);
 
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",@"",[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"],[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"],@""];
         
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        
+        
+        
+        
+        
+
+        
+        
+        NSString *strUrll = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"14"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSString *strUrll1 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll2 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"13"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *strUrll3 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"15"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?job_type=%@&offset=1",strUrll1];
+
+        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        
+        
+        
+
+//        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",,,,];
+        
+        
+        
+        
+        
+        
+        id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
         NSLog(@"ppppppppp地对地导弹%@",result);
         
         

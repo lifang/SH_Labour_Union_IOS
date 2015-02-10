@@ -33,7 +33,24 @@
     
     NSLog(@"%@",str4textfield);     NSLog(@"%@%@%@",str1,str3,str2);
     namearry=[[NSMutableArray alloc]initWithObjects:@"",@"行业类别",@"首选工作区域",@"次选工作区域",@"",@"        搜索记录",@"        最新职位", nil];
+    if([self isBlankString: str1]==NO)
+    {
     
+        [namearry replaceObjectAtIndex:1 withObject:str1];
+        
+    }
+    if([self isBlankString: str2]==NO)
+    {
+        
+        [namearry replaceObjectAtIndex:2 withObject:str2];
+        
+    }
+    if([self isBlankString: str3]==NO)
+    {
+        
+        [namearry replaceObjectAtIndex:3 withObject:str3];
+        
+    }
 
     recordarry=[NSMutableArray  arrayWithCapacity:0];
    
@@ -264,6 +281,37 @@
         for(NSInteger i=0;i<3;i++)
     {
         
+        if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
+        {
+            
+            NSString*addstring;
+            
+            if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"15"]]==NO)
+            {
+                addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"15"]];
+                
+                
+                [namearry insertObject:addstring atIndex:6];
+                
+                [_Seatchtable reloadData];
+
+                
+            }
+            else
+            {
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
         
         
         if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==NO&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==NO)
@@ -279,7 +327,7 @@
             else
             {
                 
-                addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"],[[recordarry objectAtIndex:i ] objectForKey:@"14"]];
+                addstring=[NSString stringWithFormat:@"%@+%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"13"],[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"14"]];
             }
 
             
@@ -290,7 +338,8 @@
             
             [namearry insertObject:addstring atIndex:6];
             
-           
+            [_Seatchtable reloadData];
+
 
         }
         
@@ -312,7 +361,7 @@
             
             else
             {
-                addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:i ] objectForKey:@"12"],[[recordarry objectAtIndex:i ] objectForKey:@"13"]];
+                addstring=[NSString stringWithFormat:@"%@+%@",[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"12"],[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]];
                 
                 
                 
@@ -498,7 +547,7 @@
         
         
         
-        
+
         
         
         
@@ -746,14 +795,16 @@
         ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"行业类别";
         searchviewcontroller.recordint=a;
-        
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.GG=recordA;
+
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A ,NSInteger B){
             
             str1=hangyestring;
             a=A;
             
             
-            
+            recordA=B;
+
             
         };
 
@@ -768,13 +819,15 @@
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"首选工作区域";
         searchviewcontroller.recordint=b;
+        searchviewcontroller.GG=recordB;
 
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A,NSInteger B){
             
             str2=hangyestring;
              b=A;
-            
+            recordB=B;
+
         };
 
     }
@@ -786,13 +839,15 @@
     {ConditionsViewController*searchviewcontroller=[[ConditionsViewController alloc]init];
         searchviewcontroller.conditionsname=@"次选工作区域";
         searchviewcontroller.recordint=c;
+        searchviewcontroller.GG=recordC;
 
         [self.navigationController pushViewController:searchviewcontroller animated:YES];
-        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A){
+        searchviewcontroller.block=^(NSString*hangyestring,NSInteger A,NSInteger B){
             
             str3=hangyestring;
             
             c=A;
+            recordC=B;
             
         };
 
@@ -829,8 +884,12 @@
 
     if(indexPath.row==namearry.count-1)
     {
-        [self newjobdate];
-
+        SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+        
+        seach.conditionsname=@"最新职位";
+        NSLog(@"%@",seach.jobarry);
+        [self.navigationController pushViewController:seach animated:YES];
+        
             }
     
     //  搜索记录1
@@ -905,10 +964,10 @@
             seach.conditionsname=@"搜索结果";
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
+            seach.str4=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"];
             [self.navigationController pushViewController:seach animated:YES];
 
         }
@@ -931,14 +990,15 @@
             SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
             
             seach.conditionsname=@"搜索结果";
+         
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
+            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
             [self.navigationController pushViewController:seach animated:YES];
-
+   NSLog(@"%@",seach.stri1);
         }
         
     }
@@ -949,76 +1009,6 @@
 }
 #pragma mark - 获取网络数据
 
--(void)newjobdate
-{
-    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
-    
-    [self.view addSubview:HUD];
-    
-    HUD.labelText = @"正在加载...";
-    [HUD show:YES];
-    
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =@"/api/job/findNewJob";
-        
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD removeFromSuperview];
-            
-            if ([[result objectForKey:@"code"] integerValue]==1)
-            {
-                [_newallarry removeAllObjects];
-                
-                
-                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
-                
-                for(int i=0;i<arry.count;i++)
-                {
-                    
-                    JObpp*peo=[[JObpp alloc]init];
-                    
-                    
-                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
-                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
-                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
-
-//                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
-                    
-                    [_newallarry addObject:peo];
-                    
-                }
-
-                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
-                
-                seach.conditionsname=@"最新职位";
-                seach.jobarry=_newallarry;
-                NSLog(@"%@",seach.jobarry);
-                [self.navigationController pushViewController:seach animated:YES];
-                
-
-                
-            }
-            
-            else
-            {
-                NSString *reason = @"请求超时或者网络环境较差!";
-                if (![KRHttpUtil checkString:reason])
-                {
-                    reason = @"请求超时或者网络环境较差!";
-                }
-
-                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                
-                
-                
-            }
-        });
-    });
-}
 
 - (BOOL) isBlankString:(NSString *)string {
     if (string == nil || string == NULL) {

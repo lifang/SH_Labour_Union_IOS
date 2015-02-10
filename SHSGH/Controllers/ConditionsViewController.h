@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef void (^aBlock)(NSString *hangyestring,NSInteger A);
+typedef void (^aBlock)(NSString *hangyestring,NSInteger A,NSInteger BS);
 @interface ConditionsViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     
@@ -16,11 +16,16 @@ typedef void (^aBlock)(NSString *hangyestring,NSInteger A);
     NSMutableArray*imagearry;
     NSString *urls;
     NSMutableArray*_allarry;
-
+    NSInteger B;
+        NSInteger C ;
+        NSInteger D;
+    
+    
     BOOL _isReloadingAllData;
 //    MBProgressHUD*HUD;
 }
 @property(nonatomic,assign)NSInteger recordint;
+@property(nonatomic,assign)NSInteger GG;
 
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;
