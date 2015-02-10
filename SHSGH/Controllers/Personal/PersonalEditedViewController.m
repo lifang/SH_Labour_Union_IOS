@@ -62,7 +62,7 @@
 
 -(void)save
 {
-    if (_userIDField.text==0&&_usernameField.text==0&&_emailField.text==0) {
+    if ([_userIDField.text isEqualToString:@""]&&[_usernameField.text isEqualToString:@""]&&[_emailField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"请填写完善信息!"
                                                        delegate:nil
@@ -72,10 +72,6 @@
         return;
 
     }
-    
-    SLog(@"``````````````````````````%@",_emailField.text);
-    
-    
     if (![_emailField.text isEqualToString:@""]&&![_emailField.text isKindOfClass:[NSNull class]]&&_emailField.text!=nil&&_emailField.text.length!=0) {
         
         if (![IsPhone validateEmail:_emailField.text]) {
@@ -88,6 +84,17 @@
             return;
         }
     }
+    if ([_emailField.text isEqualToString:@"(null)"]||_emailField.text==nil||[_emailField.text isKindOfClass:[NSNull class]]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"请填写完善信息!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    SLog(@"``````````````````````````%@",_emailField.text);
+    
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"完善中!";
