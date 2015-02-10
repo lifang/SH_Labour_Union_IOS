@@ -13,6 +13,8 @@
 #import "NSString+FontAwesome.h"
 #import "JObpp.h"
 #import "PersonalViewController.h"
+#import "PersonalDoneViewController.h"
+
 @interface RelatedViewController ()
 
 @end
@@ -93,6 +95,14 @@
         
         
     }
+   else   if(changeint==7970)
+   {
+       
+       urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
+       
+       
+       
+   }
 
     else
     {
@@ -216,11 +226,11 @@
                                                        {
                                                            changeint=798;
                                                            ff=5;
-                                                           
+                                                           [_newallarry removeAllObjects];
+
                                                            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",_newallarry.count/10+1];
 
                                                            
-                                                           [_newallarry removeAllObjects];
                                                            
                                                            _isReloadingAllData = YES;
                                                            
@@ -382,7 +392,7 @@
     searchrootview.layer.cornerRadius=18;
     
     _searchfield.placeholder=@"请输入关键字 ";
-//       _searchfield.text= str4textfield;
+       _searchfield.text= str4textfield;
     _searchfield.delegate=self;
     CALayer *layer=[searchrootview layer];
     //是否设置边框以及是否可见
@@ -446,7 +456,8 @@
             
         }
         searchrootview.layer.cornerRadius=18;
-        
+        _searchfield.text= str4textfield;
+
         _searchfield.placeholder=@"请输入关键字 ";
         _searchfield.delegate=self;
         CALayer *layer=[searchrootview layer];
@@ -606,11 +617,26 @@
 }
 -(void)toUser
 {
-    PersonalViewController *personVC = [[PersonalViewController alloc]init];
-    
-    [self.navigationController pushViewController:personVC animated:YES];
-    SLog(@"toUser");
+    UserModel *account = [UserTool userModel];
+    SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~%@",account.password);
+    if (account.password) {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        personDoneVC.userName = account.username;
+        personDoneVC.userPasswd = account.password;
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.username = account.username;
+        delegate.password = account.password;
+        delegate.phone = account.phoneNum;
+        delegate.email = account.email;
+        delegate.labourUnionCode = account.LabourUnion;
+        [self.navigationController pushViewController:personDoneVC animated:YES];
+    }else{
+        PersonalViewController *personVC = [[PersonalViewController alloc]init];
+        //        self.dynamicNav = [AppDelegate shareDynamicController];
+        [self.navigationController pushViewController:personVC animated:YES];
+    }
 }
+
 
 -(void)leftMenu
 {
@@ -645,8 +671,17 @@
      changeint=7970;
     [_newallarry removeAllObjects];
     _isReloadingAllData = YES;
+    
+    NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    
 
-    urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
+       NSString* urlsgg =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,strUrll1,_newallarry.count/10+1];
+    
+    
+    urls = [urlsgg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
     [self date];
     
     
@@ -894,6 +929,7 @@
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    str4textfield=textField.text;
     
     
     

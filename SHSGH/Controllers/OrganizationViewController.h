@@ -26,5 +26,6 @@
     
 }
 
+@property(nonatomic,strong)UINavigationController *dynamicNav;
 
 @end

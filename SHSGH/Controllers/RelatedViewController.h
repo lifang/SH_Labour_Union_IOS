@@ -31,6 +31,7 @@
     PPiFlatSegmentedControl *segmentedControl;
     
 }
+@property(nonatomic,strong)UINavigationController *dynamicNav;
 
 
 @end

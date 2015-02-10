@@ -21,7 +21,7 @@
 #import "JObpp.h"
 #import "PersonalViewController.h"
 #import "people.h"
-
+#import "PersonalDoneViewController.h"
 @interface SearchJobViewController ()
 
 @end
@@ -278,7 +278,7 @@
     }
     else
     {
-        for(NSInteger i=0;i<3;i++)
+        for(NSInteger i=2;i>=0;i--)
     {
         
         if([self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1 ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:recordarry.count-i-1] objectForKey:@"14"]]==YES)
@@ -765,10 +765,26 @@
 }
 -(void)toUser
 {
-    PersonalViewController *personVC = [[PersonalViewController alloc]init];
-   
-    [self.navigationController pushViewController:personVC animated:YES];
-    SLog(@"toUser");
+    UserModel *account = [UserTool userModel];
+    SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~%@",account.password);
+    if (account.password)
+    {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        personDoneVC.userName = account.username;
+        personDoneVC.userPasswd = account.password;
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.username = account.username;
+        delegate.password = account.password;
+        delegate.phone = account.phoneNum;
+        delegate.email = account.email;
+        delegate.labourUnionCode = account.LabourUnion;
+//        self.dynamicNav = [AppDelegate shareDynamicController];
+        [self.navigationController pushViewController:personDoneVC animated:YES];
+    }else{
+        PersonalViewController *personVC = [[PersonalViewController alloc]init];
+//        self.dynamicNav = [AppDelegate shareDynamicController];
+        [self.navigationController pushViewController:personVC animated:YES];
+    }
 }
 
 -(void)leftMenu
@@ -1177,7 +1193,10 @@
             
             
         }
-        
+        recordA=0;
+        recordB=0;
+        recordC=0;
+
     }
     
     

@@ -15,6 +15,8 @@
 #import "OrganizationTableViewCell.h"
 #import "OrganizationdetalViewController.h"
 #import "people.h"
+#import "PersonalDoneViewController.h"
+
 @interface OrganizationViewController ()
 
 @end
@@ -370,10 +372,24 @@
 }
 -(void)toUser
 {
-    PersonalViewController *personVC = [[PersonalViewController alloc]init];
-    
-    [self.navigationController pushViewController:personVC animated:YES];
-    SLog(@"toUser");
+    UserModel *account = [UserTool userModel];
+    SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~%@",account.password);
+    if (account.password) {
+        PersonalDoneViewController *personDoneVC = [[PersonalDoneViewController alloc]init];
+        personDoneVC.userName = account.username;
+        personDoneVC.userPasswd = account.password;
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+        delegate.username = account.username;
+        delegate.password = account.password;
+        delegate.phone = account.phoneNum;
+        delegate.email = account.email;
+        delegate.labourUnionCode = account.LabourUnion;
+        [self.navigationController pushViewController:personDoneVC animated:YES];
+    }else{
+        PersonalViewController *personVC = [[PersonalViewController alloc]init];
+        //        self.dynamicNav = [AppDelegate shareDynamicController];
+        [self.navigationController pushViewController:personVC animated:YES];
+    }
 }
 
 -(void)leftMenu
