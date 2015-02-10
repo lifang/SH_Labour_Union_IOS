@@ -265,11 +265,11 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     
     cell.namelable.text=peop.about_detail;
     cell.namelable.numberOfLines=0;
-    cell.namelable.font=[UIFont systemFontOfSize:15];
+    cell.namelable.font=[UIFont systemFontOfSize:12];
 
     [cell.namelable sizeToFit];
     
-    cell.backgroundColor=[UIColor clearColor];
+    cell.namelable.backgroundColor=[UIColor clearColor];
     
    
     cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+15);

@@ -82,8 +82,9 @@
         
     {
         
-        NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
         
+        NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
         
         NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
@@ -97,8 +98,12 @@
     }
    else   if(changeint==7970)
    {
+       NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
        
-       urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
+       NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+       
+       
+       urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,strUrll1,_newallarry.count/10+1];
        
        
        
@@ -132,10 +137,13 @@
     
     }
   else  if(changeint==7980)
-        
+      
     {
     
-        NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
         
         
         
@@ -150,8 +158,14 @@
     }
  else   if(changeint==7970)
     {
+        
+        NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+
     
-        urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,_searchfield.text,_newallarry.count/10+1];
+        urls =[NSString stringWithFormat:@"/api/mutualAid/search?type=%ld&name=%@&offset=%d",(long)tuizaiA,strUrll1,_newallarry.count/10+1];
 
     
     
@@ -651,8 +665,12 @@
     changeint=7980;
     
     [_newallarry removeAllObjects];
-    NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    
+    
+    NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
 
    NSString* urlsgg =[NSString stringWithFormat:@"/api/news/findLaws?title=%@&offset=%d",strUrll1,_newallarry.count/10+1];
@@ -672,7 +690,9 @@
     [_newallarry removeAllObjects];
     _isReloadingAllData = YES;
     
-    NSString *strUrll1 = [str4textfield stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     
     
@@ -726,10 +746,9 @@
         
 //        NSString *strUrl = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         
-        NSString*headerDatadgdgfgf= [urls stringByReplacingOccurrencesOfString:@" " withString:@""];
 
         
-        id result = [KRHttpUtil getResultDataByPost:headerDatadgdgfgf param:nil];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
