@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
+    [self loadDate];
 
     
     namearry=[[NSArray alloc]initWithObjects:@"打工者的基本权利是什么?",@"什么是劳动合同?",@"劳动合同定立.变更和履行的原则有哪些?",@"用人单位只签订试用期合同怎么办?",@"社会保险是什么?",@"则么样界定辞退与自动离职?",@"执行国家福利时怎么分配?",@"工作环境极其恶劣怎么办?",@"乱收培训费怎么办?",@"法定节假日不放假怎么办?",@"兼职者收到侮辱怎么办?", nil];
@@ -39,6 +40,11 @@
     _Questiontable.dataSource=self;
     _Questiontable.rowHeight=50;
 
+}
+
+-(void)loadDate
+{
+    
 }
 
 -(void)setNavBar

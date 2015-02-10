@@ -108,6 +108,7 @@
     if (delegate.userIDName) {
         userName.subtitle = delegate.userIDName;
     }
+    
     HHZNoArrowItem *emailNum = [HHZNoArrowItem itemWithTitle:@"Email"];
     if ([account.email isEqualToString:@"(null)"]||account.email==nil) {
         emailNum.subtitle = @"请完善";

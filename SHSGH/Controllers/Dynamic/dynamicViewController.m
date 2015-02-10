@@ -116,9 +116,9 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
         [params setObject:@"0" forKey:@"offset"];
-        NSString *urls =@"/api/news/findNews";
+        NSString *urls =@"/api/news/findNews?offset=1";
         id result = [KRHttpUtil getResultDataByPost:urls param:params];
-        
+        SLog(@"&*************************%@",result);
         dispatch_async(dispatch_get_main_queue(), ^{
             //成功
             if ([[result objectForKey:@"code"] integerValue]==1)

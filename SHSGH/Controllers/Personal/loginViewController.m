@@ -366,12 +366,12 @@
                 delegate.phoneCode = [dict objectForKey:@"phoneCode"];
                 delegate.phone = [dict objectForKey:@"phone"];
                 delegate.token = [result objectForKey:@"token"];
-                if ([dict objectForKey:@"labourUnionCode"]) {
+                if ([dict objectForKey:@"labourUnionCode"]&&![[dict objectForKey:@"labourUnionCode"] isEqualToString:@"(null)"]) {
                     delegate.labourUnionCode = [dict objectForKey:@"labourUnionCode"];
-                }if ([dict objectForKey:@"email"]) {
+                }if ([dict objectForKey:@"email"]&&![[dict objectForKey:@"email"] isEqualToString:@"(null)"]) {
                     delegate.email = [dict objectForKey:@"email"];
                 }
-                if ([dict objectForKey:@"nickName"]) {
+                if ([dict objectForKey:@"nickName"]&&![[dict objectForKey:@"nickName"] isEqualToString:@"(null)"]) {
                     delegate.userIDName = [dict objectForKey:@"nickName"];
                 }
                 
