@@ -274,7 +274,37 @@
             
         }
 
-       
+        if([self isBlankString:[[recordarry objectAtIndex:i ] objectForKey:@"12"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i] objectForKey:@"13"]]==YES&&[self isBlankString:[[recordarry objectAtIndex:i] objectForKey:@"14"]]==YES)
+        {
+            
+            NSString*addstring;
+            
+            if([self isBlankString:[[recordarry objectAtIndex:i] objectForKey:@"15"]]==NO)
+            {
+                addstring=[NSString stringWithFormat:@"%@",[[recordarry objectAtIndex:i ] objectForKey:@"15"]];
+                
+                
+                [namearry insertObject:addstring atIndex:6];
+                
+                [_Seatchtable reloadData];
+                
+                
+            }
+            else
+            {
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+
 
     
     }
@@ -885,11 +915,11 @@
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         
 
-        recordarry=[userDefaults objectForKey:@"record"];
+        NSArray*recordarrsgy=[userDefaults objectForKey:@"record"];
         NSMutableArray*recordsarry=[NSMutableArray arrayWithCapacity:0];
-        for(int i=0;i<recordarry.count;i++)
+        for(int i=0;i<recordarrsgy.count;i++)
         {
-            [recordsarry addObject:[recordarry objectAtIndex:i]];
+            [recordsarry addObject:[recordarrsgy objectAtIndex:i]];
             
             
             
@@ -1226,6 +1256,13 @@
         
         if([[NSString stringWithFormat:@"%@%@%@%@", str1, str2, str4textfield, str3] isEqualToString:addstring])
         {
+            
+            [recordsarry removeObjectAtIndex:i];
+
+            
+            [recordsarry addObject:[recordarry objectAtIndex:i]];
+
+            
            str1=@"";
             
             str2=@"";

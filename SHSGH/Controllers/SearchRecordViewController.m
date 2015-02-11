@@ -42,7 +42,7 @@
     self.title=@"搜索记录";
     
     // Do any additional setup after loading the view.
-    _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
     
     
@@ -145,6 +145,25 @@
         
         
     }
+    
+    
+    
+    if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
+    {
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+        {
+            addstring=[NSString stringWithFormat:@"%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"]];
+            
+            
+        }else
+        {
+            
+            
+        }
+        
+        
+    }
+
     
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==YES)
     {
