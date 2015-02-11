@@ -96,6 +96,7 @@
 		9340748A1A81F01900C3916B /* DoctorStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 934074891A81F01900C3916B /* DoctorStatus.m */; };
 		9345FAD31A720AFF00426E82 /* HHZNoArrowItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */; };
 		934994F21A88C4FF006398D8 /* RelatedDownloadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */; };
+		935D6D831A89FC84001CEFF0 /* ProductRegist.m in Sources */ = {isa = PBXBuildFile; fileRef = 935D6D821A89FC84001CEFF0 /* ProductRegist.m */; };
 		935DDF731A75D76E00021146 /* DynamicChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF701A75D76E00021146 /* DynamicChildViewController.m */; };
 		935DDF741A75D76E00021146 /* dynamicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF721A75D76E00021146 /* dynamicViewController.m */; };
 		935DDF891A75D80500021146 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 935DDF761A75D80500021146 /* ChangePasswordViewController.m */; };
@@ -405,6 +406,8 @@
 		9345FAD21A720AFF00426E82 /* HHZNoArrowItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHZNoArrowItem.m; sourceTree = "<group>"; };
 		934994F01A88C4FF006398D8 /* RelatedDownloadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RelatedDownloadViewController.h; sourceTree = "<group>"; };
 		934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RelatedDownloadViewController.m; sourceTree = "<group>"; };
+		935D6D811A89FC84001CEFF0 /* ProductRegist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductRegist.h; sourceTree = "<group>"; };
+		935D6D821A89FC84001CEFF0 /* ProductRegist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductRegist.m; sourceTree = "<group>"; };
 		935DDF6F1A75D76E00021146 /* DynamicChildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicChildViewController.h; sourceTree = "<group>"; };
 		935DDF701A75D76E00021146 /* DynamicChildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicChildViewController.m; sourceTree = "<group>"; };
 		935DDF711A75D76E00021146 /* dynamicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dynamicViewController.h; sourceTree = "<group>"; };
@@ -987,6 +990,8 @@
 				934074861A81C0D000C3916B /* ClassStatus.m */,
 				934074881A81F01900C3916B /* DoctorStatus.h */,
 				934074891A81F01900C3916B /* DoctorStatus.m */,
+				935D6D811A89FC84001CEFF0 /* ProductRegist.h */,
+				935D6D821A89FC84001CEFF0 /* ProductRegist.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1361,6 +1366,7 @@
 				0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */,
 				0ECFF2471A6F9AE0007F882E /* KRHttpUtil.m in Sources */,
 				936287B71A80DBC2000E4AE9 /* Downtown.m in Sources */,
+				935D6D831A89FC84001CEFF0 /* ProductRegist.m in Sources */,
 				93C6F0F91A6CF049002C8E4A /* SUNTextField.m in Sources */,
 				93F2B7421A7F717A00AE20DF /* CityCell.m in Sources */,
 				935DDF8C1A75D80500021146 /* loginViewController.m in Sources */,

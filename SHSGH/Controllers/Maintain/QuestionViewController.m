@@ -9,42 +9,96 @@
 #import "QuestionViewController.h"
 #import "ConditionsTableViewCell.h"
 #import "navbarView.h"
+#import "ProductRegist.h"
 
 @interface QuestionViewController ()
 
 @property(nonatomic,strong)NSString *questions;
+@property(nonatomic,strong)NSString *code;
+
+@property(nonatomic,strong)NSMutableArray *productRegistArray;
 
 @end
 
 @implementation QuestionViewController
 @synthesize block;
 
+-(NSMutableArray *)productRegistArray
+{
+    if (!_productRegistArray) {
+        _productRegistArray = [NSMutableArray array];
+    }
+    return _productRegistArray;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
     [self loadDate];
-
     
-    namearry=[[NSArray alloc]initWithObjects:@"打工者的基本权利是什么?",@"什么是劳动合同?",@"劳动合同定立.变更和履行的原则有哪些?",@"用人单位只签订试用期合同怎么办?",@"社会保险是什么?",@"则么样界定辞退与自动离职?",@"执行国家福利时怎么分配?",@"工作环境极其恶劣怎么办?",@"乱收培训费怎么办?",@"法定节假日不放假怎么办?",@"兼职者收到侮辱怎么办?", nil];
+//    namearry=[[NSArray alloc]initWithObjects:@"打工者的基本权利是什么?",@"什么是劳动合同?",@"劳动合同定立.变更和履行的原则有哪些?",@"用人单位只签订试用期合同怎么办?",@"社会保险是什么?",@"则么样界定辞退与自动离职?",@"执行国家福利时怎么分配?",@"工作环境极其恶劣怎么办?",@"乱收培训费怎么办?",@"法定节假日不放假怎么办?",@"兼职者收到侮辱怎么办?", nil];
+//    imagearry=[[NSMutableArray alloc]initWithCapacity:0];
+//    for(NSInteger i=0;i<namearry.count;i++)
+//    {
+//        [imagearry addObject:@""];
+//    }
+//    
+//    // Do any additional setup after loading the view.
+//    _Questiontable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+//    
+//    [self.view addSubview:_Questiontable];
+//    _Questiontable.delegate=self;
+//    _Questiontable.dataSource=self;
+//    _Questiontable.rowHeight=50;
+}
+
+-(void)setupTableView
+{
     imagearry=[[NSMutableArray alloc]initWithCapacity:0];
-    for(NSInteger i=0;i<namearry.count;i++)
-    {
-        [imagearry addObject:@""];
-    }
+        for(NSInteger i=0;i<_productRegistArray.count;i++)
+        {
+            [imagearry addObject:@""];
+        }
     
-    // Do any additional setup after loading the view.
-    _Questiontable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+        // Do any additional setup after loading the view.
+        _Questiontable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
     
-    [self.view addSubview:_Questiontable];
-    _Questiontable.delegate=self;
-    _Questiontable.dataSource=self;
-    _Questiontable.rowHeight=50;
-
+        [self.view addSubview:_Questiontable];
+        _Questiontable.delegate=self;
+        _Questiontable.dataSource=self;
+        _Questiontable.rowHeight=50;
+    
+       [_Questiontable reloadData];
 }
 
 -(void)loadDate
 {
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString *urls =@"/api/protect/getType";
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~%@",result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                NSArray *dataArray = [result objectForKey:@"result"];
+                for (int i = 0; i < dataArray.count; i++) {
+                    ProductRegist *registe = [[ProductRegist alloc]init];
+                    registe.name = [[dataArray objectAtIndex:i] objectForKey:@"name"];
+                    registe.code = [[dataArray objectAtIndex:i] objectForKey:@"code"];
+                    [self.productRegistArray addObject:registe];
+                }
+                SLog(@"`````````````%ld",namearry.count);
+                [self setupTableView];
+            }
+            else {
+                
+                UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请检查网络!" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
+            }
+        });
+    });
 }
 
 -(void)setNavBar
@@ -62,7 +116,7 @@
 
 -(void)backtoMaintain
 {
-    [self.delegate sendQuestion:_questions];
+    [self.delegate sendQuestion:_questions WithCode:_code];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -70,7 +124,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 11;
+    return _productRegistArray.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -82,7 +136,7 @@
     if (!cell)
     {
         cell = [[ConditionsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
-        cell.backgroundColor = mainScreenColor;
+        cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.textColor = sColor(124, 124, 124, 1.0);
         
@@ -92,8 +146,8 @@
     cell.logoImageView.image=[UIImage imageNamed:[imagearry objectAtIndex:indexPath.row]];
     
     
-    
-    cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
+    ProductRegist *registe = [_productRegistArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = registe.name;
     
     return cell;
     
@@ -103,11 +157,9 @@
 {
  
     imagearry=[[NSMutableArray alloc]initWithCapacity:0];
-    for(NSInteger i=0;i<namearry.count;i++)
+    for(NSInteger i=0;i<_productRegistArray.count;i++)
     {
         [imagearry addObject:@""];
-        
-        
     }
     
     [imagearry replaceObjectAtIndex:indexPath.row withObject:@"dui"];
@@ -115,8 +167,10 @@
         block([NSString stringWithFormat:@"%ld",(long)indexPath.row]);
     }
     
-    _questions = [namearry objectAtIndex:indexPath.row];
-    
+    ProductRegist *registe = [_productRegistArray objectAtIndex:indexPath.row];
+    self.questions = registe.name;
+    self.code = registe.code;
     [_Questiontable reloadData];
 }
+
 @end

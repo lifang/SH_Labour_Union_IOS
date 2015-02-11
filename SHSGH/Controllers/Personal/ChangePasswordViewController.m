@@ -10,6 +10,7 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 #import "PersonalManagerViewController.h"
+#import "UserTool.h"
 
 @interface ChangePasswordViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *oldPasswordField;
@@ -59,6 +60,17 @@
     SLog(@"点击了save!");
         NSString *kPromptInfo = @"";
         //输入验证
+        UserModel *account = [UserTool userModel];
+        if (![_oldPasswordField.text isEqualToString:account.password]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"旧密码错误!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    
         if (!_oldPasswordField.text || [_oldPasswordField.text isEqualToString:@""]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                             message:@"旧密码不能为空!"

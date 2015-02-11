@@ -75,6 +75,8 @@
     [self initUI];
     [self loadHospitalData];
     [self setupRefresh];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    SLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^%@",delegate.area_id);
     
 }
 
@@ -433,8 +435,8 @@
     self.searchPage = 1;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         UserModel *account = [UserTool userModel];
-        
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=0&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findHospital?keyword=%@&offset=0&phone=%@&locate=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum,delegate.area_id];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -470,8 +472,9 @@
     hud.labelText = @"正在查找!";
     self.searchPage = 1;
     UserModel *account = [UserTool userModel];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=0&phone=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum];
+        NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=0&phone=%@&locate=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],account.phoneNum,delegate.area_id];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         SLog(@"%@",result);

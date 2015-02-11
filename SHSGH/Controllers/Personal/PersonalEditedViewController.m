@@ -201,10 +201,11 @@
     _usernameField.borderStyle = UITextBorderStyleNone;
     _usernameField.backgroundColor = [UIColor clearColor];
     _usernameField.delegate = self;
+    _usernameField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||[account.userIDName isEqualToString:@"(null)"]) {
-        _usernameField.placeholder = @"请完善";
+        _usernameField.text = @"请完善";
     }else{
-        _usernameField.placeholder = account.userIDName;
+        _usernameField.text = account.userIDName;
     }
     _usernameField.font = [UIFont systemFontOfSize:15.f];
     UIView *leftUserView = [[UIView alloc]init];
@@ -292,10 +293,11 @@
     _emailField.borderStyle = UITextBorderStyleNone;
     _emailField.backgroundColor = [UIColor clearColor];
     _emailField.delegate = self;
+    _emailField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||[account.email isEqualToString:@"(null)"]) {
-        _emailField.placeholder = @"请完善";
+        _emailField.text = @"请完善";
     }else{
-        _emailField.placeholder = account.email;
+        _emailField.text = account.email;
     }
     _emailField.font = [UIFont systemFontOfSize:15.f];
     
@@ -385,10 +387,11 @@
     _userIDField.borderStyle = UITextBorderStyleNone;
     _userIDField.backgroundColor = [UIColor clearColor];
     _userIDField.delegate = self;
+    _userIDField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil||[account.LabourUnion isEqualToString:@"(null)"]) {
-        _userIDField.placeholder = @"请完善";
+        _userIDField.text = @"请完善";
     }else{
-        _userIDField.placeholder = account.LabourUnion;
+        _userIDField.text = account.LabourUnion;
     }
     _userIDField.font = [UIFont systemFontOfSize:15.f];
     

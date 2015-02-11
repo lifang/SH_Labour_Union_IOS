@@ -11,7 +11,7 @@
 @protocol sendQuestion <NSObject>
 
 @optional
--(void)sendQuestion:(NSString *)question;
+-(void)sendQuestion:(NSString *)question WithCode:(NSString *)code;
 
 @end
 
@@ -21,7 +21,7 @@ typedef void (^aBlock)(NSString *hangyestring);
     
     UITableView*_Questiontable;
     NSMutableArray*imagearry;
-    NSArray*namearry;
+    NSMutableArray*namearry;
 }
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;
