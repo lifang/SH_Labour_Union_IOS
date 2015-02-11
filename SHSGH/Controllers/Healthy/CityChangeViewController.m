@@ -247,6 +247,7 @@
         SLog(@"点击了右边!");
         Downtown *downtown = [_downtownArray objectAtIndex:indexPath.row];
         AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.cityName = nil;
         delegate.area_id = downtown.area_id;
         [self.delegate sendCity:downtown.area_name WithArea_id:downtown.area_id];
         [self.navigationController popViewControllerAnimated:YES];
@@ -256,6 +257,7 @@
         Province *provice = [_provinceArray objectAtIndex:indexPath.row];
         SLog(@"%@",provice.city_area_id);
         AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.cityName = nil;
         delegate.area_id = provice.city_area_id;
         delegate.province_name = provice.city_name;
         [self cityForProvinceID:provice.city_area_id];

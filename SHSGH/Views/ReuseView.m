@@ -35,6 +35,18 @@
         [self addSubview:_scrollView];
         
         for (int i = 0; i < array.count; i++) {
+            
+            if ([array[0] isKindOfClass:[UIImage class]]) {
+                SLog(@"是图片");
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(frame.size.width * i, 0, frame.size.width, frame.size.height)];
+                imageView.image = array[i];
+                imageView.tag = 100 + i;
+                imageView.userInteractionEnabled = YES;
+                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handTap:)];
+                [imageView addGestureRecognizer:singleTap];
+                [_scrollView addSubview:imageView];
+            }
+            else{
             EGOImageView *imageView = [[EGOImageView alloc] initWithFrame:CGRectMake(frame.size.width * i, 0, frame.size.width, frame.size.height)];
             imageView.imageURL = [NSURL URLWithString:array[i]];
             imageView.tag = 100 + i;
@@ -42,6 +54,7 @@
             UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handTap:)];
             [imageView addGestureRecognizer:singleTap];
             [_scrollView addSubview:imageView];
+            }
         }
         
         self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(_scrollView.frame.size.width / 3, _scrollView.frame.size.height - 20, _scrollView.frame.size.width, 15)];

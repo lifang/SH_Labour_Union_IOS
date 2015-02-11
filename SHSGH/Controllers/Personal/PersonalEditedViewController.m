@@ -93,7 +93,29 @@
         [alert show];
         return;
     }
-    SLog(@"``````````````````````````%@",_emailField.text);
+    if (![_userIDField.text isEqualToString:@""]) {
+        if ([IsPhone isEmpty:_userIDField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"请输入合法字符!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    }
+    if (![_usernameField.text isEqualToString:@""]) {
+        if ([IsPhone isEmpty:_usernameField.text]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:@"请输入合法字符!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+
+    }
     
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
@@ -203,7 +225,7 @@
     _usernameField.delegate = self;
     _usernameField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.userIDName isKindOfClass:[NSNull class]] || account.userIDName == nil||[account.userIDName isEqualToString:@"(null)"]) {
-        _usernameField.text = @"请完善";
+        _usernameField.text = @"";
     }else{
         _usernameField.text = account.userIDName;
     }
@@ -295,7 +317,7 @@
     _emailField.delegate = self;
     _emailField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.email isKindOfClass:[NSNull class]] || account.email == nil||[account.email isEqualToString:@"(null)"]) {
-        _emailField.text = @"请完善";
+        _emailField.text = @"";
     }else{
         _emailField.text = account.email;
     }
@@ -389,7 +411,7 @@
     _userIDField.delegate = self;
     _userIDField.textColor = sColor(167, 167, 167, 1.0);
     if ([account.LabourUnion isKindOfClass:[NSNull class]] || account.LabourUnion == nil||[account.LabourUnion isEqualToString:@"(null)"]) {
-        _userIDField.text = @"请完善";
+        _userIDField.text = @"";
     }else{
         _userIDField.text = account.LabourUnion;
     }

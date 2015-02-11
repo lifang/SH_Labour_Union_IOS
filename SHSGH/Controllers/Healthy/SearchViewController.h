@@ -10,4 +10,6 @@
 
 @interface SearchViewController : UIViewController
 
+@property(nonatomic,strong)NSString *rightCity;
+
 @end

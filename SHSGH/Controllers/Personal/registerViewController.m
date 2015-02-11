@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UITextField *passwordSureField;
 @property (nonatomic, strong) UITextField *phoneField;
 @property (nonatomic, strong) UITextField *authcodeField;
+@property(nonatomic,strong)NSString *oldPhone;
 @end
 
 @implementation registerViewController
@@ -577,6 +578,16 @@
         [alert show];
         return;
     }
+    if ([IsPhone isEmpty:_usernameField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"请输入合法字符!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
     if (!_passwordField.text || [_passwordField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"用户密码不能为空!"
@@ -641,6 +652,16 @@
         [alert show];
         return;
     }
+    if (![_phoneField.text isEqualToString:_oldPhone]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"手机号不匹配!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"注册中!";
@@ -704,6 +725,7 @@
 }
 -(void)authcode
 {
+    self.oldPhone = _passwordField.text;
     [_phoneField resignFirstResponder];
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
@@ -724,7 +746,6 @@
         return;
         
     }
-    [_phoneField resignFirstResponder];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";
     if (_phoneField.text) {

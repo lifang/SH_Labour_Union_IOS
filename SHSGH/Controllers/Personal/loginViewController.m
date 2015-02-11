@@ -15,6 +15,7 @@
 #import "PersonalDoneViewController.h"
 #import "UserModel.h"
 #import "UserTool.h"
+#import "IsPhone.h"
 
 @interface loginViewController ()<UITextFieldDelegate,UIAlertViewDelegate>
 
@@ -346,6 +347,38 @@
 //登录
 -(void)signIn:(id)sender
 {
+    NSString *kPromptInfo = @"";
+    //输入验证
+    if (!_usernameField.text || [_usernameField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"用户名不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if (!_passwordField.text || [_passwordField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"密码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if ([IsPhone isEmpty:_usernameField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"请输入合法字符!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    
+    
+
     [_passwordField resignFirstResponder];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
        
@@ -366,13 +399,13 @@
                 delegate.phoneCode = [dict objectForKey:@"phoneCode"];
                 delegate.phone = [dict objectForKey:@"phone"];
                 delegate.token = [result objectForKey:@"token"];
-                if ([dict objectForKey:@"labourUnionCode"]&&![[dict objectForKey:@"labourUnionCode"] isEqualToString:@"(null)"])
+                if ([dict objectForKey:@"labourUnionCode"]||![[dict objectForKey:@"labourUnionCode"] isEqualToString:@"(null)"]||![[dict objectForKey:@"labourUnionCode"] isKindOfClass:[NSNull class]])
                 {
                     delegate.labourUnionCode = [dict objectForKey:@"labourUnionCode"];
-                }if ([dict objectForKey:@"email"]&&![[dict objectForKey:@"email"] isEqualToString:@"(null)"]) {
+                }if ([dict objectForKey:@"email"]||![[dict objectForKey:@"email"] isEqualToString:@"(null)"]||![[dict objectForKey:@"email"] isKindOfClass:[NSNull class]]) {
                     delegate.email = [dict objectForKey:@"email"];
                 }
-                if ([dict objectForKey:@"nickName"]&&![[dict objectForKey:@"nickName"] isEqualToString:@"(null)"]) {
+                if ([dict objectForKey:@"nickName"]||![[dict objectForKey:@"nickName"] isEqualToString:@"(null)"]||![[dict objectForKey:@"nickName"] isKindOfClass:[NSNull class]]) {
                     delegate.userIDName = [dict objectForKey:@"nickName"];
                 }
                 

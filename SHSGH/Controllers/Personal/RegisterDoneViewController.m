@@ -375,6 +375,15 @@
         [alert show];
         return;
     }
+    if ([IsPhone isEmpty:_usermessageField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"请输入合法字符!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     if (!_emailField.text || [_emailField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"Email不能为空!"

@@ -13,4 +13,6 @@
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
 //邮箱
 + (BOOL)validateEmail:(NSString *)email;
+
++ (BOOL)isEmpty:(NSString *)str;
 @end

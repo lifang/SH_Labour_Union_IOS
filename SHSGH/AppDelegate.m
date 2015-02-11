@@ -37,6 +37,8 @@ static UINavigationController *healthyNavController = nil;
 static RelatedDownloadViewController *relatedDownloadController = nil;
 static UINavigationController *relatedDownloadNavController = nil;
 
+static CityChangeViewController *cityController = nil;
+
 @interface AppDelegate ()
 
 @end
@@ -89,6 +91,14 @@ static UINavigationController *relatedDownloadNavController = nil;
 -(SUNLeftMenuViewController *)leftVC
 {
     return _leftVC;
+}
+
++(CityChangeViewController *)shareCityController{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cityController = [[CityChangeViewController alloc] init];
+    });
+    return cityController;
 }
 
 //相关下载
