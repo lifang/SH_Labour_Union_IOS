@@ -190,7 +190,7 @@ static UINavigationController *relatedDownloadNavController = nil;
     
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
-    BOOL ret = [_mapManager start:@"uMViGm2ikM1DaHXlGnR8bQze"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:@"RU2U5ojUm3LfFiThv9QgLK7H"  generalDelegate:nil];
     if (!ret) {
         NSLog(@"manager start failed!");
     }

@@ -234,7 +234,8 @@
                 
                 
                 cell.jobname.text=jobp.jobname;
-                
+                cell.companyname.textColor=[UIColor grayColor];
+
                 cell.companyname.text=jobp.jobunit_name;
             }
             
@@ -253,7 +254,8 @@
         
         
     cell.jobname.text=jobp.jobname;
-    
+        cell.companyname.textColor=[UIColor grayColor];
+        
     cell.companyname.text=jobp.jobunit_name;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 

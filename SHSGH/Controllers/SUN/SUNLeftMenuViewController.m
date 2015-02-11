@@ -138,9 +138,15 @@
             }
             [self.mm_drawerController setCenterViewController:self.navMainViewVC
                                            withCloseAnimation:YES completion:nil];
-        } else if (row == 1) { //通用自定义控件
+        }
+        
+        else if (row == 1)
+        
+        { //通用自定义控件
             
-            if (!self.navCommonComponentVC) {
+            if (!self.navCommonComponentVC)
+            
+            {
                 NSLog(@"点击最新动态");
                 self.navCommonComponentVC = [AppDelegate shareDynamicController];
             }
@@ -159,7 +165,11 @@
             
             
             OrganizationViewController *slideSwitchWVC = [[OrganizationViewController alloc]init];
+            
+            
             self.navSlideSwitchVC = [[UINavigationController alloc] initWithRootViewController:slideSwitchWVC];
+            
+            
             [self.mm_drawerController setCenterViewController:self.navSlideSwitchVC
                                            withCloseAnimation:YES completion:nil];
 
