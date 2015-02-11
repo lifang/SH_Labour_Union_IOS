@@ -209,14 +209,14 @@
     
 
     
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT-131) style: UITableViewStylePlain];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT-131-64) style: UITableViewStylePlain];
     
     _Seatchtable.tableFooterView = [[UIView alloc]init];
 
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
-     _Seatchtable.rowHeight=45;
+     _Seatchtable.rowHeight=65;
     
 //    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
     

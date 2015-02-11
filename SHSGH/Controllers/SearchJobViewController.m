@@ -1252,9 +1252,10 @@
         
         NSString*addstring=[NSString stringWithFormat:@"%@%@%@%@",sttgg,sttgg1,sttgg2,sttgg5];
         
+        NSString*headerDatadgdgfgf= [str4textfield  stringByReplacingOccurrencesOfString:@" " withString:@""];
+
         
-        
-        if([[NSString stringWithFormat:@"%@%@%@%@", str1, str2, str4textfield, str3] isEqualToString:addstring])
+        if([[NSString stringWithFormat:@"%@%@%@%@", str1, str2, headerDatadgdgfgf, str3] isEqualToString:addstring])
         {
             
             [recordsarry removeObjectAtIndex:i];

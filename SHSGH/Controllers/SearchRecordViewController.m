@@ -343,108 +343,108 @@
     }
 }
 
--(void)date
-{
-    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
-    
-    [self.view addSubview:HUD];
-    
-    HUD.labelText = @"正在加载...";
-    [HUD show:YES];
-    
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-                       NSLog(@"ppppppppp地对地导弹%@",self.recortarry);
-
-        
-        
-        
-        
-        
-        
-
-        
-        
-        NSString *strUrll = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"14"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSString *strUrll1 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *strUrll2 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"13"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *strUrll3 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"15"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        
-        
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?job_type=%@&offset=1",strUrll1];
-
-        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        
-        
-        
-
-//        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",,,,];
-        
-        
-        
-        
-        
-        
-        id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
-        NSLog(@"ppppppppp地对地导弹%@",result);
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [HUD removeFromSuperview];
-            
-            if ([[result objectForKey:@"code"] integerValue]==1)
-            {
-                
-                
-                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
-                
-                for(int i=0;i<arry.count;i++)
-                {
-                    
-                    JObpp*peo=[[JObpp alloc]init];
-                    
-                    
-                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
-                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
-                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
-                    
-                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
-                    
-                    [_newallarry addObject:peo];
-                    
-                }
-                
-                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
-                
-                seach.conditionsname=@"搜索结果";
-                seach.jobarry=_newallarry;
-                NSLog(@"%@",seach.jobarry);
-                [self.navigationController pushViewController:seach animated:YES];
-                
-                
-            }
-            
-            else
-            {
-                NSString *reason = [result objectForKey:@"message"];
-                if (![KRHttpUtil checkString:reason])
-                {
-                    reason = @"请求超时或者网络环境较差!";
-                }
-                
-                
-                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
-                
-                
-                
-            }
-        });
-    });
-}
+//-(void)date
+//{
+//    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+//    
+//    [self.view addSubview:HUD];
+//    
+//    HUD.labelText = @"正在加载...";
+//    [HUD show:YES];
+//    
+//    
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        
+//                       NSLog(@"ppppppppp地对地导弹%@",self.recortarry);
+//
+//        
+//        
+//        
+//        
+//        
+//        
+//
+//        
+//        
+//        NSString *strUrll = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"14"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        
+//        NSString *strUrll1 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"12"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        NSString *strUrll2 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"13"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        NSString *strUrll3 = [[[self.recortarry objectAtIndex:changeA ] objectForKey:@"15"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        
+//        
+//        
+//        NSString *urls =[NSString stringWithFormat:@"/api/job/search?job_type=%@&offset=1",strUrll1];
+//
+//        NSString *strUrld = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        
+//        
+//        
+//        
+//
+////        NSString *urls =[NSString stringWithFormat:@"/api/job/search?q=%@&job_type=%@&Job_locate1=%@&Job_locate2=%@&offset=1",,,,];
+//        
+//        
+//        
+//        
+//        
+//        
+//        id result = [KRHttpUtil getResultDataByPost:strUrld param:nil];
+//        NSLog(@"ppppppppp地对地导弹%@",result);
+//        
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [HUD removeFromSuperview];
+//            
+//            if ([[result objectForKey:@"code"] integerValue]==1)
+//            {
+//                
+//                
+//                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+//                
+//                for(int i=0;i<arry.count;i++)
+//                {
+//                    
+//                    JObpp*peo=[[JObpp alloc]init];
+//                    
+//                    
+//                    peo.jobid=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"id"]];
+//                    peo.jobname=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"job_name"]];
+//                    peo.jobunit_name=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"unit_name"]];
+//                    
+//                    //                    NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
+//                    
+//                    [_newallarry addObject:peo];
+//                    
+//                }
+//                
+//                SearchRestulViewController*seach=[[SearchRestulViewController alloc]init];
+//                
+//                seach.conditionsname=@"搜索结果";
+//                seach.jobarry=_newallarry;
+//                NSLog(@"%@",seach.jobarry);
+//                [self.navigationController pushViewController:seach animated:YES];
+//                
+//                
+//            }
+//            
+//            else
+//            {
+//                NSString *reason = [result objectForKey:@"message"];
+//                if (![KRHttpUtil checkString:reason])
+//                {
+//                    reason = @"请求超时或者网络环境较差!";
+//                }
+//                
+//                
+//                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+//                
+//                
+//                
+//            }
+//        });
+//    });
+//}
 
 
 - (void)didReceiveMemoryWarning {

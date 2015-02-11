@@ -23,7 +23,7 @@
         
         
         [self addSubview:logoImageView];
-        namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 50)];
+        namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, SCREEN_WIDTH-20, 50)];
         namelable.backgroundColor=[UIColor clearColor];
         
         [self addSubview:namelable];

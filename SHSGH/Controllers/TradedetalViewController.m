@@ -319,7 +319,7 @@
     
     
     
-    bigscroll.contentSize=CGSizeMake(0, otherbutton.frame.size.height+otherbutton.frame.origin.y+70);
+    bigscroll.contentSize=CGSizeMake(0, otherbutton.frame.size.height+otherbutton.frame.origin.y+80);
     
     
     

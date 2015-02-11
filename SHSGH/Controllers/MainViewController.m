@@ -469,7 +469,7 @@
                 NSArray *imageeArray = [result objectForKey:@"result"];
                 _imageArray = [NSMutableArray array];
                 _bigArray = [NSMutableArray array];
-                for (int i = 0; i < imageeArray.count; i++) {
+                for (NSInteger i = 0; i < imageeArray.count; i++) {
                     MainImage *mainImg = [[MainImage alloc]init];
                     mainImg.bigImg = [[imageeArray objectAtIndex:i]objectForKey:@"bigImg"];
                     mainImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];

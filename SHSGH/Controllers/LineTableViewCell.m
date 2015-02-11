@@ -26,11 +26,11 @@
         
         
         
-        namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-20, 20)];
+        namelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-20, 30)];
         
         [self addSubview:namelable];
         
-        timelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, (SCREEN_WIDTH-20), 20)];
+        timelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 30, (SCREEN_WIDTH-20), 30)];
         timelable.textColor=[UIColor grayColor];
         
         [self addSubview:timelable];

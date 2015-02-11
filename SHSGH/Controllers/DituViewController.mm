@@ -326,11 +326,13 @@
 //}
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [_mapView viewWillDisappear];
+
     NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
     [_mapView removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapView.overlays];
+    NSArray*arrays = [NSArray arrayWithArray:_mapView.overlays];
+    [_mapView removeOverlays:arrays];
     [_mapView removeOverlays:array];
-    [_mapView viewWillDisappear];
     _mapView.delegate = nil; // 不用时，置nil
     _mapView=nil;
     _searchers=nil;

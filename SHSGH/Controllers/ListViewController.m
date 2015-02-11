@@ -56,7 +56,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title=@"商户列表";
+
     
     // Do any additional setup after loading the view.
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
