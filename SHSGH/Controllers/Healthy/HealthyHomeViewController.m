@@ -359,8 +359,8 @@
 
 -(void)cityClick
 {
-    _classLabel.text = @"请输入科室";
-    _hospitalLabel.text = @"请输入医院";
+    _classLabel.text = @"请选择科室";
+    _hospitalLabel.text = @"请选择医院";
     SLog(@"点击了切换城市!");
     [self.navigationController pushViewController:_cityVC animated:YES];
 }

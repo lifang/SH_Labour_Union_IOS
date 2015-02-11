@@ -375,8 +375,9 @@
 
 -(void)setRelateDownLoadController
 {
-    UINavigationController *relateDownloadNav = [AppDelegate shareRelatedDownloadViewController];
-     [self.mm_drawerController setCenterViewController:relateDownloadNav withCloseAnimation:YES completion:nil];
+    RelatedDownloadViewController *relateVC = [[RelatedDownloadViewController alloc]init];
+    UINavigationController *relateDownVC = [[UINavigationController alloc]initWithRootViewController:relateVC];
+     [self.mm_drawerController setCenterViewController:relateDownVC withCloseAnimation:YES completion:nil];
 }
 
 -(void)setHealthyController
@@ -590,7 +591,7 @@
 }
 
 - (void)setOriginFrame:(ImageScrollView *)sender {
-    self.pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.currentIndex,self.totalPage];
+//    self.pageLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.currentIndex,self.totalPage];
     [UIView animateWithDuration:0.4 animations:^{
         [sender setAnimationRect];
         self.markView.alpha = 1.0;

@@ -203,9 +203,9 @@
         }
         else if (row == 8) { //维权记录
             NSLog(@"点击了相关下载");
-            if (!_navDownloadViewVC) {
-                self.navDownloadViewVC = [AppDelegate shareRelatedDownloadViewController];
-            }
+            RelatedDownloadViewController *relateVC = [[RelatedDownloadViewController alloc]init];
+            self.navDownloadViewVC = [[UINavigationController alloc]initWithRootViewController:relateVC];
+        
             [self.mm_drawerController setCenterViewController:self.navDownloadViewVC
                                            withCloseAnimation:YES completion:nil];
 

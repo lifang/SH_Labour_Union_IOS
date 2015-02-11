@@ -32,6 +32,7 @@
 }
 
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar];
@@ -89,7 +90,6 @@
                     registe.code = [[dataArray objectAtIndex:i] objectForKey:@"code"];
                     [self.productRegistArray addObject:registe];
                 }
-                SLog(@"`````````````%ld",namearry.count);
                 [self setupTableView];
             }
             else {
@@ -136,6 +136,9 @@
     if (!cell)
     {
         cell = [[ConditionsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
+        if (mainScreenH<=480) {
+            cell.height = 20;
+        }
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.textLabel.textColor = sColor(124, 124, 124, 1.0);
@@ -153,6 +156,16 @@
     
     
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (mainScreenH<=480) {
+        return 40;
+    }else{
+        return 50;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
  
@@ -171,6 +184,18 @@
     self.questions = registe.name;
     self.code = registe.code;
     [_Questiontable reloadData];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [tableView setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [tableView setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
 @end

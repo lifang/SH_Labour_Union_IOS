@@ -13,6 +13,7 @@
 #import "ClassStatus.h"
 #import "HaobaiHealthyController.h"
 #import "AppDelegate.h"
+#import "DoctorListViewController.h"
 
 @interface ClassViewController ()
 
@@ -179,8 +180,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.selected == NO) {
-        HaobaiHealthyController *haobaiVC = [[HaobaiHealthyController alloc]init];
-        [self.navigationController pushViewController:haobaiVC animated:YES];
+        ClassStatus *class = [_classArray objectAtIndex:indexPath.row];
+        DoctorListViewController *doctorVC = [[DoctorListViewController alloc]init];
+        doctorVC.cpid = _cpid;
+        doctorVC.deptid = class.deptid;
+        doctorVC.hospitalid = _hospitalid;
+        doctorVC.classname = class.deptname;
+        doctorVC.hospitalname = _hospitalName;
+        [self.navigationController pushViewController:doctorVC animated:YES];
     }
     else{
     ClassStatus *class = [_classArray objectAtIndex:indexPath.row];
