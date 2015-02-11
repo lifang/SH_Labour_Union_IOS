@@ -412,6 +412,9 @@
     self.tableView.dataSource = self;
     _tableView.delegate = self;
     _tableView.frame = CGRectMake(0, CGRectGetMaxY(searchView.frame) + 5 * CostumViewMargin, mainScreenW, mainScreenH - CGRectGetMaxY(searchView.frame) - 2 *CostumViewMargin);
+    if (mainScreenH<=480) {
+        _tableView.frame = CGRectMake(0, CGRectGetMaxY(searchView.frame) + 5 * CostumViewMargin, mainScreenW, mainScreenH - CGRectGetMaxY(searchView.frame) - 2 *CostumViewMargin - 80);
+    }
     _tableView.backgroundColor = mainScreenColor;
     [self.view addSubview:_tableView];
 }
@@ -675,6 +678,14 @@
     {
         HaobaiHealthyController *haobaiVC = [[HaobaiHealthyController alloc]init];
         [self.navigationController pushViewController:haobaiVC animated:YES];
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 32;
+    if (mainScreenH<=480) {
+        return 20;
     }
 }
 
