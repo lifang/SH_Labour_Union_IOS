@@ -30,7 +30,7 @@
         
         [self addSubview:namelable];
         
-        timelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, (SCREEN_WIDTH-20)/2, 20)];
+        timelable=[[UILabel alloc]initWithFrame:CGRectMake(10, 20, (SCREEN_WIDTH-20), 20)];
         timelable.textColor=[UIColor grayColor];
         
         [self addSubview:timelable];
@@ -39,7 +39,7 @@
         
         distancelable=[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-50, 20, (SCREEN_WIDTH-20)/2, 20)];
         
-        [self addSubview:distancelable];
+//        [self addSubview:distancelable];
         
         distancelable.textColor=[UIColor grayColor];
 

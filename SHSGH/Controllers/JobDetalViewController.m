@@ -85,8 +85,7 @@
     address.font=[UIFont systemFontOfSize:15];
     address.textColor=[UIColor grayColor];
     [bigscrollow addSubview:address];
-    NSLog(@"%@",self.area);
-    NSString*uy=self.area;
+ 
     
 
     if( [self isBlankString:self.area]==YES)

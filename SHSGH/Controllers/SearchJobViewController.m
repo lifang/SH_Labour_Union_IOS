@@ -37,19 +37,22 @@
     {
     
         [namearry replaceObjectAtIndex:1 withObject:str1];
-        
+        [_Seatchtable reloadData];
+
     }
     if([self isBlankString: str2]==NO)
     {
         
         [namearry replaceObjectAtIndex:2 withObject:str2];
-        
+        [_Seatchtable reloadData];
+
     }
     if([self isBlankString: str3]==NO)
     {
         
         [namearry replaceObjectAtIndex:3 withObject:str3];
-        
+        [_Seatchtable reloadData];
+
     }
 
     recordarry=[NSMutableArray  arrayWithCapacity:0];
@@ -587,7 +590,8 @@
     _conditarry=[[NSMutableArray alloc]init];
     
     
-  
+    _Seatchtable.tableFooterView = [[UIView alloc]init];
+
     
     
     [self.view addSubview:_Seatchtable];
@@ -923,7 +927,12 @@
             seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
             seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
             seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
+            
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+            
+            seach.str4=headerDatadgdgfgf;
             [self.navigationController pushViewController:seach animated:YES];
 
         }
@@ -946,8 +955,11 @@
             
             NSLog(@"%@",[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"]);
             seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
-            [self.navigationController pushViewController:seach animated:YES];
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            
+            seach.str4=headerDatadgdgfgf;            [self.navigationController pushViewController:seach animated:YES];
 
         }
         if(indexPath.row==7)
@@ -960,7 +972,12 @@
             seach.stri1= [[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"12"];
             seach.stri2=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"13"];
             seach.stri3=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"14"];
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            
+            seach.str4=headerDatadgdgfgf;
+            
             [self.navigationController pushViewController:seach animated:YES];
 
         }
@@ -980,11 +997,14 @@
             seach.conditionsname=@"搜索结果";
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"];
-            [self.navigationController pushViewController:seach animated:YES];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            
+            seach.str4=headerDatadgdgfgf;            [self.navigationController pushViewController:seach animated:YES];
 
         }
         if(indexPath.row==7)
@@ -997,8 +1017,11 @@
             seach.stri1= [[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"12"];
             seach.stri2=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"13"];
             seach.stri3=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"14"];
-            [self.navigationController pushViewController:seach animated:YES];
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-2] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            
+            seach.str4=headerDatadgdgfgf;            [self.navigationController pushViewController:seach animated:YES];
 
         }
         if(indexPath.row==8)
@@ -1009,11 +1032,14 @@
          
             
             
-            seach.stri1= [[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"12"];
-            seach.stri2=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"13"];
-            seach.stri3=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"15"];
-            seach.str4=[[recordarry objectAtIndex:recordarry.count-1] objectForKey:@"14"];
-            [self.navigationController pushViewController:seach animated:YES];
+            seach.stri1= [[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"12"];
+            seach.stri2=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"13"];
+            seach.stri3=[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"15"];
+            
+            NSString*headerDatadgdgfgf= [[[recordarry objectAtIndex:recordarry.count-3] objectForKey:@"14"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+            
+            
+            seach.str4=headerDatadgdgfgf;            [self.navigationController pushViewController:seach animated:YES];
    NSLog(@"%@",seach.stri1);
         }
         
@@ -1075,13 +1101,12 @@
     
     NSString*headerDatadgdgfgf= [str4textfield stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
 
     
     
     
-    seach.str4=strUrll1;
+    seach.str4=headerDatadgdgfgf;
     [self.navigationController pushViewController:seach animated:YES];
     
 
@@ -1146,7 +1171,14 @@
     
     if([self isBlankString: str4textfield]==NO)
     {
-        [dict setValue:[NSString stringWithFormat:@"%@",str4textfield] forKey:@"14"];
+        
+        
+        
+        NSString*headerDatadgdgfgf= [str4textfield  stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
+        
+//        seach.str4=headerDatadgdgfgf;
+        [dict setValue:[NSString stringWithFormat:@"%@",headerDatadgdgfgf] forKey:@"14"];
     }
     
     for(int i=0;i<recordsarry.count;i++)
