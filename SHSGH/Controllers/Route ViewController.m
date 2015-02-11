@@ -209,7 +209,7 @@
     
 
     
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 131, SCREEN_WIDTH, SCREEN_HEIGHT-131) style: UITableViewStylePlain];
     
     _Seatchtable.tableFooterView = [[UIView alloc]init];
 
@@ -271,7 +271,13 @@
     {
         cell = [[LineTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
     }
-    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
     
