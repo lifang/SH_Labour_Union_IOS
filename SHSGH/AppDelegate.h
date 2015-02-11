@@ -22,6 +22,7 @@
 #import "OrganizationViewController.h"
 #import "HealthyHomeViewController.h"
 #import "RelatedDownloadViewController.h"
+#import "CityChangeViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -48,6 +49,8 @@
 @property(nonatomic,strong)NSString *area_id;
 @property(nonatomic,strong)NSString *province_name;
 
+@property(nonatomic,strong)NSString *cityName;
+
 
 + (AppDelegate *)shareAppDelegate;
 
@@ -62,6 +65,7 @@
 + (UINavigationController *)shareDynamicController3;
 + (UINavigationController *)shareDynamicController6;
 + (UINavigationController *)shareRelatedDownloadViewController;
++(CityChangeViewController *)shareCityController;
 
 
 

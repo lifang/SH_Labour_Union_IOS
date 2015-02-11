@@ -15,8 +15,9 @@
 #import "DoctorListViewController.h"
 #import "HaobaiHealthyController.h"
 #import "AppDelegate.h"
+#import "CityChangeViewController.h"
 
-@interface SearchViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface SearchViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,sendCity>
 
 @property(nonatomic,strong)UITableView *tableView;
 
@@ -44,10 +45,15 @@
 
 @property(nonatomic,assign)int searchIdex;
 
+@property(nonatomic,strong)CityChangeViewController *cityVC;
+@property(nonatomic,strong)NSString *cityName;
+
 
 @end
 
 @implementation SearchViewController
+
+
 -(NSMutableArray *)searchLoadDoctorDataArray
 {
     if (!_searchLoadDoctorDataArray) {
@@ -75,9 +81,9 @@
     [self initUI];
     [self loadHospitalData];
     [self setupRefresh];
+    self.cityVC.delegate = self;
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     SLog(@"^^^^^^^^^^^^^^^^^^^^^^^^^^^%@",delegate.area_id);
-    
 }
 
 -(void)setupRefresh
@@ -133,8 +139,9 @@
     {
         if (_searchIdex==2) {
             [self loadMoreSearchDoctor];
-        }
+        }else{
         [self loadMoreDoctorData];
+        }
     }
 }
 
@@ -146,6 +153,7 @@
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     _searchPage++;
     NSString *pages = [NSString stringWithFormat:@"%d",_searchPage];
+    SLog(@"加载更多查询医生-----------------------------%@",pages);
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSString *urls =[NSString stringWithFormat:@"/api/health/findDoctor?keyword=%@&offset=%@&phone=%@&locate=%@",[_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],pages,account.phoneNum,delegate.area_id];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -556,6 +564,7 @@
 -(void)selectedDoctor
 {
     SLog(@"选择了医生!");
+    _searchIdex = 0;
     _searchBar.text = nil;
     if (_searchIdex==1) {
         [_doctorsArray removeAllObjects];
@@ -581,7 +590,33 @@
     [leftView.navButton addTarget:self action:@selector(backtoHome) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc]initWithCustomView:leftView];
     self.navigationItem.leftBarButtonItem = leftBtn;
+    
+    navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeDoctor];
+    [buttonL.navButton setTitle:_rightCity forState:UIControlStateNormal];
+    if (_cityName) {
+        [buttonL.navButton setTitle:_cityName forState:UIControlStateNormal];
+        AppDelegate *delegate = [AppDelegate shareAppDelegate];
+        delegate.cityName = _cityName;
+    }
+    [buttonL.navButton addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
+    self.navigationItem.rightBarButtonItem = leftItem;
 
+}
+
+-(void)rightClick
+{
+    CityChangeViewController *cityVC = [AppDelegate shareCityController];
+    cityVC.delegate = self;
+    [self.navigationController pushViewController:cityVC animated:YES];
+}
+
+-(void)sendCity:(NSString *)city WithArea_id:(NSString *)area_id
+{
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    delegate.area_id = area_id;
+    self.cityName = city;
+    [self setNavBar];
 }
 
 -(void)backtoHome

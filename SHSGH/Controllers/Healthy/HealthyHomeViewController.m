@@ -56,7 +56,7 @@
 -(CityChangeViewController *)cityVC
 {
     if (!_cityVC) {
-        _cityVC = [[CityChangeViewController alloc]init];
+        _cityVC = [AppDelegate shareCityController];
     }
     return _cityVC;
 }
@@ -86,7 +86,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [self setupNav];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     if (delegate.area_id==nil) {
         [self sendCity:_cityName WithArea_id:_cityArea_Id];
@@ -272,19 +272,20 @@
 {
    
     //广告条
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@"http://www.szlh.gov.cn/uploadfiles/201210/20121008103709702.jpg",@"http://imgs.focus.cn/upload/news/7140/a_71399601.jpg", nil];
+    UIImage *image1 = [UIImage imageNamed:@"healthyMain1"];
+    UIImage *image2 = [UIImage imageNamed:@"healthyMain2"];
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:image1,image2, nil];
     ReuseView *scrollView = [[ReuseView alloc]initWithFrame:CGRectMake(0, 0, mainScreenW, 160) array:arr];
     scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
     scrollView.reuseDelegate = self;
     [self.view addSubview:scrollView];
-    
     CGFloat cellHeight = 50.f;
     //搜索栏
     UIView *searchView = [[UIView alloc]init];
     UISearchBar *search = [[UISearchBar alloc]init];
     search.backgroundImage = [UIImage resizedImage:@"searchbar_textfield_background"];
-    search.placeholder = @"请输入搜索医院丶医生";
+    search.placeholder = @"请输入搜索医院、医生";
     search.frame = CGRectMake(15, 10, mainScreenW * 0.9, cellHeight - 15);
     [searchView addSubview:search];
     searchView.backgroundColor = sColor(233, 235, 240, 1.0);
@@ -354,6 +355,7 @@
 {
     SLog(@"点击了searchBar!");
     SearchViewController *searchVC = [[SearchViewController alloc]init];
+    searchVC.rightCity = _cityName;
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
@@ -396,8 +398,8 @@
     docVC.hospitalid = _hospitalid;
     [self.navigationController pushViewController:docVC animated:YES];
     
-    _classLabel.text = @"请输入科室";
-    _hospitalLabel.text = @"请输入医院";
+    _classLabel.text = @"请选择科室";
+    _hospitalLabel.text = @"请选择医院";
 
 }
 
@@ -421,8 +423,6 @@
 
 -(void)classClick
 {
-    SLog(@"点击class((((((((((((((((((((((%@",_cpid);
-    SLog(@"点击class((((((((((((((((((((((%@",_hospitalid);
     
     if (_hospitalid==nil) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:nil message:@"请先选择医院!" delegate:nil cancelButtonTitle:@"确定!" otherButtonTitles:nil, nil];
@@ -459,6 +459,11 @@
     
     navbarView *buttonL = [[navbarView alloc]initWithNavType:navbarViewTypeDoctor];
     [buttonL.navButton setTitle:_cityName forState:UIControlStateNormal];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    SLog(@"~~~~~~~~~~~~~~~~~~~%@",delegate.cityName);
+    if (delegate.cityName) {
+        [buttonL.navButton setTitle:delegate.cityName forState:UIControlStateNormal];
+    }
     [buttonL.navButton addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:buttonL];
     self.navigationItem.rightBarButtonItem = leftItem;

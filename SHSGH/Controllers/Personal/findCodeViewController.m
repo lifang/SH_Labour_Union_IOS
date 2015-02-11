@@ -565,6 +565,15 @@
         [alert show];
         return;
     }
+    if ([IsPhone isEmpty:_usernameField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                        message:@"请输入合法字符!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     if (!_passwordField.text || [_passwordField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"用户密码不能为空!"
