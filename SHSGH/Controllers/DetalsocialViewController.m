@@ -67,18 +67,10 @@
         //        simpleintroducetlable.numberOfLines=0;
         [requirecontent sizeToFit];
         
-        if(iOS7)
-        {
-            requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-80);
+      
+            requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-64);
             
-        }
-        else
-        {
-            requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT);
-            
-            
-            
-        }
+       
         //    requirecontent.textColor=[UIColor grayColor];
         [self.view addSubview:requirecontent];
         //    requirecontent.text=self.contentstring;
@@ -95,7 +87,7 @@
     else
     {
     
-        UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
         [self.view addSubview:iamge];
         [iamge  sd_setImageWithURL:[NSURL URLWithString:self.contentstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
         

@@ -29,6 +29,7 @@
         
         
         addresslable=[[UILabel alloc]initWithFrame:CGRectMake(10, 30, SCREEN_WIDTH-120, 30)];
+        addresslable.textColor=[UIColor grayColor];
         
         [self addSubview:addresslable];
 

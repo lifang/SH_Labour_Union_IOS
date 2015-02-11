@@ -74,6 +74,11 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    NSArray*arrays = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:arrays];
     [_mapViews viewWillDisappear];
 
     _mapViews.delegate = nil; // 不用时，置nil
@@ -82,11 +87,7 @@
     _locService=nil;
     _locService.delegate=nil;
     _searchers.delegate = nil;
-    
-    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
-    [_mapViews removeAnnotations:array];
-    array = [NSArray arrayWithArray:_mapViews.overlays];
-    [_mapViews removeOverlays:array];
+   
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
@@ -498,14 +499,20 @@
 }
 -(void)gobackclick
 {
-    _locService=nil;
-    _locService.delegate=nil;
-
+    NSArray* array = [NSArray arrayWithArray:_mapViews.annotations];
+    [_mapViews removeAnnotations:array];
+    NSArray*arrays = [NSArray arrayWithArray:_mapViews.overlays];
+    [_mapViews removeOverlays:arrays];
+    [_mapViews viewWillDisappear];
+    
     _mapViews.delegate = nil; // 不用时，置nil
     _mapViews=nil;
     _searcher=nil;
-    
+    _locService=nil;
+    _locService.delegate=nil;
     _searchers.delegate = nil;
+    
+
 
     
     [self.navigationController popViewControllerAnimated:YES];

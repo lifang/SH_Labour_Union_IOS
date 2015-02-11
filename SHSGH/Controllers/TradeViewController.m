@@ -256,23 +256,32 @@ _Seatchtable.separatorColor=[UIColor clearColor];
         cell = [[QipaoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
     }
     
+    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 0, SCREEN_WIDTH-20, 50)];
+    templabel.numberOfLines=0;
+    people*peop=[_allarry objectAtIndex:indexPath.section];
     
+    templabel.text =peop.about_detail;
+    NSLog(@"%@",peop.about_detail);
+    
+    templabel.font=[UIFont systemFontOfSize:12];
+    [templabel sizeToFit];
+    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, templabel.frame.size.height+30);
+
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     
     cell.namelable.textColor=[UIColor grayColor];
-    people*peop=[_allarry objectAtIndex:indexPath.section];
+//    people*peop=[_allarry objectAtIndex:indexPath.section];
     
     cell.namelable.text=peop.about_detail;
     cell.namelable.numberOfLines=0;
-    cell.namelable.font=[UIFont systemFontOfSize:12];
+   cell.namelable.font=[UIFont systemFontOfSize:12];
 
     [cell.namelable sizeToFit];
     
     cell.namelable.backgroundColor=[UIColor clearColor];
     
    
-    cell.logoImageView.frame=CGRectMake(0, 0, SCREEN_WIDTH, cell.namelable.frame.size.height+15);
     
     
     
@@ -283,17 +292,18 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 230, 210, 30)];
+    UILabel*templabel =[[UILabel alloc]initWithFrame:CGRectMake(80, 0, SCREEN_WIDTH-20, 50)];
     templabel.numberOfLines=0;
     people*peop=[_allarry objectAtIndex:indexPath.section];
-
-    templabel.text =peop.about_detail;
     
+    templabel.text =peop.about_detail;
+    NSLog(@"%@",peop.about_detail);
+
     templabel.font=[UIFont systemFontOfSize:12];
     [templabel sizeToFit];
     
     
-        return templabel.frame.size.height+15;
+        return templabel.frame.size.height+30;
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
