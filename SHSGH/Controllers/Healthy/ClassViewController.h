@@ -17,7 +17,7 @@
 
 @interface ClassViewController : UITableViewController
 @property(nonatomic,weak)id<sendClass> delegate;
-
+@property(nonatomic,strong)NSString *hospitalName;
 @property(nonatomic,strong)NSString *className;
 @property(nonatomic,strong)NSString *cpid;
 @property(nonatomic,strong)NSString *hospitalid;

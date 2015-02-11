@@ -627,12 +627,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HospitalStatus *status = [_hospitalArray objectAtIndex:indexPath.row];
     if (_segmentView.selectedSegmentIndex == 0) {
+        HospitalStatus *status = [_hospitalArray objectAtIndex:indexPath.row];
         ClassViewController *classVC = [[ClassViewController alloc]init];
         classVC.selected = NO;
         classVC.cpid = status.cpid;
         classVC.hospitalid = status.hospitalid;
+        classVC.hospitalName = _hospitalData;
         [self.navigationController pushViewController:classVC animated:YES];
     }
     else

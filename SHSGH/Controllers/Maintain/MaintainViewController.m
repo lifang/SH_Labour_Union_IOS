@@ -225,27 +225,28 @@
     [contentView addSubview:questionLabel];
     //问题输入框
     _questionField = [[UITextField alloc]init];
+    _questionField.enabled = NO;
     UIView *leftV5 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
     _questionField.delegate = self;
     _questionField.leftView = leftV5;
     _questionField.leftViewMode = UITextFieldViewModeAlways;
     //右边View
     UIView *rightV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    rightV.userInteractionEnabled = YES;
     rightV.backgroundColor = [UIColor clearColor];
-    UIView *line = [[UIView alloc]init];
-    line.backgroundColor = sColor(148, 148, 148, 0.5);
-    line.frame = CGRectMake(0, 0, 0.3, 32);
-    [rightV addSubview:line];
     UIImageView *imageV = [[UIImageView alloc]init];
     imageV.image = [UIImage imageNamed:@"right_dan"];
     imageV.frame = CGRectMake(10, 8, 10, 16);
     [rightV addSubview:imageV];
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = sColor(148, 148, 148, 0.5);
+    line.frame = CGRectMake(0, 0, 0.7, 32);
+    [rightV addSubview:line];
     UIButton *rightArrow = [[UIButton alloc]init];
+    [rightArrow setBackgroundColor:[UIColor clearColor] forUIControlState:UIControlStateNormal];
     [rightArrow addTarget:self action:@selector(rightArrow) forControlEvents:UIControlEventTouchUpInside];
     rightArrow.frame = CGRectMake(0, 0, rightV.frame.size.width, rightV.frame.size.height);
     [rightV addSubview:rightArrow];
-    _questionField.rightViewMode = UITextFieldViewModeAlways;
-    _questionField.rightView = rightV;
     _questionField.clearButtonMode = UITextFieldViewModeWhileEditing;
     _questionField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _questionField.layer.cornerRadius = 2;
@@ -255,7 +256,9 @@
     [_questionField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
     _questionField.backgroundColor = [UIColor whiteColor];
     _questionField.frame = CGRectMake(CGRectGetMinX(questionLabel.frame),CGRectGetMaxY(questionLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight);
+    rightV.frame = CGRectMake(_questionField.frame.size.width-10, _questionField.frame.origin.y, 30, 30);
     [contentView addSubview:_questionField];
+    [contentView addSubview:rightV];
     //咨询标题
     UILabel *titleLabel = [[UILabel alloc]init];
     titleLabel.backgroundColor = [UIColor clearColor];

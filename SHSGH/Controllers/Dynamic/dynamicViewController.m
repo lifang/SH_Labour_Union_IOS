@@ -73,10 +73,8 @@
 -(void)loadImageDate
 {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-        [params setObject:@"1" forKey:@"offset"];
 
-        NSString *urls =@"/api/news/findTopNews";
+        NSString *urls =@"/api/news/findTopNews?offset=1";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,7 +82,6 @@
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 NSArray *imageeArray = [result objectForKey:@"result"];
-                SLog(@"~~~~~~~~~~~~~~~~~~~~~~~~~~~%ld",imageeArray.count);
                 _imageArray = [NSMutableArray array];
                 _idArray = [NSMutableArray array];
                 for (int i = 0; i < imageeArray.count; i++) {
@@ -99,7 +96,6 @@
                     [_idArray addObject:idModel.ids];
                     [_imageArray addObject:dynamicImg.imgPath];
                 }
-                SLog(@"%@",_imageArray);
                 [self setScrollView];
             }
             else {
@@ -112,6 +108,7 @@
 //下拉刷新数据
 -(void)loadNewStatuses:(UIRefreshControl *)refreshControl
 {
+    [self loadImageDate];
     self.page = 1;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
