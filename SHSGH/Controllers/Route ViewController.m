@@ -280,9 +280,9 @@
     
     NSDictionary*dict=[self.linarry objectAtIndex:indexPath.row];
     
-    cell.timelable.text=[NSString stringWithFormat:@"%@|", [dict objectForKey:@"time"]];
+    cell.timelable.text=[NSString stringWithFormat:@"%@|%@", [dict objectForKey:@"time"],[dict objectForKey:@"distance"]];
     
-    cell.distancelable.text=[dict objectForKey:@"distance"];
+//    cell.distancelable.text=;
     
     NSArray*arry=[dict objectForKey:@"line"];
     

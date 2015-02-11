@@ -149,17 +149,83 @@
                 
                 jobdetal.peoplenumber=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"rs"]];
                 
-                jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
+                if([[[result objectForKey:@"result"] objectForKey:@"locate"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.area=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.area=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"locate"]];
+                    
+                    
+                }
+                if([[[result objectForKey:@"result"] objectForKey:@"lxfs"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.contact=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+                    
+                    
+                }
                 
-                jobdetal.contact=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"lxfs"]];
+                
+                
                 jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
                 
-                jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
-                jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+                
+                if([[[result objectForKey:@"result"] objectForKey:@"unit_about"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.companyintroduce=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.companyintroduce=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_about"]];
+                    
+                    
+                }
+                if([[[result objectForKey:@"result"] objectForKey:@"job_about"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.require=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.require=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"job_about"]];
+                    
+                    
+                }
+                
                 jobdetal.chanageA=9;
 
                 
+                jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"id"]];
+                
+                
                 [self.navigationController pushViewController:jobdetal animated:YES];
+                
+                NSLog(@"hhhhhh%@", jobdetal.contact);
+                
+                NSLog(@"%@", jobdetal.companyintroduce);
+
+
+                
                 
                 
                 

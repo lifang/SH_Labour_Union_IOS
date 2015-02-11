@@ -211,7 +211,7 @@
     
     if([self isBlankString:self.time] )
     {
-        timelable.text=@"办公时间:  08:22-12:58";
+        timelable.text=@"办公时间:  工作时间";
 
     
     }

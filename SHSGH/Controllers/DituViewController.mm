@@ -75,9 +75,14 @@
     }
     else
     {
+        
+   
+    
+    
+    [self showMessage:@"请求超时或者网络环境较差!" viewHeight:SCREEN_HEIGHT/2-80];
         NSLog(@"geo检索发送失败");
     }
-    
+
 }
 - (void) viewDidAppear:(BOOL)animated {
     // 添加一个PointAnnotation
@@ -218,11 +223,12 @@
             if([self isBlankString:[NSString stringWithFormat:@"%d",plan.duration.minutes]])
             {
             
+                
                 [dict setValue:[NSString stringWithFormat:@"%d小时",plan.duration.hours] forKey:@"time"];
 
             
             }
-            if([self isBlankString:[NSString stringWithFormat:@"%d",plan.duration.hours]])
+           else if([self isBlankString:[NSString stringWithFormat:@"%d",plan.duration.hours]])
             {
                 
                 [dict setValue:[NSString stringWithFormat:@"%d分钟",plan.duration.minutes] forKey:@"time"];
@@ -231,7 +237,20 @@
             }
             else
             {
-             [dict setValue:[NSString stringWithFormat:@"%d小时%d分钟",plan.duration.hours,plan.duration.minutes] forKey:@"time"];
+                
+                if(plan.duration.hours==0)
+                {
+                
+                    [dict setValue:[NSString stringWithFormat:@"%d分钟",plan.duration.minutes] forKey:@"time"];
+
+                }
+                else
+                {
+                    [dict setValue:[NSString stringWithFormat:@"%d小时%d分钟",plan.duration.hours,plan.duration.minutes] forKey:@"time"];
+
+                
+                }
+                
             
             
             }

@@ -21,21 +21,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _jobarry=[[NSMutableArray alloc]initWithCapacity:0];
+    [_jobarry removeAllObjects];
 
- 
+    _isReloadingAllData = YES;
+
     // Do any additional setup after loading the view.
-    if([self.conditionsname isEqualToString:@"最新职位"])
-    {
-        [self newjobdate];
-        
-    
-    }
-    else
-    {
-        [self dates];
-
-    
-    }
     
     
       self.title=self.conditionsname;
@@ -58,11 +48,83 @@
     _getresulttable.dataSource=self;
     _getresulttable.rowHeight=50;
     
-    
+    if([self.conditionsname isEqualToString:@"最新职位"])
+    {
+        [self newjobdate];
+        
+        
+    }
+    else
+    {
+        [self setupRefresh];
+        
+        
+    }
+
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
+//    [self setupRefresh];
 }
+
+-(void)setupRefresh
+{
+    
+    
+    //下拉
+    [_getresulttable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
+    [_getresulttable headerBeginRefreshing];
+    //上拉
+    [_getresulttable addFooterWithTarget:self action:@selector(loadMoreStatuses)];
+    
+    // 设置文字(也可以不设置,默认的文字在MJRefreshConst中修改)
+    _getresulttable.headerPullToRefreshText = @"下拉可以刷新了";
+    _getresulttable.headerReleaseToRefreshText = @"松开马上刷新了";
+    _getresulttable.headerRefreshingText = @">.< 正在努力加载中!";
+    
+    _getresulttable.footerPullToRefreshText = @"上拉可以加载更多数据了";
+    _getresulttable.footerReleaseToRefreshText = @"松开马上加载更多数据了";
+    _getresulttable.footerRefreshingText = @">.< 正在努力加载中!";
+    
+}
+
+//下拉刷新加载更多数据
+-(void)loadNewStatuses:(UIRefreshControl *)refreshControl
+{
+    _isReloadingAllData=YES;
+    [_jobarry removeAllObjects];
+    
+    [self dates];
+    
+    
+}
+
+//上拉刷新加载更多微博数据
+-(void)loadMoreStatuses
+{
+    _isReloadingAllData=NO;
+    if(_jobarry.count==totalCount)
+    {
+        [self showMessage:@"已经为您加载了全部数据亲" viewHeight:SCREEN_HEIGHT/2-80];
+        [_getresulttable footerEndRefreshing];
+        
+        return;
+        
+    }
+    
+    if(_jobarry.count<totalCount)
+    {
+        [self dates];
+        
+    }
+    
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [_Seatchtable footerEndRefreshing];
+    //        
+    //    });
+}
+
+
 -(void)setNavBar
 {
   
@@ -155,7 +217,7 @@
          
          }else
          {
-             cell.companyname.text=[NSString stringWithFormat:@"共为您找到%d个工作职位",_jobarry.count ];
+             cell.companyname.text=[NSString stringWithFormat:@"共为您找到%d个工作职位",totalCount ];
 
          
          }
@@ -164,12 +226,18 @@
      }
         else
         {
-            JObpp*jobp=[_jobarry objectAtIndex:indexPath.row-1];
             
+            if(_jobarry.count!=0)
+            {
             
-            cell.jobname.text=jobp.jobname;
+                JObpp*jobp=[_jobarry objectAtIndex:indexPath.row-1];
+                
+                
+                cell.jobname.text=jobp.jobname;
+                
+                cell.companyname.text=jobp.jobunit_name;
+            }
             
-            cell.companyname.text=jobp.jobunit_name;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         }
@@ -345,7 +413,7 @@
         
         
         
-        NSString *urls =[NSString stringWithFormat:@"/api/job/search?%@%@%@%@&offset=1",sttt4,sttt1,sttt2,sttt3];
+        NSString *urls =[NSString stringWithFormat:@"/api/job/search?%@%@%@%@&offset=%d",sttt4,sttt1,sttt2,sttt3,_jobarry.count/10+1];
         
       NSString*headerDatadgdgfgf= [urls stringByReplacingOccurrencesOfString:@" " withString:@""];
 
@@ -364,9 +432,18 @@
             
             
             
+            [_getresulttable headerEndRefreshing];
+            [_getresulttable footerEndRefreshing];
+            
+            
+            
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
-                [_jobarry removeAllObjects];
+                if (_isReloadingAllData)
+                    
+                {
+                    [_jobarry removeAllObjects];
+                }
                 
                 
                 NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
@@ -386,7 +463,8 @@
                     [_jobarry addObject:peo];
                     
                 }
-                
+                totalCount = [[result objectForKey:@"total"] integerValue];
+
                 [_getresulttable reloadData];
                 
             }

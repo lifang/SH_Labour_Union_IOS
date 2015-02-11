@@ -238,6 +238,8 @@
                                                      
                                                        if(segmentIndex==0)
                                                        {
+                                                           str4textfield=@"";
+                                                           
                                                            changeint=798;
                                                            ff=5;
                                                            [_newallarry removeAllObjects];
@@ -258,6 +260,9 @@
                                                        }
                                                        else if(segmentIndex==1)
                                                        {ff=9;
+                                                           
+                                                           str4textfield=@"";
+
                                                            [_newallarry removeAllObjects];
 
                                                                 changeint=790;

@@ -15,7 +15,9 @@
     NSMutableArray*_allarry;
     NSMutableArray*_newallarry;
     NSMutableArray*_jobarry;
-    
+    BOOL _isReloadingAllData;
+    NSInteger totalCount;
+
     NSString*getids;
     
    }
