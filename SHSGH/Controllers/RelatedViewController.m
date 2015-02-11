@@ -367,7 +367,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
     }
     
-    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
     
     cell.selectionStyle=UITableViewCellSelectionStyleNone;
     if(_newallarry.count!=0)

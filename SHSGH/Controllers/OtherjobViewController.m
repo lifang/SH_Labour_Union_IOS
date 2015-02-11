@@ -27,7 +27,7 @@
     self.title=@"其他岗位招聘";
     
     // Do any additional setup after loading the view.
-    _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style: UITableViewStylePlain];
+    _Conditionstable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
     
     
     
@@ -339,7 +339,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] ;
         
     }
-    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
      cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
      cell.selectionStyle=UITableViewCellSelectionStyleNone;
     

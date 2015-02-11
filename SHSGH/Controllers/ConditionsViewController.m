@@ -317,7 +317,13 @@
         
     }
     
-  
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
    cell.logoImageView.image=[UIImage imageNamed:[imagearry objectAtIndex:indexPath.row]];
     
     people*pname=[_allarry objectAtIndex:indexPath.row];

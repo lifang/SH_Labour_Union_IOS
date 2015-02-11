@@ -125,7 +125,13 @@
         
     }
     NSString*addstring;
-    
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]){
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
        
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
