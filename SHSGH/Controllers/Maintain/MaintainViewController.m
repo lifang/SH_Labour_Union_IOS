@@ -38,6 +38,8 @@
 
 @property(nonatomic,strong)QuestionViewController *questionVC;
 
+@property(nonatomic,strong)NSString *code;
+
 
 @end
 
@@ -386,7 +388,7 @@
         NSString *content = [_contentField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *email = [_emailField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *address = [_addressField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@&address=%@&email=%@",name, _phoneField.text,title,content,address,email];
+        NSString *urls = [NSString stringWithFormat:@"/api/protect/regist?username=%@&mobile=%@&title=%@&content=%@&address=%@&email=%@&code=%@",name, _phoneField.text,title,content,address,email,_code];
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -582,9 +584,10 @@
     [self.navigationController pushViewController:_questionVC animated:YES];
 }
 
--(void)sendQuestion:(NSString *)question
+-(void)sendQuestion:(NSString *)question WithCode:(NSString *)code
 {
     _questionField.text = question;
+    self.code = code;
 }
 
 @end

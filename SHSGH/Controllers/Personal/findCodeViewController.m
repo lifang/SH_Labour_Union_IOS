@@ -270,7 +270,7 @@
     _passwordSureField.leftView = passwordSureView;
     _passwordSureField.leftViewMode = UITextFieldViewModeAlways;
     _passwordSureField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _passwordSureField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _passwordSureField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_passwordSureField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordSureField
                                                           attribute:NSLayoutAttributeTop
@@ -354,7 +354,7 @@
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [send addTarget:self action:@selector(sendMes) forControlEvents:UIControlEventTouchUpInside];
-    send.titleLabel.tintColor = [UIColor whiteColor];
+    send.titleLabel.textColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
     [send setTitle:@"发送" forState:UIControlStateNormal];
     [rightViewFS addSubview:send];
@@ -364,7 +364,7 @@
     _phoneField.leftView = _phoneFieldView;
     _phoneField.leftViewMode = UITextFieldViewModeAlways;
     _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _phoneField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _phoneField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_phoneField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_phoneField
                                                           attribute:NSLayoutAttributeTop
@@ -436,6 +436,7 @@
     _authcodeField.borderStyle = UITextBorderStyleNone;
     _authcodeField.backgroundColor = [UIColor whiteColor];
     _authcodeField.delegate = self;
+    _authcodeField.tag = 1001;
     _authcodeField.placeholder = @"请输入验证码";
     _authcodeField.font = [UIFont systemFontOfSize:15.f];
     UIView *_authcodeFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
@@ -445,7 +446,7 @@
     _authcodeField.leftView = _authcodeFieldView;
     _authcodeField.leftViewMode = UITextFieldViewModeAlways;
     _authcodeField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    _authcodeField.contentHorizontalAlignment = UIControlContentVerticalAlignmentCenter;
+    _authcodeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.view addSubview:_authcodeField];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_authcodeField
                                                           attribute:NSLayoutAttributeTop
@@ -682,6 +683,7 @@
 
 -(void)sendMes
 {
+    [_phoneField resignFirstResponder];
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"手机号不能为空!"
@@ -736,5 +738,36 @@
 {
     [textField resignFirstResponder];
     return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==1001) {
+        CGRect frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y +80, textField.frame.size.width, textField.frame.size.height);
+        if (mainScreenH<=480) {
+            frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y+80, textField.frame.size.width, textField.frame.size.height);
+        }
+        SLog(@"%@",NSStringFromCGRect(frame));
+        int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+        NSTimeInterval animationDuration = 0.30f;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        
+        if (offset > 0) {
+            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+            [UIView commitAnimations];
+        }
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == 1001) {
+        self.view.frame =CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height);
+        if (mainScreenH<=480) {
+            self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        }
+    }
+    
 }
 @end

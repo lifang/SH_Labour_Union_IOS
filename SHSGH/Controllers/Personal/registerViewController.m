@@ -447,6 +447,7 @@
     _authcodeField.translatesAutoresizingMaskIntoConstraints = NO;
     _authcodeField.borderStyle = UITextBorderStyleNone;
     _authcodeField.backgroundColor = [UIColor whiteColor];
+    _authcodeField.tag = 1001;
     _authcodeField.delegate = self;
     _authcodeField.placeholder = @"请输入验证码";
     _authcodeField.returnKeyType = UIReturnKeyDone;
@@ -700,10 +701,10 @@
             }
         });
     });
-    
 }
 -(void)authcode
 {
+    [_phoneField resignFirstResponder];
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"手机号不能为空!"
@@ -760,4 +761,36 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (textField.tag==1001) {
+        CGRect frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y +80, textField.frame.size.width, textField.frame.size.height);
+        if (mainScreenH<=480) {
+            frame = CGRectMake(textField.frame.origin.x, textField.frame.origin.y+80, textField.frame.size.width, textField.frame.size.height);
+        }
+        SLog(@"%@",NSStringFromCGRect(frame));
+        int offset = frame.origin.y + 32 - (self.view.frame.size.height - 216.0);
+        NSTimeInterval animationDuration = 0.30f;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        
+        if (offset > 0) {
+            self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
+            [UIView commitAnimations];
+        }
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.tag == 1001) {
+        self.view.frame =CGRectMake(0, 60, self.view.frame.size.width, self.view.frame.size.height);
+        if (mainScreenH<=480) {
+            self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        }
+    }
+    
+}
+
 @end

@@ -168,7 +168,7 @@
     _usermessageField.borderStyle = UITextBorderStyleNone;
     _usermessageField.backgroundColor = [UIColor whiteColor];
     _usermessageField.delegate = self;
-    _usermessageField.placeholder = @"请输入身份证";
+    _usermessageField.placeholder = @"请输入工会会员号";
     _usermessageField.font = [UIFont systemFontOfSize:15.f];
     UIView *nameView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, imageSize)];
     UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 0, imageSize, imageSize)];
@@ -428,5 +428,9 @@
     
     [self.navigationController pushViewController:personalDoneVC animated:YES];
 }
-
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 @end
