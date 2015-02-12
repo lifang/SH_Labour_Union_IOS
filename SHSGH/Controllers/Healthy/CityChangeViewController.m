@@ -101,7 +101,7 @@
                     }
                     Province *province = [_provinceArray objectAtIndex:_provinceIndex];
                     [self.delegate sendCity:province.city_name WithArea_id:province.city_area_id];
-                    if (_downtownArray!=0) {
+                    if (_downtownArray.count!=0) {
                         Downtown *downtown = [_downtownArray objectAtIndex:_downtownIndex];
                         SLog(@"~~~~~~~~~~~~~~~~~~%@",downtown.area_id);
                         [self.delegate sendCity:downtown.area_name WithArea_id:downtown.area_id];
