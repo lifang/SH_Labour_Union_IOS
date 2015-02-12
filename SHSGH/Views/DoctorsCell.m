@@ -101,7 +101,7 @@
     self.accessoryView.frame = CGRectMake(mainViewW - 70 - 6 *CostumViewMargin, CGRectGetMaxY(self.textLabel.frame) - 2 *CostumViewMargin, 70, 27);
     self.detailTextLabel.frame = CGRectMake(CGRectGetMaxX(self.egoImage.frame) + 3 * CostumViewMargin, CGRectGetMaxY(self.textLabel.frame) - 2 * CostumViewMargin, 150, 28);
     self.positionLabel.frame = CGRectMake(CGRectGetMaxX(self.textLabel.frame) + CostumViewMargin, self.textLabel.frame.origin.y + 2, 90, 28);
-    self.classLabel.frame = CGRectMake(self.textLabel.frame.origin.x,CGRectGetMaxY(self.detailTextLabel.frame) - 2.5 * CostumViewMargin , 90, 28);
+    self.classLabel.frame = CGRectMake(self.textLabel.frame.origin.x,CGRectGetMaxY(self.detailTextLabel.frame) - 2.5 * CostumViewMargin , 150, 28);
 }
 
 

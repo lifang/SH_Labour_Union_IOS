@@ -652,6 +652,8 @@
         [alert show];
         return;
     }
+    SLog(@"~~~~~~~~~~~~~~~~%@",_phoneField.text);
+    SLog(@"~~~~~~~~~~~~~~~~~~%@",_oldPhone);
     if (![_phoneField.text isEqualToString:_oldPhone]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                         message:@"手机号不匹配!"
@@ -725,7 +727,6 @@
 }
 -(void)authcode
 {
-    self.oldPhone = _passwordField.text;
     [_phoneField resignFirstResponder];
     if (!_phoneField.text || [_phoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
@@ -762,12 +763,13 @@
                     UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV1 show];
                     [hud hide:YES];
+                    self.oldPhone = _phoneField.text;
                 }
                 //请求失败
                 else
                 {
-                    SLog(@"验证码发送失败!");
-                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                    NSString *str = [result objectForKey:@"message"];
+                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:str message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
                     [alertV2 show];
                     [hud hide:YES];
                 }

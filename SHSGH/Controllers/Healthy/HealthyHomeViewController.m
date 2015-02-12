@@ -65,7 +65,6 @@
     [super viewDidLoad];
     [self loadData];
     [self initUI];
-    self.cityVC.delegate = self;
     [self setupNav];
     
     SLog(@"&&&&&&&&&&&&&&&&&&%@",_hospitalid);
@@ -86,6 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.cityVC.delegate = self;
     [self setupNav];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     if (delegate.area_id==nil) {
@@ -461,6 +461,7 @@
     [buttonL.navButton setTitle:_cityName forState:UIControlStateNormal];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
     SLog(@"~~~~~~~~~~~~~~~~~~~%@",delegate.cityName);
+    SLog(@"~~~~~~~~~~~~~~~~~~~%@",_cityName);
     if (delegate.cityName) {
         [buttonL.navButton setTitle:delegate.cityName forState:UIControlStateNormal];
     }
