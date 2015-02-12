@@ -140,7 +140,7 @@
     
     
     namelable.frame=CGRectMake(10, _scrool.frame.size.height+_scrool.frame.origin.y, SCREEN_WIDTH-20, 30);
-    namelable.font=[UIFont systemFontOfSize:15];
+    namelable.font=[UIFont systemFontOfSize:14];
     //    requirecontent.textColor=[UIColor grayColor];
     namelable.numberOfLines=0;
     [bigscroll addSubview:namelable];
