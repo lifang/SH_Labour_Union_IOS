@@ -36,19 +36,81 @@
     
     _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
 
-    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
-    //指定最小距离更新(米)，默认：kCLDistanceFilterNone
-    [BMKLocationService setLocationDistanceFilter:100.f];
     
     
-    //初始化BMKLocationService
-    _locService = [[BMKLocationService alloc]init];
-    _locService.delegate = self;
-    //启动LocationService
-    [_locService startUserLocationService];
     
     
-    //发起正向地理编码检索
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        //        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        //        [params setObject:@"5" forKey:@"limit"];
+        
+        //        if(changeint==798)
+        //        {
+        //
+        //            urls =[NSString stringWithFormat:@"/api/news/findLaws?offset=%u",1];
+        //
+        //        }
+        //        else
+        //        {
+        //            urls =[NSString stringWithFormat:@"/api/mutualAid/findAll?type=0?offset=%u",_newallarry.count/10+1];
+        //
+        //        }
+        
+        //        NSString *strUrl = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+  
+
+        
+        id result = [KRHttpUtil getResultDataByPost:@"/api/news/findLaws" param:nil];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                
+                
+                [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+                //指定最小距离更新(米)，默认：kCLDistanceFilterNone
+                [BMKLocationService setLocationDistanceFilter:100.f];
+                
+                
+                //初始化BMKLocationService
+                _locService = [[BMKLocationService alloc]init];
+                _locService.delegate = self;
+                //启动LocationService
+                [_locService startUserLocationService];
+                
+                
+                //发起正向地理编码检索
+                
+                
+                    
+                    
+              
+                
+            }
+            else
+            {
+                
+                
+                [self showMessage:@"请求超时或者网络环境较差!" viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+             
+                
+                
+                
+                
+                
+            }
+        });
+    });
+
+    
     
     _searchers =[[BMKGeoCodeSearch alloc]init];
     _searchers.delegate = self;
@@ -57,7 +119,7 @@
     
     
     
-   
+    
     
     
     
@@ -66,6 +128,7 @@
     geoCodeSearchOption.city= self.city;
     geoCodeSearchOption.address = self.address;
     NSLog(@"geo检索发送成功%@",self.address);
+    
 
     
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];

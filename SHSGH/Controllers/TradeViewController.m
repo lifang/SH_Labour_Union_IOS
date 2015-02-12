@@ -328,12 +328,12 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 115)];
     rootimageview.userInteractionEnabled=YES;
     rootimageview.backgroundColor=[UIColor whiteColor];
     
 //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
-    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 115)];
     touchclickimageview.tag=section;
     
     [rootimageview addSubview:touchclickimageview];
@@ -344,7 +344,7 @@
 //       [ touchclickimageview addGestureRecognizer:singleTapss];
     UIImageView *logoimageview = [[UIImageView alloc]init];
 
-    logoimageview.frame = CGRectMake(10, 10, 80, 100);
+    logoimageview.frame = CGRectMake(10, 0, 80, 100);
     
 
 //    logoimageview.image=[UIImage imageNamed:@"structure"];
@@ -371,7 +371,7 @@
 //    [logoimageview  sd_setImageWithURL:[NSURL URLWithString:peop.images] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
 
     UILabel*namelable=[[UILabel alloc]init];
-    namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 20);
+    namelable.frame=CGRectMake(95,0, SCREEN_WIDTH-100, 25);
     
     namelable.font=[UIFont systemFontOfSize:12];
 //      requirecontent.textColor=[UIColor grayColor];
@@ -381,9 +381,9 @@
     namelable.userInteractionEnabled=NO;
 
     UILabel*addresslable=[[UILabel alloc]init];
-    addresslable.frame=CGRectMake(95,30, SCREEN_WIDTH-100, 20);
+    addresslable.frame=CGRectMake(95,25, SCREEN_WIDTH-100, 25);
     
-    addresslable.font=[UIFont systemFontOfSize:15];
+    addresslable.font=[UIFont systemFontOfSize:13];
     addresslable.textColor=[UIColor grayColor];
     addresslable.numberOfLines=0;
     [rootimageview addSubview:addresslable];
@@ -392,7 +392,7 @@
     addresslable.userInteractionEnabled=NO;
 
     UILabel*phonelable=[[UILabel alloc]init];
-    phonelable.frame=CGRectMake(95,50, 120, 20);
+    phonelable.frame=CGRectMake(95,50, 120, 25);
     
     phonelable.font=[UIFont systemFontOfSize:15];
     phonelable.textColor=[UIColor grayColor];
@@ -407,7 +407,7 @@
 
     
     UILabel*contentlable=[[UILabel alloc]init];
-    contentlable.frame=CGRectMake(95,70, SCREEN_WIDTH-140, 40);
+    contentlable.frame=CGRectMake(95,75, SCREEN_WIDTH-140, 40);
     
     contentlable.font=[UIFont systemFontOfSize:12];
 //    contentlable.textColor=[UIColor grayColor];
@@ -542,7 +542,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 110;
+    return 115;
     
     
 }
