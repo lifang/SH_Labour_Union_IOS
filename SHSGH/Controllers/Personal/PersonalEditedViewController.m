@@ -50,6 +50,9 @@
 
 -(void)back
 {
+    [_userIDField resignFirstResponder];
+    [_emailField resignFirstResponder];
+    [_usernameField resignFirstResponder];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
