@@ -503,7 +503,6 @@
     [_mapViews removeAnnotations:array];
     NSArray*arrays = [NSArray arrayWithArray:_mapViews.overlays];
     [_mapViews removeOverlays:arrays];
-    [_mapViews viewWillDisappear];
     
     _mapViews.delegate = nil; // 不用时，置nil
     _mapViews=nil;

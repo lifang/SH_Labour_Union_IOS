@@ -23,31 +23,8 @@
 { [super viewWillAppear:animated];
     
     
-    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
-    [_allarry removeAllObjects];
     
-    
-    
-    _locationManager = [[CLLocationManager alloc]init];
-    if (![CLLocationManager locationServicesEnabled]) {
-        [self showMessage:@"定位服务当前可能尚未打开，请设置打开" viewHeight:SCREEN_HEIGHT/2-80];
-
-        return;
-    }
-    
-    //如果没有授权则请求用户授权
   
-    else {
-        //设置代理
-        _locationManager.delegate=self;
-        //设置定位精度
-        _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
-        //定位频率,每隔多少米定位一次
-        CLLocationDistance distance=100.0;//十米定位一次
-        _locationManager.distanceFilter=distance;
-        //启动跟踪定位
-        [_locationManager startUpdatingLocation];
-    }
 
 }
 
@@ -58,7 +35,22 @@
     [super viewDidLoad];
     self.title=@"商户列表";
 
+    _allarry=[[NSMutableArray alloc]initWithCapacity:0];
+    [_allarry removeAllObjects];
     
+    
+    
+    _locationManager = [[CLLocationManager alloc]init];
+    
+    //设置代理
+    _locationManager.delegate=self;
+    //设置定位精度
+    _locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+    //定位频率,每隔多少米定位一次
+    CLLocationDistance distance=100.0;//十米定位一次
+    _locationManager.distanceFilter=distance;
+    //启动跟踪定位
+    [_locationManager startUpdatingLocation];
     // Do any additional setup after loading the view.
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
   

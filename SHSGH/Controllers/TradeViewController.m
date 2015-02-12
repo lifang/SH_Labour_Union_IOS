@@ -27,6 +27,17 @@
 @end
 
 @implementation TradeViewController
+- (void)viewWillAppear:(BOOL)animated
+
+
+{ [super viewWillAppear:animated];
+    
+
+                 [_Seatchtable reloadData];
+
+
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,12 +47,25 @@
     
     
   
-    
+
  
     
     
     
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     
+    
+    [self.view addSubview:_Seatchtable];
+    _Seatchtable.delegate=self;
+    _Seatchtable.dataSource=self;
+    //    _Seatchtable.rowHeight=40;
+    
+    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _Seatchtable.separatorColor=[UIColor clearColor];
+    _Seatchtable.backgroundView = nil;
+    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
+    _Seatchtable.backgroundColor=[UIColor whiteColor];
+
     
     
     
@@ -50,16 +74,19 @@
     _isReloadingAllData = YES;
 
     self.title=@"商户信息";
-    [self setnavBar];
-    [self createui];
-    [self left];
+     [self createui];
+    
+    
     [self setupRefresh];
+    [self setnavBar];
+   
+    [self left];
 }
 
 -(void)setupRefresh
 {
     
-    _Seatchtable.userInteractionEnabled=YES;
+//    _Seatchtable.userInteractionEnabled=YES;
     
     //下拉
     [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
@@ -214,20 +241,7 @@
     
   
 
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
-    
-
-    [self.view addSubview:_Seatchtable];
-    _Seatchtable.delegate=self;
-    _Seatchtable.dataSource=self;
-//    _Seatchtable.rowHeight=40;
-
-    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
-_Seatchtable.separatorColor=[UIColor clearColor];
-    _Seatchtable.backgroundView = nil;
-       _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
-    _Seatchtable.backgroundColor=[UIColor whiteColor];
-
+   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
