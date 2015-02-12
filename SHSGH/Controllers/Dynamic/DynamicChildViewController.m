@@ -95,7 +95,10 @@
 {
     UIWebView *webView = [[UIWebView alloc]init];
     webView.delegate = self;
-    webView.frame = CGRectMake(0, 0, mainScreenW,mainScreenH);
+    webView.frame = CGRectMake(0, 0, mainScreenW,mainScreenH-60);
+    if (mainScreenH<=480) {
+        webView.frame = CGRectMake(0, 0, mainScreenW,mainScreenH-68);
+    }
     NSURL *url = [NSURL URLWithString:@"http://www.sh12351.org"];
     SLog(@"%@",_contentStr);
     NSString *str1 = [NSString stringWithFormat:@"<h4 align='left'>%@</h4><hr />",_topLabelStr];

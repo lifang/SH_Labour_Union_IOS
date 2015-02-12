@@ -279,6 +279,10 @@
     scrollView.pageControl.pageIndicatorTintColor = [UIColor whiteColor];
     scrollView.pageControl.currentPageIndicatorTintColor = sColor(62, 159, 136, 1.0);
     scrollView.reuseDelegate = self;
+    UIView *view1 = [[UIView alloc]init];
+    view1.frame = CGRectMake(0, 130, mainScreenW, 30);
+    view1.backgroundColor = sColor(255, 255, 255, 0.5);
+    [scrollView addSubview:view1];
     [self.view addSubview:scrollView];
     CGFloat cellHeight = 50.f;
     //搜索栏

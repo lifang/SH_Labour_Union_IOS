@@ -76,7 +76,7 @@
 
         NSString *urls =@"/api/news/findTopNews?offset=1";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        
+        SLog(@"图片信息!%@",result);
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([[result objectForKey:@"code"] integerValue]==1)
