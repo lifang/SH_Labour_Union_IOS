@@ -57,6 +57,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initAndLayoutUI];
+//    [self loadUpdateData];
     _bigView = [[EGOImageView alloc]init];
     _clickBtn = [[UIButton alloc]init];
     
@@ -65,6 +66,54 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self loadImageDate];
 }
+-(void)loadUpdateData
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString *urls = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",kAppID];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        SLog(@"%@",result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                NSString *text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey]];
+                if ([result isKindOfClass:[NSDictionary class]]) {
+                    NSArray *infoArray = [result objectForKey:@"results"];
+                    if ([infoArray count] > 0) {
+                        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
+                        NSString *lastVersion = [releaseInfo objectForKey:@"version"];
+                        if (![lastVersion isEqualToString:text]) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                            message:@"有新版本是否更新?"
+                                                                           delegate:self
+                                                                  cancelButtonTitle:@"取消"
+                                                                  otherButtonTitles:@"更新", nil];
+                            [alert show];
+                        }
+                        else{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                            message:@"已是最新版本!!"
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"确定"
+                                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }
+                    }
+                }
+                
+            }
+            //请求失败
+            else
+            {
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"请检查网络!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+            }
+        });
+    });
+    
+}
+
 -(void)kaijidonghua
 {
 

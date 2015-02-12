@@ -65,6 +65,9 @@
 
 -(void)save
 {
+    [_userIDField resignFirstResponder];
+    [_emailField resignFirstResponder];
+    [_usernameField resignFirstResponder];
     if ([_userIDField.text isEqualToString:@""]&&[_usernameField.text isEqualToString:@""]&&[_emailField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"请填写完善信息!"
