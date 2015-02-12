@@ -603,7 +603,7 @@
                 
                 jobdetal.peoplenumber=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"rs"]];
                 
-                if([[[result objectForKey:@"result"] objectForKey:@"locate"] isKindOfClass:[NSNull class]])
+                if( [self isBlankString: [[result objectForKey:@"result"] objectForKey:@"locate"] ])
                 {
                     
                     
@@ -617,7 +617,7 @@
                     
                     
                 }
-                if([[[result objectForKey:@"result"] objectForKey:@"lxfs"] isKindOfClass:[NSNull class]])
+                if( [self isBlankString: [[result objectForKey:@"result"] objectForKey:@"lxfs"] ])
                 {
                     
                     
@@ -633,11 +633,24 @@
                 }
 
 
+                if( [self isBlankString: [[result objectForKey:@"result"] objectForKey:@"unit_name"] ])
+                {
+                    
+                    
+                    jobdetal.companyname=@"暂无公司名字";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
+                    
+                    
+                }
 
-                jobdetal.companyname=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"unit_name"]];
                 
                 
-                if([[[result objectForKey:@"result"] objectForKey:@"unit_about"] isKindOfClass:[NSNull class]])
+                if( [self isBlankString: [[result objectForKey:@"result"] objectForKey:@"unit_about"] ])
                 {
                     
                     

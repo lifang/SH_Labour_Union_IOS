@@ -17,6 +17,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        
         logoImageView=[[UIImageView alloc]init];
         
         logoImageView.image=[UIImage imageNamed:@"qipao"];

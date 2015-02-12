@@ -210,6 +210,10 @@
     //    [segmentedControl setSelectedSegmentIndex:0];
     //    segmentedControl.selectedItemColor   = [UIColor whiteColor];
     //    segmentedControl.unselectedItemColor = [UIColor darkGrayColor];
+    
+    
+  
+
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     
 
@@ -217,13 +221,13 @@
     _Seatchtable.delegate=self;
     _Seatchtable.dataSource=self;
 //    _Seatchtable.rowHeight=40;
-    _Seatchtable.backgroundColor=[UIColor whiteColor];
 
     _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
 _Seatchtable.separatorColor=[UIColor clearColor];
-    
+    _Seatchtable.backgroundView = nil;
        _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
-    
+    _Seatchtable.backgroundColor=[UIColor whiteColor];
+
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -281,7 +285,8 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     
     cell.namelable.backgroundColor=[UIColor clearColor];
     
-   
+    cell.backgroundColor=[UIColor clearColor];
+    
     
     
     
