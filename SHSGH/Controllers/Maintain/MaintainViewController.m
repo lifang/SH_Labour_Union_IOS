@@ -408,6 +408,7 @@
                 _contentField.text = nil;
                 _emailField.text = nil;
                 _addressField.text = nil;
+                _questionField.text = nil;
             }
             //请求失败
             else
