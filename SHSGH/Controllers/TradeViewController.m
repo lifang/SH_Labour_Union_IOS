@@ -428,7 +428,7 @@
     [rootimageview addSubview:phonebutton];
     
     UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 80, 30, 30);
+    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 90, 25, 25);
     
     
     if (_flagArray[section])

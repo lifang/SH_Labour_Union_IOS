@@ -27,6 +27,7 @@
     NSInteger totalCount;
     NSString*str4textfield;
     NSString*stringurl;
+    UILabel*lab;
     
     PPiFlatSegmentedControl *segmentedControl;
     
