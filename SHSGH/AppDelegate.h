@@ -50,6 +50,7 @@
 @property(nonatomic,strong)NSString *province_name;
 
 @property(nonatomic,strong)NSString *cityName;
+@property(nonatomic,strong)NSString *versionsUpdate;
 
 
 + (AppDelegate *)shareAppDelegate;

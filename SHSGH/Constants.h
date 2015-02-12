@@ -13,6 +13,8 @@
 #define SLog(...)
 #endif
 
+#define kAppID @""
+
 #define MAIN_URL @"http://192.168.0.250:7070/shanghaiunion"
 #define mainFont [UIFont systemFontOfSize:15]
 //机器的版本号
