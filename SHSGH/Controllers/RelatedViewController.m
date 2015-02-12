@@ -217,13 +217,19 @@
     _Seatchtable.dataSource=self;
     _Seatchtable.rowHeight=40;
     
-    
+    lab=[[UILabel alloc]initWithFrame:CGRectMake(10, 50, SCREEN_WIDTH-20, 30)];
+    [self.view addSubview:lab];
+    lab.text=@"暂无问卷";
+
     _helptable.delegate=self;
     _helptable.dataSource=self;
     _helptable.rowHeight=40;
     _helptable.hidden=YES;
     _Seatchtable.hidden=NO;
+    lab.hidden=YES;
 
+    lab.backgroundColor=[UIColor clearColor];
+    lab.textAlignment=NSTextAlignmentCenter;
     
     self.view.backgroundColor=[UIColor colorWithWhite:0.95 alpha:1.0];
 
@@ -254,7 +260,8 @@
                                                            [self date];
 
                                                            _Seatchtable.hidden=NO;
-                                                           
+                                                           lab.hidden=YES;
+
                                                            _helptable.hidden=YES;
 
                                                        }
@@ -273,7 +280,8 @@
                                                            
                                                            [self   setupRefreshs];
                                                            
-                                                           
+                                                           lab.hidden=YES;
+
 
                                                            _Seatchtable.hidden=YES;
                                                            _helptable.hidden=NO;
@@ -281,13 +289,13 @@
                                                        }
                                                        else
                                                        {
-                                                      
+                                                           lab.hidden=NO;
 
+                                                           
                                                            
                                                            _Seatchtable.hidden=YES;
                                                            _helptable.hidden=YES;
 
-                                                           [self showMessage:@"正在加紧制作中，，，" viewHeight:SCREEN_HEIGHT/2-80];
                                                            
                                                        }
                                                        

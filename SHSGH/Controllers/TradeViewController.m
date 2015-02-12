@@ -27,6 +27,17 @@
 @end
 
 @implementation TradeViewController
+- (void)viewWillAppear:(BOOL)animated
+
+
+{ [super viewWillAppear:animated];
+    
+
+                 [_Seatchtable reloadData];
+
+
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,12 +47,25 @@
     
     
   
-    
+
  
     
     
     
+    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
     
+    
+    [self.view addSubview:_Seatchtable];
+    _Seatchtable.delegate=self;
+    _Seatchtable.dataSource=self;
+    //    _Seatchtable.rowHeight=40;
+    
+    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _Seatchtable.separatorColor=[UIColor clearColor];
+    _Seatchtable.backgroundView = nil;
+    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
+    _Seatchtable.backgroundColor=[UIColor whiteColor];
+
     
     
     
@@ -50,16 +74,19 @@
     _isReloadingAllData = YES;
 
     self.title=@"商户信息";
-    [self setnavBar];
-    [self createui];
-    [self left];
+     [self createui];
+    
+    
     [self setupRefresh];
+    [self setnavBar];
+   
+    [self left];
 }
 
 -(void)setupRefresh
 {
     
-    _Seatchtable.userInteractionEnabled=YES;
+//    _Seatchtable.userInteractionEnabled=YES;
     
     //下拉
     [_Seatchtable addHeaderWithTarget:self action:@selector(loadNewStatuses:) dateKey:@"table"];
@@ -214,20 +241,7 @@
     
   
 
-    _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStyleGrouped];
-    
-
-    [self.view addSubview:_Seatchtable];
-    _Seatchtable.delegate=self;
-    _Seatchtable.dataSource=self;
-//    _Seatchtable.rowHeight=40;
-
-    _Seatchtable.separatorStyle = UITableViewCellSeparatorStyleNone;
-_Seatchtable.separatorColor=[UIColor clearColor];
-    _Seatchtable.backgroundView = nil;
-       _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
-    _Seatchtable.backgroundColor=[UIColor whiteColor];
-
+   
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -314,12 +328,12 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
-    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+    UIView*rootimageview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 115)];
     rootimageview.userInteractionEnabled=YES;
     rootimageview.backgroundColor=[UIColor whiteColor];
     
 //    UITapGestureRecognizer *singleTapss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleFingerEvent:)];
-    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 110)];
+    UIButton*touchclickimageview=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 115)];
     touchclickimageview.tag=section;
     
     [rootimageview addSubview:touchclickimageview];
@@ -330,7 +344,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 //       [ touchclickimageview addGestureRecognizer:singleTapss];
     UIImageView *logoimageview = [[UIImageView alloc]init];
 
-    logoimageview.frame = CGRectMake(10, 10, 80, 100);
+    logoimageview.frame = CGRectMake(10, 0, 80, 100);
     
 
 //    logoimageview.image=[UIImage imageNamed:@"structure"];
@@ -357,7 +371,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 //    [logoimageview  sd_setImageWithURL:[NSURL URLWithString:peop.images] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
 
     UILabel*namelable=[[UILabel alloc]init];
-    namelable.frame=CGRectMake(95,10, SCREEN_WIDTH-100, 20);
+    namelable.frame=CGRectMake(95,0, SCREEN_WIDTH-100, 25);
     
     namelable.font=[UIFont systemFontOfSize:12];
 //      requirecontent.textColor=[UIColor grayColor];
@@ -367,9 +381,9 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     namelable.userInteractionEnabled=NO;
 
     UILabel*addresslable=[[UILabel alloc]init];
-    addresslable.frame=CGRectMake(95,30, SCREEN_WIDTH-100, 20);
+    addresslable.frame=CGRectMake(95,25, SCREEN_WIDTH-100, 25);
     
-    addresslable.font=[UIFont systemFontOfSize:15];
+    addresslable.font=[UIFont systemFontOfSize:13];
     addresslable.textColor=[UIColor grayColor];
     addresslable.numberOfLines=0;
     [rootimageview addSubview:addresslable];
@@ -378,7 +392,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     addresslable.userInteractionEnabled=NO;
 
     UILabel*phonelable=[[UILabel alloc]init];
-    phonelable.frame=CGRectMake(95,50, 120, 20);
+    phonelable.frame=CGRectMake(95,50, 120, 25);
     
     phonelable.font=[UIFont systemFontOfSize:15];
     phonelable.textColor=[UIColor grayColor];
@@ -393,7 +407,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 
     
     UILabel*contentlable=[[UILabel alloc]init];
-    contentlable.frame=CGRectMake(95,70, SCREEN_WIDTH-140, 40);
+    contentlable.frame=CGRectMake(95,75, SCREEN_WIDTH-140, 40);
     
     contentlable.font=[UIFont systemFontOfSize:12];
 //    contentlable.textColor=[UIColor grayColor];
@@ -414,7 +428,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
     [rootimageview addSubview:phonebutton];
     
     UIButton*searchButton = [UIButton buttonWithType:UIButtonTypeCustom] ;
-    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 80, 30, 30);
+    searchButton.frame= CGRectMake(SCREEN_WIDTH-40, 90, 25, 25);
     
     
     if (_flagArray[section])
@@ -528,7 +542,7 @@ _Seatchtable.separatorColor=[UIColor clearColor];
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    return 110;
+    return 115;
     
     
 }

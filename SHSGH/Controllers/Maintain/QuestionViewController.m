@@ -184,7 +184,6 @@
     self.questions = registe.name;
     self.code = registe.code;
     [_Questiontable reloadData];
-    
     [self.delegate sendQuestion:_questions WithCode:_code];
     
     [self.navigationController popViewControllerAnimated:YES];

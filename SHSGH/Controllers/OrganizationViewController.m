@@ -30,7 +30,7 @@
     firstA=1002;
 
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
-    [self date];
+//    [self date];
     
     self.title=@"机构查询";
     [self setnavBar];
