@@ -270,6 +270,7 @@
                                                            
                                                            str4textfield=@"";
 
+                                                           
                                                            [_newallarry removeAllObjects];
 
                                                                 changeint=790;

@@ -91,7 +91,7 @@
                 }
                 [self.leftTableView reloadData];
                 
-                if (_province&&_downtown&&_provinceArray&&_downtownArray) {
+                if (_province&&_downtown&&_provinceArray) {
                     [self findIndexPath];
                     NSIndexPath *left = [NSIndexPath indexPathForRow:_provinceIndex inSection:0];
                     [self.leftTableView selectRowAtIndexPath:left animated:YES scrollPosition:UITableViewScrollPositionMiddle];
