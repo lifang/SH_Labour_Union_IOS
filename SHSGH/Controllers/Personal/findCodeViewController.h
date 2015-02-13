@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface findCodeViewController : UIViewController
+{ UIButton *send;
+    NSTimer * timer1;
+    NSInteger count;
+    
+}
 
 @end

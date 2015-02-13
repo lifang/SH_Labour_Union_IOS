@@ -342,6 +342,8 @@
     _phoneField.borderStyle = UITextBorderStyleNone;
     _phoneField.backgroundColor = [UIColor whiteColor];
     _phoneField.delegate = self;
+    _phoneField.keyboardType = UIKeyboardTypeNumberPad;
+
     _phoneField.placeholder = @"请输入您绑定的手机号码";
     _phoneField.font = [UIFont systemFontOfSize:15.f];
     UIView *_phoneFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
@@ -350,13 +352,13 @@
     [_phoneFieldView addSubview:_phoneFieldImageView];
     
     UIView *rightViewFS = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 50)];
-    UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(5, 10, 60, 30)];
+    send = [[UIButton alloc]initWithFrame:CGRectMake(0, 10, 76, 30)];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h1"] forState:UIControlStateNormal];
     [send setBackgroundImage:[UIImage imageNamed:@"btn-h2"] forState:UIControlStateHighlighted];
     [send addTarget:self action:@selector(sendMes) forControlEvents:UIControlEventTouchUpInside];
     send.titleLabel.textColor = [UIColor whiteColor];
     send.titleLabel.font = [UIFont systemFontOfSize:13];
-    [send setTitle:@"发送" forState:UIControlStateNormal];
+    [send setTitle:@"获取验证码" forState:UIControlStateNormal];
     [rightViewFS addSubview:send];
     rightViewFS.backgroundColor = [UIColor clearColor];
     _phoneField.rightView = rightViewFS;
@@ -437,6 +439,8 @@
     _authcodeField.backgroundColor = [UIColor whiteColor];
     _authcodeField.delegate = self;
     _authcodeField.tag = 1001;
+    _authcodeField.keyboardType = UIKeyboardTypeNumberPad;
+
     _authcodeField.placeholder = @"请输入验证码";
     _authcodeField.font = [UIFont systemFontOfSize:15.f];
     UIView *_authcodeFieldView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, imageSize)];
@@ -711,8 +715,8 @@
         [alert show];
         return;
     }
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"发送中!";
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    hud.labelText = @"发送中!";
     
     if (_phoneField.text) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -723,23 +727,64 @@
                 //成功
                 if ([[result objectForKey:@"code"] integerValue]==1)
                 {
+                    SLog(@"验证码发送失败!%@",result);
+
                     NSString *AuthId = [result objectForKey:@"result"];
                     _authCodeM = AuthId;
-                    UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"发送成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    [alertV1 show];
-                    [hud hide:YES];
+                    [self showMessage:@"获取验证码成功" viewHeight:SCREEN_HEIGHT/2-80];
+                    
+                    timer1 = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFireMethod:) userInfo:nil repeats:YES];
+                    send.userInteractionEnabled = NO;
+
                 }
                 //请求失败
                 else
                 {
                     SLog(@"验证码发送失败!");
-                    UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"发送失败" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                    [alertV2 show];
-                    [hud hide:YES];
+                    
+                    NSString *reason = [result objectForKey:@"message"];
+                    if (![KRHttpUtil checkString:reason])
+                    {
+                        reason = @"请求超时或者网络环境较差!";
+                    }
+                    
+                    
+                    [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                    
+                    
+                    
+//                    [hud hide:YES];
                 }
             });
         });
         
+    }
+}
+- (void)showMessage:(NSString*)message viewHeight:(float)height;
+{
+    if(self)
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        //        hud.dimBackground = YES;
+        hud.labelText = message;
+        hud.margin = 10.f;
+        hud.yOffset = height;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:2];
+    }
+}
+
+- (void)timerFireMethod:(NSTimer *)timer
+{
+    count++;
+    [send setTitle:[NSString stringWithFormat:@"%ld秒",60-count] forState:UIControlStateNormal];
+    if (count>60) {
+        count=0;
+        
+        send.userInteractionEnabled = YES;
+        [send setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [timer1 invalidate];
     }
 }
 

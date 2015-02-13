@@ -10,4 +10,9 @@
 
 @interface registerViewController : UIViewController
 
+{ UIButton *send;
+       NSTimer * timer1;
+    NSInteger count;
+
+}
 @end

@@ -368,7 +368,7 @@
     //输入验证
     if (!_usermessageField.text || [_usermessageField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"身份证不能为空!"
+                                                        message:@"工会会员号不能为空!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定!"
                                               otherButtonTitles:nil];

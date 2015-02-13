@@ -182,7 +182,7 @@
     }
     
     
-    _page = [[UIPageControl alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2-30,162, 60, 30)];
+    _page = [[UIPageControl alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-70,162, 60, 30)];
     
     _page.currentPageIndicatorTintColor=[UIColor redColor];
 //    _page.pageIndicatorTintColor=[UIColor whiteColor];
