@@ -407,6 +407,7 @@
     }
 
    [_Conditionstable reloadData];
+    [ self.navigationController popViewControllerAnimated:YES];
     
     
 

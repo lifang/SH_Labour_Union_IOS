@@ -456,11 +456,58 @@
                     
                     people*peo=[[people alloc]init];
                     
-                    peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
-                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
-                    
-                    peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
-                    peo.phone=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"tel"]];
+                    if([[[arry objectAtIndex:i] objectForKey:@"addr"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.addrstring=@"";
+                        
+                        
+                        
+                    }
+                    else
+                    {
+                        peo.addrstring=[[arry objectAtIndex:i] objectForKey:@"addr"];
+                        
+                        
+                    }
+                    if([[[arry objectAtIndex:i] objectForKey:@"id"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.ids=0;
+                        
+                        
+                        
+                    }
+                    else
+                    {
+                        peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                        
+                        
+                    }
+                    if([[[arry objectAtIndex:i] objectForKey:@"name"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.namestring=@"";
+                        
+                        
+                        
+                    }
+                    else
+                    {
+                        peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+                        
+                        
+                    }
+                    if([[[arry objectAtIndex:i] objectForKey:@"tel"] isKindOfClass:[NSNull class]])
+                    {
+                        peo.phone=@"";
+                        
+                        
+                        
+                    }
+                    else
+                    {
+                        peo.phone=[NSString stringWithFormat:@"%@",[[arry objectAtIndex:i] objectForKey:@"tel"]];
+                        
+                        
+                    }
 
                     NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
                     
@@ -529,13 +576,63 @@
                 
                
                 OrganizationdetalViewController*detal=[[OrganizationdetalViewController alloc]init];
+                if([[[result objectForKey:@"result"]  objectForKey:@"name"] isKindOfClass:[NSNull class]])
+                {
+                  detal.name=@"";
+                    
+                    
+                    
+                }
+                else
+                {
+                    detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
+                    
+                    
+                }
                 
+                if([[[result objectForKey:@"result"]  objectForKey:@"worktime"] isKindOfClass:[NSNull class]])
+                {
+                    detal.time=@"";
+                    
+                    
+                    
+                }
+                else
+                {
+                    detal.time=[[result objectForKey:@"result"]  objectForKey:@"worktime"];
+                    
+                    
+                }
                 
-                detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
-                detal.time=[[result objectForKey:@"result"]  objectForKey:@"worktime"];
+                if([[[result objectForKey:@"result"]  objectForKey:@"tel"] isKindOfClass:[NSNull class]])
+                {
+                    detal.tel=@"";
+                    
+                    
+                    
+                }
+                else
+                {
+                    detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
+                    
+                    
+                }
 
-                detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
-                detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                if([[[result objectForKey:@"result"]  objectForKey:@"addr"] isKindOfClass:[NSNull class]])
+                {
+                    detal.address=@"";
+                    
+                    
+                    
+                }
+                else
+                {
+                    detal.address=[[result objectForKey:@"result"]  objectForKey:@"addr"];
+                    
+                    
+                }
+
+
                 NSLog(@"%@",detal.name);
 
                 
