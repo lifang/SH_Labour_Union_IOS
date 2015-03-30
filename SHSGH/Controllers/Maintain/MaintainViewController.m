@@ -267,6 +267,15 @@
     titleLabel.text = @"咨询标题";
     titleLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_questionField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:titleLabel];
+    //红色星星
+    UILabel *redStar3 = [[UILabel alloc]init];
+    redStar3.backgroundColor = [UIColor clearColor];
+    redStar3.frame = CGRectMake(CGRectGetMaxX(titleLabel.frame) + CostumViewMargin, titleLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar3.textColor = sColor(227, 15, 46, 1.0);
+    redStar3.text = @"*";
+    redStar3.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar3];
+
     //咨询标题输入框
     _titleField = [[UITextField alloc]init];
     UIView *leftV6 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 10, 10)];
@@ -300,6 +309,14 @@
     _contentField.backgroundColor = [UIColor whiteColor];
     _contentField.frame = CGRectMake(CGRectGetMinX(contentLabel.frame),CGRectGetMaxY(contentLabel.frame) + 2 * CostumViewMargin , fieldWidth, fieldHeight * 5);
     [contentView addSubview:_contentField];
+    //红色星星
+    UILabel *redStar4 = [[UILabel alloc]init];
+    redStar4.backgroundColor = [UIColor clearColor];
+    redStar4.frame = CGRectMake(CGRectGetMaxX(contentLabel.frame) + CostumViewMargin, contentLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar4.textColor = sColor(227, 15, 46, 1.0);
+    redStar4.text = @"*";
+    redStar4.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar4];
     //底部view
     UIView *bottomView = [[UIView alloc]init];
     bottomView.backgroundColor = sColor(203, 203, 203, 1.0);

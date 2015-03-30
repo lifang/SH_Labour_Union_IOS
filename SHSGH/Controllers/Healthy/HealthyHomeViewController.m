@@ -148,8 +148,10 @@
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
+                if (![result objectForKey:@"result"] || ![[result objectForKey:@"result"] isKindOfClass:[NSArray class]]) {
+                    return;
+                }
                 NSArray *cityArray = [result objectForKey:@"result"];
-                
                 for (int i = 0; i < cityArray.count; i++) {
                     NSDictionary *cityInfo = [cityArray objectAtIndex:i];
                     Province *province = [[Province alloc]init];
@@ -182,7 +184,7 @@
 {
     for (int i = 0; i<_provinceArray.count;i++) {
         Province *pro = [_provinceArray objectAtIndex:i];
-        if ([pro.city_name isEqualToString:@"河北省"]) {
+        if ([pro.city_name isEqualToString:_cityName]) {
             AppDelegate *delegate = [AppDelegate shareAppDelegate];
             delegate.area_id = pro.city_area_id;
         }
@@ -190,7 +192,7 @@
     
     for (int i = 0; i<_downtownArray.count; i++) {
         Downtown *dow = [_downtownArray objectAtIndex:i];
-        if ([dow.area_name isEqualToString:@"苏州市"]) {
+        if ([dow.area_name isEqualToString:_cityName]) {
             AppDelegate *delegate = [AppDelegate shareAppDelegate];
             delegate.area_id = dow.area_id;
         }
@@ -261,7 +263,11 @@
         self.cityVC.downtown = cityLocateName;
          NSLog(@"省为==%@,市为==%@",provinceLocateName,cityLocateName);
         _cityName = cityLocateName;
+        if (!cityLocateName) {
+            _cityName = provinceLocateName;
+        }
         [self setupNav];
+        [self searchCityID];
     }
     else {
         NSLog(@"抱歉，未找到结果");
