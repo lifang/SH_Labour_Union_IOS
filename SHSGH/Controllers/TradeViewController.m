@@ -361,9 +361,18 @@
 //    [logoimageview setContentMode:UIViewContentModeScaleAspectFill];
 
     NSLog(@"%@",peop.images);
+    
+    NSString*stringurl=peop.images;
+    
+    if([stringurl rangeOfString:@"http:"].location ==NSNotFound)
+    {
+        stringurl = [NSString stringWithFormat:@"http://%@",stringurl];
+    }
+    
 
     
-    NSURL *imageUrl = [NSURL URLWithString:peop.images];
+    NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",stringurl]];
+ 
     
     [logoimageview sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"defimage"]];
 

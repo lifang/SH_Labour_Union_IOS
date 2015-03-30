@@ -1612,7 +1612,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "aa21177c-072b-4a1c-ac42-0e2edead6e19";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1634,7 +1634,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "aa21177c-072b-4a1c-ac42-0e2edead6e19";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
