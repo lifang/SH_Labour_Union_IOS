@@ -254,7 +254,7 @@
     [bigscroll addSubview:requirecontent];
     requirecontent.text=self.about;
     
-    [requirecontent sizeToFit];
+//    [requirecontent sizeToFit];
     
     
     

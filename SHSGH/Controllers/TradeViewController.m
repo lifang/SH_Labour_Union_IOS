@@ -279,7 +279,6 @@
     people*peop=[_allarry objectAtIndex:indexPath.section];
     
     templabel.text =peop.about_detail;
-    NSLog(@"%@",peop.about_detail);
     
     templabel.font=[UIFont systemFontOfSize:12];
     [templabel sizeToFit];
@@ -361,9 +360,19 @@
     }
 //    [logoimageview setContentMode:UIViewContentModeScaleAspectFill];
 
+    NSLog(@"%@",peop.images);
     
+    NSString*stringurl=peop.images;
     
-    NSURL *imageUrl = [NSURL URLWithString:peop.images];
+    if([stringurl rangeOfString:@"http:"].location ==NSNotFound)
+    {
+        stringurl = [NSString stringWithFormat:@"http://%@",stringurl];
+    }
+    
+
+    
+    NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@",stringurl]];
+ 
     
     [logoimageview sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"defimage"]];
 
@@ -628,11 +637,37 @@
                 
                 detal.ids=[NSString stringWithFormat:@"%ld",(long)changeA];
                 
+                if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"name"]])
+                {
+                    
+                    detal.name=@"";
+                    
+                    
+                }
+                else
+                {
+                    
+                    detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
+                    
+                    
+                }
+
+                if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"tel"]])
+                {
+                    
+                    detal.tel=@"";
+                    
+                    
+                }
+                else
+                {
+                    
+                    detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
+                    
+                    
+                }
+
                 
-                
-                detal.name=[[result objectForKey:@"result"]  objectForKey:@"name"];
-                
-                detal.tel=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"]  objectForKey:@"tel"]];
                 
                 if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"addr"]])
                 {
@@ -648,7 +683,22 @@
 
                 
                 }
-                detal.about=[[result objectForKey:@"result"]  objectForKey:@"about"];
+                if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"about"]])
+                {
+                    
+                    detal.about=@"";
+                    
+                    
+                }
+                else
+                {
+                    
+                    detal.about=[[result objectForKey:@"result"]  objectForKey:@"about"];
+                    
+                    
+                }
+                
+
 
                 
                 [self.navigationController pushViewController:detal animated:YES];
@@ -701,7 +751,7 @@
 //        [params setObject:@"1" forKey:@"typeId"];
         
         
-        if (firstA==1002)
+        if (firstA==1003)
         {
             urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10+1];
 
@@ -771,8 +821,22 @@
                         
                         
                     }
+                    if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"logo"]])
+                    {
+                        
+                         peo.images=@"";
+                        
+                        
+                    }
+                    else
+                    {
+                        
+                        peo.images=[[arry objectAtIndex:i] objectForKey:@"logo"];
 
-                    peo.images=[[arry objectAtIndex:i] objectForKey:@"logo"];
+                        
+                    }
+                    
+
 
                     if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"addr"]])
                     {
@@ -788,11 +852,52 @@
                         
                         
                     }
+                    if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"id"]])
+                    {
+                        
+                        peo.ids=1;
 
-                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                        
+                    }
+                    else
+                    {
+                        
+                        peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+
+                        
+                    }
+                    if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"name"]])
+                    {
+                        
+                        peo.namestring=@"";
+
+                        
+                    }
+                    else
+                    {
+                        
+                        peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+
+                        
+                    }
+                    if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"tel"]])
+                    {
+                        
+                        peo.phone=@"";
+
+                        
+                    }
+                    else
+                    {
+                        
+                        peo.phone=[[arry objectAtIndex:i] objectForKey:@"tel"];
+
+                        
+                    }
+                    
+
+
                    
-                    peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
-                    peo.phone=[[arry objectAtIndex:i] objectForKey:@"tel"];
 
                     NSLog(@"ppppppppp地对地导弹%@",peo.about_detail);
 

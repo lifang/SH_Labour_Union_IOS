@@ -721,7 +721,7 @@
     if (_phoneField.text) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             
-            NSString *urls = [NSString stringWithFormat:@"/api/user/getPhoneCode?phone=%@",_phoneField.text];
+            NSString *urls = [NSString stringWithFormat:@"/api/user/getPwdCode?phone=%@",_phoneField.text];
             id result = [KRHttpUtil getResultDataByPost:urls param:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //成功

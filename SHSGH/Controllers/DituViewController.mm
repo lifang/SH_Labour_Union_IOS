@@ -414,7 +414,7 @@
 {
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-124)];
     [self.view  addSubview: _mapView];
-    _mapView.zoomLevel = 11;
+    _mapView.zoomLevel = 18;
 
     UIView*backview=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-124, SCREEN_WIDTH, 60)];
     backview.backgroundColor=[UIColor whiteColor];

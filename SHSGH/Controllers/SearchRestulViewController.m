@@ -678,10 +678,23 @@
                     
                     
                 }
+                if([[[result objectForKey:@"result"] objectForKey:@"id"] isKindOfClass:[NSNull class]])
+                {
+                    
+                    
+                    jobdetal.otherids=@"";
+                    
+                    
+                }
+                else
+                {
+                    jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"id"]];
+                    
+                    
+                }
 
 
 
-                jobdetal.otherids=[NSString stringWithFormat:@"%@",[[result objectForKey:@"result"] objectForKey:@"id"]];
 
                 
                 [self.navigationController pushViewController:jobdetal animated:YES];
