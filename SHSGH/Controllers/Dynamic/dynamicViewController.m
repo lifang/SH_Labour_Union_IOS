@@ -88,13 +88,15 @@
                     DynamicImage *dynamicImg = [[DynamicImage alloc]init];
                     dynamicImg.title = [[imageeArray objectAtIndex:i]objectForKey:@"bigImg"];
                     dynamicImg.ids = [[[imageeArray objectAtIndex:i]objectForKey:@"id"] intValue];
-                    dynamicImg.imgPath = [[imageeArray objectAtIndex:i]objectForKey:@"imgPath"];
+                    if ([[[imageeArray objectAtIndex:i]objectForKey:@"imgPath"] isKindOfClass:[NSString class]]) {
+                        dynamicImg.imgPath = [[imageeArray objectAtIndex:i]objectForKey:@"imgPath"];
+                        [_imageArray addObject:dynamicImg.imgPath];
+                    }
                     dynamicImg.time = [[imageeArray objectAtIndex:i]objectForKey:@"time"];
                     
                     IDModel *idModel = [[IDModel alloc]init];
                     idModel.ids = [[imageeArray objectAtIndex:i]objectForKey:@"id"];
                     [_idArray addObject:idModel.ids];
-                    [_imageArray addObject:dynamicImg.imgPath];
                 }
                 [self setScrollView];
             }

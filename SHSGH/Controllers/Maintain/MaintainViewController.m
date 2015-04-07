@@ -542,6 +542,16 @@
         _phoneField.text = account.phoneNum;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    AppDelegate *delegate = [AppDelegate shareAppDelegate];
+    if (delegate.userIDName&&![delegate.userIDName isKindOfClass:[NSNull class]]) {
+        _nameField.text = delegate.userIDName;
+        _phoneField.text = delegate.phone;
+    }
+}
+
 -(void)setNavBar
 {
     self.title = @"维权登记";
