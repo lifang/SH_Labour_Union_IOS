@@ -125,10 +125,11 @@
     
     
     BMKGeoCodeSearchOption *geoCodeSearchOption = [[BMKGeoCodeSearchOption alloc]init];
-    geoCodeSearchOption.city= self.city;
+    geoCodeSearchOption.city= @"上海";
     geoCodeSearchOption.address = self.address;
     NSLog(@"geo检索发送成功%@",self.address);
     
+    NSLog(@"%@",self.city);
 
     
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
@@ -343,6 +344,10 @@
 }
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
+    
+    
+    NSLog(@"%u",error);
+    
     if (error == BMK_SEARCH_NO_ERROR)
     {
         per_lon=result.location.longitude;
@@ -373,8 +378,34 @@
         
         //在此处理正常结果
     }
-    else {
-        NSLog(@"抱歉，未找到结果");
+    
+
+    else
+    {
+        per_lon=result.location.longitude;
+        per_lat=result.location.latitude;
+        
+        
+        
+        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+        CLLocationCoordinate2D coor;
+        
+        
+        
+        coor.latitude = per_lat;
+        coor.longitude = per_lon;
+        annotation.coordinate = coor;
+        annotation.title = self.name;
+        
+        
+        
+        [_mapView addAnnotation:annotation];
+        [_mapView setCenterCoordinate:coor];
+        
+        annotation=nil;
+       [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+
+        NSLog(@"-------抱歉，未找到结果");
     }
 }
 //- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation

@@ -52,14 +52,40 @@
     _Conditionstable.dataSource=self;
     _Conditionstable.rowHeight=40;
     
-    _Conditionstable.tableFooterView = [[UIView alloc]init];
-
+//    _Conditionstable.tableFooterView = [[UIView alloc]init];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 60)];
+    footerView.backgroundColor = [UIColor clearColor];
+    UIButton *cleanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    cleanButton.frame = CGRectMake((SCREEN_WIDTH - 120) / 2, 10, 120, 28);
+    cleanButton.layer.cornerRadius = 4;
+    cleanButton.layer.masksToBounds = YES;
+    cleanButton.layer.borderWidth = 1.f;
+    cleanButton.layer.borderColor = kColor(255, 102, 36, 1).CGColor;
+    [cleanButton setTitleColor:kColor(255, 102, 36, 1) forState:UIControlStateNormal];
+    cleanButton.titleLabel.font = [UIFont systemFontOfSize:14.f];
+    [cleanButton setTitle:@"清除历史记录" forState:UIControlStateNormal];
+    [cleanButton setBackgroundImage:[UIImage imageNamed:@"selected.png"] forState:UIControlStateHighlighted];
+    [cleanButton addTarget:self action:@selector(clearSearchHistoy) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:cleanButton];
+    _Conditionstable.tableFooterView = footerView;
     
     //    _Seatchtable.separatorStyle=UITableViewCellSeparatorStyleNone;
     
     [self  setNavBar];
     
     
+}
+-(void)clearSearchHistoy
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults removeObjectForKey:@"record"];
+    _recortarry=[userDefaults objectForKey:@"record"];
+    [_Conditionstable reloadData];
+    
+
+
+
 }
 -(void)setNavBar
 {
