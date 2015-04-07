@@ -32,6 +32,7 @@
         UIImageView *imageV = [[UIImageView alloc]init];
         imageV.image = [UIImage imageNamed:@"right_view"];
         self.accessoryView = imageV;
+        self.accessoryView.hidden = YES;
         
         //取出cell默认的背景颜色
 //        self.backgroundColor = sColor(220, 220, 220, 1.0);
@@ -45,9 +46,9 @@
 -(void)layoutSubviews
 {
     [super layoutSubviews];
-    self.textLabel.frame = CGRectMake(20, 0, mainViewW * 0.5, self.frame.size.height);
-    self.detailTextLabel.frame = CGRectMake(mainViewW * 0.6, 0, mainViewW * 0.3, self.frame.size.height);
-    self.accessoryView.frame = CGRectMake(mainViewW - 45, 8, 28,28 );
+    self.textLabel.frame = CGRectMake(20, 0, mainViewW * 0.7, self.frame.size.height);
+    self.detailTextLabel.frame = CGRectMake(mainViewW * 0.8, 0, mainViewW * 0.3, self.frame.size.height);
+//    self.accessoryView.frame = CGRectMake(mainViewW - 45, 8, 28,28 );
 }
 
 
