@@ -132,6 +132,7 @@
         UserModel *account = [UserTool userModel];
         NSString *nickName = [_usernameField.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *urls = [NSString stringWithFormat:@"/api/user/update?token=%@&id=%@&nickName=%@&email=%@&labourUnionCode=%@",account.token, account.userID,nickName,_emailField.text,_userIDField.text];
+        NSLog(@"%@",urls);
         NSString *str = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         id result = [KRHttpUtil getResultDataByPost:str param:nil];
         AppDelegate *delegate = [AppDelegate shareAppDelegate];

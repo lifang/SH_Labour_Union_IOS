@@ -17,7 +17,7 @@
 
 
 #define MAIN_URL @"http://180.166.148.170:8080"
-#define MAIN_URL @"http://192.168.0.250:8080"
+#define MAIN_URLS @"http://192.168.0.250:8080"
 #define mainFont [UIFont systemFontOfSize:15]
 //机器的版本号
 #define sDeviceVersion [[[UIDevice currentDevice] systemVersion] floatValue]
