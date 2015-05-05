@@ -161,6 +161,7 @@
     [ self setNavBar];
     
     [self createui];
+    self.view.backgroundColor=[UIColor whiteColor];
     
     NSLog(@"%f",corld.latitude);
     
@@ -382,28 +383,30 @@
 
     else
     {
-        per_lon=result.location.longitude;
-        per_lat=result.location.latitude;
+//        per_lon=result.location.longitude;
+//        per_lat=result.location.latitude;
+//        
+//        
+//        
+//        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
+//        CLLocationCoordinate2D coor;
+//        
+//        
+//        
+//        coor.latitude = per_lat;
+//        coor.longitude = per_lon;
+//        annotation.coordinate = coor;
+//        annotation.title = self.name;
+//        
+//        
+//        
+//        [_mapView addAnnotation:annotation];
+//        [_mapView setCenterCoordinate:coor];
+//        
+//        annotation=nil;
+//        _mapView.hidden=YES;
         
-        
-        
-        BMKPointAnnotation* annotation = [[BMKPointAnnotation alloc]init];
-        CLLocationCoordinate2D coor;
-        
-        
-        
-        coor.latitude = per_lat;
-        coor.longitude = per_lon;
-        annotation.coordinate = coor;
-        annotation.title = self.name;
-        
-        
-        
-        [_mapView addAnnotation:annotation];
-        [_mapView setCenterCoordinate:coor];
-        
-        annotation=nil;
-       [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+       [self showMessage:@"抱歉，未找到结果" viewHeight:SCREEN_HEIGHT/2-80];
 
         NSLog(@"-------抱歉，未找到结果");
     }
