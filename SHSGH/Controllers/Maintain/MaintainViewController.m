@@ -537,9 +537,14 @@
     if (account.userIDName == nil) {
         loginViewController *loginVC = [[loginViewController alloc]init];
         [self.navigationController pushViewController:loginVC animated:YES];
-    }
+    }else{
+        if ([account.userIDName isKindOfClass:[NSNull class]]) {
+            _nameField.text = @"";
+        }else{
         _nameField.text = account.userIDName;
+        }
         _phoneField.text = account.phoneNum;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
