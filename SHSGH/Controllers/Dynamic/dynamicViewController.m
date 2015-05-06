@@ -189,7 +189,7 @@
 -(void)setNavBar
 {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.title = @"区县新闻";
+    self.title = @"最新动态";
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [UIColor whiteColor],
                                 NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:22],NSFontAttributeName, nil];
