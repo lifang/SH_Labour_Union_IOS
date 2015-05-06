@@ -572,7 +572,6 @@
             
             
             [namearry insertObject:addstring atIndex:6];
-            [_Seatchtable reloadData];
             
             
         }
@@ -594,6 +593,8 @@
 
     
     }
+    [_Seatchtable reloadData];
+
 }
 - (void)viewDidLoad {
     
@@ -679,7 +680,10 @@
         [cell setSeparatorInset:UIEdgeInsetsZero];
     }
     
+    
         cell.textLabel.text=[namearry objectAtIndex:indexPath.row];
+
+    
 
  
     

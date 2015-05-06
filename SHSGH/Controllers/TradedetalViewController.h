@@ -28,5 +28,6 @@
 @property(nonatomic,strong)NSString*address;
 @property(nonatomic,strong)NSString*tel;
 @property(nonatomic,strong)NSString*about;
+@property(nonatomic,strong)NSString*images;
 
 @end

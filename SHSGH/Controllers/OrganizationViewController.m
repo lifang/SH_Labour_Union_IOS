@@ -16,7 +16,7 @@
 #import "OrganizationdetalViewController.h"
 #import "people.h"
 #import "PersonalDoneViewController.h"
-
+#import "TradeModel.h"
 @interface OrganizationViewController ()
 
 @end
@@ -411,7 +411,7 @@
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-//    [self.view addSubview:HUD];
+  [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];
@@ -631,8 +631,22 @@
                     
                     
                 }
+                if([[[result objectForKey:@"result"]  objectForKey:@"piclist"] isKindOfClass:[NSArray class]])
 
 
+                {NSArray*arry=[[result objectForKey:@"result"]  objectForKey:@"piclist"];
+                    
+                    NSMutableArray*muita=[[NSMutableArray alloc]init];
+
+                    for(int i=0;i<arry.count;i++)
+                    {
+                        [muita addObject:[[arry objectAtIndex:i] objectForKey:@"pic"]];
+                    }
+                
+                    detal.namearry=muita;
+                    
+                
+                }
                 NSLog(@"%@",detal.name);
 
                 

@@ -681,6 +681,18 @@
 
 -(void)searchButtonclick
 {
+    
+    
+    if([self isBlankString:_searchfield.text])
+    {
+        
+        [self showMessage:@"请填写关键字" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        return;
+        
+        
+    }
+
     _isReloadingAllData = YES;
     changeint=7980;
     
@@ -706,6 +718,16 @@
 }
 -(void)helpButtonclick
 {
+    
+    if([self isBlankString:_searchfield.text])
+    {
+    
+        [self showMessage:@"请填写身份证号码" viewHeight:SCREEN_HEIGHT/2-80];
+
+        return;
+        
+    
+    }
      changeint=7970;
     [_newallarry removeAllObjects];
     _isReloadingAllData = YES;
@@ -741,7 +763,7 @@
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-//    [self.view addSubview:HUD];
+    [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];

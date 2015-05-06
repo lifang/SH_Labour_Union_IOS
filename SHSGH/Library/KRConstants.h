@@ -16,7 +16,7 @@
 @interface KRConstants : NSObject
 #define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 //#define BASEURL_PUBLIC            @"http://192.168.0.250:7070/shanghaiunion"
- #define BASEURL_PUBLIC            @"http://180.166.148.170:8080"
+ #define BASEURL_PUBLIC            @"http://114.215.149.242:999/union"
 //#define BASEURL_PUBLIC            @"http://192.168.0.206:8080/shanghaiunion"
 
 #define BASEURL_PUBLICs @ "http://data.i-xiangce.com:8088/clientServer/mobile/"

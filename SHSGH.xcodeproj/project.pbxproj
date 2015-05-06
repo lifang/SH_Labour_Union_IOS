@@ -29,6 +29,7 @@
 		0EC7BA131AC3E50000080E2A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC7BA051AC3E50000080E2A /* UIView+WebCacheOperation.m */; };
 		0EC8A5EA1A787EF800FBFD53 /* tuixiu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC8A5E81A787EF800FBFD53 /* tuixiu.png */; };
 		0EC8A5EB1A787EF800FBFD53 /* zaizhi.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EC8A5E91A787EF800FBFD53 /* zaizhi.png */; };
+		0EC8E9DC1AF21B80000DC794 /* TradeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC8E9DB1AF21B80000DC794 /* TradeModel.m */; };
 		0EC9EB6E1A7F406E008FF6A8 /* LineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9EB6D1A7F406E008FF6A8 /* LineTableViewCell.m */; };
 		0EC9EB711A7F6979008FF6A8 /* MapdetalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0EC9EB701A7F6979008FF6A8 /* MapdetalViewController.mm */; };
 		0ECA43891A79F07B00AEA86B /* ListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECA43881A79F07B00AEA86B /* ListTableViewCell.m */; };
@@ -227,6 +228,8 @@
 		0EC7BA051AC3E50000080E2A /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		0EC8A5E81A787EF800FBFD53 /* tuixiu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tuixiu.png; sourceTree = "<group>"; };
 		0EC8A5E91A787EF800FBFD53 /* zaizhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zaizhi.png; sourceTree = "<group>"; };
+		0EC8E9DA1AF21B80000DC794 /* TradeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradeModel.h; sourceTree = "<group>"; };
+		0EC8E9DB1AF21B80000DC794 /* TradeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradeModel.m; sourceTree = "<group>"; };
 		0EC9EB6C1A7F406E008FF6A8 /* LineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineTableViewCell.h; sourceTree = "<group>"; };
 		0EC9EB6D1A7F406E008FF6A8 /* LineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineTableViewCell.m; sourceTree = "<group>"; };
 		0EC9EB6F1A7F6979008FF6A8 /* MapdetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapdetalViewController.h; sourceTree = "<group>"; };
@@ -805,6 +808,8 @@
 		0ED0FDE61A75E2B300486C2E /* OrganizationSearch */ = {
 			isa = PBXGroup;
 			children = (
+				0EC8E9DA1AF21B80000DC794 /* TradeModel.h */,
+				0EC8E9DB1AF21B80000DC794 /* TradeModel.m */,
 				0ED0FDE71A75E30300486C2E /* OrganizationViewController.h */,
 				0ED0FDE81A75E30300486C2E /* OrganizationViewController.m */,
 				0ED0FDF11A76015F00486C2E /* OrganizationdetalViewController.h */,
@@ -1422,6 +1427,7 @@
 				0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */,
 				936287AE1A80A77D000E4AE9 /* ClassMessageCell.m in Sources */,
 				0ED0FDF01A75FAEC00486C2E /* OrganizationTableViewCell.m in Sources */,
+				0EC8E9DC1AF21B80000DC794 /* TradeModel.m in Sources */,
 				0ECFF22F1A6F7DA6007F882E /* OtherjobViewController.m in Sources */,
 				0ED0FDF61A76395000486C2E /* TradedetalViewController.m in Sources */,
 				0EC7BA091AC3E50000080E2A /* SDWebImageDecoder.m in Sources */,
@@ -1599,7 +1605,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
@@ -1621,7 +1627,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;

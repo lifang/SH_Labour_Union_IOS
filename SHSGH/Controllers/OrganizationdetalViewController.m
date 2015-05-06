@@ -162,11 +162,11 @@
     _scrool.delegate = self;
     
     
-    for (int i = 0 ; i < 3 ; i ++ )
+    for (int i = 0 ; i < self.namearry.count ; i ++ )
     {
         UIImageView *imageview = [[UIImageView alloc]init];
 //        NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
-        [imageview sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+        [imageview sd_setImageWithURL:[NSURL URLWithString:[self.namearry objectAtIndex:i]] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
         //
         
         [imageview setContentMode:UIViewContentModeScaleAspectFill];
@@ -186,7 +186,7 @@
     
     _page.currentPageIndicatorTintColor=[UIColor redColor];
 //    _page.pageIndicatorTintColor=[UIColor whiteColor];
-    _page.numberOfPages =3;
+    _page.numberOfPages =self.namearry.count;
     
     [bigscroll addSubview:_page];
     UILabel*namelable=[[UILabel alloc]init];
@@ -401,7 +401,7 @@
 -(void)scrollcententtimerhandle
 {
     
-    if (_scrool.contentOffset.x >=( _scrool.frame.size.width*(3-1))) {
+    if (_scrool.contentOffset.x >=( _scrool.frame.size.width*(self.namearry.count-1))) {
         [_scrool setContentOffset:CGPointMake(0, 0) animated:YES];
     }else{
         [_scrool setContentOffset:CGPointMake(_scrool.contentOffset.x + _move, 0) animated:YES];
