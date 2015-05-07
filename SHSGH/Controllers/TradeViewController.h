@@ -18,6 +18,7 @@
     NSInteger totalCount;
     NSInteger firstA;
     NSInteger changeA;
+    NSString *images;
 
     UITextField*_searchfield;
         BOOL _flagArray[100];

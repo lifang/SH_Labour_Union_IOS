@@ -146,8 +146,8 @@
     //初始化UISegmentedControl 使用第三方 PPiFlatSegmentedControl
     
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage resizedImage:@"navBG"] resizableImageWithCapInsets:UIEdgeInsetsMake(1, 1, 1, 1)] forBarMetrics:UIBarMetricsDefault];
-    segmentedControl=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20,5,SCREEN_WIDTH-40,30) items:@[               @{@"text":@"系统商户",@"":@""},
-                                                                                                                               @{@"text":@"团购商户",@"":@""}
+    segmentedControl=[[PPiFlatSegmentedControl alloc] initWithFrame:CGRectMake(20,5,SCREEN_WIDTH-40,30) items:@[               @{@"text":@"团购商户",@"":@""},
+                                                                                                                               @{@"text":@"系统商户",@"":@""}
                                                                                                                                ]
                                                        iconPosition:IconPositionRight andSelectionBlock:^(NSUInteger segmentIndex)
                       
@@ -485,6 +485,7 @@
     
     people*pp=[_allarry objectAtIndex:tagA];
     changeA=pp.ids;
+    images=pp.images;
     
     [self detaldate];
     
@@ -698,7 +699,8 @@
                     
                 }
                 
-
+                detal.images=images;
+                
 
                 
                 [self.navigationController pushViewController:detal animated:YES];
@@ -740,7 +742,7 @@
 {
     MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
-//    [self.view addSubview:HUD];
+    [self.view addSubview:HUD];
     
     HUD.labelText = @"正在加载...";
     [HUD show:YES];
@@ -753,13 +755,13 @@
         
         if (firstA==1003)
         {
-            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10+1];
+            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=2&offset=%d",_allarry.count/10+1];
 
         }
       
      else
         {
-    urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=2&offset=%d",_allarry.count/10+1];
+            urls =[NSString stringWithFormat:@"/api/merchant/findAll?typeId=1&offset=%d",_allarry.count/10+1];
 
         }
     

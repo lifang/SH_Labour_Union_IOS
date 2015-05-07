@@ -28,6 +28,7 @@
 
 @property(nonatomic,strong)NSString*time;
 @property(nonatomic,strong)NSString*phone;
+@property(nonatomic,strong)NSMutableArray*namearry;
 
 @property(nonatomic,strong)NSString*name;
 @property(nonatomic,strong)NSString*address;

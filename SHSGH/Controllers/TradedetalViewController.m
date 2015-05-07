@@ -112,7 +112,7 @@
     {
         UIImageView *imageview = [[UIImageView alloc]init];
 //                NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
-                [imageview sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
+                [imageview sd_setImageWithURL:[NSURL URLWithString:self.images] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
                 //
         
         [imageview setContentMode:UIViewContentModeScaleAspectFill];
@@ -278,7 +278,7 @@
     
     
     otherbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [otherbutton setTitle:@"        其他商家" forState:UIControlStateNormal];
+    [otherbutton setTitle:@"        门店查询" forState:UIControlStateNormal];
    [otherbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [otherbutton addTarget:self action:@selector(listview) forControlEvents:UIControlEventTouchUpInside];
@@ -329,13 +329,12 @@
     UIWebView*callWebview =[[UIWebView alloc] init];
     
     
-    NSString*phone=@"110";
     
     
     
     
     
-    NSString *telUrl = [NSString stringWithFormat:@"tel:%@",phone];
+    NSString *telUrl = [NSString stringWithFormat:@"tel:%@",self.tel];
     
     
     

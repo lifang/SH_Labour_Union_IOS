@@ -394,6 +394,7 @@
 //        
 //        
 //        coor.latitude = per_lat;
+        
 //        coor.longitude = per_lon;
 //        annotation.coordinate = coor;
 //        annotation.title = self.name;
@@ -405,8 +406,10 @@
 //        
 //        annotation=nil;
 //        _mapView.hidden=YES;
+        [self showMessage:@"抱歉，未找到结果" viewHeight:SCREEN_HEIGHT/2-80];
+
+        [self.navigationController popViewControllerAnimated:YES];
         
-       [self showMessage:@"抱歉，未找到结果" viewHeight:SCREEN_HEIGHT/2-80];
 
         NSLog(@"-------抱歉，未找到结果");
     }

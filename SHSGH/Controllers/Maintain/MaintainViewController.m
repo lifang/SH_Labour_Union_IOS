@@ -543,7 +543,16 @@
         }else{
         _nameField.text = account.userIDName;
         }
+        if ([account.phoneNum isKindOfClass:[NSNull class]]) {
+            _phoneField.text = @"";
+        }else{
         _phoneField.text = account.phoneNum;
+        }
+        if ([account.email isKindOfClass:[NSNull class]]) {
+            _emailField.text = @"";
+        }else{
+        _emailField.text = account.email;
+        }
     }
 }
 
@@ -554,6 +563,7 @@
     if (delegate.userIDName&&![delegate.userIDName isKindOfClass:[NSNull class]]) {
         _nameField.text = delegate.userIDName;
         _phoneField.text = delegate.phone;
+        _emailField.text = delegate.email;
     }
 }
 

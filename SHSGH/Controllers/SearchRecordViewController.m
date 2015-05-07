@@ -205,7 +205,7 @@
         
         if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
         {
-            addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"]];
+            addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"13"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"]];
 
             
         }else
@@ -294,12 +294,14 @@
     }
     
     if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"12"]]==NO&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"13"]]==YES&&[self isBlankString:[[self.recortarry objectAtIndex:indexPath.row ] objectForKey:@"14"]]==NO)
-    {if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
+    {
+        if([self isBlankString:[[self.recortarry objectAtIndex:indexPath.row] objectForKey:@"15"]]==NO)
     {
         addstring=[NSString stringWithFormat:@"%@+%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"15"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
 
         
-    }else
+    }
+        else
     {
         
         addstring=[NSString stringWithFormat:@"%@+%@",[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"12"],[[self.recortarry objectAtIndex:indexPath.row  ] objectForKey:@"14"]];
