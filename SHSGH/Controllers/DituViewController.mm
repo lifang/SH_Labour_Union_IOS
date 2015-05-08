@@ -22,7 +22,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
    
-    NSLog(@"%@成功",self.city);
 
     
 
@@ -154,7 +153,7 @@
 
 }
 - (void) viewDidAppear:(BOOL)animated {
-    // 添加一个PointAnnotation
+       // 添加一个PointAnnotation
    }
 
 - (void)viewDidLoad {
@@ -211,7 +210,6 @@
         NSLog(@"%@",self.name);
         NSLog(@"%@",self.name);
        
-        [HUD removeFromSuperview];
 
     }
     else
@@ -243,7 +241,7 @@
 }
 
 #pragma mark - BMKRouteSearchDelegate
--(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
+-(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:(BMKTransitRouteResult*)result
                      errorCode:(BMKSearchErrorCode)error
 {
     NSLog(@"----%@",result.routes);
@@ -335,9 +333,11 @@
             
     }
        
-      
+       
+
         
 }
+    [HUD removeFromSuperview];
 
     
 }
@@ -443,6 +443,17 @@
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [_mapView viewWillDisappear];
+    
+    
+    _mapView.delegate = nil; // 不用时，置nil
+    _mapView=nil;
+    _searchers=nil;
+    _locService=nil;
+    _locService.delegate=nil;
+    
+    _searchers.delegate = nil;
+    
 
 
 }
