@@ -87,8 +87,12 @@
                 
                 //发起正向地理编码检索
                 
+                HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
                 
-                    
+                [self.view addSubview:HUD];
+                
+                HUD.labelText = @"正在加载...";
+                [HUD show:YES];
                     
               
                 
@@ -207,10 +211,12 @@
         NSLog(@"%@",self.name);
         NSLog(@"%@",self.name);
        
-        
+        [HUD removeFromSuperview];
+
     }
     else
     {
+        [HUD removeFromSuperview];
 
 //        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
         
@@ -332,7 +338,6 @@
       
         
 }
-    [HUD removeFromSuperview];
 
     
 }
@@ -350,12 +355,7 @@
 }
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
-    HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
-    
-    [self.view addSubview:HUD];
-    
-    HUD.labelText = @"正在加载...";
-    [HUD show:YES];
+  
     
     NSLog(@"%u",error);
     
