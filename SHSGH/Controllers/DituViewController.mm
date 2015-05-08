@@ -26,9 +26,13 @@
 
     
 
+  HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
     
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
 
-    _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
@@ -86,7 +90,6 @@
                 //启动LocationService
                 [_locService startUserLocationService];
                 
-                
                 //发起正向地理编码检索
                 
                 
@@ -112,7 +115,7 @@
         });
     });
 
-    
+  
     
     _searchers =[[BMKGeoCodeSearch alloc]init];
     _searchers.delegate = self;
@@ -137,11 +140,12 @@
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
     {
+        
         NSLog(@"geo检索发送成功");
     }
     else
     {
-        
+
    
     
     
@@ -156,7 +160,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
+
     self.title=@"地图详情";
     
     [ self setnavBar];
@@ -179,7 +184,8 @@
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
-    
+   
+
    
     _searcher = [[BMKRouteSearch alloc]init];
     _searcher.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
@@ -205,12 +211,12 @@
     {
         NSLog(@"%@",self.name);
         NSLog(@"%@",self.name);
-
+        
         
     }
     else
     {
-        
+
 //        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
         
         
@@ -241,12 +247,11 @@
 {
     NSLog(@"----%@",result.routes);
 
-   
-    if (error == BMK_SEARCH_NO_ERROR)
+      if (error == BMK_SEARCH_NO_ERROR)
         
     {
         [_linebusarry removeAllObjects];
-        
+
         
         for(int i=0;i<result.routes.count;i++)
         {
@@ -328,8 +333,11 @@
             
             
     }
-
+       
+      
+        
 }
+    [HUD removeFromSuperview];
 
     
 }
