@@ -683,15 +683,15 @@
 {
     
     
-    if([self isBlankString:_searchfield.text])
-    {
-        
-        [self showMessage:@"请填写关键字" viewHeight:SCREEN_HEIGHT/2-80];
-        
-        return;
-        
-        
-    }
+//    if([self isBlankString:_searchfield.text])
+//    {
+//        
+//        [self showMessage:@"请填写关键字" viewHeight:SCREEN_HEIGHT/2-80];
+//        
+//        return;
+//        
+//        
+//    }
 
     _isReloadingAllData = YES;
     changeint=7980;

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BMapKit.h"
+#import "DituViewController.h"
+
 @interface ListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,BMKGeoCodeSearchDelegate>
 {
     
@@ -15,6 +17,7 @@
     NSArray*namearry;
     NSMutableArray*_allarry;
     BMKGeoCodeSearch*_searchers;
+    DituViewController*ditu;
 
     UITextField*_searchfield;
     NSString*urls;

@@ -22,6 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"机构详情";
+     ditu=[[DituViewController alloc]init];
     [self   createui];
     _locationManager = [[CLLocationManager alloc]init];
     if (![CLLocationManager locationServicesEnabled]) {
@@ -351,7 +352,7 @@
 -(void)dituclick
 {
 
-    DituViewController*ditu=[[DituViewController alloc]init];
+   
     ditu.address=self.address;
     ditu.name=self.name;
 

@@ -84,14 +84,14 @@
     [contentView addSubview:topView];
     //选择segmentedControl
     NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"1",@"2",nil];
-    UISegmentedControl *segmentView = [[UISegmentedControl alloc]initWithItems:segmentedArray];
+    segmentView = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     segmentView.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width, 32);
     segmentView.tintColor = [UIColor orangeColor];
     segmentView.momentary = NO;
     [segmentView setTitle:@"游客维权区" forSegmentAtIndex:0];
     [segmentView setTitle:@"会员维权区" forSegmentAtIndex:1];
     [segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    segmentView.selectedSegmentIndex = 0;
+//    segmentView.selectedSegmentIndex = 0;
     [contentView addSubview:segmentView];
     //分隔线
     UIView *lineView = [[UIView alloc]init];
@@ -209,6 +209,12 @@
     _emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _emailField.layer.cornerRadius = 2;
     _emailField.layer.masksToBounds = YES;
+    UserModel *account = [UserTool userModel];
+    if (account.email)
+    {
+        _emailField.text=account.email;
+        
+    }
     _emailField.placeholder = @"请输入您的电子邮件";
     [_emailField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
     [_emailField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
@@ -554,6 +560,18 @@
     if (delegate.userIDName&&![delegate.userIDName isKindOfClass:[NSNull class]]) {
         _nameField.text = delegate.userIDName;
         _phoneField.text = delegate.phone;
+    }
+    
+    if(delegate.userIDName)
+    {
+        segmentView.selectedSegmentIndex = 1;
+
+    }else
+    {
+        segmentView.selectedSegmentIndex = 0;
+
+    
+    
     }
 }
 

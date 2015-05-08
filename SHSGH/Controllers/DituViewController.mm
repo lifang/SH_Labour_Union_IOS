@@ -25,19 +25,21 @@
     NSLog(@"%@成功",self.city);
 
     
+
     
-    
-    [_mapView viewWillAppear];
+
     _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
-    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+//    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+//
+//    [_mapView viewWillAppear];
+//    //    _mapView.zoomLevel = 18;
 
-    
-    
+
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -407,8 +409,10 @@
 //        annotation=nil;
 //        _mapView.hidden=YES;
         [self showMessage:@"抱歉，未找到结果" viewHeight:SCREEN_HEIGHT/2-80];
-
-        [self.navigationController popViewControllerAnimated:YES];
+        [_mapView removeFromSuperview];
+        [addrbutton removeFromSuperview];
+        
+//        [self.navigationController popViewControllerAnimated:YES];
         
 
         NSLog(@"-------抱歉，未找到结果");
@@ -426,20 +430,7 @@
 //}
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [_mapView viewWillDisappear];
-
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    NSArray*arrays = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:arrays];
-    [_mapView removeOverlays:array];
-    _mapView.delegate = nil; // 不用时，置nil
-    _mapView=nil;
-    _searchers=nil;
-    _locService=nil;
-    _locService.delegate=nil;
-    
-     _searchers.delegate = nil;
+   
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
@@ -474,7 +465,7 @@
     addresslab.font=[UIFont systemFontOfSize:12];
 
     
-    UIButton*addrbutton=[[UIButton alloc]init];
+    addrbutton=[[UIButton alloc]init];
     
     
     addrbutton.frame=CGRectMake(SCREEN_WIDTH-110,SCREEN_HEIGHT-110 ,100, 30);
@@ -544,6 +535,20 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    [_mapView viewWillDisappear];
+    
+   
+    _mapView.delegate = nil; // 不用时，置nil
+    _mapView=nil;
+    _searchers=nil;
+    _locService=nil;
+    _locService.delegate=nil;
+    
+    _searchers.delegate = nil;
+    
+    
+    
     // Dispose of any resources that can be recreated.
 }
 

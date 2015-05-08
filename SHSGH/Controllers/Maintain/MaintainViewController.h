@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface MaintainViewController : UIViewController
-
+{UISegmentedControl *segmentView ;
+    
+}
 @property(nonatomic,strong)UINavigationController *maintainNav;
+
 
 @end
