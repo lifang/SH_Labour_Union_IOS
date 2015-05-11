@@ -482,18 +482,18 @@
         
         if(iOS7)
         {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-80, 33)];
+            _searchfields=[[UITextField alloc]initWithFrame:CGRectMake(40, 1, SCREEN_WIDTH-80, 33)];
         }
         else
         {
-            _searchfield=[[UITextField alloc]initWithFrame:CGRectMake(40, 5, SCREEN_WIDTH-80, 33)];
+            _searchfields=[[UITextField alloc]initWithFrame:CGRectMake(40, 5, SCREEN_WIDTH-80, 33)];
             
         }
         searchrootview.layer.cornerRadius=18;
-        _searchfield.text= str4textfield;
+        _searchfields.text= str4textfield;
 
-        _searchfield.placeholder=@"请输入关键字 ";
-        _searchfield.delegate=self;
+        _searchfields.placeholder=@"请填写身份证号码 ";
+        _searchfields.delegate=self;
         CALayer *layer=[searchrootview layer];
         //是否设置边框以及是否可见
         [layer setMasksToBounds:YES];
@@ -504,7 +504,7 @@
         [layer setBorderWidth:1];
         //设置边框线的颜色
         [layer setBorderColor:[[UIColor grayColor] CGColor]];
-        [searchrootview addSubview:_searchfield];
+        [searchrootview addSubview:_searchfields];
         
         UIImageView*seariamgeview=[[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 25, 25)];
         [searchrootview addSubview: seariamgeview];
@@ -681,7 +681,7 @@
 
 -(void)searchButtonclick
 {
-    
+
     
     if([self isBlankString:_searchfield.text])
     {
@@ -692,7 +692,8 @@
         
         
     }
-
+    [_searchfield resignFirstResponder];
+    
     _isReloadingAllData = YES;
     changeint=7980;
     
@@ -718,8 +719,9 @@
 }
 -(void)helpButtonclick
 {
-    
-    if([self isBlankString:_searchfield.text])
+    [_searchfields resignFirstResponder];
+
+    if([self isBlankString:_searchfields.text])
     {
     
         [self showMessage:@"请填写身份证号码" viewHeight:SCREEN_HEIGHT/2-80];
@@ -988,6 +990,20 @@
  
     
 }
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+//{
+//
+//
+//
+//
+//    str4textfield=textField.text;
+//
+//
+//    return YES;
+//
+//
+//}// return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     str4textfield=textField.text;

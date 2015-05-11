@@ -11,7 +11,6 @@
 #import "ListTableViewCell.h"
 #import "people.h"
 
-#import "DituViewController.h"
 @interface ListViewController ()
 
 @end
@@ -38,7 +37,8 @@
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
     [_allarry removeAllObjects];
     
-    
+    ditu=[[DituViewController alloc]init];
+
     
     _locationManager = [[CLLocationManager alloc]init];
     
@@ -165,7 +165,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DituViewController*ditu=[[DituViewController alloc]init];
     people*pp=[_allarry objectAtIndex:indexPath.row];
    
     ditu.name=pp.namestring;

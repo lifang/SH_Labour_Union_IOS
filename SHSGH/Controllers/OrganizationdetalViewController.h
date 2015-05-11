@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BMapKit.h"
+#import "DituViewController.h"
 @interface OrganizationdetalViewController : UIViewController<UIScrollViewDelegate,BMKGeoCodeSearchDelegate,CLLocationManagerDelegate>
 
 
@@ -23,6 +24,8 @@
     UIScrollView*bigscroll;
     NSInteger          _move;
     NSTimer      *_scrollcententtimer;
+    DituViewController*ditu;
+    
 }
 
 

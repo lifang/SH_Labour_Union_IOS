@@ -222,6 +222,8 @@
                 {
                      //清除用户数据
                     [delegate clearLoginInfo];
+                    
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }
                 //请求失败
                 else
@@ -231,7 +233,6 @@
             });
         });
         
-        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

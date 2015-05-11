@@ -17,6 +17,8 @@
     BOOL _isReloadingAllData;
     NSInteger ff;
     UITextField*_searchfield;
+    UITextField*_searchfields;
+
     NSMutableArray*_newallarry;
     NSString *urls;
     NSInteger tuizaiA;

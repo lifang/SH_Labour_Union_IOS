@@ -84,14 +84,14 @@
     [contentView addSubview:topView];
     //选择segmentedControl
     NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"1",@"2",nil];
-    UISegmentedControl *segmentView = [[UISegmentedControl alloc]initWithItems:segmentedArray];
+    segmentView = [[UISegmentedControl alloc]initWithItems:segmentedArray];
     segmentView.frame = CGRectMake(topView.frame.origin.x, CGRectGetMaxY(topView.frame) + 3 *CostumViewMargin, topView.frame.size.width, 32);
     segmentView.tintColor = [UIColor orangeColor];
     segmentView.momentary = NO;
     [segmentView setTitle:@"游客维权区" forSegmentAtIndex:0];
     [segmentView setTitle:@"会员维权区" forSegmentAtIndex:1];
     [segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    segmentView.selectedSegmentIndex = 0;
+   segmentView.selectedSegmentIndex = 0;
     [contentView addSubview:segmentView];
     //分隔线
     UIView *lineView = [[UIView alloc]init];
@@ -209,6 +209,23 @@
     _emailField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     _emailField.layer.cornerRadius = 2;
     _emailField.layer.masksToBounds = YES;
+    UserModel *account = [UserTool userModel];
+    
+   
+    if (account.email)
+    { if(numberint==0)
+    {
+        
+        _emailField.text=@"";
+
+    }else
+    {
+        _emailField.text=account.email;
+
+    
+    }
+        
+    }
     _emailField.placeholder = @"请输入您的电子邮件";
     [_emailField setValue:[UIFont systemFontOfSize:14] forKeyPath:@"_placeholderLabel.font"];
     [_emailField setValue:sColor(180, 180, 180, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
@@ -223,6 +240,17 @@
     questionLabel.text = @"问题类别";
     questionLabel.frame = CGRectMake(CGRectGetMinX(segmentView.frame) + 2 * CostumViewMargin, CGRectGetMaxY(_emailField.frame) + 2 * CostumViewMargin, labelWidth, labelHeight);
     [contentView addSubview:questionLabel];
+    
+    
+    UILabel *redStar6 = [[UILabel alloc]init];
+    redStar6.backgroundColor = [UIColor clearColor];
+    redStar6.frame = CGRectMake(CGRectGetMaxX(questionLabel.frame) + CostumViewMargin, questionLabel.frame.origin.y, labelWidth * 0.25, labelHeight);
+    redStar6.textColor = sColor(227, 15, 46, 1.0);
+    redStar6.text = @"*";
+    redStar6.font = [UIFont systemFontOfSize:16];
+    [contentView addSubview:redStar6];
+    
+    
     //问题输入框
     _questionField = [[UITextField alloc]init];
     _questionField.enabled = NO;
@@ -537,10 +565,17 @@
     SLog(@"选择了游客维权");
     _nameField.text = nil;
     _phoneField.text = nil;
+    _emailField.text = @"";
+    numberint=0;
+    
+
+    
 }
 
 -(void)selectedmMember
 {
+    numberint=1;
+
     SLog(@"选择了会员维权");
     UserModel *account = [UserTool userModel];
     if (account.userIDName == nil) {
@@ -574,6 +609,23 @@
         _phoneField.text = delegate.phone;
         _emailField.text = delegate.email;
     }
+    if (delegate.isExit == YES) {
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+    }
+    
+//    if(delegate.userIDName)
+//    {
+//        segmentView.selectedSegmentIndex = 1;
+//
+//    }else
+//    {
+//        segmentView.selectedSegmentIndex = 0;
+//
+//    
+//    
+//    }
 }
 
 -(void)setNavBar

@@ -22,22 +22,22 @@
 -(void)viewWillAppear:(BOOL)animated
 {
    
-    NSLog(@"%@成功",self.city);
 
     
-    
-    
-    [_mapView viewWillAppear];
-    _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
+
+ 
+
     
     AppDelegate *delegate = [UIApplication sharedApplication].delegate;
     [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
     [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
-    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+//    _mapView.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
+//
+//    [_mapView viewWillAppear];
+//    //    _mapView.zoomLevel = 18;
 
-    
-    
+
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -84,11 +84,14 @@
                 //启动LocationService
                 [_locService startUserLocationService];
                 
-                
                 //发起正向地理编码检索
                 
+                HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
                 
-                    
+                [self.view addSubview:HUD];
+                
+                HUD.labelText = @"正在加载...";
+                [HUD show:YES];
                     
               
                 
@@ -110,7 +113,7 @@
         });
     });
 
-    
+  
     
     _searchers =[[BMKGeoCodeSearch alloc]init];
     _searchers.delegate = self;
@@ -135,11 +138,12 @@
     BOOL flag = [_searchers geoCode:geoCodeSearchOption];
     if(flag)
     {
+        
         NSLog(@"geo检索发送成功");
     }
     else
     {
-        
+
    
     
     
@@ -149,12 +153,13 @@
 
 }
 - (void) viewDidAppear:(BOOL)animated {
-    // 添加一个PointAnnotation
+       // 添加一个PointAnnotation
    }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _linebusarry=[[NSMutableArray alloc]initWithCapacity:0];
+
     self.title=@"地图详情";
     
     [ self setnavBar];
@@ -177,7 +182,8 @@
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
-    
+   
+
    
     _searcher = [[BMKRouteSearch alloc]init];
     _searcher.delegate = self; // 此处记得不用的时候需要置nil，否则影响内存的释放
@@ -203,13 +209,14 @@
     {
         NSLog(@"%@",self.name);
         NSLog(@"%@",self.name);
+       
 
-        
     }
     else
     {
-        
-//        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+        [HUD removeFromSuperview];
+
+        [self showMessage:@"网络缓慢，稍后在试" viewHeight:SCREEN_HEIGHT/2-80];
         
         
     }
@@ -234,17 +241,16 @@
 }
 
 #pragma mark - BMKRouteSearchDelegate
--(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:    (BMKTransitRouteResult*)result
+-(void)onGetTransitRouteResult:(BMKRouteSearch*)searcher result:(BMKTransitRouteResult*)result
                      errorCode:(BMKSearchErrorCode)error
 {
     NSLog(@"----%@",result.routes);
 
-   
-    if (error == BMK_SEARCH_NO_ERROR)
+      if (error == BMK_SEARCH_NO_ERROR)
         
     {
         [_linebusarry removeAllObjects];
-        
+
         
         for(int i=0;i<result.routes.count;i++)
         {
@@ -326,8 +332,20 @@
             
             
     }
+       
+       
 
+        
 }
+    
+    else
+    {
+    
+          [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+
+    
+    }
+    [HUD removeFromSuperview];
 
     
 }
@@ -345,7 +363,7 @@
 }
 
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
-    
+  
     
     NSLog(@"%u",error);
     
@@ -407,9 +425,12 @@
 //        annotation=nil;
 //        _mapView.hidden=YES;
         [self showMessage:@"抱歉，未找到结果" viewHeight:SCREEN_HEIGHT/2-80];
-
-        [self.navigationController popViewControllerAnimated:YES];
+        [_mapView removeFromSuperview];
+        [addrbutton removeFromSuperview];
         
+//        [self.navigationController popViewControllerAnimated:YES];
+        [HUD removeFromSuperview];
+
 
         NSLog(@"-------抱歉，未找到结果");
     }
@@ -426,23 +447,21 @@
 //}
 -(void)viewWillDisappear:(BOOL)animated
 {
+   
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     [_mapView viewWillDisappear];
-
-    NSArray* array = [NSArray arrayWithArray:_mapView.annotations];
-    [_mapView removeAnnotations:array];
-    NSArray*arrays = [NSArray arrayWithArray:_mapView.overlays];
-    [_mapView removeOverlays:arrays];
-    [_mapView removeOverlays:array];
+    
+    
     _mapView.delegate = nil; // 不用时，置nil
     _mapView=nil;
     _searchers=nil;
     _locService=nil;
     _locService.delegate=nil;
     
-     _searchers.delegate = nil;
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    _searchers.delegate = nil;
+    
 
 
 }
@@ -474,7 +493,7 @@
     addresslab.font=[UIFont systemFontOfSize:12];
 
     
-    UIButton*addrbutton=[[UIButton alloc]init];
+    addrbutton=[[UIButton alloc]init];
     
     
     addrbutton.frame=CGRectMake(SCREEN_WIDTH-110,SCREEN_HEIGHT-110 ,100, 30);
@@ -544,6 +563,20 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    [_mapView viewWillDisappear];
+    
+   
+    _mapView.delegate = nil; // 不用时，置nil
+    _mapView=nil;
+    _searchers=nil;
+    _locService=nil;
+    _locService.delegate=nil;
+    
+    _searchers.delegate = nil;
+    
+    
+    
     // Dispose of any resources that can be recreated.
 }
 

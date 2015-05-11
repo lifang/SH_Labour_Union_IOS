@@ -18,6 +18,8 @@
     BMKLocationService*_locService;
     NSMutableArray*_linebusarry;
     CLLocationCoordinate2D corld;
+    UIButton*addrbutton;
+    MBProgressHUD*HUD;
     
     BMKGeoCodeSearch*_searchers;
     
