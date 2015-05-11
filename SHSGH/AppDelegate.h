@@ -69,7 +69,7 @@
 +(CityChangeViewController *)shareCityController;
 
 
-
+@property(nonatomic,assign)BOOL isExit;
 -(void)clearLoginInfo;
 
 @end

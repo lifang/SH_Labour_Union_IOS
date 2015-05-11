@@ -609,6 +609,11 @@
         _phoneField.text = delegate.phone;
         _emailField.text = delegate.email;
     }
+    if (delegate.isExit == YES) {
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+    }
     
 //    if(delegate.userIDName)
 //    {

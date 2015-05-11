@@ -197,7 +197,7 @@ static CityChangeViewController *cityController = nil;
     //1.创建窗口
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
-    
+    self.isExit = NO;
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
     BOOL ret = [_mapManager start:@"RU2U5ojUm3LfFiThv9QgLK7H"  generalDelegate:nil];
@@ -245,6 +245,7 @@ static CityChangeViewController *cityController = nil;
     user.userIDName = nil;
     user.phoneNum=nil;
     [UserTool save:user];
+    _isExit = YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
