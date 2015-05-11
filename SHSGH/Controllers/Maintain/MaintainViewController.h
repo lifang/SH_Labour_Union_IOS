@@ -10,6 +10,7 @@
 
 @interface MaintainViewController : UIViewController
 {UISegmentedControl *segmentView ;
+    int numberint;
     
 }
 @property(nonatomic,strong)UINavigationController *maintainNav;

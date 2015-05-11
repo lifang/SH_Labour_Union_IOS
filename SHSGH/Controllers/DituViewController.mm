@@ -216,7 +216,7 @@
     {
         [HUD removeFromSuperview];
 
-//        [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+        [self showMessage:@"网络缓慢，稍后在试" viewHeight:SCREEN_HEIGHT/2-80];
         
         
     }
@@ -337,6 +337,14 @@
 
         
 }
+    
+    else
+    {
+    
+          [self showMessage:@"无合适公交" viewHeight:SCREEN_HEIGHT/2-80];
+
+    
+    }
     [HUD removeFromSuperview];
 
     
