@@ -10,7 +10,9 @@
 #import "navbarView.h"
 #import "AppDelegate.h"
 
-@interface RelatedDownloadViewController ()
+@interface RelatedDownloadViewController ()<UIWebViewDelegate>
+
+@property(nonatomic,strong)MBProgressHUD *mbprogressHUD;
 
 @end
 
@@ -24,7 +26,10 @@
 
 -(void)setWebView
 {
+    _mbprogressHUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    _mbprogressHUD.labelText = @"正在加载中!";
     UIWebView *webView = [[UIWebView alloc]init];
+    webView.delegate = self;
     webView.frame = CGRectMake(0, 0, mainScreenW, mainScreenH - 64);
     NSString *str = [NSString stringWithFormat:@"%@/api/download/ioslist",MAIN_URL];
     NSURL *url = [NSURL URLWithString:str];
@@ -33,6 +38,15 @@
     [self.view addSubview:webView];
 }
 
+-(void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [_mbprogressHUD setHidden:YES];
+}
 
 -(void)setNavBar
 {
