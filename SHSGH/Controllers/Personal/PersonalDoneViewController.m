@@ -27,7 +27,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     [self setNavBar];
     
     [self setupGroups];
