@@ -565,7 +565,7 @@
     SLog(@"选择了游客维权");
     _nameField.text = nil;
     _phoneField.text = nil;
-    _emailField.text = @"";
+    _emailField.text = nil;
     numberint=0;
     
 
@@ -609,7 +609,22 @@
         _phoneField.text = delegate.phone;
         _emailField.text = delegate.email;
     }
+    
     if (delegate.isExit == YES) {
+        segmentView.selectedSegmentIndex = 0;
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+    }
+    UserModel *account = [UserTool userModel];
+    if (account.userIDName == nil) {
+        segmentView.selectedSegmentIndex = 0;
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+    }
+    if (delegate.isLogin) {
+        segmentView.selectedSegmentIndex = 0;
         _nameField.text = nil;
         _phoneField.text = nil;
         _emailField.text = nil;

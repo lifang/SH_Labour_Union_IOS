@@ -393,6 +393,7 @@
                 [alertV1 show];
                 SLog(@"`********************%@",dict);
                 AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+                delegate.isLogin = YES;
                 delegate.username = [dict objectForKey:@"username"];
                 delegate.userId = [dict objectForKey:@"id"];
                 delegate.password = _passwordField.text;
