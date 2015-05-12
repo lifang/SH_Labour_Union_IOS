@@ -11,7 +11,7 @@
 @protocol sendQuestion <NSObject>
 
 @optional
--(void)sendQuestion:(NSString *)question WithCode:(NSString *)code;
+-(void)sendQuestion:(NSString *)question WithCode:(NSString *)code WithBool:(BOOL)isTourist;
 
 @end
 
@@ -26,4 +26,5 @@ typedef void (^aBlock)(NSString *hangyestring);
 @property(nonatomic,strong)NSString*conditionsname;
 @property (nonatomic, copy)aBlock block;
 @property(nonatomic,weak)id<sendQuestion> delegate;
+@property(nonatomic,assign)BOOL isTourist;
 @end

@@ -70,6 +70,8 @@
 
 
 @property(nonatomic,assign)BOOL isExit;
+@property(nonatomic,assign)BOOL isLogin;
+
 -(void)clearLoginInfo;
 
 @end

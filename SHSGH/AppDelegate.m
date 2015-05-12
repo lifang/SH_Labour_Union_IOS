@@ -198,6 +198,7 @@ static CityChangeViewController *cityController = nil;
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.isExit = NO;
+    self.isLogin = NO;
     _mapManager = [[BMKMapManager alloc]init];
     // 如果要关注网络及授权验证事件，请设定     generalDelegate参数
     BOOL ret = [_mapManager start:@"RU2U5ojUm3LfFiThv9QgLK7H"  generalDelegate:nil];

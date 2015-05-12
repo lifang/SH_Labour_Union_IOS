@@ -40,6 +40,7 @@
 
 @property(nonatomic,strong)NSString *code;
 
+@property(nonatomic,assign)BOOL isTourist;
 
 @end
 
@@ -565,7 +566,11 @@
     SLog(@"选择了游客维权");
     _nameField.text = nil;
     _phoneField.text = nil;
-    _emailField.text = @"";
+    _emailField.text = nil;
+    _addressField.text = nil;
+    _questionField.text = nil;
+    _titleField.text = nil;
+    _contentField.text = nil;
     numberint=0;
     
 
@@ -575,7 +580,13 @@
 -(void)selectedmMember
 {
     numberint=1;
-
+    _nameField.text = nil;
+    _phoneField.text = nil;
+    _emailField.text = nil;
+    _addressField.text = nil;
+    _questionField.text = nil;
+    _titleField.text = nil;
+    _contentField.text = nil;
     SLog(@"选择了会员维权");
     UserModel *account = [UserTool userModel];
     if (account.userIDName == nil) {
@@ -604,28 +615,36 @@
 {
     [super viewWillAppear:animated];
     AppDelegate *delegate = [AppDelegate shareAppDelegate];
-    if (delegate.userIDName&&![delegate.userIDName isKindOfClass:[NSNull class]]) {
-        _nameField.text = delegate.userIDName;
-        _phoneField.text = delegate.phone;
-        _emailField.text = delegate.email;
+    if (segmentView.selectedSegmentIndex == 1) {
+        if (delegate.userIDName&&![delegate.userIDName isKindOfClass:[NSNull class]]) {
+            _nameField.text = delegate.userIDName;
+            _phoneField.text = delegate.phone;
+            _emailField.text = delegate.email;
+        }
     }
     if (delegate.isExit == YES) {
+        segmentView.selectedSegmentIndex = 0;
         _nameField.text = nil;
         _phoneField.text = nil;
         _emailField.text = nil;
     }
-    
-//    if(delegate.userIDName)
-//    {
-//        segmentView.selectedSegmentIndex = 1;
-//
-//    }else
-//    {
-//        segmentView.selectedSegmentIndex = 0;
-//
-//    
-//    
-//    }
+    UserModel *account = [UserTool userModel];
+    if (account.userIDName == nil) {
+        segmentView.selectedSegmentIndex = 0;
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+    }
+    if (delegate.isLogin) {
+        if (_isTourist) {
+            
+        }else{
+        segmentView.selectedSegmentIndex = 0;
+        _nameField.text = nil;
+        _phoneField.text = nil;
+        _emailField.text = nil;
+        }
+    }
 }
 
 -(void)setNavBar
@@ -686,13 +705,16 @@
 -(void)rightArrow
 {
     SLog(@"rightArrow");
-
+    if (segmentView.selectedSegmentIndex == 0) {
+        _questionVC.isTourist = YES;
+    }
     _questionVC.delegate = self;
     [self.navigationController pushViewController:_questionVC animated:YES];
 }
 
--(void)sendQuestion:(NSString *)question WithCode:(NSString *)code
+-(void)sendQuestion:(NSString *)question WithCode:(NSString *)code WithBool:(BOOL)isTourist
 {
+    self.isTourist = isTourist;
     _questionField.text = question;
     self.code = code;
 }

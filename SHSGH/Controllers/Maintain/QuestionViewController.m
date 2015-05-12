@@ -116,7 +116,7 @@
 
 -(void)backtoMaintain
 {
-    [self.delegate sendQuestion:_questions WithCode:_code];
+    [self.delegate sendQuestion:_questions WithCode:_code WithBool:_isTourist];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -147,7 +147,9 @@
     
     
     cell.logoImageView.image=[UIImage imageNamed:[imagearry objectAtIndex:indexPath.row]];
-    
+    if (_isTourist) {
+        cell.logoImageView.image = nil;
+    }
     
     ProductRegist *registe = [_productRegistArray objectAtIndex:indexPath.row];
     cell.textLabel.text = registe.name;
@@ -184,7 +186,7 @@
     self.questions = registe.name;
     self.code = registe.code;
     [_Questiontable reloadData];
-    [self.delegate sendQuestion:_questions WithCode:_code];
+    [self.delegate sendQuestion:_questions WithCode:_code WithBool:_isTourist];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
