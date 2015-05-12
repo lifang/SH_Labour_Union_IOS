@@ -26,6 +26,8 @@
 
 -(void)setWebView
 {
+    _mbprogressHUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    _mbprogressHUD.labelText = @"正在加载中!";
     UIWebView *webView = [[UIWebView alloc]init];
     webView.delegate = self;
     webView.frame = CGRectMake(0, 0, mainScreenW, mainScreenH - 64);
@@ -38,8 +40,7 @@
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
 {
-    _mbprogressHUD = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    _mbprogressHUD.labelText = @"正在加载中!";
+    
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
