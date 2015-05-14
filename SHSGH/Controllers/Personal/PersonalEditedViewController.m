@@ -244,7 +244,7 @@
     leftUser.backgroundColor = [UIColor clearColor];
     leftUser.textAlignment = NSTextAlignmentCenter;
     leftUser.frame = CGRectMake(0, 5, 70, labelSize);
-    leftUser.text = @"会员名";
+    leftUser.text = @"昵称";
     leftUser.font = mainFont;
     leftUser.textColor = sColor(56, 56, 56, 56);
     [leftUserView addSubview:leftUser];

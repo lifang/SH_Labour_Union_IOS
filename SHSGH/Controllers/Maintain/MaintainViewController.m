@@ -19,8 +19,9 @@
 #import "IsPhone.h"
 #import "loginViewController.h"
 #import "PersonalDoneViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
-@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion,UIScrollViewDelegate>
+@interface MaintainViewController ()<UITextFieldDelegate,UITextViewDelegate,sendQuestion,UIScrollViewDelegate,UIAlertViewDelegate>
 
 @property(nonatomic,weak)UIScrollView *contentView;
 
@@ -454,6 +455,8 @@
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
                 UIAlertView *alertV1 = [[UIAlertView alloc]initWithTitle:@"提交成功" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                alertV1.tag = 90900;
+                alertV1.delegate = self;
                 [alertV1 show];
                 [hud hide:YES];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -630,10 +633,14 @@
     }
     UserModel *account = [UserTool userModel];
     if (account.userIDName == nil) {
-        segmentView.selectedSegmentIndex = 0;
-        _nameField.text = nil;
-        _phoneField.text = nil;
-        _emailField.text = nil;
+        if (_isTourist) {
+            
+        }else{
+            segmentView.selectedSegmentIndex = 0;
+            _nameField.text = nil;
+            _phoneField.text = nil;
+            _emailField.text = nil;
+        }
     }
     if (delegate.isLogin) {
         if (_isTourist) {
@@ -717,6 +724,17 @@
     self.isTourist = isTourist;
     _questionField.text = question;
     self.code = code;
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"点击了确认！");
+    if (alertView.tag == 90900) {
+        AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+         UINavigationController *navMainViewVC = [AppDelegate shareMainController];
+        [delegate.DrawerController.leftDrawerViewController.mm_drawerController setCenterViewController:navMainViewVC
+                                       withCloseAnimation:YES completion:nil];
+    }
 }
 
 @end
