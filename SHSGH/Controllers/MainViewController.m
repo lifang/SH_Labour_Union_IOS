@@ -60,7 +60,6 @@
 //    [self loadUpdateData];
     _bigView = [[EGOImageView alloc]init];
     _clickBtn = [[UIButton alloc]init];
-    
     //隐藏导航栏
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.view.backgroundColor = [UIColor whiteColor];

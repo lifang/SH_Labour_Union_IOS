@@ -193,6 +193,7 @@ static CityChangeViewController *cityController = nil;
     return healthyNavController;
 }
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //1.创建窗口
     self.window = [[UIWindow alloc]init];

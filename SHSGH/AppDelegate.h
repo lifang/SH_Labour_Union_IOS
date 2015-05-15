@@ -74,5 +74,7 @@
 
 -(void)clearLoginInfo;
 
+-(void)showMainViewController;
+
 @end
 

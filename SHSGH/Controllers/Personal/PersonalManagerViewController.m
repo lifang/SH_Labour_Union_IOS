@@ -98,7 +98,7 @@
     [self.groups addObject:group0];
     
     //2.设置组所有行的数据
-    HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"会员名"];
+    HHZNoArrowItem *userName = [HHZNoArrowItem itemWithTitle:@"昵称"];
     if (account.userIDName==nil||[account.userIDName isKindOfClass:[NSNull class]]) {
         userName.subtitle = @"请完善";
     }
