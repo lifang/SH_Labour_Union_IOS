@@ -18,7 +18,8 @@
     NSMutableArray*_allarry;
     BMKGeoCodeSearch*_searchers;
     DituViewController*ditu;
-
+    UIButton *shoppingButtons;
+    
     UITextField*_searchfield;
     NSString*urls;
     BOOL _isReloadingAllData;
@@ -28,7 +29,9 @@
     NSString*per_lon;
     NSString*per_lat;
     NSString*city;
-    
+    NSMutableArray*retearry;
+    NSString*cityid;
+
     CLLocationManager* _locationManager;
 
     

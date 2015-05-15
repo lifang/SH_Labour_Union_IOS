@@ -630,10 +630,14 @@
     }
     UserModel *account = [UserTool userModel];
     if (account.userIDName == nil) {
-        segmentView.selectedSegmentIndex = 0;
-        _nameField.text = nil;
-        _phoneField.text = nil;
-        _emailField.text = nil;
+        if (_isTourist) {
+            
+        }else{
+            segmentView.selectedSegmentIndex = 0;
+            _nameField.text = nil;
+            _phoneField.text = nil;
+            _emailField.text = nil;
+        }
     }
     if (delegate.isLogin) {
         if (_isTourist) {

@@ -358,6 +358,9 @@
 
     ditu.city=city;
     
+    NSLog(@"%@%@%@",self.name,self.address,city);
+    
+    
     [self.navigationController pushViewController:ditu animated:YES];
 
 

@@ -49,6 +49,7 @@ typedef enum {
 typedef enum{
     BMK_SEARCH_NO_ERROR =0,///<检索结果正常返回
     BMK_SEARCH_AMBIGUOUS_KEYWORD,///<检索词有岐义
+    
     BMK_SEARCH_AMBIGUOUS_ROURE_ADDR,///<检索地址有岐义
     BMK_SEARCH_NOT_SUPPORT_BUS,///<该城市不支持公交搜索
     BMK_SEARCH_NOT_SUPPORT_BUS_2CITY,///<不支持跨城市公交

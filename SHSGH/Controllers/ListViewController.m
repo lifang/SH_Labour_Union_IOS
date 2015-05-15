@@ -11,7 +11,10 @@
 #import "ListTableViewCell.h"
 #import "people.h"
 
-@interface ListViewController ()
+@interface ListViewController ()<UIPickerViewDataSource,UIPickerViewDelegate>
+@property (nonatomic, strong) UIPickerView *pickerView;
+
+@property (nonatomic, strong) UIToolbar *toolbar;
 
 @end
 
@@ -20,10 +23,17 @@
 
 
 { [super viewWillAppear:animated];
-    
-    
-    
-  
+      
+//    _locationManager = [[CLLocationManager alloc] init];
+//    _locationManager.delegate = self;
+//    [_locationManager startUpdatingLocation];
+//    if(![CLLocationManager locationServicesEnabled]){
+//        NSLog(@"请开启定位:设置 > 隐私 > 位置 > 定位服务");
+//    }else{
+//        if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized) {
+//            NSLog(@"定位失败，请开启定位:设置 > 隐私 > 位置 > 定位服务 下 XX应用");
+//        } 
+//    }  
 
 }
 
@@ -34,8 +44,9 @@
     [super viewDidLoad];
     self.title=@"商户列表";
 
+    retearry=[[NSMutableArray alloc]initWithCapacity:0];
+
     _allarry=[[NSMutableArray alloc]initWithCapacity:0];
-    [_allarry removeAllObjects];
     
     ditu=[[DituViewController alloc]init];
 
@@ -54,7 +65,12 @@
     // Do any additional setup after loading the view.
     _Seatchtable=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style: UITableViewStylePlain];
   
-    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        
+    {
+        [_locationManager requestWhenInUseAuthorization];  //调用了这句,就会弹出允许框了.
+        
+    }
     
     [self.view addSubview:_Seatchtable];
     _Seatchtable.delegate=self;
@@ -69,9 +85,118 @@
     [ self setnavBar];
     [ self setNavBar];
     
+    UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButton.frame = CGRectMake(0, 0, 30, 30);
+    [shoppingButton setImage:[UIImage imageNamed:@"wedge"] forState:UIControlStateNormal];
+    
+    //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
+    [shoppingButton addTarget:self action:@selector(goShoppingCart) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
+    //设置间距
+     shoppingButtons = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButtons.frame = CGRectMake(0, 0, 60, 30);
+    [shoppingButtons setTitle:@"上海市" forState:UIControlStateNormal];
+    shoppingButtons.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight ;//设置文字位置，现设为居左，默认的是居中
+
+    //    [shoppingButton setBackgroundImage:kImageName(@"good_right1.png") forState:UIControlStateNormal];
+    [shoppingButtons addTarget:self action:@selector(goShoppingCart) forControlEvents:UIControlEventTouchUpInside];
+    shoppingButtons.titleLabel.font=[UIFont systemFontOfSize:14.0];
+    
+     
+    UIBarButtonItem*shoppingItem = [[UIBarButtonItem alloc] initWithCustomView:shoppingButton];
+     UIBarButtonItem *shoppingItems= [[UIBarButtonItem alloc] initWithCustomView:shoppingButtons];
+
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:shoppingItem,shoppingItems,nil];
+    
 
    }
+-(void)goShoppingCart
+{
+    shoppingButtons.userInteractionEnabled=NO;
+    [self retedate];
 
+    
+
+}
+- (IBAction)modifyLocation:(id)sender {
+   shoppingButtons.userInteractionEnabled=YES;
+    
+    [self pickerScrollOut];
+   
+    NSInteger index = [_pickerView selectedRowInComponent:0];
+    if(retearry.count>0)
+    {
+        people*pep=[retearry objectAtIndex:index];
+        [shoppingButtons setTitle:[NSString stringWithFormat:@"%@",pep.namestring] forState:UIControlStateNormal];
+        cityid = [NSString stringWithFormat:@"%@",pep.namestring];
+        [self date];
+        
+    }
+   
+    
+    
+}
+- (void)initPickerView {
+ 
+    
+    
+    _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 260, SCREEN_WIDTH, 44)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(pickerScrollOut)];
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc] initWithTitle:@"完成"
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:self
+                                                                  action:@selector(modifyLocation:)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                               target:nil
+                                                                               action:nil];
+    [_toolbar setItems:[NSArray arrayWithObjects:cancelItem,spaceItem,finishItem, nil]];
+    [self.view addSubview:_toolbar];
+    _pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 216, SCREEN_WIDTH, 216)];
+    
+    _pickerView.backgroundColor = kColor(244, 243, 243, 1);
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    
+    [self.view addSubview:_pickerView];
+}
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+        return retearry.count;
+   }
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    people*pep=[retearry objectAtIndex:row];
+    //市
+        return pep.namestring;
+  
+}
+
+//- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+// //省
+//        [_pickerView reloadComponent:0];
+// 
+//}
+
+
+- (void)pickerScrollOut {
+    
+   shoppingButtons.userInteractionEnabled=YES;
+    
+  
+    
+    [UIView animateWithDuration:.3f animations:^{
+        _toolbar.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 44);
+        _pickerView.frame = CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, 216);
+    }];
+}
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     CLLocation *location=[locations firstObject];//取出第一个位置
     CLLocationCoordinate2D coordinate=location.coordinate;//位置坐标
@@ -107,7 +232,8 @@
     [_locationManager stopUpdatingLocation];
 }
 -(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:
-(BMKReverseGeoCodeResult *)result
+(
+ BMKReverseGeoCodeResult *)result
                         errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR)
         
@@ -169,6 +295,7 @@
    
     ditu.name=pp.namestring;
     ditu.address=pp.addrstring;
+    NSLog(@"----%@",pp.addrstring);
 
     ditu.city=city;
     
@@ -193,15 +320,19 @@
     
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        
-          urls =[NSString stringWithFormat:@"/api/merchant/findOtherMerchants?id=%@&per_lon=%@&per_lat=%@",self.ids,per_lon,per_lat];
+        NSString*headerDatadgdgfgf= [cityid stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+        NSString *strUrll1 = [headerDatadgdgfgf stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+          urls =[NSString stringWithFormat:@"/api/merchant/findOtherMerchants?id=%@&per_lon=%@&per_lat=%@&cityname=%@",self.ids,per_lon,per_lat,strUrll1];
             
       
         
+        NSString*ttt = [urls stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
         
         
-        
-        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        id result = [KRHttpUtil getResultDataByPost:ttt param:nil];
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -213,6 +344,8 @@
             
             if ([[result objectForKey:@"code"] integerValue]==1)
             {
+                [_allarry removeAllObjects];
+
              
                 NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
                 
@@ -262,6 +395,82 @@
         });
     });
 }
+-(void)retedate
+{
+    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
+    
+    [self.view addSubview:HUD];
+    
+    HUD.labelText = @"正在加载...";
+    [HUD show:YES];
+    
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSString*strfff;
+        
+        strfff =[NSString stringWithFormat:@"/api/merchant/getcity"];
+        
+        
+        
+        
+        
+        
+        id result = [KRHttpUtil getResultDataByPost:strfff param:nil];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [HUD removeFromSuperview];
+            
+           
+            [retearry removeAllObjects];
+            
+            
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                
+                NSArray* arry= [[NSArray alloc]initWithArray:[result objectForKey:@"result"]];
+                
+                for(int i=0;i<arry.count;i++)
+                {
+                    
+                    people*peo=[[people alloc]init];
+                    
+                    peo.ids=[[[arry objectAtIndex:i] objectForKey:@"id"] intValue];
+                    
+                    peo.namestring=[[arry objectAtIndex:i] objectForKey:@"name"];
+                    
+                    
+                    [retearry addObject:peo];
+                    
+                }
+                //                totalCount = [[[result objectForKey:@"result"] objectForKey:@"total"] integerValue];
+                
+                [self initPickerView];
+                
+                
+            }
+            
+            
+            else
+            {
+                NSString *reason = [result objectForKey:@"message"];
+                if (![KRHttpUtil checkString:reason])
+                {
+                    reason = @"请求超时或者网络环境较差!";
+                }
+                
+                
+                [self showMessage:reason viewHeight:SCREEN_HEIGHT/2-80];
+                
+                
+                
+                
+                
+            }
+        });
+    });
+}
+
 //-(void)detaldate
 //{
 //    MBProgressHUD*HUD = [[MBProgressHUD alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height-64)];
