@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E153F111B048412000DE72F /* wedge.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E153F101B048412000DE72F /* wedge.png */; };
 		0E416A191A78FD8800A66EDD /* jieshao.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E416A181A78FD8800A66EDD /* jieshao.png */; };
 		0E9E95941A85DB5400934504 /* 1136-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E9E95931A85DB5400934504 /* 1136-1.png */; };
 		0EC4AB3C1A6DFB6500886040 /* SearchRestulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EC4AB3B1A6DFB6500886040 /* SearchRestulViewController.m */; };
@@ -187,6 +188,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E153F101B048412000DE72F /* wedge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wedge.png; sourceTree = "<group>"; };
 		0E416A181A78FD8800A66EDD /* jieshao.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jieshao.png; sourceTree = "<group>"; };
 		0E9E95931A85DB5400934504 /* 1136-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1136-1.png"; sourceTree = "<group>"; };
 		0EC4AB3A1A6DFB6500886040 /* SearchRestulViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchRestulViewController.h; sourceTree = "<group>"; };
@@ -738,6 +740,7 @@
 		0ECDDA5B1A772814006D7102 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				0E153F101B048412000DE72F /* wedge.png */,
 				0E9E95931A85DB5400934504 /* 1136-1.png */,
 				0ED5D2E71A84BBB000EC08F1 /* defimage.png */,
 				0ECF8A221A7B432E00FCEC91 /* luxian.png */,
@@ -1320,6 +1323,7 @@
 				0ECE9F6D1A734B98001C448D /* FontAwesome+iOS.podspec in Resources */,
 				93C6F0311A6CE747002C8E4A /* LaunchScreen.xib in Resources */,
 				93C6F02E1A6CE747002C8E4A /* Images.xcassets in Resources */,
+				0E153F111B048412000DE72F /* wedge.png in Resources */,
 				93C6F10A1A6CF0B5002C8E4A /* SUNLeftMenuViewController.xib in Resources */,
 				0ECE9F6B1A734B98001C448D /* FontAwesome.ttf in Resources */,
 				93C6F0EA1A6CF030002C8E4A /* icon_rightarrow@2x.png in Resources */,
