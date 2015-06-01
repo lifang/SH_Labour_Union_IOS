@@ -730,6 +730,7 @@
 {
     NSLog(@"点击了确认！");
     if (alertView.tag == 90900) {
+        [segmentView setSelectedSegmentIndex:0];
         AppDelegate *delegate = [UIApplication sharedApplication].delegate;
          UINavigationController *navMainViewVC = [AppDelegate shareMainController];
         [delegate.DrawerController.leftDrawerViewController.mm_drawerController setCenterViewController:navMainViewVC
