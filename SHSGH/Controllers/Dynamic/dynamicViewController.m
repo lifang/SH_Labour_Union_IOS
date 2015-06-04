@@ -76,7 +76,6 @@
 
         NSString *urls =@"/api/news/findTopNews?offset=1";
         id result = [KRHttpUtil getResultDataByPost:urls param:nil];
-        SLog(@"图片信息!%@",result);
         dispatch_async(dispatch_get_main_queue(), ^{
             
             if ([[result objectForKey:@"code"] integerValue]==1)
@@ -278,7 +277,6 @@
     DynamicChildViewController *dynamicVC = [[DynamicChildViewController alloc]init];
     dynamicVC.page =  status.ids;
     [self.navigationController pushViewController:dynamicVC animated:YES];
-    SLog(@"点击了第%ld行",indexPath.row);
 }
  #pragma mark - ScrollView didSelect
  -(void)handleTop:(UITapGestureRecognizer *)imageView
@@ -288,7 +286,6 @@
      DynamicChildViewController *dynamicChildVC = [[DynamicChildViewController alloc]init];
      dynamicChildVC.page = imageId;
      [self.navigationController pushViewController:dynamicChildVC animated:YES];
-     SLog(@"图片的ID-----------%d",imageId);
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

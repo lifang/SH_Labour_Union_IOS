@@ -291,47 +291,47 @@
 
     
     
-    UIImageView *llogoimageview = [[UIImageView alloc]init];
-    
-    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 20, 20);
-    llogoimageview.image=[UIImage imageNamed:@"jieshao"];
-    
-    [bigscroll addSubview:llogoimageview];
-    
+//    UIImageView *llogoimageview = [[UIImageView alloc]init];
+//    
+//    llogoimageview.frame = CGRectMake(10, linelable2.frame.size.height+linelable2.frame.origin.y+5, 20, 20);
+//    llogoimageview.image=[UIImage imageNamed:@"jieshao"];
+//    
+//    [bigscroll addSubview:llogoimageview];
+//    
+//
+//    
+//    
+//    
+//    UILabel*llogolable=[[UILabel alloc]init];
+//    llogolable.frame=CGRectMake(35, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 20);
+//    
+////    llogolable.font=[UIFont systemFontOfSize:15];
+//    //    requirecontent.textColor=[UIColor grayColor];
+//    llogolable.numberOfLines=0;
+//    [bigscroll addSubview:llogolable];
+//    llogolable.text=@"机构简介";
+//    
+//    
+//    
+//    UILabel*linelable3=[[UILabel alloc]init];
+//    linelable3.frame=CGRectMake(0, llogolable.frame.size.height+llogolable.frame.origin.y+10, SCREEN_WIDTH, 1);
+//    linelable3.backgroundColor=[UIColor colorWithWhite:0.8 alpha:1];
+//    [bigscroll addSubview:linelable3];
+//    
+//    
+//    UILabel*requirecontent=[[UILabel alloc]init];
+//    requirecontent.frame=CGRectMake(10, linelable3.frame.size.height+linelable3.frame.origin.y+3, SCREEN_WIDTH-20, 30);
+//    requirecontent.font=[UIFont systemFontOfSize:15];
+//    requirecontent.textColor=[UIColor grayColor];
+//    requirecontent.numberOfLines=0;
+//    [bigscroll addSubview:requirecontent];
+//    requirecontent.text=@"   暂无介绍";
+//    
+//    [requirecontent sizeToFit];
+//    
 
-    
-    
-    
-    UILabel*llogolable=[[UILabel alloc]init];
-    llogolable.frame=CGRectMake(35, linelable2.frame.size.height+linelable2.frame.origin.y+5, SCREEN_WIDTH-50, 20);
-    
-//    llogolable.font=[UIFont systemFontOfSize:15];
-    //    requirecontent.textColor=[UIColor grayColor];
-    llogolable.numberOfLines=0;
-    [bigscroll addSubview:llogolable];
-    llogolable.text=@"机构简介";
-    
-    
-    
-    UILabel*linelable3=[[UILabel alloc]init];
-    linelable3.frame=CGRectMake(0, llogolable.frame.size.height+llogolable.frame.origin.y+10, SCREEN_WIDTH, 1);
-    linelable3.backgroundColor=[UIColor colorWithWhite:0.8 alpha:1];
-    [bigscroll addSubview:linelable3];
-    
-    
-    UILabel*requirecontent=[[UILabel alloc]init];
-    requirecontent.frame=CGRectMake(10, linelable3.frame.size.height+linelable3.frame.origin.y+3, SCREEN_WIDTH-20, 30);
-    requirecontent.font=[UIFont systemFontOfSize:15];
-    requirecontent.textColor=[UIColor grayColor];
-    requirecontent.numberOfLines=0;
-    [bigscroll addSubview:requirecontent];
-    requirecontent.text=@"   暂无介绍";
-    
-    [requirecontent sizeToFit];
-    
 
-
-    bigscroll.contentSize=CGSizeMake(0, requirecontent.frame.size.height+requirecontent.frame.origin.y+50);
+    bigscroll.contentSize=CGSizeMake(0, linelable2.frame.size.height+linelable2.frame.origin.y+50);
 
 
 

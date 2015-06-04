@@ -1562,7 +1562,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "e7f91fc8-5d8a-4ed7-83b4-9a14b3e61588";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1598,7 +1598,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "e7f91fc8-5d8a-4ed7-83b4-9a14b3e61588";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1622,7 +1622,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7f91fc8-5d8a-4ed7-83b4-9a14b3e61588";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 			};
 			name = Debug;
 		};
@@ -1644,7 +1644,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7f91fc8-5d8a-4ed7-83b4-9a14b3e61588";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 			};
 			name = Release;
 		};

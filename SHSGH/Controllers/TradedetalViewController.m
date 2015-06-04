@@ -25,7 +25,7 @@
     self.title=@"商家详情";
     [self   createui];
     
-    _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
+//    _scrollcententtimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(scrollcententtimerhandle) userInfo:nil repeats:YES];
     
     
     if(iOS7)
@@ -96,7 +96,7 @@
     
     _scrool=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
     [bigscroll addSubview:_scrool];
-    _scrool.contentSize=CGSizeMake(3*SCREEN_WIDTH, 0);
+//    _scrool.contentSize=CGSizeMake(3*SCREEN_WIDTH, 0);
     
     _scrool.alwaysBounceHorizontal=YES;
     _scrool.showsHorizontalScrollIndicator=NO;
@@ -105,17 +105,17 @@
     
     _scrool.contentOffset = CGPointMake(0, 0);
     
-    _scrool.delegate = self;
+//    _scrool.delegate = self;
     
     
-    for (int i = 0 ; i < 3 ; i ++ )
+    for (int i = 0 ; i < 1 ; i ++ )
     {
         UIImageView *imageview = [[UIImageView alloc]init];
 //                NSString*urlstring= [NSString stringWithFormat:@"%@%@",myimages, [arrry objectAtIndex:i]];
                 [imageview sd_setImageWithURL:[NSURL URLWithString:self.images] placeholderImage:[UIImage imageNamed:@"defaultimages"]];
                 //
         
-        [imageview setContentMode:UIViewContentModeScaleAspectFill];
+        [imageview setContentMode:UIViewContentModeScaleAspectFit];
         
       
         
@@ -128,13 +128,13 @@
     }
     
     
-    _page = [[UIPageControl alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-60,162, 60, 30)];
-    
-    _page.currentPageIndicatorTintColor=[UIColor redColor];
-    //    _page.pageIndicatorTintColor=[UIColor whiteColor];
-    _page.numberOfPages =3;
-    
-    [bigscroll addSubview:_page];
+//    _page = [[UIPageControl alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-60,162, 60, 30)];
+//    
+//    _page.currentPageIndicatorTintColor=[UIColor redColor];
+//    //    _page.pageIndicatorTintColor=[UIColor whiteColor];
+//    _page.numberOfPages =3;
+//    
+//    [bigscroll addSubview:_page];
     UILabel*namelable=[[UILabel alloc]init];
     
     
