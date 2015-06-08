@@ -51,7 +51,7 @@
     UILabel *textLabel = [[UILabel alloc]init];
     textLabel.textColor = kColor(81, 81, 81, 1.0);
     textLabel.font = [UIFont systemFontOfSize:18];
-    NSString *contentStr = @"上海是中国工人阶级的摇篮，也是中国工人运动的发祥地。在1925年“五卅”反帝爱国运动的高潮中，上海总工会宣告成立。在中国共产党的领导下，上海总工会组织工人群众为推翻帝国主义、封建主义、官僚资本主义的反动统治，取得新民主主义革命的胜利和社会主义基本制度的建立进行了艰苦顽强的斗争，发挥了独特的作用。新中国成立后，上海总工会动员和组织全市职工投入了轰轰烈烈的社会主义建设事业，为改变国家一穷二白的落后面貌、为上海的繁荣和发展作出了积极的贡献。";
+    NSString *contentStr = @"    上海是中国工人阶级的摇篮，也是中国工人运动的发祥地。在1925年“五卅”反帝爱国运动的高潮中，上海总工会宣告成立。在中国共产党的领导下，上海总工会组织工人群众为推翻帝国主义、封建主义、官僚资本主义的反动统治，取得新民主主义革命的胜利和社会主义基本制度的建立进行了艰苦顽强的斗争，发挥了独特的作用。新中国成立后，上海总工会动员和组织全市职工投入了轰轰烈烈的社会主义建设事业，为改变国家一穷二白的落后面貌、为上海的繁荣和发展作出了积极的贡献。";
     textLabel.text = contentStr;
     CGSize textLabelSize = {0,0};
     textLabelSize = [contentStr sizeWithFont:[UIFont systemFontOfSize:18] constrainedToSize:CGSizeMake(self.view.frame.size.width - 10, 5000)];
