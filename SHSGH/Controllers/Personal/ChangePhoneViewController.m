@@ -460,6 +460,15 @@
         [alert show];
         return;
     }
+    if ([_oldPhoneField.text isEqualToString:_newsPhoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"原手机号不能与新手机一样!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
     if (![IsPhone isMobileNumber:_oldPhoneField.text]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"手机号格式不正确!"

@@ -16,6 +16,7 @@
 #import "navbarView.h"
 #import "loginViewController.h"
 #import "registerViewController.h"
+#import "AboutUsController.h"
 
 @interface PersonalViewController ()
 
@@ -122,9 +123,77 @@
     HHZCommonArrowItem *aboutUs = [HHZCommonArrowItem itemWithTitle:@"关于我们" icon:@"about_us"];
     
     HHZCommonArrowItem *versionsUp = [HHZCommonArrowItem itemWithTitle:@"版本升级" icon:@"upgrade"];
-    versionsUp.subtitle = @"最新版本V1.2.0";
+    NSString *text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey]];
+    NSString *str = [NSString stringWithFormat:@"当前版本%@",text];
+    versionsUp.subtitle = str;
     
     group.items = @[aboutUs,versionsUp];
 
 }
+#pragma mark tableView delegate
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        AboutUsController *aboutVC = [[AboutUsController alloc]init];
+        [self.navigationController pushViewController:aboutVC animated:YES];
+    }
+    if (indexPath.row == 1) {
+        [self loadData];
+    }
+//    if (indexPath.row == 2) {
+//        UIAlertView *sureView =[[UIAlertView alloc]initWithTitle:@"提示" message:@"你确定要退出帐号吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//        [sureView show];
+//    }
+}
+
+-(void)loadData
+{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
+        NSString *urls = [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",kAppID];
+        id result = [KRHttpUtil getResultDataByPost:urls param:nil];
+        SLog(@"%@",result);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //成功
+            if ([[result objectForKey:@"code"] integerValue]==1)
+            {
+                NSString *text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey]];
+                if ([result isKindOfClass:[NSDictionary class]]) {
+                    NSArray *infoArray = [result objectForKey:@"results"];
+                    if ([infoArray count] > 0) {
+                        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
+                        NSString *lastVersion = [releaseInfo objectForKey:@"version"];
+                        if (![lastVersion isEqualToString:text]) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                            message:@"有新版本是否更新?"
+                                                                           delegate:self
+                                                                  cancelButtonTitle:@"取消"
+                                                                  otherButtonTitles:@"更新", nil];
+                            [alert show];
+                        }
+                        else{
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                                            message:@"已是最新版本!!"
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"确定"
+                                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }
+                    }
+                }
+                
+            }
+            //请求失败
+            else
+            {
+                UIAlertView *alertV2 = [[UIAlertView alloc]initWithTitle:@"请检查网络!" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alertV2 show];
+            }
+        });
+    });
+    
+}
+
 @end

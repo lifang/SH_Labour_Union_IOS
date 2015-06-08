@@ -673,7 +673,7 @@
                 if([self isBlankString:[[result objectForKey:@"result"]  objectForKey:@"addr"]])
                 {
                 
-                 detal.address=@"暂无地址";
+                 detal.address=@"";
                     
                 
                 }
@@ -843,7 +843,7 @@
                     if([self isBlankString:[[arry objectAtIndex:i] objectForKey:@"addr"]])
                     {
                         
-                       peo.addrstring=@"暂无地址";
+                       peo.addrstring=@"";
                         
                         
                     }

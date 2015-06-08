@@ -89,6 +89,8 @@
     
         UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
         [self.view addSubview:iamge];
+        iamge.contentMode = UIViewContentModeScaleAspectFit;
+
         [iamge  sd_setImageWithURL:[NSURL URLWithString:self.contentstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
         
 

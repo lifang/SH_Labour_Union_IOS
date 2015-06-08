@@ -175,7 +175,6 @@
     UILabel *textLabel = [[UILabel alloc]init];
     textLabel.textColor = sColor(81, 81, 81, 1.0);
     textLabel.font = [UIFont systemFontOfSize:14];
-    NSString *contentStr = @"在小组座谈会中，一群相互之间完全陌生的人集中到一起，而且要畅所欲言，是有相当的难度的。首要的就是要建立大家之间的信任感，特别是要建立主持人与参会人员之间的信任感。\n这就要求主持人一定是个有热情的人，是一个让大家一见就感到信赖和亲切的人，是一个有着高度亲和力的人.有亲和力的主持人通过这种友好表示,使得在座的人员合作在一起，有一种合作的意识和趋向意识，和共同作用的力量。\n有亲和力是促成合作的起因，只有具有了合作意向，才会使大家结合在一起共同合作,才能更好的达成会议目标.座谈会要让每个与会者都能真实的表达自己的意思.特别是遇到一些可能触及到个人价值观或判断能力的话题，小组成员往往有顾虑，或者看别人的眼色随波逐流随声附和。\n最好的办法莫过于让大家进入一种忘我的境界,全心全意的投入到讨论当中，这时候的人们更多的是感性的人们，而不是一个说话要斟酌再三的“理性”的人。对于主持人来说，就要很快进入会议主持状态，让小组成员放开思想包袱，在无论对错没有水平高低的担忧下充分讨论。";
     textLabel.text = _contentStr;
     CGSize textLabelSize = {0,0};
     textLabelSize = [_contentStr sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(mainScreenW * 0.9, 5000)];

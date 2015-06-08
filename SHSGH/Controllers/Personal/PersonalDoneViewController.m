@@ -17,6 +17,7 @@
 #import "PersonalManagerViewController.h"
 #import "AppDelegate.h"
 #import "UserTool.h"
+#import "AboutUsController.h"
 
 @interface PersonalDoneViewController () <UIAlertViewDelegate>
 
@@ -28,10 +29,7 @@
     
     [super viewDidLoad];
     [self setNavBar];
-    
     [self setupGroups];
-  
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -179,7 +177,7 @@
     
     HHZCommonArrowItem *versionsUp = [HHZCommonArrowItem itemWithTitle:@"版本升级" icon:@"upgrade"];
     NSString *text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey]];
-    NSString *str = [NSString stringWithFormat:@"最新版本%@",text];
+    NSString *str = [NSString stringWithFormat:@"当前版本%@",text];
     versionsUp.subtitle = str;
     
     HHZCommonItem *exitUser = [HHZCommonItem itemWithTitle:@"退出帐号" icon:@"exit_Gray"];
@@ -196,6 +194,12 @@
 #pragma mark tableView delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        AboutUsController *aboutVC = [[AboutUsController alloc]init];
+        [self.navigationController pushViewController:aboutVC animated:YES];
+    }
     if (indexPath.row == 1) {
         [self loadData];
     }

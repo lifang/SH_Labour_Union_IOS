@@ -89,6 +89,15 @@
             [alert show];
             return;
         }
+        if (_newsPasswordField.text.length < 6 || _newsPasswordField.text.length >16) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
+                                                            message:@"密码长度不正确!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定!"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
         if (!_surePasswordField.text || [_surePasswordField.text isEqualToString:@""]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:kPromptInfo
                                                             message:@"确认密码不能为空!"

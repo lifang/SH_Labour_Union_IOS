@@ -82,6 +82,7 @@
 		0ED0FDF31A76015F00486C2E /* OrganizationdetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF21A76015F00486C2E /* OrganizationdetalViewController.m */; };
 		0ED0FDF61A76395000486C2E /* TradedetalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0FDF51A76395000486C2E /* TradedetalViewController.m */; };
 		0ED5D2E81A84BBB000EC08F1 /* defimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ED5D2E71A84BBB000EC08F1 /* defimage.png */; };
+		1A7F987F1B254335006C9398 /* AboutUsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A7F987E1B254335006C9398 /* AboutUsController.m */; };
 		9321E4951A85F76B00ECE71A /* ImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9321E4941A85F76B00ECE71A /* ImageScrollView.m */; };
 		9335480A1A733C68009F38D4 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 933547FA1A733C68009F38D4 /* MJRefresh.bundle */; };
 		9335480B1A733C68009F38D4 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 933547FD1A733C68009F38D4 /* MJRefreshBaseView.m */; };
@@ -377,6 +378,8 @@
 		0ED0FDF41A76395000486C2E /* TradedetalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradedetalViewController.h; sourceTree = "<group>"; };
 		0ED0FDF51A76395000486C2E /* TradedetalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradedetalViewController.m; sourceTree = "<group>"; };
 		0ED5D2E71A84BBB000EC08F1 /* defimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defimage.png; sourceTree = "<group>"; };
+		1A7F987D1B254335006C9398 /* AboutUsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsController.h; sourceTree = "<group>"; };
+		1A7F987E1B254335006C9398 /* AboutUsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsController.m; sourceTree = "<group>"; };
 		9321E4931A85F76B00ECE71A /* ImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScrollView.h; sourceTree = "<group>"; };
 		9321E4941A85F76B00ECE71A /* ImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageScrollView.m; sourceTree = "<group>"; };
 		933547FA1A733C68009F38D4 /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -1020,6 +1023,8 @@
 				93C592DE1A708DF400CDF8F7 /* HHZCommonViewController.m */,
 				934994F01A88C4FF006398D8 /* RelatedDownloadViewController.h */,
 				934994F11A88C4FF006398D8 /* RelatedDownloadViewController.m */,
+				1A7F987D1B254335006C9398 /* AboutUsController.h */,
+				1A7F987E1B254335006C9398 /* AboutUsController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1449,6 +1454,7 @@
 				934074841A81B7A100C3916B /* HospitalStatus.m in Sources */,
 				9382C6131A7B9F7B000B8E8B /* IsPhone.m in Sources */,
 				0ECE9F5B1A734B7C001C448D /* PPiFlatSegmentedControl.m in Sources */,
+				1A7F987F1B254335006C9398 /* AboutUsController.m in Sources */,
 				0ECFF2481A6F9AE0007F882E /* Reachability.m in Sources */,
 				93C6F0EC1A6CF030002C8E4A /* SUNSlideSwitchView.m in Sources */,
 				9385B32A1A7A26FC00B2082A /* UserModel.m in Sources */,
@@ -1541,8 +1547,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sen Ye";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sen Ye";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1562,7 +1568,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1584,8 +1590,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sen Ye";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sen Ye";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1598,7 +1604,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1609,8 +1615,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sen Ye";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sen Ye";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1622,7 +1628,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 			};
 			name = Debug;
 		};
@@ -1631,8 +1637,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Sen Ye";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Sen Ye";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SHSGH/SHSGH-Prefix.pch";
 				INFOPLIST_FILE = SHSGH/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -1644,7 +1650,7 @@
 					"$(PROJECT_DIR)/SHSGH/Library",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ec7a2bef-c0fb-46b7-9eed-933537c0609b";
 			};
 			name = Release;
 		};

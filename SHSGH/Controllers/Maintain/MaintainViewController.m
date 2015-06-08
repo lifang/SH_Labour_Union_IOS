@@ -484,8 +484,12 @@
 -(void)telClick
 {
     SLog(@"telClick");
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://021-12351"]];
+    UIAlertView *alert = [[UIAlertView  alloc]initWithTitle:nil message:@"是否拨打维权热线？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = 7921273;
+    [alert show];
+    
 }
+
 
 #pragma mark - 键盘消失
 - (void)resignKeyBoardInView:(UIView *)view
@@ -735,6 +739,12 @@
          UINavigationController *navMainViewVC = [AppDelegate shareMainController];
         [delegate.DrawerController.leftDrawerViewController.mm_drawerController setCenterViewController:navMainViewVC
                                        withCloseAnimation:YES completion:nil];
+    }
+    if (alertView.tag == 7921273) {
+        if (!buttonIndex == alertView.cancelButtonIndex) {
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://021-12351"]];
+        }
     }
 }
 
