@@ -730,6 +730,16 @@
         
     
     }
+    
+    if(_searchfields.text.length!=18)
+    {
+    
+        [self showMessage:@"身份证号码不正确" viewHeight:SCREEN_HEIGHT/2-80];
+        
+        return;
+    
+    
+    }
      changeint=7970;
     [_newallarry removeAllObjects];
     _isReloadingAllData = YES;

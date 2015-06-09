@@ -9,12 +9,35 @@
 #import "DetalsocialViewController.h"
 #import "navbarView.h"
 #import "UIImageView+WebCache.h"
-
+#import "AppDelegate.h"
 @interface DetalsocialViewController ()
 
 @end
 
 @implementation DetalsocialViewController
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    
+    
+    
+    
+    
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeNone];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+    [delegate.DrawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [delegate.DrawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+   
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,11 +94,8 @@
             requirecontent.frame=CGRectMake(0, 0, SCREEN_WIDTH-0, SCREEN_HEIGHT-64);
             
        
-        //    requirecontent.textColor=[UIColor grayColor];
         [self.view addSubview:requirecontent];
         //    requirecontent.text=self.contentstring;
-        NSLog(@"=======%@",self.contentstring);
-        //    requirecontent.numberOfLines=0;
         
         
         
@@ -86,11 +106,38 @@
     }
     else
     {
-    
-        UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
-        [self.view addSubview:iamge];
-        iamge.contentMode = UIViewContentModeScaleAspectFit;
+        
+        UIScrollView*imagescro=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+        
+        [self.view addSubview:imagescro];
+//        NSInteger imageheight;
+        
+//        if(SCREEN_HEIGHT>480)
+//        {
+//            imageheight=20;
+//            
+//        
+//        }
+//        else
+//        {
+//            imageheight=20;
+//
+//        
+//        
+//        }
+        UIImage*sizeimage=[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.contentstring]]];
+        
 
+        UIImageView*iamge=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, sizeimage.size.height)];
+        
+        imagescro.contentSize=CGSizeMake(SCREEN_WIDTH, sizeimage.size.height+60);
+
+        iamge.center=CGPointMake(SCREEN_WIDTH/2, sizeimage.size.height/2);
+        
+        [imagescro addSubview:iamge];
+       iamge.contentMode = UIViewContentModeScaleAspectFit;
+//        NSLog(@"%@",self.contentstring);
+        
         [iamge  sd_setImageWithURL:[NSURL URLWithString:self.contentstring] placeholderImage:[UIImage imageNamed:@"餐饮(1)"]];
         
 

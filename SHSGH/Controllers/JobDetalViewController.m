@@ -203,14 +203,14 @@
     [bigscrollow addSubview:othersbuts];
     
 
-        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, othersbut.frame.origin.y+othersbut.frame.size.height+20);
+        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, othersbut.frame.origin.y+othersbut.frame.size.height+80);
     
     
         
     }
     else
     {
-        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+20);
+        bigscrollow.contentSize=CGSizeMake(SCREEN_WIDTH, coompamycontent.frame.origin.y+coompamycontent.frame.size.height+80);
 
     
     }
