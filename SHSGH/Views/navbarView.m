@@ -56,18 +56,17 @@
     
     switch (self.navType) {
             case navbarViewTypeLeft:
-            self.navButton.frame = CGRectMake(-10, 0, 46, 46);
+            self.navButton.frame = CGRectMake(-10, -5, 56, 56);
             break;
             case navbarViewTypeRight:
-            self.navButton.frame = CGRectMake(10, 0, 46, 46);
+            self.navButton.frame = CGRectMake(10, -5, 56, 56);
             break;
             case navbarViewTypeDoctor:
-            self.navButton.frame = CGRectMake(-10, 0, 46, 46);
+            self.navButton.frame = CGRectMake(-10, -5, 56, 56);
             self.arrowImage.frame = CGRectMake(CGRectGetMaxX(_navButton.frame), 20, 13, 10);
         default:
             break;
     }
-    
 }
 
 @end
