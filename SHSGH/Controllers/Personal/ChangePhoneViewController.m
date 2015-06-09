@@ -60,7 +60,6 @@
 -(void)save
 {
     SLog(@"点击了save!");
-    
     if (!_oldPhoneField.text || [_oldPhoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"原手机号码不能为空!"
@@ -91,6 +90,15 @@
     if (!_newsPhoneField.text || [_newsPhoneField.text isEqualToString:@""]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
                                                         message:@"新手机号码不能为空!"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定!"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    if ([_oldPhoneField.text isEqualToString:_newsPhoneField.text]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+                                                        message:@"原手机号不能与新手机一样!"
                                                        delegate:nil
                                               cancelButtonTitle:@"确定!"
                                               otherButtonTitles:nil];
@@ -469,15 +477,7 @@
         [alert show];
         return;
     }
-    if (![IsPhone isMobileNumber:_newsPhoneField.text]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                        message:@"手机号格式不正确!"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定!"
-                                              otherButtonTitles:nil];
-        [alert show];
-        return;
-    }
+
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     hud.labelText = @"发送中!";
     _authCode.enabled = NO;
@@ -496,6 +496,7 @@
                     [alertV1 show];
                     [hud hide:YES];
                      _authCode.enabled = YES;
+                    [_oldPhoneField resignFirstResponder];
                 }
                 //请求失败
                 else
