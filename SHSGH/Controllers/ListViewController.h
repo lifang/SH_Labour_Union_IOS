@@ -19,6 +19,7 @@
     BMKGeoCodeSearch*_searchers;
     DituViewController*ditu;
     UIButton *shoppingButtons;
+    UIButton *shoppingButton ;
     
     UITextField*_searchfield;
     NSString*urls;

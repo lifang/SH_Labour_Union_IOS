@@ -85,7 +85,7 @@
     [ self setnavBar];
     [ self setNavBar];
     
-    UIButton *shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    shoppingButton = [UIButton buttonWithType:UIButtonTypeCustom];
     shoppingButton.frame = CGRectMake(0, 0, 30, 30);
     [shoppingButton setImage:[UIImage imageNamed:@"wedge"] forState:UIControlStateNormal];
     
@@ -114,6 +114,8 @@
    }
 -(void)goShoppingCart
 {
+    shoppingButton.userInteractionEnabled=NO;
+
     shoppingButtons.userInteractionEnabled=NO;
     [self retedate];
 
@@ -122,7 +124,8 @@
 }
 - (IBAction)modifyLocation:(id)sender {
    shoppingButtons.userInteractionEnabled=YES;
-    
+    shoppingButtons.userInteractionEnabled=YES;
+
     [self pickerScrollOut];
    
     NSInteger index = [_pickerView selectedRowInComponent:0];

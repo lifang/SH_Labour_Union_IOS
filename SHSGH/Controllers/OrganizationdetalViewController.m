@@ -151,7 +151,7 @@
 
     _scrool=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
     [bigscroll addSubview:_scrool];
-    _scrool.contentSize=CGSizeMake(3*SCREEN_WIDTH, 0);
+    _scrool.contentSize=CGSizeMake(self.namearry.count*SCREEN_WIDTH, 0);
     
     _scrool.alwaysBounceHorizontal=YES;
     _scrool.showsHorizontalScrollIndicator=NO;
